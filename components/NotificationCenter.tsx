@@ -194,9 +194,8 @@ export default function NotificationCenter({ className }: NotificationCenterProp
   }
 
   const getTimeAgo = (date: Date) => {
-    return formatDistanceToNow(date, { 
-      addSuffix: true, 
-      locale: id 
+    return formatDistanceToNow(date, {
+      addSuffix: true
     })
   }
 
