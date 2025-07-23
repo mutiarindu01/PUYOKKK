@@ -280,8 +280,8 @@ function MiniSparkline({ trend }: { trend: "up" | "down" }) {
 function PaymentMethodIcons({ methods }: { methods: string[] }) {
   return (
     <div className="flex gap-1">
-      {methods.slice(0, 3).map((method, index) => (
-        <span key={index} className="text-xs" title={method.toUpperCase()}>
+      {methods.slice(0, 3).map((method) => (
+        <span key={method} className="text-xs" title={method.toUpperCase()}>
           {paymentIcons[method as keyof typeof paymentIcons]}
         </span>
       ))}
