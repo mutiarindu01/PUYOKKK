@@ -174,12 +174,16 @@ export default function NotificationCenter({ className }: NotificationCenterProp
     // Mark as read
     notification.isRead = true
     setUnreadCount(prev => prev - 1)
-    
+
     // Navigate to action URL
     if (notification.actionUrl) {
-      window.location.href = notification.actionUrl
+      try {
+        window.location.href = notification.actionUrl
+      } catch (error) {
+        console.error('Navigation error:', error)
+      }
     }
-    
+
     setIsOpen(false)
   }
 
