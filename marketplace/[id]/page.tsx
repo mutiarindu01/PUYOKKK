@@ -91,8 +91,8 @@ interface Asset {
 // Extended sample data with trust-building elements
 const sampleAssets: Asset[] = [
   {
-    id: "nft1",
-    name: "Mystic Forest #001",
+    id: "101",
+    name: "Bored Ape #1234",
     type: "NFT",
     image: "/placeholder.svg?height=800&width=800",
     price: "Rp 15.000.000",
