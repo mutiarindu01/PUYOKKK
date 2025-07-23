@@ -52,6 +52,9 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Footer from "@/components/Footer"
+import LoadingButton, { BuyButton } from "@/components/LoadingButton"
+import MarketplaceLoading from "@/components/MarketplaceLoading"
+import { motion } from "framer-motion"
 
 // Sample data for trending items
 const trendingItems = [
@@ -520,11 +523,31 @@ export default function LandingPage() {
   const [viewMode, setViewMode] = useState<"list" | "grid">("list")
   const [isNavOpen, setIsNavOpen] = useState(true)
   const [trendingIndex, setTrendingIndex] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadingStates, setLoadingStates] = useState<{[key: string]: boolean}>({})
   const lastScrollY = useRef(0)
   const router = useRouter()
 
   const [isExploreDropdownOpen, setIsExploreDropdownOpen] = useState(false)
   const [filteredItems, setFilteredItems] = useState([...marketplaceTokens, ...marketplaceNFTs])
+
+  // Simulate initial loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2000) // 2 second loading simulation
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleBuyAction = async (itemId: string) => {
+    setLoadingStates(prev => ({ ...prev, [itemId]: true }))
+
+    // Simulate transaction processing
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    setLoadingStates(prev => ({ ...prev, [itemId]: false }))
+    router.push(`/marketplace/${itemId}`)
+  }
 
   useEffect(() => {
     const scrollHidePosition = 60
