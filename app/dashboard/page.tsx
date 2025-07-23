@@ -543,8 +543,30 @@ export default function DashboardPage() {
     }
   }
 
+  if (isLoading) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="min-h-screen bg-background p-6"
+      >
+        <div className="max-w-7xl mx-auto">
+          <DashboardStatsSkeleton />
+          <div className="mt-8">
+            <ActivityFeedSkeleton />
+          </div>
+        </div>
+      </motion.div>
+    )
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-background"
+    >
       <div className="flex">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
         <div className="flex-1">
@@ -554,6 +576,6 @@ export default function DashboardPage() {
           </main>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
