@@ -1164,7 +1164,13 @@ export default function LandingPage() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {filteredItems.map((item) => (item.type === "NFT" ? <NFTCard key={item.id} nft={item} /> : null))}
+                  {filteredItems.map((item) => (item.type === "NFT" ?
+                    <NFTCard
+                      key={item.id}
+                      nft={item}
+                      onBuyClick={handleBuyAction}
+                      isLoading={loadingStates[item.id] || false}
+                    /> : null))}
                 </div>
               )
             ) : (
