@@ -287,7 +287,7 @@ export default function NotificationCenter({ className }: NotificationCenterProp
 
           {/* Notification List */}
           <TabsContent value={activeTab} className="m-0 p-0">
-            <ScrollArea className="h-[400px]">
+            <div className="h-[400px] overflow-y-auto">
               <div className="p-2">
                 {getFilteredNotifications().length > 0 ? (
                   <div className="space-y-1">
@@ -352,7 +352,7 @@ export default function NotificationCenter({ className }: NotificationCenterProp
                   </div>
                 )}
               </div>
-            </ScrollArea>
+            </div>
           </TabsContent>
         </Tabs>
 
