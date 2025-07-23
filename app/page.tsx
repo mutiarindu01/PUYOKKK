@@ -683,6 +683,14 @@ export default function LandingPage() {
                         >
                           Testimoni
                         </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onSelect={() => {
+                            setIsExploreDropdownOpen(false)
+                            router.push("/help")
+                          }}
+                        >
+                          Pusat Bantuan
+                        </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuSub>
                   </DropdownMenuContent>
