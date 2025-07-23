@@ -672,14 +672,22 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                 {/* Awards Summary */}
                 <Card className="mt-8 bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
                   <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                        <Crown className="w-6 h-6 text-white" />
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                          <Crown className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-foreground text-xl">Lemari Trofi</h3>
+                          <p className="text-muted-foreground">Koleksi pencapaian dan pengakuan dari komunitas PUYOK</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-bold text-foreground text-xl">Lemari Trofi</h3>
-                        <p className="text-muted-foreground">Koleksi pencapaian dan pengakuan dari komunitas PUYOK</p>
-                      </div>
+                      <Button variant="outline" asChild>
+                        <Link href="/awards-marketplace">
+                          <Trophy className="w-4 h-4 mr-2" />
+                          Jelajahi Awards Marketplace
+                        </Link>
+                      </Button>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="text-center">
