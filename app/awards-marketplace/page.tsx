@@ -44,6 +44,7 @@ import {
   Flame,
   Bolt,
   Shield,
+  Plus,
 } from "lucide-react"
 
 // Sample awards marketplace data
