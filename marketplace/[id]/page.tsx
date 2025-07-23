@@ -354,6 +354,150 @@ const sampleAssets: Asset[] = [
         verified: true
       }
     ]
+  },
+  {
+    id: "4",
+    name: "Binance Coin",
+    type: "Token",
+    ticker: "BNB",
+    price: "Rp 6.000.000",
+    quantity: "2 BNB",
+    description: "2 units of Binance Coin (BNB), the native token of Binance Smart Chain. Perfect for DeFi and low-cost transactions.",
+    seller: {
+      username: "bnb_trader",
+      avatar: "/placeholder.svg?height=60&width=60",
+      rating: 4.8,
+      totalTransactions: 634,
+      successRate: 99.6,
+      avgResponseTime: "4 menit",
+      joinDate: "November 2022",
+      isVerified: true,
+      badges: ["BSC Expert", "Fast Trader", "Reliable"]
+    },
+    details: {
+      contractAddress: "0x123bnb456def789...",
+      blockchain: "Binance Smart Chain",
+      listingDate: "10 Juli 2024",
+      paymentMethods: ["DANA", "GoPay"],
+      marketCap: "Rp 1.8T",
+      volume24h: "Rp 89B"
+    },
+    priceHistory: [
+      { timeframe: "24h", change: 0.8 },
+      { timeframe: "7d", change: 5.2 },
+      { timeframe: "30d", change: 12.4 }
+    ],
+    analytics: {
+      views: 634,
+      favorites: 89,
+      watchers: 23
+    },
+    reviews: [
+      {
+        id: "1",
+        buyer: "bnb_fan",
+        rating: 5,
+        comment: "BNB transfer ke Binance wallet super cepat! Gas fee murah dan seller responsif. Recommended!",
+        date: "7 Juli 2024",
+        verified: true
+      }
+    ]
+  },
+  {
+    id: "103",
+    name: "Azuki #9876",
+    type: "NFT",
+    image: "/placeholder.svg?height=800&width=800",
+    price: "Rp 8.500.000",
+    description: "Beautiful Azuki NFT from the popular anime-inspired collection. Clean art style and strong community backing.",
+    seller: {
+      username: "azuki_lover",
+      avatar: "/placeholder.svg?height=60&width=60",
+      rating: 4.5,
+      totalTransactions: 78,
+      successRate: 94.2,
+      avgResponseTime: "18 menit",
+      joinDate: "Mei 2023",
+      isVerified: false,
+      badges: ["Anime Fan", "NFT Collector"]
+    },
+    details: {
+      contractAddress: "0xed5af388653567af2f388e6224dc7c4b3241c544...",
+      tokenId: "9876",
+      blockchain: "Ethereum",
+      listingDate: "9 Juli 2024",
+      paymentMethods: ["DANA", "OVO"],
+      marketCap: "Rp 234M",
+      volume24h: "Rp 8.9M"
+    },
+    priceHistory: [
+      { timeframe: "24h", change: -2.1 },
+      { timeframe: "7d", change: 6.7 },
+      { timeframe: "30d", change: -8.3 }
+    ],
+    analytics: {
+      views: 967,
+      favorites: 67,
+      watchers: 19
+    },
+    reviews: [
+      {
+        id: "1",
+        buyer: "anime_collector",
+        rating: 4,
+        comment: "Azuki artwork sangat bagus! Seller membantu proses transfer dan memberikan tips untuk hold NFT. Good deal.",
+        date: "6 Juli 2024",
+        verified: true
+      }
+    ]
+  },
+  {
+    id: "104",
+    name: "Moonbird #2468",
+    type: "NFT",
+    image: "/placeholder.svg?height=800&width=800",
+    price: "Rp 18.000.000",
+    description: "Premium Moonbird NFT with unique traits and rarity. Part of the prestigious Moonbirds collection with utility benefits.",
+    seller: {
+      username: "moon_collector",
+      avatar: "/placeholder.svg?height=60&width=60",
+      rating: 4.9,
+      totalTransactions: 167,
+      successRate: 98.8,
+      avgResponseTime: "7 menit",
+      joinDate: "Februari 2023",
+      isVerified: true,
+      badges: ["Premium Collector", "Moonbird Expert", "Trusted"]
+    },
+    details: {
+      contractAddress: "0x23581767687eadbbeb96f84742a8e1e21c4bc00...",
+      tokenId: "2468",
+      blockchain: "Ethereum",
+      listingDate: "8 Juli 2024",
+      paymentMethods: ["DANA", "GoPay", "OVO", "Bank Transfer"],
+      marketCap: "Rp 456M",
+      volume24h: "Rp 15.7M"
+    },
+    priceHistory: [
+      { timeframe: "24h", change: 1.8 },
+      { timeframe: "7d", change: -4.2 },
+      { timeframe: "30d", change: 28.5 }
+    ],
+    analytics: {
+      views: 1400,
+      favorites: 198,
+      watchers: 56
+    },
+    reviews: [
+      {
+        id: "1",
+        buyer: "moon_investor",
+        rating: 5,
+        comment: "Moonbird dengan traits bagus! Seller sangat detail menjelaskan utility dan roadmap project. Excellent service!",
+        date: "5 Juli 2024",
+        verified: true
+      }
+    ]
   }
 ]
 
