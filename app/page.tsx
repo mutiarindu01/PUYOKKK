@@ -200,7 +200,7 @@ const marketplaceTokens = [
 
 const marketplaceNFTs = [
   {
-    id: 1,
+    id: 101,
     type: "NFT",
     name: "Bored Ape #1234",
     price: "Rp 15.000.000",
@@ -213,7 +213,7 @@ const marketplaceNFTs = [
     verified: true,
   },
   {
-    id: 2,
+    id: 102,
     type: "NFT",
     name: "CryptoPunk #5678",
     price: "Rp 45.000.000",
@@ -226,7 +226,7 @@ const marketplaceNFTs = [
     verified: true,
   },
   {
-    id: 3,
+    id: 103,
     type: "NFT",
     name: "Azuki #9876",
     price: "Rp 8.500.000",
@@ -239,7 +239,7 @@ const marketplaceNFTs = [
     verified: false,
   },
   {
-    id: 4,
+    id: 104,
     type: "NFT",
     name: "Moonbird #2468",
     price: "Rp 18.000.000",
