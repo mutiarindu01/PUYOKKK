@@ -73,24 +73,26 @@ export default function BackgroundParticles() {
         ctx.fill()
         ctx.restore()
         
-        // Draw connections
-        particlesRef.current.slice(index + 1).forEach(otherParticle => {
-          const dx = particle.x - otherParticle.x
-          const dy = particle.y - otherParticle.y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-          
-          if (distance < 100) {
-            ctx.save()
-            ctx.globalAlpha = (1 - distance / 100) * 0.2
-            ctx.strokeStyle = particle.color
-            ctx.lineWidth = 0.5
-            ctx.beginPath()
-            ctx.moveTo(particle.x, particle.y)
-            ctx.lineTo(otherParticle.x, otherParticle.y)
-            ctx.stroke()
-            ctx.restore()
-          }
-        })
+        // Draw connections (optimized)
+        if (index % 2 === 0) { // Only draw connections for every other particle for performance
+          particlesRef.current.slice(index + 1, index + 4).forEach(otherParticle => { // Limit connection checks
+            const dx = particle.x - otherParticle.x
+            const dy = particle.y - otherParticle.y
+            const distance = Math.sqrt(dx * dx + dy * dy)
+
+            if (distance < 80) { // Shorter connection distance
+              ctx.save()
+              ctx.globalAlpha = (1 - distance / 80) * 0.15 // More subtle lines
+              ctx.strokeStyle = particle.color
+              ctx.lineWidth = 0.3
+              ctx.beginPath()
+              ctx.moveTo(particle.x, particle.y)
+              ctx.lineTo(otherParticle.x, otherParticle.y)
+              ctx.stroke()
+              ctx.restore()
+            }
+          })
+        }
       })
       
       animationRef.current = requestAnimationFrame(animate)
