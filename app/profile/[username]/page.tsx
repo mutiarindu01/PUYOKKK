@@ -218,12 +218,13 @@ const creatorData = {
 }
 
 interface CreatorProfilePageProps {
-  params: {
+  params: Promise<{
     username: string
-  }
+  }>
 }
 
 export default function CreatorProfilePage({ params }: CreatorProfilePageProps) {
+  const resolvedParams = use(params)
   const [activeTab, setActiveTab] = useState("for-sale")
   const [isFollowing, setIsFollowing] = useState(false)
   const router = useRouter()
