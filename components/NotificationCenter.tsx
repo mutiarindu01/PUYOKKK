@@ -169,7 +169,7 @@ export default function NotificationCenter({ className }: NotificationCenterProp
     }
   }
 
-  const handleNotificationClick = (notification: any) => {
+  const handleNotificationClick = (notification: typeof notifications[0]) => {
     // Mark as read
     notification.isRead = true
     setUnreadCount(prev => prev - 1)
