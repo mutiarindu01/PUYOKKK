@@ -726,7 +726,7 @@ export default function LandingPage() {
                 <SheetContent side="right" className="bg-card border-border text-foreground w-64">
                   <div className="flex flex-col gap-4 py-6">
                     <SheetClose asChild>
-                      <Link href="#" className="text-lg font-medium hover:text-primary">
+                      <Link href="/dashboard" className="text-lg font-medium hover:text-primary">
                         Masuk
                       </Link>
                     </SheetClose>
