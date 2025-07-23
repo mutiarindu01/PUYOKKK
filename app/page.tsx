@@ -1153,7 +1153,12 @@ export default function LandingPage() {
                     item.type === "Token" ? (
                       <TokenRow key={item.id} token={item} />
                     ) : (
-                      <NFTCard key={item.id} nft={item} />
+                      <NFTCard
+                        key={item.id}
+                        nft={item}
+                        onBuyClick={handleBuyAction}
+                        isLoading={loadingStates[item.id] || false}
+                      />
                     ),
                   )}
                 </div>
