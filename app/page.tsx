@@ -291,8 +291,22 @@ function PaymentMethodIcons({ methods }: { methods: string[] }) {
 }
 
 function TrendingCard({ item }: { item: (typeof trendingItems)[0] }) {
+  const router = useRouter()
+
+  const handleCardClick = () => {
+    router.push(`/marketplace/${item.id}`)
+  }
+
+  const handleBuyClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    router.push(`/marketplace/${item.id}`)
+  }
+
   return (
-    <Card className="bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group hover:-translate-y-1 min-w-[280px] relative overflow-hidden">
+    <Card
+      className="bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group hover:-translate-y-1 min-w-[280px] relative overflow-hidden cursor-pointer"
+      onClick={handleCardClick}
+    >
       {/* Badge */}
       <div className="absolute top-3 left-3 z-10">
         <Badge variant="secondary" className="bg-background/90 text-foreground text-xs font-medium">
@@ -355,7 +369,11 @@ function TrendingCard({ item }: { item: (typeof trendingItems)[0] }) {
           <PaymentMethodIcons methods={item.paymentMethods} />
         </div>
 
-        <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+        <Button
+          size="sm"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          onClick={handleBuyClick}
+        >
           Beli Sekarang
           <ArrowRight className="ml-1 w-4 h-4" />
         </Button>
