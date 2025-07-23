@@ -29,7 +29,6 @@ import {
   Mail,
 } from "lucide-react"
 import { formatDistanceToNow } from "date-fns"
-import { id } from "date-fns/locale"
 
 // Sample notification data
 const notifications = [
