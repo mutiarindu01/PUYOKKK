@@ -132,6 +132,7 @@ function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
   const menuItems = [
     { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 2 },
     { id: "marketplace", label: "Marketplace", icon: Home },
+    { id: "awards-marketplace", label: "Awards Marketplace", icon: Trophy, badge: "Premium" },
     { id: "assets", label: "Aset Saya", icon: Wallet, count: 12 },
     { id: "payments", label: "Akun Pembayaran", icon: CreditCard },
     { id: "settings", label: "Pengaturan", icon: Settings },
