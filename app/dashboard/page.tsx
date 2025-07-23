@@ -512,6 +512,9 @@ export default function DashboardPage() {
         return <OrdersTab />
       case "marketplace":
         return <PlaceholderTab title="Marketplace" description="Jelajahi aset digital dari seluruh pengguna" />
+      case "awards-marketplace":
+        window.location.href = '/awards-marketplace'
+        return <PlaceholderTab title="Awards Marketplace" description="Perdagangkan NFT penghargaan eksklusif" />
       case "assets":
         return <PlaceholderTab title="Aset Saya" description="Lihat semua NFT dan token yang Anda miliki" />
       case "payments":
