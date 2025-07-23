@@ -618,47 +618,116 @@ export default function LandingPage() {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-background text-foreground font-['Inter'] relative"
     >
-      {/* Dynamic Background Options */}
-      {backgroundType === "gradient" && (
-        <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="animated-background absolute inset-0" />
-          <div className="floating-orbs absolute inset-0" />
+      {/* Dynamic Background Options with Smooth Transitions */}
+      <motion.div
+        className="fixed inset-0 pointer-events-none z-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {backgroundType === "gradient" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
+          >
+            <div className="animated-background absolute inset-0" />
+            <div className="floating-orbs absolute inset-0" />
+          </motion.div>
+        )}
+
+        {backgroundType === "particles" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <BackgroundParticles />
+          </motion.div>
+        )}
+
+        {backgroundType === "spline" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <SplineBackgroundDemo />
+          </motion.div>
+        )}
+
+        {backgroundType === "mesh" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
+          >
+            <div className="mesh-gradient absolute inset-0" />
+            <div className="grid-pattern absolute inset-0" />
+          </motion.div>
+        )}
+      </motion.div>
+
+      {/* Elegant Background Switcher */}
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1, duration: 0.5 }}
+        className="fixed top-24 right-6 z-50"
+      >
+        <div className="bg-card/95 backdrop-blur-md border border-border/50 rounded-xl p-4 shadow-xl shadow-black/5">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+            <p className="text-sm font-medium text-foreground">Background</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            {(["gradient", "particles", "spline", "mesh"] as const).map((type) => (
+              <motion.button
+                key={type}
+                onClick={() => setBackgroundType(type)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`group relative text-xs px-3 py-2 rounded-lg transition-all duration-300 ${
+                  backgroundType === type
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                    : "bg-muted/50 text-muted-foreground hover:bg-accent hover:text-foreground"
+                }`}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm">
+                    {type === "gradient" && "🎨"}
+                    {type === "particles" && "✨"}
+                    {type === "spline" && "🎲"}
+                    {type === "mesh" && "🌐"}
+                  </span>
+                  <span className="font-medium capitalize">{type}</span>
+                </div>
+
+                {backgroundType === type && (
+                  <motion.div
+                    layoutId="active-bg"
+                    className="absolute inset-0 bg-primary/10 rounded-lg border border-primary/20"
+                    transition={{ type: "spring", duration: 0.5 }}
+                  />
+                )}
+              </motion.button>
+            ))}
+          </div>
+
+          <div className="mt-3 pt-3 border-t border-border/50">
+            <p className="text-xs text-muted-foreground text-center">
+              Pilih style background favorit Anda
+            </p>
+          </div>
         </div>
-      )}
-
-      {backgroundType === "particles" && <BackgroundParticles />}
-
-      {backgroundType === "spline" && <SplineBackgroundDemo />}
-
-      {backgroundType === "mesh" && (
-        <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="mesh-gradient absolute inset-0" />
-          <div className="grid-pattern absolute inset-0" />
-        </div>
-      )}
-
-      {/* Background Switcher - Demo purposes (bisa dihapus nanti) */}
-      <div className="fixed top-20 right-4 z-50 bg-card/90 backdrop-blur-sm border border-border rounded-lg p-3">
-        <p className="text-xs text-muted-foreground mb-2">Background Style:</p>
-        <div className="grid grid-cols-2 gap-1">
-          {(["gradient", "particles", "spline", "mesh"] as const).map((type) => (
-            <button
-              key={type}
-              onClick={() => setBackgroundType(type)}
-              className={`text-xs px-2 py-1 rounded transition-colors ${
-                backgroundType === type
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-accent"
-              }`}
-            >
-              {type === "gradient" && "🎨 Gradient"}
-              {type === "particles" && "✨ Particles"}
-              {type === "spline" && "🎲 3D Demo"}
-              {type === "mesh" && "🌐 Mesh"}
-            </button>
-          ))}
-        </div>
-      </div>
+      </motion.div>
 
       {/* Navigation Bar - Cleaner Design */}
       <header
