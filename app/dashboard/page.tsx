@@ -509,6 +509,15 @@ function PlaceholderTab({ title, description }: { title: string; description: st
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("orders")
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const renderContent = () => {
     switch (activeTab) {
