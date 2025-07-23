@@ -708,7 +708,7 @@ export default function LandingPage() {
                 className="border-border text-foreground hover:bg-accent bg-transparent hidden md:inline-flex"
                 asChild
               >
-                <Link href="/login">Masuk</Link>
+                <Link href="/dashboard">Masuk</Link>
               </Button>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground hidden md:inline-flex">
                 <Plus className="w-4 h-4 mr-2" />
