@@ -434,7 +434,7 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
                   {referralHistory.map((friend) => (
                     <div
                       key={friend.id}
-                      className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent transition-colors"
+                      className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
                     >
                       <div className="flex items-center gap-4">
                         <Avatar className="w-12 h-12">
