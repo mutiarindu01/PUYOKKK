@@ -151,6 +151,8 @@ const tiers = [
 
 export default function ReferralPage() {
   const [copied, setCopied] = useState(false)
+  const [linkCopied, setLinkCopied] = useState(false)
+  const [isSharing, setIsSharing] = useState(false)
   const referralLinkRef = useRef<HTMLInputElement>(null)
 
   const referralLink = `https://puyok.id/daftar?ref=${userStats.referralCode}`
