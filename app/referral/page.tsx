@@ -332,7 +332,7 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
                       className="flex-1 bg-transparent text-sm text-foreground"
                     />
                     <Button variant="outline" size="sm" onClick={handleCopyLink}>
-                      <Copy className="w-4 h-4" />
+                      {linkCopied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                     </Button>
                   </div>
                 </div>
