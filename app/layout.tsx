@@ -23,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
+          <PageTransition>
+            {children}
+          </PageTransition>
           <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>
