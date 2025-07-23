@@ -156,7 +156,7 @@ const sampleAssets: Asset[] = [
     ]
   },
   {
-    id: "token1",
+    id: "1",
     name: "Tether",
     type: "Token",
     ticker: "USDT",
