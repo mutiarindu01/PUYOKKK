@@ -557,6 +557,7 @@ export default function DashboardPage() {
         window.location.href = '/settings'
         return <PlaceholderTab title="Pengaturan" description="Atur preferensi akun Anda" />
       case "referral":
+        window.location.href = '/referral'
         return <PlaceholderTab title="Program Referral" description="Ajak teman dan dapatkan komisi" />
       default:
         return <OrdersTab />
