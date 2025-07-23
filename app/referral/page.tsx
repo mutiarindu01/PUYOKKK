@@ -240,9 +240,12 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
               </div>
             </div>
           </div>
-          <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-            {userStats.currentTier} Tier
-          </Badge>
+          <div className="flex items-center gap-4">
+            <NotificationCenter />
+            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+              {userStats.currentTier} Tier
+            </Badge>
+          </div>
         </div>
       </header>
 
