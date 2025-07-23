@@ -55,78 +55,78 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 // Sample data for trending items
 const trendingItems = [
   {
-    id: "trending-1",
+    id: "101",
     type: "NFT",
-    name: "Batik Genesis #001",
-    price: "Rp 25.000.000",
-    image: "/placeholder.svg?height=300&width=300&text=Batik+Genesis",
-    collection: "Indonesian Heritage",
-    seller: "batik_master",
+    name: "Bored Ape #1234",
+    price: "Rp 15.000.000",
+    image: "/placeholder.svg?height=300&width=300&text=Bored+Ape",
+    collection: "Bored Ape Yacht Club",
+    seller: "cryptoking88",
     sellerAvatar: "/placeholder.svg?height=24&width=24",
     badge: "🔥 Hot",
-    views: "2.1k",
+    views: "1.8k",
     timeLeft: "2h",
     paymentMethods: ["dana", "gopay", "ovo"],
   },
   {
-    id: "trending-2",
+    id: "2",
     type: "Token",
     name: "Ethereum",
     ticker: "ETH",
     price: "Rp 45.000.000",
     quantity: "0.5 ETH",
-    trend: "up",
-    change: "+2.5%",
+    trend: "down",
+    change: "-1.5%",
     icon: "/placeholder.svg?height=32&width=32&text=ETH",
-    seller: "crypto_whale",
+    seller: "eth_master",
     sellerAvatar: "/placeholder.svg?height=24&width=24",
     badge: "⚡ Fast",
-    views: "1.8k",
-    paymentMethods: ["dana", "gopay", "bank"],
+    views: "856",
+    paymentMethods: ["dana", "bank"],
   },
   {
-    id: "trending-3",
+    id: "102",
     type: "NFT",
-    name: "Wayang Digital #456",
-    price: "Rp 12.500.000",
-    image: "/placeholder.svg?height=300&width=300&text=Wayang+Digital",
-    collection: "Cultural Arts",
-    seller: "wayang_artist",
+    name: "CryptoPunk #5678",
+    price: "Rp 45.000.000",
+    image: "/placeholder.svg?height=300&width=300&text=CryptoPunk",
+    collection: "CryptoPunks",
+    seller: "pixelartfan",
     sellerAvatar: "/placeholder.svg?height=24&width=24",
     badge: "✨ Rare",
-    views: "956",
+    views: "3.2k",
     timeLeft: "5h",
+    paymentMethods: ["gopay", "bank"],
+  },
+  {
+    id: "103",
+    type: "NFT",
+    name: "Azuki #9876",
+    price: "Rp 8.500.000",
+    image: "/placeholder.svg?height=300&width=300&text=Azuki",
+    collection: "Azuki",
+    seller: "azuki_lover",
+    sellerAvatar: "/placeholder.svg?height=24&width=24",
+    badge: "📸 Photo",
+    views: "967",
+    timeLeft: "1d",
     paymentMethods: ["dana", "ovo"],
   },
   {
-    id: "trending-4",
-    type: "NFT",
-    name: "Jakarta Skyline",
-    price: "Rp 8.750.000",
-    image: "/placeholder.svg?height=300&width=300&text=Jakarta+Skyline",
-    collection: "Urban Photography",
-    seller: "jakarta_lens",
-    sellerAvatar: "/placeholder.svg?height=24&width=24",
-    badge: "📸 Photo",
-    views: "1.2k",
-    timeLeft: "1d",
-    paymentMethods: ["gopay", "ovo", "bank"],
-  },
-  {
-    id: "trending-5",
+    id: "1",
     type: "Token",
     name: "Tether",
     ticker: "USDT",
     price: "Rp 15.500",
     quantity: "1,000 USDT",
     trend: "up",
-    change: "+0.1%",
+    change: "+0.2%",
     icon: "/placeholder.svg?height=32&width=32&text=USDT",
     seller: "stable_trader",
     sellerAvatar: "/placeholder.svg?height=24&width=24",
     badge: "💎 Stable",
-    views: "3.4k",
-    paymentMethods: ["dana", "gopay", "ovo", "bank"],
+    views: "1.2k",
+    paymentMethods: ["dana", "gopay", "ovo"],
   },
 ]
 
@@ -200,7 +200,7 @@ const marketplaceTokens = [
 
 const marketplaceNFTs = [
   {
-    id: 1,
+    id: 101,
     type: "NFT",
     name: "Bored Ape #1234",
     price: "Rp 15.000.000",
@@ -213,7 +213,7 @@ const marketplaceNFTs = [
     verified: true,
   },
   {
-    id: 2,
+    id: 102,
     type: "NFT",
     name: "CryptoPunk #5678",
     price: "Rp 45.000.000",
@@ -226,7 +226,7 @@ const marketplaceNFTs = [
     verified: true,
   },
   {
-    id: 3,
+    id: 103,
     type: "NFT",
     name: "Azuki #9876",
     price: "Rp 8.500.000",
@@ -239,7 +239,7 @@ const marketplaceNFTs = [
     verified: false,
   },
   {
-    id: 4,
+    id: 104,
     type: "NFT",
     name: "Moonbird #2468",
     price: "Rp 18.000.000",
@@ -280,8 +280,8 @@ function MiniSparkline({ trend }: { trend: "up" | "down" }) {
 function PaymentMethodIcons({ methods }: { methods: string[] }) {
   return (
     <div className="flex gap-1">
-      {methods.slice(0, 3).map((method, index) => (
-        <span key={index} className="text-xs" title={method.toUpperCase()}>
+      {methods.slice(0, 3).map((method) => (
+        <span key={method} className="text-xs" title={method.toUpperCase()}>
           {paymentIcons[method as keyof typeof paymentIcons]}
         </span>
       ))}
@@ -291,8 +291,22 @@ function PaymentMethodIcons({ methods }: { methods: string[] }) {
 }
 
 function TrendingCard({ item }: { item: (typeof trendingItems)[0] }) {
+  const router = useRouter()
+
+  const handleCardClick = () => {
+    router.push(`/marketplace/${item.id}`)
+  }
+
+  const handleBuyClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    router.push(`/marketplace/${item.id}`)
+  }
+
   return (
-    <Card className="bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group hover:-translate-y-1 min-w-[280px] relative overflow-hidden">
+    <Card
+      className="bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group hover:-translate-y-1 min-w-[280px] relative overflow-hidden cursor-pointer"
+      onClick={handleCardClick}
+    >
       {/* Badge */}
       <div className="absolute top-3 left-3 z-10">
         <Badge variant="secondary" className="bg-background/90 text-foreground text-xs font-medium">
@@ -355,7 +369,11 @@ function TrendingCard({ item }: { item: (typeof trendingItems)[0] }) {
           <PaymentMethodIcons methods={item.paymentMethods} />
         </div>
 
-        <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+        <Button
+          size="sm"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          onClick={handleBuyClick}
+        >
           Beli Sekarang
           <ArrowRight className="ml-1 w-4 h-4" />
         </Button>
@@ -365,8 +383,22 @@ function TrendingCard({ item }: { item: (typeof trendingItems)[0] }) {
 }
 
 function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
+  const router = useRouter()
+
+  const handleRowClick = () => {
+    router.push(`/marketplace/${token.id}`)
+  }
+
+  const handleBuyClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    router.push(`/marketplace/${token.id}`)
+  }
+
   return (
-    <div className="flex items-center justify-between py-4 border-b border-border last:border-b-0 hover:bg-accent transition-all duration-200 rounded-lg px-2 -mx-2">
+    <div
+      className="flex items-center justify-between py-4 border-b border-border last:border-b-0 hover:bg-accent transition-all duration-200 rounded-lg px-2 -mx-2 cursor-pointer"
+      onClick={handleRowClick}
+    >
       <div className="flex items-center gap-4">
         <img src={token.icon || "/placeholder.svg"} alt={token.ticker} className="w-8 h-8 rounded-full" />
         <div>
@@ -406,15 +438,34 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
 
       <div className="flex flex-col items-end gap-2">
         <PaymentMethodIcons methods={token.paymentMethods} />
-        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Beli</Button>
+        <Button
+          className="bg-primary hover:bg-primary/90 text-primary-foreground"
+          onClick={handleBuyClick}
+        >
+          Beli
+        </Button>
       </div>
     </div>
   )
 }
 
 function NFTCard({ nft }: { nft: (typeof marketplaceNFTs)[0] }) {
+  const router = useRouter()
+
+  const handleCardClick = () => {
+    router.push(`/marketplace/${nft.id}`)
+  }
+
+  const handleBuyClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    router.push(`/marketplace/${nft.id}`)
+  }
+
   return (
-    <Card className="bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group hover:-translate-y-1 relative overflow-hidden">
+    <Card
+      className="bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group hover:-translate-y-1 relative overflow-hidden cursor-pointer"
+      onClick={handleCardClick}
+    >
       {/* Views counter */}
       <div className="absolute top-3 right-3 z-10 flex items-center gap-1 bg-background/90 rounded px-2 py-1">
         <Eye className="w-3 h-3 text-muted-foreground" />
@@ -449,7 +500,11 @@ function NFTCard({ nft }: { nft: (typeof marketplaceNFTs)[0] }) {
           </div>
           <PaymentMethodIcons methods={nft.paymentMethods} />
         </div>
-        <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+        <Button
+          size="sm"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          onClick={handleBuyClick}
+        >
           Beli Sekarang
           <ArrowRight className="ml-1 w-4 h-4" />
         </Button>
@@ -534,9 +589,11 @@ export default function LandingPage() {
           >
             {/* Left Side - Logo and Title */}
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">P</span>
-              </div>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
+                alt="PUYOK Logo"
+                className="w-8 h-8 object-contain"
+              />
               <span className="text-xl font-bold text-foreground">PUYOK</span>
 
               {/* Desktop Navigation Menu */}
@@ -649,8 +706,9 @@ export default function LandingPage() {
               <Button
                 variant="outline"
                 className="border-border text-foreground hover:bg-accent bg-transparent hidden md:inline-flex"
+                asChild
               >
-                Masuk
+                <Link href="/dashboard">Masuk</Link>
               </Button>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground hidden md:inline-flex">
                 <Plus className="w-4 h-4 mr-2" />
@@ -668,7 +726,7 @@ export default function LandingPage() {
                 <SheetContent side="right" className="bg-card border-border text-foreground w-64">
                   <div className="flex flex-col gap-4 py-6">
                     <SheetClose asChild>
-                      <Link href="#" className="text-lg font-medium hover:text-primary">
+                      <Link href="/dashboard" className="text-lg font-medium hover:text-primary">
                         Masuk
                       </Link>
                     </SheetClose>
@@ -752,6 +810,7 @@ export default function LandingPage() {
             background: `radial-gradient(circle at center, rgba(29, 78, 216, 0.15) 0%, rgba(13, 17, 23, 0) 70%)`,
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Cpath d='M30 0v30M0 30h30'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
             backgroundSize: "60px 60px",
+            boxShadow: "1px 1px 3px 0px rgba(0, 0, 0, 1)",
           }}
         />
         <div className="relative z-10 max-w-4xl mx-auto px-6">
@@ -1217,9 +1276,11 @@ export default function LandingPage() {
             {/* Brand Column */}
             <div className="lg:col-span-1">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">P</span>
-                </div>
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
+                  alt="PUYOK Logo"
+                  className="w-8 h-8 object-contain"
+                />
                 <span className="text-2xl font-bold text-foreground">PUYOK</span>
               </div>
               <p className="text-muted-foreground mb-6 leading-relaxed">
