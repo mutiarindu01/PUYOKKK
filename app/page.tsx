@@ -650,7 +650,9 @@ export default function LandingPage() {
                 variant="outline"
                 className="border-border text-foreground hover:bg-accent bg-transparent hidden md:inline-flex"
               >
-                Masuk
+                <p>
+                  <br />
+                </p>
               </Button>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground hidden md:inline-flex">
                 <Plus className="w-4 h-4 mr-2" />
