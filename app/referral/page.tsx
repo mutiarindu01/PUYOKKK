@@ -166,7 +166,9 @@ export default function ReferralPage() {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(referralLink)
+    setLinkCopied(true)
     toast.success("Link referral berhasil disalin!")
+    setTimeout(() => setLinkCopied(false), 2000)
   }
 
   const handleShareWhatsApp = () => {
