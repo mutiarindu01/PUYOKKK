@@ -266,28 +266,28 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
 
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="border border-purple-200 bg-gradient-to-br from-purple-50 to-white">
+          <Card className="border border-purple-200 bg-gradient-to-br from-purple-50 to-white hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-6 text-center">
-              <UserPlus className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+              <UserPlus className="w-8 h-8 text-purple-600 mx-auto mb-2 animate-pulse" />
               <div className="text-2xl font-bold text-foreground">{userStats.totalInvited}</div>
               <div className="text-sm text-muted-foreground">Total Diundang</div>
             </CardContent>
           </Card>
-          <Card className="border border-green-200 bg-gradient-to-br from-green-50 to-white">
+          <Card className="border border-green-200 bg-gradient-to-br from-green-50 to-white hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-6 text-center">
               <CheckCircle className="w-8 h-8 text-green-600 mx-auto mb-2" />
               <div className="text-2xl font-bold text-foreground">{userStats.totalJoined}</div>
               <div className="text-sm text-muted-foreground">Berhasil Bergabung</div>
             </CardContent>
           </Card>
-          <Card className="border border-blue-200 bg-gradient-to-br from-blue-50 to-white">
+          <Card className="border border-blue-200 bg-gradient-to-br from-blue-50 to-white hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-6 text-center">
               <CreditCard className="w-8 h-8 text-blue-600 mx-auto mb-2" />
               <div className="text-2xl font-bold text-foreground">{userStats.totalTransacted}</div>
               <div className="text-sm text-muted-foreground">Sudah Bertransaksi</div>
             </CardContent>
           </Card>
-          <Card className="border border-yellow-200 bg-gradient-to-br from-yellow-50 to-white">
+          <Card className="border border-yellow-200 bg-gradient-to-br from-yellow-50 to-white hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
             <CardContent className="p-6 text-center">
               <Coins className="w-8 h-8 text-yellow-600 mx-auto mb-2" />
               <div className="text-2xl font-bold text-foreground">{userStats.totalCredits}</div>
