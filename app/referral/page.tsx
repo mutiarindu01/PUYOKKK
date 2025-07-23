@@ -31,6 +31,7 @@ import {
   CreditCard,
 } from "lucide-react"
 import { toast } from "sonner"
+import NotificationCenter from "@/components/NotificationCenter"
 
 // Sample data
 const userStats = {
