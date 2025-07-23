@@ -801,6 +801,14 @@ export default function LandingPage() {
                             Testimoni
                           </Link>
                         </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/help"
+                            className="block text-base font-normal text-muted-foreground hover:text-primary"
+                          >
+                            Pusat Bantuan
+                          </Link>
+                        </SheetClose>
                       </CollapsibleContent>
                     </Collapsible>
                   </div>
