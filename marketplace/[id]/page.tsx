@@ -210,6 +210,150 @@ const sampleAssets: Asset[] = [
         verified: true
       }
     ]
+  },
+  {
+    id: "2",
+    name: "Ethereum",
+    type: "Token",
+    ticker: "ETH",
+    price: "Rp 45.000.000",
+    quantity: "0.5 ETH",
+    description: "0.5 units of Ethereum (ETH), the second-largest cryptocurrency by market cap. Perfect for DeFi and NFT transactions.",
+    seller: {
+      username: "eth_master",
+      avatar: "/placeholder.svg?height=60&width=60",
+      rating: 4.7,
+      totalTransactions: 156,
+      successRate: 97.8,
+      avgResponseTime: "12 menit",
+      joinDate: "Maret 2023",
+      isVerified: true,
+      badges: ["ETH Expert", "DeFi Pro", "Trusted Seller"]
+    },
+    details: {
+      contractAddress: "0x456def123abc789...",
+      blockchain: "Ethereum",
+      listingDate: "13 Juli 2024",
+      paymentMethods: ["DANA", "Bank Transfer"],
+      marketCap: "Rp 5.8T",
+      volume24h: "Rp 234B"
+    },
+    priceHistory: [
+      { timeframe: "24h", change: -1.5 },
+      { timeframe: "7d", change: 8.3 },
+      { timeframe: "30d", change: 15.7 }
+    ],
+    analytics: {
+      views: 856,
+      favorites: 123,
+      watchers: 45
+    },
+    reviews: [
+      {
+        id: "1",
+        buyer: "defi_trader",
+        rating: 5,
+        comment: "ETH transfer sangat cepat! Seller profesional dan membantu setup MetaMask. Highly recommended untuk pemula.",
+        date: "10 Juli 2024",
+        verified: true
+      }
+    ]
+  },
+  {
+    id: "3",
+    name: "Bitcoin",
+    type: "Token",
+    ticker: "BTC",
+    price: "Rp 850.000.000",
+    quantity: "0.1 BTC",
+    description: "0.1 units of Bitcoin (BTC), the original cryptocurrency and digital gold. Store of value untuk investasi jangka panjang.",
+    seller: {
+      username: "btc_hodler",
+      avatar: "/placeholder.svg?height=60&width=60",
+      rating: 4.6,
+      totalTransactions: 89,
+      successRate: 96.5,
+      avgResponseTime: "15 menit",
+      joinDate: "Juni 2023",
+      isVerified: false,
+      badges: ["Bitcoin Expert", "Long Term Holder"]
+    },
+    details: {
+      contractAddress: "0x789abc456def123...",
+      blockchain: "Bitcoin",
+      listingDate: "12 Juli 2024",
+      paymentMethods: ["GoPay", "OVO", "Bank Transfer"],
+      marketCap: "Rp 12.1T",
+      volume24h: "Rp 567B"
+    },
+    priceHistory: [
+      { timeframe: "24h", change: 2.1 },
+      { timeframe: "7d", change: -3.2 },
+      { timeframe: "30d", change: 18.9 }
+    ],
+    analytics: {
+      views: 2100,
+      favorites: 267,
+      watchers: 89
+    },
+    reviews: [
+      {
+        id: "1",
+        buyer: "bitcoin_newbie",
+        rating: 4,
+        comment: "Proses pembelian BTC pertama saya. Seller sabar menjelaskan cara setup wallet. Terima kasih!",
+        date: "9 Juli 2024",
+        verified: true
+      }
+    ]
+  },
+  {
+    id: "102",
+    name: "CryptoPunk #5678",
+    type: "NFT",
+    image: "/placeholder.svg?height=800&width=800",
+    price: "Rp 45.000.000",
+    description: "Iconic CryptoPunk NFT from the legendary collection. One of the first and most valuable NFT projects in crypto history.",
+    seller: {
+      username: "pixelartfan",
+      avatar: "/placeholder.svg?height=60&width=60",
+      rating: 4.9,
+      totalTransactions: 334,
+      successRate: 99.1,
+      avgResponseTime: "6 menit",
+      joinDate: "Desember 2022",
+      isVerified: true,
+      badges: ["NFT Curator", "Pixel Art Expert", "Premium Seller"]
+    },
+    details: {
+      contractAddress: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb...",
+      tokenId: "5678",
+      blockchain: "Ethereum",
+      listingDate: "11 Juli 2024",
+      paymentMethods: ["GoPay", "Bank Transfer"],
+      marketCap: "Rp 890M",
+      volume24h: "Rp 23.4M"
+    },
+    priceHistory: [
+      { timeframe: "24h", change: 3.2 },
+      { timeframe: "7d", change: -8.1 },
+      { timeframe: "30d", change: 45.7 }
+    ],
+    analytics: {
+      views: 3200,
+      favorites: 445,
+      watchers: 112
+    },
+    reviews: [
+      {
+        id: "1",
+        buyer: "nft_collector_id",
+        rating: 5,
+        comment: "CryptoPunk asli dengan authenticity terjamin! Seller sangat profesional dan proses transfer aman. Worth every rupiah!",
+        date: "8 Juli 2024",
+        verified: true
+      }
+    ]
   }
 ]
 
