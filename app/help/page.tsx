@@ -875,6 +875,8 @@ export default function HelpPage() {
           </Card>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
