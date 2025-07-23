@@ -691,6 +691,14 @@ export default function LandingPage() {
                         >
                           Pusat Bantuan
                         </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onSelect={() => {
+                            setIsExploreDropdownOpen(false)
+                            router.push("/whitepaper")
+                          }}
+                        >
+                          Whitepaper
+                        </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuSub>
                   </DropdownMenuContent>
