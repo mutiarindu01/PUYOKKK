@@ -217,9 +217,6 @@ function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 }
 
 function DashboardHeader() {
-  const [showNotifications, setShowNotifications] = useState(false)
-  const unreadCount = notifications.filter(n => n.unread).length
-
   return (
     <header className="bg-background border-b border-border px-6 py-4 sticky top-0 z-10">
       <div className="flex items-center justify-between">
@@ -227,55 +224,19 @@ function DashboardHeader() {
           <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
           <p className="text-muted-foreground">Kelola bisnis digital Anda dengan mudah</p>
         </div>
-        
+
         <div className="flex items-center gap-4">
           {/* Search */}
           <div className="relative">
             <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <Input 
-              placeholder="Cari order, aset..." 
-              className="pl-10 w-64" 
+            <Input
+              placeholder="Cari order, aset..."
+              className="pl-10 w-64"
             />
           </div>
 
           {/* Notifications */}
-          <DropdownMenu open={showNotifications} onOpenChange={setShowNotifications}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="w-5 h-5" />
-                {unreadCount > 0 && (
-                  <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs flex items-center justify-center">
-                    {unreadCount}
-                  </Badge>
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-80 p-0" align="end">
-              <div className="p-4 border-b border-border">
-                <h3 className="font-semibold">Notifikasi</h3>
-                <p className="text-sm text-muted-foreground">{unreadCount} notifikasi belum dibaca</p>
-              </div>
-              <div className="max-h-80 overflow-y-auto">
-                {notifications.map((notification) => (
-                  <div
-                    key={notification.id}
-                    className={`p-4 border-b border-border last:border-b-0 hover:bg-accent cursor-pointer ${
-                      notification.unread ? 'bg-primary/5' : ''
-                    }`}
-                  >
-                    <div className="flex items-start justify-between mb-1">
-                      <h4 className="font-medium text-sm">{notification.title}</h4>
-                      {notification.unread && (
-                        <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      )}
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-1">{notification.message}</p>
-                    <p className="text-xs text-muted-foreground">{notification.time}</p>
-                  </div>
-                ))}
-              </div>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <NotificationCenter />
 
           {/* User Menu */}
           <DropdownMenu>
