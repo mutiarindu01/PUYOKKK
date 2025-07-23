@@ -244,7 +244,7 @@ export default function NotificationCenter({ className }: NotificationCenterProp
                   onClick={markAllAsRead}
                   className="text-xs"
                 >
-                  <MarkAsUnread className="w-3 h-3 mr-1" />
+                  <Mail className="w-3 h-3 mr-1" />
                   Tandai Semua Terbaca
                 </Button>
               )}
