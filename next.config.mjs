@@ -6,6 +6,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Fix cross-origin HMR issues
+  experimental: {
+    allowedDevOrigins: ['*.fly.dev'],
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

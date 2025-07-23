@@ -3,14 +3,17 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { motion } from "framer-motion"
+import { DashboardStatsSkeleton, ActivityFeedSkeleton } from "@/components/LoadingSkeletons"
+import LoadingButton, { BuyButton, SellButton } from "@/components/LoadingButton"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { 
-  Bell, 
+import {
+  Bell,
   Plus,
   ShoppingCart,
   Wallet,
@@ -31,7 +34,8 @@ import {
   Filter,
   MoreHorizontal,
   DollarSign,
-  Activity
+  Activity,
+  Trophy
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -40,6 +44,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
+import NotificationCenter from "@/components/NotificationCenter"
 
 // Sample user data
 const currentUser = {
@@ -131,6 +136,7 @@ function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
   const menuItems = [
     { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 2 },
     { id: "marketplace", label: "Marketplace", icon: Home },
+    { id: "awards-marketplace", label: "Awards Marketplace", icon: Trophy, badge: "Premium" },
     { id: "assets", label: "Aset Saya", icon: Wallet, count: 12 },
     { id: "payments", label: "Akun Pembayaran", icon: CreditCard },
     { id: "settings", label: "Pengaturan", icon: Settings },
@@ -216,9 +222,6 @@ function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 }
 
 function DashboardHeader() {
-  const [showNotifications, setShowNotifications] = useState(false)
-  const unreadCount = notifications.filter(n => n.unread).length
-
   return (
     <header className="bg-background border-b border-border px-6 py-4 sticky top-0 z-10">
       <div className="flex items-center justify-between">
@@ -226,55 +229,19 @@ function DashboardHeader() {
           <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
           <p className="text-muted-foreground">Kelola bisnis digital Anda dengan mudah</p>
         </div>
-        
+
         <div className="flex items-center gap-4">
           {/* Search */}
           <div className="relative">
             <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <Input 
-              placeholder="Cari order, aset..." 
-              className="pl-10 w-64" 
+            <Input
+              placeholder="Cari order, aset..."
+              className="pl-10 w-64"
             />
           </div>
 
           {/* Notifications */}
-          <DropdownMenu open={showNotifications} onOpenChange={setShowNotifications}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="w-5 h-5" />
-                {unreadCount > 0 && (
-                  <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs flex items-center justify-center">
-                    {unreadCount}
-                  </Badge>
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-80 p-0" align="end">
-              <div className="p-4 border-b border-border">
-                <h3 className="font-semibold">Notifikasi</h3>
-                <p className="text-sm text-muted-foreground">{unreadCount} notifikasi belum dibaca</p>
-              </div>
-              <div className="max-h-80 overflow-y-auto">
-                {notifications.map((notification) => (
-                  <div
-                    key={notification.id}
-                    className={`p-4 border-b border-border last:border-b-0 hover:bg-accent cursor-pointer ${
-                      notification.unread ? 'bg-primary/5' : ''
-                    }`}
-                  >
-                    <div className="flex items-start justify-between mb-1">
-                      <h4 className="font-medium text-sm">{notification.title}</h4>
-                      {notification.unread && (
-                        <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      )}
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-1">{notification.message}</p>
-                    <p className="text-xs text-muted-foreground">{notification.time}</p>
-                  </div>
-                ))}
-              </div>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <NotificationCenter />
 
           {/* User Menu */}
           <DropdownMenu>
@@ -292,9 +259,11 @@ function DashboardHeader() {
                 <User className="w-4 h-4 mr-2" />
                 Profil Saya
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="w-4 h-4 mr-2" />
-                Pengaturan
+              <DropdownMenuItem asChild>
+                <Link href="/settings">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Pengaturan
+                </Link>
               </DropdownMenuItem>
               <Separator />
               <DropdownMenuItem className="text-destructive">
@@ -540,6 +509,15 @@ function PlaceholderTab({ title, description }: { title: string; description: st
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("orders")
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const renderContent = () => {
     switch (activeTab) {
@@ -547,21 +525,48 @@ export default function DashboardPage() {
         return <OrdersTab />
       case "marketplace":
         return <PlaceholderTab title="Marketplace" description="Jelajahi aset digital dari seluruh pengguna" />
+      case "awards-marketplace":
+        window.location.href = '/awards-marketplace'
+        return <PlaceholderTab title="Awards Marketplace" description="Perdagangkan NFT penghargaan eksklusif" />
       case "assets":
         return <PlaceholderTab title="Aset Saya" description="Lihat semua NFT dan token yang Anda miliki" />
       case "payments":
         return <PlaceholderTab title="Akun Pembayaran" description="Kelola metode pembayaran Anda" />
       case "settings":
+        window.location.href = '/settings'
         return <PlaceholderTab title="Pengaturan" description="Atur preferensi akun Anda" />
       case "referral":
+        window.location.href = '/referral'
         return <PlaceholderTab title="Program Referral" description="Ajak teman dan dapatkan komisi" />
       default:
         return <OrdersTab />
     }
   }
 
+  if (isLoading) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="min-h-screen bg-background p-6"
+      >
+        <div className="max-w-7xl mx-auto">
+          <DashboardStatsSkeleton />
+          <div className="mt-8">
+            <ActivityFeedSkeleton />
+          </div>
+        </div>
+      </motion.div>
+    )
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-background"
+    >
       <div className="flex">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
         <div className="flex-1">
@@ -571,6 +576,6 @@ export default function DashboardPage() {
           </main>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

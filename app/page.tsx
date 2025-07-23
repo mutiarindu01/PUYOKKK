@@ -51,6 +51,10 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Footer from "@/components/Footer"
+import LoadingButton, { BuyButton } from "@/components/LoadingButton"
+import MarketplaceLoading from "@/components/MarketplaceLoading"
+import { motion } from "framer-motion"
 
 // Sample data for trending items
 const trendingItems = [
@@ -356,15 +360,15 @@ function TrendingCard({ item }: { item: (typeof trendingItems)[0] }) {
         <div className="flex items-center justify-between mb-3">
           <div>
             <p className="text-foreground font-bold text-xl">{item.price}</p>
-            <div className="flex items-center gap-2">
+            <Link href={`/profile/${item.seller}`} className="flex items-center gap-2 hover:text-primary transition-colors">
               <Avatar className="w-4 h-4">
                 <AvatarImage src={item.sellerAvatar || "/placeholder.svg"} />
                 <AvatarFallback className="bg-secondary text-secondary-foreground text-xs">
                   <User className="w-2 h-2" />
                 </AvatarFallback>
               </Avatar>
-              <span className="text-muted-foreground text-xs">{item.seller}</span>
-            </div>
+              <span className="text-muted-foreground text-xs hover:text-primary">{item.seller}</span>
+            </Link>
           </div>
           <PaymentMethodIcons methods={item.paymentMethods} />
         </div>
@@ -420,7 +424,7 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
         <div className="text-muted-foreground text-sm">{token.quantity}</div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <Link href={`/profile/${token.seller}`} className="flex items-center gap-2 hover:text-primary transition-colors">
         <Avatar className="w-6 h-6">
           <AvatarImage src={token.sellerAvatar || "/placeholder.svg"} />
           <AvatarFallback className="bg-secondary text-secondary-foreground text-xs">
@@ -428,13 +432,13 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
-          <span className="text-muted-foreground text-sm">{token.seller}</span>
+          <span className="text-muted-foreground text-sm hover:text-primary">{token.seller}</span>
           <div className="flex items-center gap-1">
             <Eye className="w-3 h-3 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">{token.views}</span>
           </div>
         </div>
-      </div>
+      </Link>
 
       <div className="flex flex-col items-end gap-2">
         <PaymentMethodIcons methods={token.paymentMethods} />
@@ -449,16 +453,22 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
   )
 }
 
-function NFTCard({ nft }: { nft: (typeof marketplaceNFTs)[0] }) {
+function NFTCard({ nft, onBuyClick, isLoading }: {
+  nft: (typeof marketplaceNFTs)[0],
+  onBuyClick: (id: string) => void,
+  isLoading: boolean
+}) {
   const router = useRouter()
 
   const handleCardClick = () => {
-    router.push(`/marketplace/${nft.id}`)
+    if (!isLoading) {
+      router.push(`/marketplace/${nft.id}`)
+    }
   }
 
   const handleBuyClick = (e: React.MouseEvent) => {
     e.stopPropagation()
-    router.push(`/marketplace/${nft.id}`)
+    onBuyClick(nft.id)
   }
 
   return (
@@ -488,26 +498,27 @@ function NFTCard({ nft }: { nft: (typeof marketplaceNFTs)[0] }) {
         <div className="flex items-center justify-between mb-3">
           <div>
             <p className="text-foreground font-bold text-xl">{nft.price}</p>
-            <div className="flex items-center gap-2">
+            <Link href={`/profile/${nft.seller}`} className="flex items-center gap-2 hover:text-primary transition-colors">
               <Avatar className="w-4 h-4">
                 <AvatarImage src={nft.sellerAvatar || "/placeholder.svg"} />
                 <AvatarFallback className="bg-secondary text-secondary-foreground text-xs">
                   <User className="w-2 h-2" />
                 </AvatarFallback>
               </Avatar>
-              <span className="text-muted-foreground text-xs">{nft.seller}</span>
-            </div>
+              <span className="text-muted-foreground text-xs hover:text-primary">{nft.seller}</span>
+            </Link>
           </div>
           <PaymentMethodIcons methods={nft.paymentMethods} />
         </div>
-        <Button
+        <BuyButton
           size="sm"
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          className="w-full"
+          loading={isLoading}
           onClick={handleBuyClick}
         >
           Beli Sekarang
           <ArrowRight className="ml-1 w-4 h-4" />
-        </Button>
+        </BuyButton>
       </CardContent>
     </Card>
   )
@@ -519,11 +530,31 @@ export default function LandingPage() {
   const [viewMode, setViewMode] = useState<"list" | "grid">("list")
   const [isNavOpen, setIsNavOpen] = useState(true)
   const [trendingIndex, setTrendingIndex] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadingStates, setLoadingStates] = useState<{[key: string]: boolean}>({})
   const lastScrollY = useRef(0)
   const router = useRouter()
 
   const [isExploreDropdownOpen, setIsExploreDropdownOpen] = useState(false)
   const [filteredItems, setFilteredItems] = useState([...marketplaceTokens, ...marketplaceNFTs])
+
+  // Simulate initial loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2000) // 2 second loading simulation
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleBuyAction = async (itemId: string) => {
+    setLoadingStates(prev => ({ ...prev, [itemId]: true }))
+
+    // Simulate transaction processing
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    setLoadingStates(prev => ({ ...prev, [itemId]: false }))
+    router.push(`/marketplace/${itemId}`)
+  }
 
   useEffect(() => {
     const scrollHidePosition = 60
@@ -572,8 +603,18 @@ export default function LandingPage() {
     )
   }
 
+  // Show loading screen while data is being fetched
+  if (isLoading) {
+    return <MarketplaceLoading />
+  }
+
   return (
-    <div className="min-h-screen bg-background text-foreground font-['Inter'] relative">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-background text-foreground font-['Inter'] relative"
+    >
       {/* Abstract tech network background */}
       <div className="fixed inset-0 opacity-[0.03] pointer-events-none animated-background" />
 
@@ -681,6 +722,22 @@ export default function LandingPage() {
                           }}
                         >
                           Testimoni
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onSelect={() => {
+                            setIsExploreDropdownOpen(false)
+                            router.push("/help")
+                          }}
+                        >
+                          Pusat Bantuan
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onSelect={() => {
+                            setIsExploreDropdownOpen(false)
+                            router.push("/whitepaper")
+                          }}
+                        >
+                          Whitepaper
                         </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuSub>
@@ -790,6 +847,22 @@ export default function LandingPage() {
                             className="block text-base font-normal text-muted-foreground hover:text-primary"
                           >
                             Testimoni
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/help"
+                            className="block text-base font-normal text-muted-foreground hover:text-primary"
+                          >
+                            Pusat Bantuan
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/whitepaper"
+                            className="block text-base font-normal text-muted-foreground hover:text-primary"
+                          >
+                            Whitepaper
                           </Link>
                         </SheetClose>
                       </CollapsibleContent>
@@ -968,7 +1041,7 @@ export default function LandingPage() {
               <div className="w-20 h-20 mx-auto mb-6 bg-blue-500/10 rounded-full flex items-center justify-center">
                 <Handshake className="w-10 h-10 text-blue-500" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">🤝 Tidur Nyenyak</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4">��� Tidur Nyenyak</h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Sistem escrow otomatis melindungi setiap transaksi. Pembeli dapat aset setelah bayar, penjual dapat uang
                 setelah aset terkirim. Tidak ada yang bisa curang - semua otomatis dan transparan.
@@ -1090,13 +1163,24 @@ export default function LandingPage() {
                     item.type === "Token" ? (
                       <TokenRow key={item.id} token={item} />
                     ) : (
-                      <NFTCard key={item.id} nft={item} />
+                      <NFTCard
+                        key={item.id}
+                        nft={item}
+                        onBuyClick={handleBuyAction}
+                        isLoading={loadingStates[item.id] || false}
+                      />
                     ),
                   )}
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {filteredItems.map((item) => (item.type === "NFT" ? <NFTCard key={item.id} nft={item} /> : null))}
+                  {filteredItems.map((item) => (item.type === "NFT" ?
+                    <NFTCard
+                      key={item.id}
+                      nft={item}
+                      onBuyClick={handleBuyAction}
+                      isLoading={loadingStates[item.id] || false}
+                    /> : null))}
                 </div>
               )
             ) : (
@@ -1269,125 +1353,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border bg-card/50 py-16">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {/* Brand Column */}
-            <div className="lg:col-span-1">
-              <div className="flex items-center gap-3 mb-4">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
-                  alt="PUYOK Logo"
-                  className="w-8 h-8 object-contain"
-                />
-                <span className="text-2xl font-bold text-foreground">PUYOK</span>
-              </div>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                Marketplace P2P terpercaya untuk aset digital Anda. Tukar NFT & Token dengan Rupiah secara aman dan
-                mudah.
-              </p>
-              <div className="flex gap-4">
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center hover:bg-primary transition-colors text-foreground hover:text-primary-foreground"
-                >
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center hover:bg-primary transition-colors text-foreground hover:text-primary-foreground"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center hover:bg-primary transition-colors text-foreground hover:text-primary-foreground"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-
-            {/* Produk Column */}
-            <div>
-              <h3 className="text-foreground font-semibold mb-4">Produk</h3>
-              <div className="space-y-3">
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Marketplace NFT
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Trading Token
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Wallet Integration
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Mobile App
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  API Developer
-                </a>
-              </div>
-            </div>
-
-            {/* Perusahaan Column */}
-            <div>
-              <h3 className="text-foreground font-semibold mb-4">Perusahaan</h3>
-              <div className="space-y-3">
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Tentang Kami
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Whitepaper
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Tim
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Karir
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Blog
-                </a>
-              </div>
-            </div>
-
-            {/* Legal Column */}
-            <div>
-              <h3 className="text-foreground font-semibold mb-4">Legal</h3>
-              <div className="space-y-3">
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Syarat & Ketentuan
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Kebijakan Privasi
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Bantuan
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  FAQ
-                </a>
-                <a href="#" className="block text-muted-foreground hover:text-foreground transition-colors">
-                  Kontak
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} PUYOK. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <span>🇮🇩 Made in Indonesia</span>
-              <span>•</span>
-              <span>Powered by Blockchain</span>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+      <Footer />
+    </motion.div>
   )
 }
