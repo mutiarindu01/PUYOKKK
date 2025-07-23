@@ -26,7 +26,7 @@ import {
   Eye,
   ExternalLink,
   Settings,
-  MarkAsUnread,
+  Mail,
 } from "lucide-react"
 import { formatDistanceToNow } from "date-fns"
 import { id } from "date-fns/locale"
