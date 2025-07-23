@@ -159,6 +159,14 @@ const pendingVerifications = [
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview")
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1800)
+    return () => clearTimeout(timer)
+  }, [])
 
   const getStatusBadge = (status: string) => {
     switch (status) {
