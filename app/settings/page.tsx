@@ -31,6 +31,7 @@ import {
   ArrowLeft,
 } from "lucide-react"
 import Link from "next/link"
+import NotificationCenter from "@/components/NotificationCenter"
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("profile")
