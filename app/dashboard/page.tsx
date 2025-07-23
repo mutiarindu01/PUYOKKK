@@ -378,9 +378,15 @@ function OrdersTab() {
           </Card>
         </div>
         
-        <Button size="lg" className="gap-2 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300">
-          <Plus className="w-5 h-5" />
-          Jual Aset Baru
+        <Button
+          size="lg"
+          className="gap-2 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300"
+          asChild
+        >
+          <Link href="/create-listing">
+            <Plus className="w-5 h-5" />
+            Jual Aset Baru
+          </Link>
         </Button>
       </div>
 
