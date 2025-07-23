@@ -292,9 +292,11 @@ function DashboardHeader() {
                 <User className="w-4 h-4 mr-2" />
                 Profil Saya
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="w-4 h-4 mr-2" />
-                Pengaturan
+              <DropdownMenuItem asChild>
+                <Link href="/settings">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Pengaturan
+                </Link>
               </DropdownMenuItem>
               <Separator />
               <DropdownMenuItem className="text-destructive">
@@ -552,6 +554,7 @@ export default function DashboardPage() {
       case "payments":
         return <PlaceholderTab title="Akun Pembayaran" description="Kelola metode pembayaran Anda" />
       case "settings":
+        window.location.href = '/settings'
         return <PlaceholderTab title="Pengaturan" description="Atur preferensi akun Anda" />
       case "referral":
         return <PlaceholderTab title="Program Referral" description="Ajak teman dan dapatkan komisi" />
