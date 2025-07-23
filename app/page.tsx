@@ -51,6 +51,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Footer from "@/components/Footer"
 
 // Sample data for trending items
 const trendingItems = [
