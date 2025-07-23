@@ -421,7 +421,7 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
         <div className="text-muted-foreground text-sm">{token.quantity}</div>
       </div>
 
-      <div className="flex items-center gap-2">
+      <Link href={`/profile/${token.seller}`} className="flex items-center gap-2 hover:text-primary transition-colors">
         <Avatar className="w-6 h-6">
           <AvatarImage src={token.sellerAvatar || "/placeholder.svg"} />
           <AvatarFallback className="bg-secondary text-secondary-foreground text-xs">
@@ -429,13 +429,13 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
-          <span className="text-muted-foreground text-sm">{token.seller}</span>
+          <span className="text-muted-foreground text-sm hover:text-primary">{token.seller}</span>
           <div className="flex items-center gap-1">
             <Eye className="w-3 h-3 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">{token.views}</span>
           </div>
         </div>
-      </div>
+      </Link>
 
       <div className="flex flex-col items-end gap-2">
         <PaymentMethodIcons methods={token.paymentMethods} />
