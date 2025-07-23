@@ -649,10 +649,9 @@ export default function LandingPage() {
               <Button
                 variant="outline"
                 className="border-border text-foreground hover:bg-accent bg-transparent hidden md:inline-flex"
+                asChild
               >
-                <p>
-                  <br />
-                </p>
+                <Link href="/login">Masuk</Link>
               </Button>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground hidden md:inline-flex">
                 <Plus className="w-4 h-4 mr-2" />
