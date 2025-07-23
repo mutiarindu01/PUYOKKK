@@ -276,7 +276,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
             </Button>
             <div>
               <h1 className="text-lg font-semibold text-foreground">Profil Kreator</h1>
-              <p className="text-sm text-muted-foreground">@{params.username}</p>
+              <p className="text-sm text-muted-foreground">@{resolvedParams.username}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
