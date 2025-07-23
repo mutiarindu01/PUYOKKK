@@ -577,14 +577,15 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
               <CardContent className="space-y-3">
                 <Button
                   onClick={handleShareWhatsApp}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white"
+                  disabled={isSharing}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white disabled:opacity-70"
                 >
                   <MessageCircle className="w-4 h-4 mr-2" />
-                  Bagikan via WhatsApp
+                  {isSharing ? "Membuka WhatsApp..." : "Bagikan via WhatsApp"}
                 </Button>
                 <Button variant="outline" className="w-full" onClick={handleCopyLink}>
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Salin Link Referral
+                  {linkCopied ? <CheckCircle className="w-4 h-4 mr-2" /> : <ExternalLink className="w-4 h-4 mr-2" />}
+                  {linkCopied ? "Link Tersalin!" : "Salin Link Referral"}
                 </Button>
                 <Button variant="outline" className="w-full" asChild>
                   <Link href="/dashboard">
