@@ -343,9 +343,11 @@ function OrdersTab() {
       <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
       <p className="text-muted-foreground mb-6">{description}</p>
-      <Button size="lg" className="gap-2">
-        <Plus className="w-5 h-5" />
-        Jual Aset Pertama Anda
+      <Button size="lg" className="gap-2" asChild>
+        <Link href="/create-listing">
+          <Plus className="w-5 h-5" />
+          Jual Aset Pertama Anda
+        </Link>
       </Button>
     </div>
   )
