@@ -534,9 +534,11 @@ export default function LandingPage() {
           >
             {/* Left Side - Logo and Title */}
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">P</span>
-              </div>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
+                alt="PUYOK Logo"
+                className="w-8 h-8 object-contain"
+              />
               <span className="text-xl font-bold text-foreground">PUYOK</span>
 
               {/* Desktop Navigation Menu */}
