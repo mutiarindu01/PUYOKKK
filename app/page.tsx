@@ -510,14 +510,15 @@ function NFTCard({ nft, onBuyClick, isLoading }: {
           </div>
           <PaymentMethodIcons methods={nft.paymentMethods} />
         </div>
-        <Button
+        <BuyButton
           size="sm"
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          className="w-full"
+          loading={isLoading}
           onClick={handleBuyClick}
         >
           Beli Sekarang
           <ArrowRight className="ml-1 w-4 h-4" />
-        </Button>
+        </BuyButton>
       </CardContent>
     </Card>
   )
