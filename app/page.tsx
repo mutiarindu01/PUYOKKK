@@ -357,15 +357,15 @@ function TrendingCard({ item }: { item: (typeof trendingItems)[0] }) {
         <div className="flex items-center justify-between mb-3">
           <div>
             <p className="text-foreground font-bold text-xl">{item.price}</p>
-            <div className="flex items-center gap-2">
+            <Link href={`/profile/${item.seller}`} className="flex items-center gap-2 hover:text-primary transition-colors">
               <Avatar className="w-4 h-4">
                 <AvatarImage src={item.sellerAvatar || "/placeholder.svg"} />
                 <AvatarFallback className="bg-secondary text-secondary-foreground text-xs">
                   <User className="w-2 h-2" />
                 </AvatarFallback>
               </Avatar>
-              <span className="text-muted-foreground text-xs">{item.seller}</span>
-            </div>
+              <span className="text-muted-foreground text-xs hover:text-primary">{item.seller}</span>
+            </Link>
           </div>
           <PaymentMethodIcons methods={item.paymentMethods} />
         </div>
