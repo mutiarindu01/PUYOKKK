@@ -340,10 +340,11 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
                 <div className="flex gap-3">
                   <Button
                     onClick={handleShareWhatsApp}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                    disabled={isSharing}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white disabled:opacity-70"
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Bagikan via WhatsApp
+                    {isSharing ? "Membuka WhatsApp..." : "Bagikan via WhatsApp"}
                   </Button>
                   <Button variant="outline" onClick={handleCopyLink} className="flex-1">
                     <Share2 className="w-4 h-4 mr-2" />
