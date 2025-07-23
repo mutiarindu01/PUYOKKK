@@ -347,9 +347,9 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
                     {isSharing ? "Membuka WhatsApp..." : "Bagikan via WhatsApp"}
                   </Button>
                   <Button variant="outline" onClick={handleCopyLink} className="flex-1">
-                    <Share2 className="w-4 h-4 mr-2" />
-                    Bagikan Link
-                  </Button>
+                  {linkCopied ? <CheckCircle className="w-4 h-4 mr-2" /> : <Share2 className="w-4 h-4 mr-2" />}
+                  {linkCopied ? "Link Tersalin!" : "Bagikan Link"}
+                </Button>
                 </div>
               </CardContent>
             </Card>
