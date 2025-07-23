@@ -453,16 +453,22 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
   )
 }
 
-function NFTCard({ nft }: { nft: (typeof marketplaceNFTs)[0] }) {
+function NFTCard({ nft, onBuyClick, isLoading }: {
+  nft: (typeof marketplaceNFTs)[0],
+  onBuyClick: (id: string) => void,
+  isLoading: boolean
+}) {
   const router = useRouter()
 
   const handleCardClick = () => {
-    router.push(`/marketplace/${nft.id}`)
+    if (!isLoading) {
+      router.push(`/marketplace/${nft.id}`)
+    }
   }
 
   const handleBuyClick = (e: React.MouseEvent) => {
     e.stopPropagation()
-    router.push(`/marketplace/${nft.id}`)
+    onBuyClick(nft.id)
   }
 
   return (
@@ -1024,7 +1030,7 @@ export default function LandingPage() {
               <div className="w-20 h-20 mx-auto mb-6 bg-blue-500/10 rounded-full flex items-center justify-center">
                 <Handshake className="w-10 h-10 text-blue-500" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">🤝 Tidur Nyenyak</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4">��� Tidur Nyenyak</h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Sistem escrow otomatis melindungi setiap transaksi. Pembeli dapat aset setelah bayar, penjual dapat uang
                 setelah aset terkirim. Tidak ada yang bisa curang - semua otomatis dan transparan.
