@@ -40,6 +40,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
+import NotificationCenter from "@/components/NotificationCenter"
 
 // Sample user data
 const currentUser = {
