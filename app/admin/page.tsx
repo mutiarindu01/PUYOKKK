@@ -195,8 +195,17 @@ export default function AdminDashboard() {
     }
   }
 
+  if (isLoading) {
+    return <PageLoadingSkeleton />
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800"
+    >
       <div className="container mx-auto py-8 px-4 md:px-6">
         {/* Header */}
         <div className="mb-8">
@@ -506,6 +515,6 @@ export default function AdminDashboard() {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+    </motion.div>
   )
 }
