@@ -36,7 +36,7 @@ export default function Footer() {
 
   const companyLinks = [
     { label: "Tentang Kami", href: "/about" },
-    { label: "Whitepaper", href: "/whitepaper.pdf", external: true },
+    { label: "Whitepaper", href: "/whitepaper" },
     { label: "Tim", href: "/team" },
     { label: "Karir", href: "/careers", badge: "We're Hiring!" },
     { label: "Blog & News", href: "/blog" },
