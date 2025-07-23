@@ -431,8 +431,22 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
 }
 
 function NFTCard({ nft }: { nft: (typeof marketplaceNFTs)[0] }) {
+  const router = useRouter()
+
+  const handleCardClick = () => {
+    router.push(`/marketplace/${nft.id}`)
+  }
+
+  const handleBuyClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    router.push(`/marketplace/${nft.id}`)
+  }
+
   return (
-    <Card className="bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group hover:-translate-y-1 relative overflow-hidden">
+    <Card
+      className="bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 group hover:-translate-y-1 relative overflow-hidden cursor-pointer"
+      onClick={handleCardClick}
+    >
       {/* Views counter */}
       <div className="absolute top-3 right-3 z-10 flex items-center gap-1 bg-background/90 rounded px-2 py-1">
         <Eye className="w-3 h-3 text-muted-foreground" />
@@ -467,7 +481,11 @@ function NFTCard({ nft }: { nft: (typeof marketplaceNFTs)[0] }) {
           </div>
           <PaymentMethodIcons methods={nft.paymentMethods} />
         </div>
-        <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+        <Button
+          size="sm"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          onClick={handleBuyClick}
+        >
           Beli Sekarang
           <ArrowRight className="ml-1 w-4 h-4" />
         </Button>
