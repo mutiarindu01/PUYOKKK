@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 
 // Base skeleton component with shimmer animation
-const SkeletonBase = ({ className }: { className?: string }) => (
+export const SkeletonBase = ({ className }: { className?: string }) => (
   <motion.div
     initial={{ opacity: 0.6 }}
     animate={{ opacity: [0.6, 1, 0.6] }}
