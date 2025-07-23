@@ -817,6 +817,14 @@ export default function LandingPage() {
                             Pusat Bantuan
                           </Link>
                         </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/whitepaper"
+                            className="block text-base font-normal text-muted-foreground hover:text-primary"
+                          >
+                            Whitepaper
+                          </Link>
+                        </SheetClose>
                       </CollapsibleContent>
                     </Collapsible>
                   </div>
