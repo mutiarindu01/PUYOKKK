@@ -609,7 +609,12 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-['Inter'] relative">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-background text-foreground font-['Inter'] relative"
+    >
       {/* Abstract tech network background */}
       <div className="fixed inset-0 opacity-[0.03] pointer-events-none animated-background" />
 
@@ -1349,6 +1354,6 @@ export default function LandingPage() {
       </section>
 
       <Footer />
-    </div>
+    </motion.div>
   )
 }
