@@ -172,9 +172,10 @@ export default function ReferralPage() {
   }
 
   const handleShareWhatsApp = () => {
+    setIsSharing(true)
     const message = `Halo! 👋
 
-Aku mau ajak kamu join di PUYOK - marketplace aset digital terpercaya! 
+Aku mau ajak kamu join di PUYOK - marketplace aset digital terpercaya!
 
 🎁 Pakai kode referral aku: ${userStats.referralCode}
 ✨ Kamu dapat potongan 50% biaya transaksi untuk penjualan pertama!
@@ -185,6 +186,9 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
 
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
+
+    toast.success("WhatsApp dibuka! Silakan pilih kontak untuk berbagi")
+    setTimeout(() => setIsSharing(false), 2000)
   }
 
   const getStatusBadge = (status: string) => {
