@@ -618,8 +618,47 @@ export default function LandingPage() {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-background text-foreground font-['Inter'] relative"
     >
-      {/* Abstract tech network background */}
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none animated-background" />
+      {/* Dynamic Background Options */}
+      {backgroundType === "gradient" && (
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="animated-background absolute inset-0" />
+          <div className="floating-orbs absolute inset-0" />
+        </div>
+      )}
+
+      {backgroundType === "particles" && <BackgroundParticles />}
+
+      {backgroundType === "spline" && <SplineBackgroundDemo />}
+
+      {backgroundType === "mesh" && (
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="mesh-gradient absolute inset-0" />
+          <div className="grid-pattern absolute inset-0" />
+        </div>
+      )}
+
+      {/* Background Switcher - Demo purposes (bisa dihapus nanti) */}
+      <div className="fixed top-20 right-4 z-50 bg-card/90 backdrop-blur-sm border border-border rounded-lg p-3">
+        <p className="text-xs text-muted-foreground mb-2">Background Style:</p>
+        <div className="grid grid-cols-2 gap-1">
+          {(["gradient", "particles", "spline", "mesh"] as const).map((type) => (
+            <button
+              key={type}
+              onClick={() => setBackgroundType(type)}
+              className={`text-xs px-2 py-1 rounded transition-colors ${
+                backgroundType === type
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-accent"
+              }`}
+            >
+              {type === "gradient" && "🎨 Gradient"}
+              {type === "particles" && "✨ Particles"}
+              {type === "spline" && "🎲 3D Demo"}
+              {type === "mesh" && "🌐 Mesh"}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Navigation Bar - Cleaner Design */}
       <header
