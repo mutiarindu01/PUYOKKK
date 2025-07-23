@@ -31,20 +31,20 @@ export default function BackgroundParticles() {
 
     const createParticles = () => {
       const particles: Particle[] = []
-      const particleCount = Math.floor((canvas.width * canvas.height) / 15000)
-      
+      const particleCount = Math.floor((canvas.width * canvas.height) / 20000) // Reduce for better performance
+
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.5 + 0.2,
-          color: ['#3b82f6', '#8b5cf6', '#ec4899', '#06b6d4'][Math.floor(Math.random() * 4)]
+          vx: (Math.random() - 0.5) * 0.3, // Slower movement
+          vy: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 1.5 + 0.5, // Smaller particles
+          opacity: Math.random() * 0.4 + 0.1, // More subtle
+          color: ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'][Math.floor(Math.random() * 5)]
         })
       }
-      
+
       particlesRef.current = particles
     }
 
