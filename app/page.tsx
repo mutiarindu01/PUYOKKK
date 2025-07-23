@@ -383,8 +383,22 @@ function TrendingCard({ item }: { item: (typeof trendingItems)[0] }) {
 }
 
 function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
+  const router = useRouter()
+
+  const handleRowClick = () => {
+    router.push(`/marketplace/${token.id}`)
+  }
+
+  const handleBuyClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    router.push(`/marketplace/${token.id}`)
+  }
+
   return (
-    <div className="flex items-center justify-between py-4 border-b border-border last:border-b-0 hover:bg-accent transition-all duration-200 rounded-lg px-2 -mx-2">
+    <div
+      className="flex items-center justify-between py-4 border-b border-border last:border-b-0 hover:bg-accent transition-all duration-200 rounded-lg px-2 -mx-2 cursor-pointer"
+      onClick={handleRowClick}
+    >
       <div className="flex items-center gap-4">
         <img src={token.icon || "/placeholder.svg"} alt={token.ticker} className="w-8 h-8 rounded-full" />
         <div>
@@ -424,7 +438,12 @@ function TokenRow({ token }: { token: (typeof marketplaceTokens)[0] }) {
 
       <div className="flex flex-col items-end gap-2">
         <PaymentMethodIcons methods={token.paymentMethods} />
-        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Beli</Button>
+        <Button
+          className="bg-primary hover:bg-primary/90 text-primary-foreground"
+          onClick={handleBuyClick}
+        >
+          Beli
+        </Button>
       </div>
     </div>
   )
