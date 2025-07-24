@@ -846,12 +846,6 @@ export default function LandingPage() {
 
             {/* Right Side - Buttons */}
             <nav className="flex items-center gap-3">
-              {/* Background Switcher in Navigation */}
-              <NavBackgroundSwitcher
-                backgroundType={backgroundType}
-                setBackgroundType={setBackgroundType}
-              />
-
               <Button
                 variant="outline"
                 className="border-border text-foreground hover:bg-accent bg-transparent hidden md:inline-flex"
