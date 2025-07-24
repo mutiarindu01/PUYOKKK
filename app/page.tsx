@@ -986,7 +986,7 @@ export default function LandingPage() {
             <div className="mt-4 text-center">
               <Button className="bg-purple-600 hover:bg-purple-700 text-white" asChild>
                 <Link href="/voting">
-                  🗳️ Partisipasi Voting & Dapatkan POAP NFT
+                  🗳️ Vote & Terima POAP NFT Otomatis
                 </Link>
               </Button>
             </div>
@@ -1391,7 +1391,7 @@ export default function LandingPage() {
                 <div className="space-y-4 text-left">
                   <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-primary text-sm">����</span>
+                      <span className="text-primary text-sm">💰</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Hemat 80% Biaya Transaksi</p>
