@@ -1014,8 +1014,8 @@ export default function LandingPage() {
                   <span className="text-2xl">🚀</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">First-Time Behaviors</h3>
-                  <p className="text-sm text-gray-400">Tracked in real-time</p>
+                  <h3 className="text-lg font-bold text-white">Auto-Minted Rewards</h3>
+                  <p className="text-sm text-gray-400">Instant delivery to wallet</p>
                 </div>
               </div>
 
