@@ -54,6 +54,7 @@ export default function LandingPage() {
   const [isNavOpen, setIsNavOpen] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const [backgroundType, setBackgroundType] = useState<"gradient" | "particles" | "spline" | "mesh">("spline")
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
   const lastScrollY = useRef(0)
   const router = useRouter()
 
