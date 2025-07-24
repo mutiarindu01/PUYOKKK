@@ -721,12 +721,12 @@ export default function LandingPage() {
                 </motion.p>
               </div>
 
-              {/* Statistics */}
+              {/* Enhanced Statistics with Pioneer System */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="grid grid-cols-3 gap-6"
+                className="grid grid-cols-2 md:grid-cols-4 gap-4"
               >
                 <div className="text-center">
                   <div className="text-2xl md:text-3xl font-bold text-brand-green mb-1">{liveStats.collections}</div>
@@ -738,7 +738,14 @@ export default function LandingPage() {
                 </div>
                 <div className="text-center">
                   <div className="text-2xl md:text-3xl font-bold text-purple-400 mb-1">{liveStats.creators}</div>
-                  <div className="text-sm text-gray-400">Koleksi/Kreator</div>
+                  <div className="text-sm text-gray-400">Pioneers NFT</div>
+                </div>
+                <div className="text-center relative">
+                  <div className="text-2xl md:text-3xl font-bold text-yellow-400 mb-1">156</div>
+                  <div className="text-sm text-gray-400">Active Voters</div>
+                  <Badge className="absolute -top-2 -right-1 bg-green-500 text-white text-xs animate-pulse">
+                    LIVE
+                  </Badge>
                 </div>
               </motion.div>
 
