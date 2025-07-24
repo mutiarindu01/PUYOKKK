@@ -930,7 +930,143 @@ export default function LandingPage() {
 
       </section>
 
+      {/* Voting System Preview */}
+      <motion.section
+        className="py-16 bg-gradient-to-br from-purple-900/10 to-blue-900/10"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-4xl mx-auto px-6 md:px-10">
+          <Card className="bg-gradient-to-r from-purple-500/5 to-blue-500/5 border border-purple-500/20 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-purple-400">🗳️</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">Community Governance</h3>
+                  <p className="text-sm text-gray-400">Otomatis trigger voting setiap 30 hari</p>
+                </div>
+              </div>
+              <Badge className="bg-green-500/10 text-green-400 border-green-500/20 animate-pulse">
+                3 Proposal Aktif
+              </Badge>
+            </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-card/30 border border-purple-500/20 rounded-lg p-4">
+                <div className="text-sm text-purple-400 mb-1">Proposal #1</div>
+                <div className="text-white font-medium mb-2">New Payment Method: QRIS</div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-green-400">68% Setuju</span>
+                  <span className="text-gray-400">2 hari lagi</span>
+                </div>
+              </div>
+
+              <div className="bg-card/30 border border-blue-500/20 rounded-lg p-4">
+                <div className="text-sm text-blue-400 mb-1">Proposal #2</div>
+                <div className="text-white font-medium mb-2">Reduce Trading Fees</div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-green-400">84% Setuju</span>
+                  <span className="text-gray-400">5 hari lagi</span>
+                </div>
+              </div>
+
+              <div className="bg-card/30 border border-yellow-500/20 rounded-lg p-4">
+                <div className="text-sm text-yellow-400 mb-1">Proposal #3</div>
+                <div className="text-white font-medium mb-2">NFT Staking Feature</div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-orange-400">45% Setuju</span>
+                  <span className="text-gray-400">1 minggu lagi</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 text-center">
+              <Button className="bg-purple-600 hover:bg-purple-700 text-white" asChild>
+                <Link href="/voting">
+                  🗳️ Partisipasi Voting & Dapatkan POAP NFT
+                </Link>
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </motion.section>
+
+      {/* Pioneer NFT Behavior Tracker Preview */}
+      <motion.section
+        className="py-16 bg-gradient-to-br from-orange-900/10 to-red-900/10"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-4xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-white mb-4">Pioneer Behavior Tracking</h2>
+            <p className="text-gray-300">Sistem AI otomatis memantau milestone Anda dan memberikan NFT 1/1 eksklusif</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">🚀</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">First-Time Behaviors</h3>
+                  <p className="text-sm text-gray-400">Tracked in real-time</p>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-card/30 border border-orange-500/20 rounded-lg">
+                  <span className="text-white">First Escrow Transaction</span>
+                  <Badge className="bg-red-500/10 text-red-400">1/1 NFT</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-card/30 border border-orange-500/20 rounded-lg">
+                  <span className="text-white">First NFT Creation</span>
+                  <Badge className="bg-red-500/10 text-red-400">1/1 NFT</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-card/30 border border-orange-500/20 rounded-lg">
+                  <span className="text-white">First Voting Participation</span>
+                  <Badge className="bg-red-500/10 text-red-400">1/1 NFT</Badge>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">🤖</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">AI Monitoring</h3>
+                  <p className="text-sm text-gray-400">Stagnation detection</p>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div className="bg-card/30 border border-green-500/20 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-white text-sm">Innovation Rate</span>
+                    <span className="text-green-400 font-bold">98%</span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div className="bg-green-500 h-2 rounded-full" style={{width: "98%"}}></div>
+                  </div>
+                </div>
+
+                <div className="bg-card/30 border border-blue-500/20 rounded-lg p-4">
+                  <div className="text-sm text-blue-400 mb-1">Next Auto-Voting</div>
+                  <div className="text-white font-medium">27 hari lagi</div>
+                  <div className="text-xs text-gray-400">Berdasarkan aktivitas community</div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </motion.section>
 
       {/* Live Activity Feed */}
       <motion.section
