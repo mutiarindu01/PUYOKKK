@@ -490,62 +490,109 @@ export default function SophisticatedMarketplace() {
             </div>
           </div>
           
-          {/* Display Area */}
+          {/* Enhanced Display Area */}
           <div className="bg-[#1F2937] border border-white/10 rounded-xl p-6">
-            {viewMode === "list" ? (
-              <div className="space-y-0">
-                {filteredOrders.map((order, index) => (
-                  <motion.div
-                    key={order.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="flex items-center justify-between py-4 border-b border-white/5 last:border-b-0 hover:bg-white/5 transition-colors rounded-lg px-2 -mx-2 cursor-pointer"
-                  >
-                    <div className="flex items-center gap-4">
-                      <img 
-                        src={order.type === "Token" ? order.icon : order.image} 
-                        alt={order.name}
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-white font-medium">{order.name}</span>
-                          {order.verified && <Verified className="w-4 h-4 text-blue-500" />}
+            {filteredOrders.length > 0 ? (
+              viewMode === "list" ? (
+                <div className="space-y-0">
+                  {filteredOrders.map((order, index) => (
+                    <motion.div
+                      key={order.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="flex items-center justify-between py-4 border-b border-white/5 last:border-b-0 hover:bg-white/5 hover:border-blue-500/20 transition-all duration-200 rounded-lg px-4 -mx-4 cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="relative">
+                          <img
+                            src={order.type === "Token" ? order.icon : order.image}
+                            alt={order.name}
+                            className="w-12 h-12 rounded-full object-cover border border-white/10 group-hover:border-blue-500/30 transition-all"
+                          />
+                          {order.verified && (
+                            <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1">
+                              <Verified className="w-3 h-3 text-white" />
+                            </div>
+                          )}
                         </div>
-                        <div className="text-gray-400 text-sm">{order.symbol}</div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-white font-medium text-lg group-hover:text-blue-400 transition-colors">
+                              {order.name}
+                            </span>
+                          </div>
+                          <div className="text-gray-400 text-sm">{order.symbol}</div>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <div className="text-right">
-                      <div className="text-white font-bold">{order.price}</div>
-                      {order.type === "Token" && order.change && (
-                        <div className={`text-sm ${
-                          order.change.startsWith("+") ? "text-green-400" : "text-red-400"
-                        }`}>
-                          {order.change}
+
+                      <div className="text-right">
+                        <div className="text-white font-bold text-lg">{order.price}</div>
+                        {order.type === "Token" && order.change && (
+                          <div className={`text-sm font-medium ${
+                            order.change.startsWith("+") ? "text-green-400" : "text-red-400"
+                          }`}>
+                            {order.change}
+                          </div>
+                        )}
+                        {order.type === "NFT" && (
+                          <div className="flex items-center gap-1 text-gray-400 text-sm">
+                            <Eye className="w-3 h-3" />
+                            {order.views}
+                          </div>
+                        )}
+                      </div>
+
+                      <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-600/25 transition-all">
+                        Beli
+                      </Button>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {filteredOrders.filter(order => order.type === "NFT").map((nft, index) => (
+                    <motion.div
+                      key={nft.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="transform hover:scale-105 transition-transform duration-200"
+                    >
+                      <div className="bg-[#0D1117] border border-white/10 hover:border-blue-500/50 rounded-xl overflow-hidden transition-all duration-300 cursor-pointer">
+                        <div className="aspect-square relative overflow-hidden">
+                          <img
+                            src={nft.image}
+                            alt={nft.name}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
+                            <Eye className="w-3 h-3 text-white" />
+                            <span className="text-white text-xs">{nft.views}</span>
+                          </div>
                         </div>
-                      )}
-                    </div>
-                    
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                      Beli
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
+                        <div className="p-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <h3 className="text-white font-semibold text-sm truncate">{nft.name}</h3>
+                            {nft.verified && <Verified className="w-4 h-4 text-blue-500 flex-shrink-0" />}
+                          </div>
+                          <p className="text-gray-400 text-xs mb-3 truncate">{nft.collection}</p>
+                          <div className="flex items-center justify-between">
+                            <div className="text-white font-bold text-sm">{nft.price}</div>
+                            <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs">
+                              Beli
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredOrders.filter(order => order.type === "NFT").map((nft, index) => (
-                  <motion.div
-                    key={nft.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <FeaturedNFTCard nft={nft as any} />
-                  </motion.div>
-                ))}
+              <div className="text-center py-12">
+                <div className="text-gray-400 text-lg mb-2">Tidak ada hasil ditemukan</div>
+                <div className="text-gray-500 text-sm">Coba ubah filter atau kata kunci pencarian</div>
               </div>
             )}
           </div>
