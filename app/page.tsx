@@ -55,7 +55,7 @@ import Footer from "@/components/Footer"
 import LoadingButton, { BuyButton } from "@/components/LoadingButton"
 import MarketplaceLoading from "@/components/MarketplaceLoading"
 import BackgroundParticles from "@/components/BackgroundParticles"
-import { SplineBackgroundDemo } from "@/components/SplineBackground"
+import SplineBackground, { SplineBackgroundDemo } from "@/components/SplineBackground"
 import { motion } from "framer-motion"
 
 // Sample data for trending items
