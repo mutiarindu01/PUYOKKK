@@ -1022,15 +1022,15 @@ export default function LandingPage() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between p-3 bg-card/30 border border-orange-500/20 rounded-lg">
                   <span className="text-white">First Escrow Transaction</span>
-                  <Badge className="bg-red-500/10 text-red-400">1/1 NFT</Badge>
+                  <Badge className="bg-green-500/10 text-green-400">✅ Auto Mint</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-card/30 border border-orange-500/20 rounded-lg">
                   <span className="text-white">First NFT Creation</span>
-                  <Badge className="bg-red-500/10 text-red-400">1/1 NFT</Badge>
+                  <Badge className="bg-green-500/10 text-green-400">✅ Auto Mint</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-card/30 border border-orange-500/20 rounded-lg">
                   <span className="text-white">First Voting Participation</span>
-                  <Badge className="bg-red-500/10 text-red-400">1/1 NFT</Badge>
+                  <Badge className="bg-green-500/10 text-green-400">✅ Auto Mint</Badge>
                 </div>
               </div>
             </Card>
@@ -1391,7 +1391,7 @@ export default function LandingPage() {
                 <div className="space-y-4 text-left">
                   <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-primary text-sm">💰</span>
+                      <span className="text-primary text-sm">����</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Hemat 80% Biaya Transaksi</p>
