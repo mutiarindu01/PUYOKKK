@@ -729,10 +729,10 @@ export default function LandingPage() {
       {/* Final Call to Action Section */}
       <section className="py-20 bg-gradient-to-r from-primary/20 to-purple-600/20">
         <div className="max-w-4xl mx-auto px-6 md:px-10 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+          <h2 className="text-5xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
             Siap Memulai Perjalanan Digital Anda?
           </h2>
-          <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
+          <p className="text-base text-gray-300 mb-10 leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
             Bergabunglah dengan ribuan kreator dan kolektor yang sudah mempercayai PUYOK untuk transaksi aset digital
             mereka.
           </p>
