@@ -112,6 +112,14 @@ export default function LandingPage() {
     }
   }, [isNavOpen])
 
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   // Show loading screen while data is being fetched
   if (isLoading) {
     return <MarketplaceLoading />
