@@ -221,15 +221,15 @@ function FeaturedNFTCard({ nft }: { nft: typeof featuredNFTs[0] }) {
       
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
-          <h3 className="text-white font-semibold text-lg truncate">{nft.name}</h3>
+          <h3 className="text-white font-semibold text-lg truncate" style={{ fontFamily: 'Inter, sans-serif' }}>{nft.name}</h3>
           {nft.verified && <Verified className="w-4 h-4 text-blue-500 flex-shrink-0" />}
         </div>
-        <p className="text-gray-400 text-sm mb-4 truncate">{nft.collection}</p>
-        
+        <p className="text-gray-300 text-sm mb-4 truncate font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>{nft.collection}</p>
+
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-gray-400 text-xs">Harga</p>
-            <p className="text-white font-bold text-xl">{nft.price}</p>
+            <p className="text-gray-400 text-xs font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>Harga</p>
+            <p className="text-white font-bold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>{nft.price}</p>
           </div>
           <Button 
             className="bg-blue-600 hover:bg-blue-700 text-white"
