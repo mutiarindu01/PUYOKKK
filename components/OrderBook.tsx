@@ -212,6 +212,61 @@ export default function OrderBook({
   )
 }
 
+function OrderRowCompact({ order }: { order: OrderBookOrder }) {
+  return (
+    <div className="bg-[#0D1117] border border-white/5 rounded-lg p-3 hover:border-blue-500/30 transition-all cursor-pointer">
+      <div className="flex items-center justify-between">
+        {/* User Info */}
+        <div className="flex items-center gap-2">
+          <Link href={`/profile/${order.username}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Avatar className="w-6 h-6 border border-white/10">
+              <AvatarImage src={order.userAvatar} />
+              <AvatarFallback className="bg-[#1F2937] text-white text-xs">
+                <User className="w-3 h-3" />
+              </AvatarFallback>
+            </Avatar>
+            <div>
+              <div className="flex items-center gap-1">
+                <span className="text-white font-medium text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  @{order.username}
+                </span>
+                {order.verified && <Verified className="w-3 h-3 text-blue-500" />}
+                <Badge
+                  className={`${
+                    order.orderType === "buy"
+                      ? "bg-green-600 text-white text-xs"
+                      : "bg-red-600 text-white text-xs"
+                  } font-medium px-1 py-0`}
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  {order.orderType === "buy" ? "BUY" : "SELL"}
+                </Badge>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* Price and Actions */}
+        <div className="text-right">
+          <div className="flex items-center gap-2">
+            <span className="text-white font-bold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+              {order.price}
+            </span>
+            <div className={`text-xs font-medium ${
+              order.priceChangePercent.startsWith("+") ? "text-green-400" : "text-red-400"
+            }`} style={{ fontFamily: 'Inter, sans-serif' }}>
+              {order.priceChangePercent}
+            </div>
+          </div>
+          <div className="flex items-center justify-end gap-1 text-gray-400 text-xs">
+            <PaymentMethods methods={order.paymentMethods.slice(0, 2)} size="sm" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function OrderRow({ order }: { order: OrderBookOrder }) {
   return (
     <div className="bg-[#0D1117] border border-white/5 rounded-lg p-4 hover:border-blue-500/30 transition-all cursor-pointer">
