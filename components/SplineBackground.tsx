@@ -65,19 +65,17 @@ export function SplineBackgroundDemo() {
         {[...Array(6)].map((_, i) => (
           <div
             key={`circle-${i}`}
-            className="absolute animate-pulse"
+            className="absolute"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.7}s`,
-              animationDuration: `${4 + Math.random() * 2}s`
+              animation: `pulse ${4 + Math.random() * 2}s ease-in-out infinite ${i * 0.7}s`
             }}
           >
-            <div 
+            <div
               className="w-12 h-12 bg-gradient-to-br from-pink-400/15 to-blue-600/15 rounded-full"
               style={{
-                animation: `float ${5 + Math.random() * 2}s ease-in-out infinite reverse`,
-                animationDelay: `${i * 0.4}s`
+                animation: `float ${5 + Math.random() * 2}s ease-in-out infinite reverse ${i * 0.4}s`
               }}
             />
           </div>
