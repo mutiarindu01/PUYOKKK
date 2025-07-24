@@ -159,26 +159,27 @@ function TokenCard({ token }: { token: typeof trendingTokens[0] }) {
     <motion.div
       whileHover={{ scale: 1.02, borderColor: "#3B82F6" }}
       className="min-w-[280px] bg-[#1F2937] border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all duration-300 cursor-pointer"
+      style={{ fontFamily: 'Inter, sans-serif' }}
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
           <img src={token.icon} alt={token.symbol} className="w-8 h-8 rounded-full" />
           <div>
-            <h3 className="text-white font-semibold text-sm">{token.name}</h3>
-            <p className="text-gray-400 text-xs">{token.symbol}</p>
+            <h3 className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>{token.name}</h3>
+            <p className="text-gray-400 text-xs font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>{token.symbol}</p>
           </div>
         </div>
-        <Badge variant={token.trend === "up" ? "default" : "destructive"} className="text-xs">
+        <Badge variant={token.trend === "up" ? "default" : "destructive"} className="text-xs font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
           {token.change}
         </Badge>
       </div>
-      
+
       <div className="flex items-center justify-between mb-2">
-        <span className="text-white font-bold text-lg">{token.price}</span>
+        <span className="text-white font-bold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>{token.price}</span>
         <Sparkline data={token.sparklineData} trend={token.trend} />
       </div>
-      
-      <div className="text-gray-400 text-xs">
+
+      <div className="text-gray-400 text-xs font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
         Volume 24h: {token.volume}
       </div>
     </motion.div>
