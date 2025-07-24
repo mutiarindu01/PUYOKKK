@@ -74,6 +74,160 @@ export default function LandingPage() {
     creators: "2,350"
   })
 
+  // Featured NFTs Data
+  const featuredNFTs = [
+    {
+      id: 1,
+      title: "Mystical Garuda Shield",
+      collection: "Indonesian Mythology",
+      price: "Rp 45.000.000",
+      image: "/placeholder.svg",
+      creator: "MythArt_ID",
+      verified: true,
+      likes: 324,
+      offers: 12
+    },
+    {
+      id: 2,
+      title: "Rare Batik Medallion",
+      collection: "Traditional Arts",
+      price: "Rp 25.800.000",
+      image: "/placeholder.svg",
+      creator: "BatikMaster",
+      verified: true,
+      likes: 198,
+      offers: 8
+    },
+    {
+      id: 3,
+      title: "Cyberpunk Jakarta",
+      collection: "Future Indonesia",
+      price: "Rp 18.500.000",
+      image: "/placeholder.svg",
+      creator: "PixelIndo",
+      verified: false,
+      likes: 156,
+      offers: 5
+    },
+    {
+      id: 4,
+      title: "Wayang Punk Genesis",
+      collection: "Modern Traditional",
+      price: "Rp 32.000.000",
+      image: "/placeholder.svg",
+      creator: "WayangPunk",
+      verified: true,
+      likes: 267,
+      offers: 15
+    }
+  ]
+
+  // Live Activities Data
+  const liveActivities = [
+    {
+      id: 1,
+      user: "Budi_Collector",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Budi",
+      action: "membeli",
+      item: "Bored Ape #1234",
+      price: "Rp 850.000.000",
+      time: "2 menit lalu",
+      verified: true
+    },
+    {
+      id: 2,
+      user: "CryptoQueen_ID",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Queen",
+      action: "menjual",
+      item: "CryptoPunk #7890",
+      price: "Rp 1.200.000.000",
+      time: "5 menit lalu",
+      verified: true
+    },
+    {
+      id: 3,
+      user: "ArtistIndo",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Artist",
+      action: "listing baru",
+      item: "Batik Genesis Collection",
+      price: "mulai Rp 15.000.000",
+      time: "8 menit lalu",
+      verified: false
+    },
+    {
+      id: 4,
+      user: "TokenMaster",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Master",
+      action: "swap",
+      item: "50 ETH → 750jt USDT",
+      price: "dalam 30 detik",
+      time: "12 menit lalu",
+      verified: true
+    },
+    {
+      id: 5,
+      user: "NFTHunter_JKT",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hunter",
+      action: "bid",
+      item: "Rare Wayang Digital",
+      price: "Rp 28.000.000",
+      time: "15 menit lalu",
+      verified: true
+    }
+  ]
+
+  // Categories Data
+  const categories = [
+    {
+      id: 1,
+      name: "Seni Digital",
+      icon: Palette,
+      count: "2,341",
+      href: "/marketplace?category=art",
+      color: "from-pink-500 to-purple-600"
+    },
+    {
+      id: 2,
+      name: "Koleksi",
+      icon: Trophy,
+      count: "1,847",
+      href: "/marketplace?category=collectibles",
+      color: "from-blue-500 to-cyan-600"
+    },
+    {
+      id: 3,
+      name: "Fotografi",
+      icon: Camera,
+      count: "956",
+      href: "/marketplace?category=photography",
+      color: "from-green-500 to-emerald-600"
+    },
+    {
+      id: 4,
+      name: "Gaming",
+      icon: Gamepad2,
+      count: "1,234",
+      href: "/marketplace?category=gaming",
+      color: "from-orange-500 to-red-600"
+    },
+    {
+      id: 5,
+      name: "Musik",
+      icon: Music,
+      count: "567",
+      href: "/marketplace?category=music",
+      color: "from-purple-500 to-indigo-600"
+    },
+    {
+      id: 6,
+      name: "Virtual World",
+      icon: ImageIcon,
+      count: "834",
+      href: "/marketplace?category=virtual",
+      color: "from-yellow-500 to-orange-600"
+    }
+  ]
+
   // Legendary Awards Data
   const legendaryAwards = [
     {
@@ -779,6 +933,197 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
+      {/* Featured NFTs Section */}
+      <motion.section
+        className="py-20 bg-gradient-to-br from-gray-900/50 to-gray-800/30"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              Featured NFTs
+            </h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Koleksi NFT pilihan dengan kualitas terbaik dari kreator Indonesia terpercaya
+            </p>
+          </div>
+
+          {/* NFT Grid - 2 columns on desktop, carousel on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredNFTs.map((nft, index) => (
+              <motion.div
+                key={nft.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <Card className="bg-gray-900/60 border border-gray-700 overflow-hidden hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/20 rounded-xl">
+                  <div className="relative">
+                    <img
+                      src={nft.image}
+                      alt={nft.title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute top-2 right-2 flex gap-1">
+                      <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 text-xs text-white flex items-center gap-1">
+                        <Heart className="w-3 h-3" />
+                        {nft.likes}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-bold text-white text-lg mb-1">{nft.title}</h3>
+                    <p className="text-gray-400 text-sm mb-3">{nft.collection}</p>
+
+                    <div className="flex justify-between items-center mb-3">
+                      <div className="text-brand-green font-bold text-lg">{nft.price}</div>
+                      <div className="text-gray-400 text-sm">{nft.offers} offers</div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                          <span className="text-white text-xs font-bold">{nft.creator[0]}</span>
+                        </div>
+                        <span className="text-gray-300 text-sm truncate">{nft.creator}</span>
+                        {nft.verified && (
+                          <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
+                            <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <Button
+                      className="w-full mt-3 bg-brand-green/20 hover:bg-brand-green/30 text-brand-green border border-brand-green/50 rounded-lg"
+                      asChild
+                    >
+                      <Link href={`/marketplace/${nft.id}`}>Lihat Detail</Link>
+                    </Button>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Live Activity Feed */}
+      <motion.section
+        className="py-20 bg-gradient-to-br from-blue-900/20 to-purple-900/20"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-4xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                Aktivitas Terbaru
+              </h2>
+            </div>
+            <p className="text-gray-300">
+              Pantau transaksi dan aktivitas terbaru dari komunitas PUYOK
+            </p>
+          </div>
+
+          <Card className="bg-gray-900/60 border border-gray-700 p-6 rounded-xl">
+            <div className="space-y-4">
+              {liveActivities.map((activity, index) => (
+                <motion.div
+                  key={activity.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-start gap-4 p-4 bg-gray-800/30 border border-gray-700/50 rounded-lg hover:border-brand-green/30 transition-colors"
+                >
+                  <img
+                    src={activity.avatar}
+                    alt={activity.user}
+                    className="w-12 h-12 rounded-full border-2 border-gray-600"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-semibold text-white">{activity.user}</span>
+                      {activity.verified && (
+                        <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-gray-300 mb-1">
+                      {activity.action} <Link href="#" className="text-brand-green hover:underline">{activity.item}</Link>
+                    </p>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-brand-green font-bold">{activity.price}</span>
+                      <span className="text-gray-500">{activity.time}</span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="text-center mt-6">
+              <Button
+                variant="outline"
+                className="border-brand-green/50 text-brand-green hover:bg-brand-green/10"
+                asChild
+              >
+                <Link href="/activity">Lihat Semua Aktivitas</Link>
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </motion.section>
+
+      {/* Popular Categories */}
+      <motion.section
+        className="py-20 bg-gradient-to-br from-purple-900/20 to-pink-900/20"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              Kategori Populer
+            </h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Jelajahi berbagai kategori NFT yang paling diminati di marketplace PUYOK
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {categories.map((category, index) => {
+              const IconComponent = category.icon
+              return (
+                <motion.div
+                  key={category.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Link href={category.href}>
+                    <Card className="bg-gray-900/60 border border-gray-700 p-6 text-center hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/20 rounded-xl">
+                      <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${category.color} rounded-full flex items-center justify-center`}>
+                        <IconComponent className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="font-bold text-white mb-2">{category.name}</h3>
+                      <p className="text-gray-400 text-sm">{category.count} items</p>
+                    </Card>
+                  </Link>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      </motion.section>
+
       {/* Trust Badges & Payment Partners Section */}
       <section className="py-12 bg-card/20 border-y border-border/50">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -1009,7 +1354,7 @@ export default function LandingPage() {
                 <div className="space-y-4 text-left">
                   <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
                     <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-red-500 text-sm">💸</span>
+                      <span className="text-red-500 text-sm">����</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Fee Menggerus Keuntungan</p>
