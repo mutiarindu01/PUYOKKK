@@ -828,7 +828,7 @@ export default function LandingPage() {
                           </div>
                           {/* Pioneer Badge - Enhanced */}
                           <Badge className="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-orange-500 text-white border-none text-sm font-bold shadow-lg">
-                            🏆 1/1 PIONEER
+                            ��� 1/1 PIONEER
                           </Badge>
                           {/* Interactive Glow Effect */}
                           <div className="absolute inset-0 bg-gradient-to-t from-transparent via-purple-500/5 to-yellow-500/10 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
@@ -891,7 +891,7 @@ export default function LandingPage() {
                               </Link>
                             </Button>
                             <p className="text-xs text-center text-gray-400">
-                              Otomatis didapat saat milestone tercapai
+                              Otomatis terkirim ke wallet Anda
                             </p>
                           </div>
                         </div>
@@ -1038,7 +1038,7 @@ export default function LandingPage() {
             <Card className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">🤖</span>
+                  <span className="text-2xl">����</span>
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">AI Monitoring</h3>
