@@ -954,6 +954,78 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-20">
+        <div className="max-w-4xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Pertanyaan yang Sering Ditanyakan</h2>
+            <p className="text-gray-300">Jawaban untuk keraguan Anda tentang PUYOK</p>
+          </div>
+
+          <div className="space-y-6">
+            <Card className="bg-card border border-border">
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-white mb-3">🔒 Bagaimana keamanan dana saya?</h3>
+                <p className="text-gray-300 leading-relaxed">
+                  Dana Anda diamankan 100% dengan sistem escrow otomatis. Ketika membeli, uang disimpan dalam smart contract hingga aset NFT/Token berhasil ditransfer ke wallet Anda. Jika ada masalah, dana otomatis dikembalikan penuh. Sistem ini sudah diaudit dan terdaftar resmi.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="bg-card border border-border">
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-white mb-3">💰 Berapa biaya transaksi di PUYOK?</h3>
+                <p className="text-gray-300 leading-relaxed">
+                  Biaya transaksi hanya 2-3% dari nilai transaksi - jauh lebih murah dari platform global yang memungut 10-15%. Tidak ada biaya tersembunyi. Yang Anda lihat di kalkulator adalah yang Anda bayar. Biaya sudah termasuk escrow, verifikasi, dan customer support 24/7.
+                </p>
+              </div>
+            </Card>
+
+            <Card className="bg-card border border-border">
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-white mb-3">🚨 Apa yang terjadi jika ada masalah dalam transaksi?</h3>
+                <p className="text-gray-300 leading-relaxed mb-4">
+                  PUYOK memiliki sistem proteksi berlapis:
+                </p>
+                <ul className="text-gray-300 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">✓</span>
+                    <span><strong>Escrow otomatis:</strong> Dana dikembalikan jika aset tidak terkirim dalam 24 jam</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">✓</span>
+                    <span><strong>Tim mediasi:</strong> Support 24/7 untuk menyelesaikan sengketa</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">✓</span>
+                    <span><strong>Garansi 100%:</strong> Ganti rugi penuh jika sistem kami error</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">✓</span>
+                    <span><strong>Blacklist otomatis:</strong> Penipu langsung diblokir dari platform</span>
+                  </li>
+                </ul>
+              </div>
+            </Card>
+
+            <Card className="bg-gradient-to-r from-primary/10 to-purple-600/10 border border-primary/30">
+              <div className="p-6 text-center">
+                <h3 className="text-lg font-bold text-white mb-3">🤔 Masih ada pertanyaan?</h3>
+                <p className="text-gray-300 mb-4">Tim support kami siap membantu Anda 24/7</p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button className="bg-primary hover:bg-primary/90">
+                    💬 Chat dengan Support
+                  </Button>
+                  <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10">
+                    📖 Baca Panduan Lengkap
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Final Call to Action Section */}
       <section className="py-20 bg-gradient-to-r from-primary/20 to-purple-600/20">
         <div className="max-w-4xl mx-auto px-6 md:px-10 text-center">
