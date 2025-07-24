@@ -913,31 +913,7 @@ export default function LandingPage() {
             </Card>
           </motion.div>
 
-          {/* Call to Action */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-primary/10 via-green-500/10 to-primary/10 border border-primary/30 p-8">
-              <h3 className="text-2xl font-bold text-white mb-4">🚀 Siap Hemat 80% Biaya Transaksi?</h3>
-              <p className="text-gray-300 mb-6">Bergabunglah dengan 10,000+ pengguna yang sudah merasakan keuntungan PUYOK</p>
 
-              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
-                <Button className="bg-primary hover:bg-primary/90 px-8 py-4 text-lg">
-                  📱 Daftar Sekarang & Hemat 80%
-                </Button>
-                <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 px-6 py-4">
-                  🧮 Hitung Penghematan Anda
-                </Button>
-              </div>
-
-              <div className="text-xs text-gray-400">
-                ✓ Gratis daftar • ✓ Verifikasi 1 menit • ✓ Fee transparan tanpa biaya tersembunyi
-              </div>
-            </Card>
-          </motion.div>
         </div>
       </motion.section>
 
