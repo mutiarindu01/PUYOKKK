@@ -49,6 +49,7 @@ import { motion } from "framer-motion"
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
 
 export default function LandingPage() {
+  const [searchTerm, setSearchTerm] = useState("")
   const [isNavOpen, setIsNavOpen] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const [backgroundType, setBackgroundType] = useState<"gradient" | "particles" | "spline" | "mesh">("spline")
