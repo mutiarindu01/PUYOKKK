@@ -429,12 +429,12 @@ export default function LandingPage() {
       {/* Enhanced Hero Section */}
       <section className="relative py-20 md:py-32 text-center overflow-hidden">
         <div className="relative z-10 max-w-4xl mx-auto px-6">
-          <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
             Tukar Aset Digital,
             <br />
             <span className="text-primary">Terima Rupiah.</span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
             Marketplace P2P pertama di Indonesia untuk menukar NFT & Token dengan DANA, GoPay, OVO, dan transfer bank.
           </p>
           <Button
