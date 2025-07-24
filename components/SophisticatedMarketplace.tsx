@@ -575,13 +575,13 @@ export default function SophisticatedMarketplace() {
                         </div>
                         <div className="p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <h3 className="text-white font-semibold text-sm truncate">{nft.name}</h3>
+                            <h3 className="text-white font-semibold text-sm truncate" style={{ fontFamily: 'Inter, sans-serif' }}>{nft.name}</h3>
                             {nft.verified && <Verified className="w-4 h-4 text-blue-500 flex-shrink-0" />}
                           </div>
-                          <p className="text-gray-400 text-xs mb-3 truncate">{nft.collection}</p>
+                          <p className="text-gray-300 text-xs mb-3 truncate font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>{nft.collection}</p>
                           <div className="flex items-center justify-between">
-                            <div className="text-white font-bold text-sm">{nft.price}</div>
-                            <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs">
+                            <div className="text-white font-bold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>{nft.price}</div>
+                            <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
                               Beli
                             </Button>
                           </div>
