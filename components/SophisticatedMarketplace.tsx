@@ -363,10 +363,10 @@ export default function SophisticatedMarketplace() {
           className="mb-20 relative"
         >
           <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
               NFT Pilihan Minggu Ini
             </h2>
-            <p className="text-gray-400">
+            <p className="text-gray-300 text-base font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
               Koleksi NFT terpilih dengan kualitas dan nilai investasi terbaik
             </p>
           </div>
