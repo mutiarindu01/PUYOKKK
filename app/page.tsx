@@ -104,7 +104,8 @@ export default function LandingPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-background text-foreground font-['Inter'] relative"
+      className="min-h-screen bg-background text-foreground font-inter relative"
+      style={{ fontFamily: 'Inter, sans-serif' }}
     >
       {/* Dynamic Background Options with Smooth Transitions */}
       <motion.div
