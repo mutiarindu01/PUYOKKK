@@ -374,26 +374,26 @@ export default function LandingPage() {
           <p className="text-base md:text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
             Marketplace P2P pertama di Indonesia untuk menukar NFT & Token dengan DANA, GoPay, OVO, dan transfer bank.
           </p>
-          {/* Tiered CTA System */}
-          <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-xl font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
-                onClick={() => document.getElementById("marketplace")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                Lihat Marketplace
-                <ArrowRight className="ml-3 w-6 h-6" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-6 text-lg font-medium"
-                onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                Daftar Sekarang - Gratis
-              </Button>
-            </div>
+          {/* Focused CTA System */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-xl font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+              onClick={() => document.getElementById("trending-tokens")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              🛒 Beli Aset Digital
+              <ArrowRight className="ml-3 w-6 h-6" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-6 text-lg font-medium"
+              asChild
+            >
+              <Link href="/create-listing">
+                💰 Jual Aset Sekarang
+              </Link>
+            </Button>
           </div>
 
           {/* Enhanced Trust indicators */}
@@ -493,7 +493,7 @@ export default function LandingPage() {
                   <Shield className="w-6 h-6 text-green-500" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-2">��️ Proteksi PUYOK</h3>
+                  <h3 className="text-lg font-bold text-white mb-2">🛡️ Proteksi PUYOK</h3>
                   <p className="text-sm text-gray-300 mb-3">
                     Dana Anda diamankan 100% dengan sistem escrow otomatis. Ganti rugi penuh jika terjadi masalah dalam transaksi.
                   </p>
