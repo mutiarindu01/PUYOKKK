@@ -23,6 +23,9 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { formatRupiah } from "@/lib/currency"
+import PaymentMethods, { PaymentMethodsDetailed } from "./PaymentMethods"
+import TokenPriceChart, { DetailedTokenChart } from "./TokenPriceChart"
+import OrderBook from "./OrderBook"
 
 // Enhanced data for sophisticated marketplace
 const trendingTokens = [
