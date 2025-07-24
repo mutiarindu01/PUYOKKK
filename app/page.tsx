@@ -4,6 +4,7 @@ import { DropdownMenuLabel } from "@/components/ui/dropdown-menu"
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useState, useEffect, useRef } from "react"
 import {
+  Search,
   Plus,
   ArrowRight,
   User,
