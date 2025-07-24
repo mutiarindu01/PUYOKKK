@@ -4,20 +4,14 @@ import { DropdownMenuLabel } from "@/components/ui/dropdown-menu"
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useState, useEffect, useRef } from "react"
 import {
-  Search,
   Plus,
   ArrowRight,
   User,
-  List,
-  Grid3X3,
   Shield,
   Zap,
   Users,
   Star,
   Quote,
-  Twitter,
-  Instagram,
-  MessageCircle,
   ChevronDown,
   Menu,
   Building2,
@@ -25,12 +19,6 @@ import {
   CreditCard,
   DollarSign,
   Handshake,
-  TrendingUp,
-  ChevronLeft,
-  ChevronRight,
-  Verified,
-  Clock,
-  Eye,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
