@@ -658,8 +658,8 @@ export default function LandingPage() {
       <section id="testimonials" className="py-20 bg-card/30">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Apa Kata Komunitas Kami?</h2>
-            <p className="text-lg text-muted-foreground">Pengalaman nyata dari pengguna PUYOK</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Apa Kata Komunitas Kami?</h2>
+            <p className="text-base text-gray-300 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>Pengalaman nyata dari pengguna PUYOK</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
