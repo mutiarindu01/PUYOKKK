@@ -195,15 +195,21 @@ export default function LandingPage() {
         setBackgroundType={setBackgroundType}
       />
 
-      {/* Navigation Bar - Cleaner Design */}
+      {/* Navigation Bar - Enhanced Design */}
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ease-in-out ${
-          isNavOpen ? "h-16 backdrop-blur-md bg-background/80 border-b border-border/50" : "h-12 bg-transparent"
+        className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
+          isNavOpen
+            ? "h-16 backdrop-blur-md bg-background/80 border-b border-border/50 shadow-lg shadow-background/20"
+            : "h-12 bg-transparent border-transparent transform -translate-y-1"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 h-full flex items-center justify-between">
           <div
-            className={`flex items-center justify-between w-full transition-opacity duration-300 ease-in-out ${isNavOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+            className={`flex items-center justify-between w-full transition-all duration-500 ease-out ${
+              isNavOpen
+                ? "opacity-100 transform translate-y-0"
+                : "opacity-0 pointer-events-none transform -translate-y-2"
+            }`}
           >
             {/* Left Side - Logo and Title */}
             <div className="flex items-center gap-3">
