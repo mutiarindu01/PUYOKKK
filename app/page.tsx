@@ -674,40 +674,40 @@ export default function LandingPage() {
         )}
       </motion.div>
 
-      {/* Elegant Background Switcher */}
+      {/* Elegant Background Switcher - Responsive */}
       <motion.div
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1, duration: 0.5 }}
-        className="fixed top-24 right-6 z-50"
+        className="fixed top-24 right-4 md:right-6 z-50"
       >
-        <div className="bg-card/95 backdrop-blur-md border border-border/50 rounded-xl p-4 shadow-xl shadow-black/5">
+        <div className="bg-card/95 backdrop-blur-md border border-border/50 rounded-xl p-3 md:p-4 shadow-xl shadow-black/5">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-            <p className="text-sm font-medium text-foreground">Background</p>
+            <p className="text-xs md:text-sm font-medium text-foreground">Background</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-1.5 md:gap-2">
             {(["gradient", "particles", "spline", "mesh"] as const).map((type) => (
               <motion.button
                 key={type}
                 onClick={() => setBackgroundType(type)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`group relative text-xs px-3 py-2 rounded-lg transition-all duration-300 ${
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`group relative text-xs px-2 md:px-3 py-1.5 md:py-2 rounded-lg transition-all duration-300 ${
                   backgroundType === type
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
                     : "bg-muted/50 text-muted-foreground hover:bg-accent hover:text-foreground"
                 }`}
               >
-                <div className="flex items-center gap-1.5">
+                <div className="flex flex-col md:flex-row items-center gap-0.5 md:gap-1.5">
                   <span className="text-sm">
                     {type === "gradient" && "🎨"}
                     {type === "particles" && "✨"}
                     {type === "spline" && "🎲"}
                     {type === "mesh" && "🌐"}
                   </span>
-                  <span className="font-medium capitalize">{type}</span>
+                  <span className="font-medium capitalize text-xs">{type}</span>
                 </div>
 
                 {backgroundType === type && (
@@ -721,9 +721,9 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <div className="mt-3 pt-3 border-t border-border/50">
+          <div className="mt-2 md:mt-3 pt-2 md:pt-3 border-t border-border/50">
             <p className="text-xs text-muted-foreground text-center">
-              Pilih style background favorit Anda
+              Style background favorit
             </p>
           </div>
         </div>
