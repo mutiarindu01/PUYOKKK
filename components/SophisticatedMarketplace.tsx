@@ -177,6 +177,63 @@ const featuredNFTs = [
   }
 ]
 
+// Sample order book data
+const sampleOrderBookData = {
+  btc: [
+    {
+      id: "order-1",
+      userId: "user1",
+      username: "crypto_master",
+      userAvatar: "/placeholder.svg?height=40&width=40",
+      verified: true,
+      orderType: "sell" as const,
+      quantity: "0.01 BTC",
+      price: "Rp 850.000.000",
+      priceChange: "Rp +15.000.000",
+      priceChangePercent: "+1.8%",
+      paymentMethods: ["dana", "gopay", "ovo"],
+      timePosted: "2 jam lalu",
+      completedTrades: 156,
+      successRate: 98.5,
+      lastTradePrice: "Rp 835.000.000"
+    },
+    {
+      id: "order-2",
+      userId: "user2",
+      username: "btc_lover",
+      userAvatar: "/placeholder.svg?height=40&width=40",
+      verified: false,
+      orderType: "buy" as const,
+      quantity: "0.005 BTC",
+      price: "Rp 845.000.000",
+      priceChange: "Rp +10.000.000",
+      priceChangePercent: "+1.2%",
+      paymentMethods: ["dana", "bank"],
+      timePosted: "4 jam lalu",
+      completedTrades: 23,
+      successRate: 95.7,
+      lastTradePrice: "Rp 835.000.000"
+    },
+    {
+      id: "order-3",
+      userId: "user3",
+      username: "hodler_pro",
+      userAvatar: "/placeholder.svg?height=40&width=40",
+      verified: true,
+      orderType: "sell" as const,
+      quantity: "0.02 BTC",
+      price: "Rp 848.000.000",
+      priceChange: "Rp +13.000.000",
+      priceChangePercent: "+1.6%",
+      paymentMethods: ["gopay", "ovo"],
+      timePosted: "6 jam lalu",
+      completedTrades: 78,
+      successRate: 97.4,
+      lastTradePrice: "Rp 835.000.000"
+    }
+  ]
+}
+
 const allOrders = [
   ...trendingTokens.map(token => ({ ...token, type: "Token" as const })),
   ...featuredNFTs.map(nft => ({ ...nft, type: "NFT" as const, symbol: nft.collection }))
