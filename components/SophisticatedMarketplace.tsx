@@ -293,7 +293,7 @@ export default function SophisticatedMarketplace() {
   }
   
   return (
-    <div className="bg-[#0D1117] text-white font-['Inter'] py-20">
+    <div className="bg-[#0D1117] text-white py-20" style={{ fontFamily: 'Inter, sans-serif' }}>
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         {/* Main Title */}
         <motion.div
@@ -301,10 +301,10 @@ export default function SophisticatedMarketplace() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
             Jelajahi Marketplace
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-base max-w-2xl mx-auto font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
             Temukan aset digital terbaik dari kreator Indonesia dengan transaksi yang aman dan mudah
           </p>
         </motion.div>
