@@ -41,12 +41,16 @@ interface OrderBookProps {
   low24h?: string
 }
 
-export default function OrderBook({ 
-  tokenSymbol, 
-  orders, 
-  currentPrice, 
-  priceChange, 
-  trend 
+export default function OrderBook({
+  tokenSymbol,
+  orders,
+  currentPrice,
+  priceChange,
+  trend,
+  chartData = [],
+  volume = "N/A",
+  high24h = "N/A",
+  low24h = "N/A"
 }: OrderBookProps) {
   const [activeTab, setActiveTab] = useState("all")
   
