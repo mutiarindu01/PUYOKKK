@@ -48,8 +48,7 @@ export function SplineBackgroundDemo() {
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `pulse ${3 + Math.random() * 2}s ease-in-out infinite`,
-              animationDelay: `${i * 0.5}s`
+              animation: `pulse ${3 + Math.random() * 2}s ease-in-out infinite ${i * 0.5}s`
             }}
           >
             <div
