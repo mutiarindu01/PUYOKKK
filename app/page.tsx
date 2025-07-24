@@ -220,112 +220,17 @@ export default function LandingPage() {
               />
               <span className="text-xl font-bold text-foreground">PUYOK</span>
 
-              {/* Desktop Navigation Menu */}
-              <nav className="hidden md:flex items-center gap-4 ml-6">
-                <DropdownMenu open={isExploreDropdownOpen} onOpenChange={setIsExploreDropdownOpen}>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="text-foreground hover:bg-accent">
-                      Jelajahi <ChevronDown className="ml-1 w-4 h-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-card border-border text-foreground w-56">
-                    <DropdownMenuSub>
-                      <DropdownMenuSubTrigger>Aset</DropdownMenuSubTrigger>
-                      <DropdownMenuSubContent className="bg-card border-border text-foreground">
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("#marketplace")
-                          }}
-                        >
-                          NFT
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("#marketplace")
-                          }}
-                        >
-                          Token
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuLabel>Kategori Seni</DropdownMenuLabel>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("#")
-                          }}
-                        >
-                          Seni
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("#")
-                          }}
-                        >
-                          Fotografi
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("#")
-                          }}
-                        >
-                          Gaming
-                        </DropdownMenuItem>
-                      </DropdownMenuSubContent>
-                    </DropdownMenuSub>
-
-                    <DropdownMenuSeparator />
-
-                    <DropdownMenuSub>
-                      <DropdownMenuSubTrigger>Tentang PUYOK</DropdownMenuSubTrigger>
-                      <DropdownMenuSubContent className="bg-card border-border text-foreground">
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("#how-it-works")
-                          }}
-                        >
-                          Bagaimana Kami Bekerja
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("#why-different")
-                          }}
-                        >
-                          Mengapa PUYOK
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("#testimonials")
-                          }}
-                        >
-                          Testimoni
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("/help")
-                          }}
-                        >
-                          Pusat Bantuan
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onSelect={() => {
-                            setIsExploreDropdownOpen(false)
-                            router.push("/whitepaper")
-                          }}
-                        >
-                          Whitepaper
-                        </DropdownMenuItem>
-                      </DropdownMenuSubContent>
-                    </DropdownMenuSub>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              {/* Simplified Desktop Navigation Menu */}
+              <nav className="hidden md:flex items-center gap-6 ml-8">
+                <Link href="/marketplace" className="text-foreground hover:text-primary transition-colors font-medium">
+                  Marketplace
+                </Link>
+                <Link href="#about" className="text-foreground hover:text-primary transition-colors font-medium">
+                  Tentang
+                </Link>
+                <Link href="/help" className="text-foreground hover:text-primary transition-colors font-medium">
+                  Bantuan
+                </Link>
               </nav>
             </div>
 
@@ -588,7 +493,7 @@ export default function LandingPage() {
                   <Shield className="w-6 h-6 text-green-500" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-2">🛡️ Proteksi PUYOK</h3>
+                  <h3 className="text-lg font-bold text-white mb-2">��️ Proteksi PUYOK</h3>
                   <p className="text-sm text-gray-300 mb-3">
                     Dana Anda diamankan 100% dengan sistem escrow otomatis. Ganti rugi penuh jika terjadi masalah dalam transaksi.
                   </p>
