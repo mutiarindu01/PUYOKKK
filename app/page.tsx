@@ -887,7 +887,7 @@ export default function LandingPage() {
                               asChild
                             >
                               <Link href={`/awards-marketplace/${award.id}`}>
-                                🏆 Claim Pioneer NFT
+                                🏆 Lihat Pioneer NFT
                               </Link>
                             </Button>
                             <p className="text-xs text-center text-gray-400">
