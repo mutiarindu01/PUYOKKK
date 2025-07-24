@@ -1003,8 +1003,8 @@ export default function LandingPage() {
       >
         <div className="max-w-4xl mx-auto px-6 md:px-10">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-white mb-4">Pioneer Behavior Tracking</h2>
-            <p className="text-gray-300">Sistem AI otomatis memantau milestone Anda dan memberikan NFT 1/1 eksklusif</p>
+            <h2 className="text-2xl font-bold text-white mb-4">Pioneer NFT Auto-Delivery</h2>
+            <p className="text-gray-300">Sistem AI otomatis mint & kirim NFT 1/1 ke wallet Anda saat milestone tercapai</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
