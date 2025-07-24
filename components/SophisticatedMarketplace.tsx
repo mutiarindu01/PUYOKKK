@@ -376,6 +376,10 @@ function FeaturedNFTCard({ nft }: { nft: typeof featuredNFTs[0] }) {
         </div>
         <p className="text-gray-300 text-sm mb-4 truncate font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>{nft.collection}</p>
 
+        <div className="mb-3">
+          <PaymentMethodsDetailed methods={["dana", "gopay", "ovo", "bank"]} />
+        </div>
+
         <div className="flex items-center justify-between">
           <div>
             <p className="text-gray-400 text-xs font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>Harga</p>
