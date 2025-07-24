@@ -246,27 +246,48 @@ function FeaturedNFTCard({ nft }: { nft: typeof featuredNFTs[0] }) {
 }
 
 export default function SophisticatedMarketplace() {
-  const [activeFilter, setActiveFilter] = useState("Semua")
+  const [activeFilter, setActiveFilter] = useState("NFT")
   const [viewMode, setViewMode] = useState<"list" | "grid">("list")
-  const [scrollPosition, setScrollPosition] = useState(0)
-  const carouselRef = useRef<HTMLDivElement>(null)
-  
-  const filteredOrders = allOrders.filter(order => 
-    activeFilter === "Semua" || order.type === activeFilter
-  )
-  
-  const scrollCarousel = (direction: "left" | "right") => {
-    if (carouselRef.current) {
+  const [searchTerm, setSearchTerm] = useState("")
+  const [tokenScrollPosition, setTokenScrollPosition] = useState(0)
+  const [nftScrollPosition, setNftScrollPosition] = useState(0)
+  const tokenCarouselRef = useRef<HTMLDivElement>(null)
+  const nftCarouselRef = useRef<HTMLDivElement>(null)
+
+  const filteredOrders = allOrders.filter(order => {
+    const matchesFilter = activeFilter === "Semua" || order.type === activeFilter
+    const matchesSearch = order.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         order.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+    return matchesFilter && matchesSearch
+  })
+
+  const scrollTokenCarousel = (direction: "left" | "right") => {
+    if (tokenCarouselRef.current) {
       const scrollAmount = 300
-      const newPosition = direction === "left" 
-        ? scrollPosition - scrollAmount 
-        : scrollPosition + scrollAmount
-      
-      carouselRef.current.scrollTo({
+      const newPosition = direction === "left"
+        ? tokenScrollPosition - scrollAmount
+        : tokenScrollPosition + scrollAmount
+
+      tokenCarouselRef.current.scrollTo({
         left: newPosition,
         behavior: "smooth"
       })
-      setScrollPosition(newPosition)
+      setTokenScrollPosition(newPosition)
+    }
+  }
+
+  const scrollNftCarousel = (direction: "left" | "right") => {
+    if (nftCarouselRef.current) {
+      const scrollAmount = 350
+      const newPosition = direction === "left"
+        ? nftScrollPosition - scrollAmount
+        : nftScrollPosition + scrollAmount
+
+      nftCarouselRef.current.scrollTo({
+        left: newPosition,
+        behavior: "smooth"
+      })
+      setNftScrollPosition(newPosition)
     }
   }
   
