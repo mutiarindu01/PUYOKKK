@@ -542,8 +542,8 @@ export default function LandingPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Tiga Pilar Nilai Jual Kami</h2>
-            <p className="text-xl text-muted-foreground">Fokus pada hasil akhir yang Anda rasakan</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Tiga Pilar Nilai Jual Kami</h2>
+            <p className="text-base text-gray-300 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>Fokus pada hasil akhir yang Anda rasakan</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
