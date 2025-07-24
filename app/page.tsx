@@ -468,8 +468,8 @@ export default function LandingPage() {
       <section id="why-different" className="py-20 bg-card/30">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Kenapa PUYOK Berbeda?</h2>
-            <p className="text-xl text-muted-foreground">Solusi lokal untuk kebutuhan global Anda</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Kenapa PUYOK Berbeda?</h2>
+            <p className="text-base text-gray-300 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>Solusi lokal untuk kebutuhan global Anda</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
