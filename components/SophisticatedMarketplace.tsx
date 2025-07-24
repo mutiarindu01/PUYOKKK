@@ -60,7 +60,18 @@ const trendingTokens = [
     change: "-1.5%",
     trend: "down" as const,
     volume: "Rp 1.800.000",
-    sparklineData: [67, 65, 62, 59, 55, 52, 48, 45, 43, 41]
+    high24h: "Rp 47.000.000",
+    low24h: "Rp 44.000.000",
+    sparklineData: [47000000, 46500000, 46000000, 45500000, 45200000, 45000000, 44800000, 44500000, 44200000, 45000000],
+    topSeller: {
+      username: "eth_trader",
+      avatar: "/placeholder.svg?height=24&width=24",
+      verified: true,
+      completedTrades: 89,
+      successRate: 97.2
+    },
+    paymentMethods: ["dana", "gopay", "bank"],
+    totalOrders: 18
   },
   {
     id: "usdt",
@@ -71,7 +82,18 @@ const trendingTokens = [
     change: "+0.2%",
     trend: "up" as const,
     volume: "Rp 5.200.000",
-    sparklineData: [15, 15.1, 15.05, 15.2, 15.18, 15.25, 15.3, 15.28, 15.35, 15.4]
+    high24h: "Rp 15.600",
+    low24h: "Rp 15.400",
+    sparklineData: [15400, 15420, 15410, 15450, 15460, 15480, 15490, 15470, 15500, 15500],
+    topSeller: {
+      username: "stable_king",
+      avatar: "/placeholder.svg?height=24&width=24",
+      verified: false,
+      completedTrades: 245,
+      successRate: 99.1
+    },
+    paymentMethods: ["dana", "gopay", "ovo", "shopeepay"],
+    totalOrders: 67
   },
   {
     id: "bnb",
@@ -82,7 +104,18 @@ const trendingTokens = [
     change: "+0.8%",
     trend: "up" as const,
     volume: "Rp 980.000",
-    sparklineData: [58, 59, 61, 63, 65, 67, 66, 68, 70, 72]
+    high24h: "Rp 6.100.000",
+    low24h: "Rp 5.900.000",
+    sparklineData: [5900000, 5920000, 5950000, 5980000, 6000000, 6020000, 6010000, 6030000, 6020000, 6000000],
+    topSeller: {
+      username: "bnb_holder",
+      avatar: "/placeholder.svg?height=24&width=24",
+      verified: true,
+      completedTrades: 34,
+      successRate: 96.8
+    },
+    paymentMethods: ["dana", "gopay"],
+    totalOrders: 12
   },
   {
     id: "ada",
@@ -93,7 +126,18 @@ const trendingTokens = [
     change: "+5.2%",
     trend: "up" as const,
     volume: "Rp 1.200.000",
-    sparklineData: [6.8, 7.1, 7.3, 7.5, 7.8, 8.0, 7.9, 8.2, 8.1, 8.4]
+    high24h: "Rp 8.000",
+    low24h: "Rp 7.100",
+    sparklineData: [7100, 7200, 7300, 7400, 7500, 7600, 7550, 7650, 7600, 7500],
+    topSeller: {
+      username: "ada_fan",
+      avatar: "/placeholder.svg?height=24&width=24",
+      verified: false,
+      completedTrades: 67,
+      successRate: 95.5
+    },
+    paymentMethods: ["dana", "ovo", "bank"],
+    totalOrders: 8
   }
 ]
 
