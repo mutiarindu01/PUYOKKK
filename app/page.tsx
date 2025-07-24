@@ -478,6 +478,87 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Trust Badges & Payment Partners Section */}
+      <section className="py-12 bg-card/20 border-y border-border/50">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-8">
+            <p className="text-sm text-muted-foreground mb-6">Didukung Pembayaran:</p>
+
+            {/* Payment Partner Logos */}
+            <div className="flex flex-wrap justify-center items-center gap-8 mb-8">
+              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
+                <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white text-xs font-bold">
+                  DANA
+                </div>
+                <span className="text-foreground font-medium">DANA</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
+                <div className="w-8 h-8 bg-green-600 rounded flex items-center justify-center text-white text-xs font-bold">
+                  Go
+                </div>
+                <span className="text-foreground font-medium">GoPay</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
+                <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center text-white text-xs font-bold">
+                  OVO
+                </div>
+                <span className="text-foreground font-medium">OVO</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
+                <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center text-white text-xs font-bold">
+                  BRI
+                </div>
+                <span className="text-foreground font-medium">Bank BRI</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
+                <div className="w-8 h-8 bg-blue-800 rounded flex items-center justify-center text-white text-xs font-bold">
+                  BCA
+                </div>
+                <span className="text-foreground font-medium">Bank BCA</span>
+              </div>
+            </div>
+
+            {/* Security Badges */}
+            <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-green-500" />
+                <span>Escrow terverifikasi</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-blue-500" />
+                <span>Smart contract audited</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-purple-500" />
+                <span>Terdaftar BAPPEBTI</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Escrow Transparency */}
+          <div className="max-w-4xl mx-auto">
+            <Card className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 p-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center shrink-0">
+                  <Shield className="w-6 h-6 text-green-500" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">🛡️ Proteksi PUYOK</h3>
+                  <p className="text-sm text-gray-300 mb-3">
+                    Dana Anda diamankan 100% dengan sistem escrow otomatis. Ganti rugi penuh jika terjadi masalah dalam transaksi.
+                  </p>
+                  <div className="text-xs text-muted-foreground">
+                    <span>Smart Contract Address: </span>
+                    <code className="bg-card px-2 py-1 rounded text-primary">0x863...bffb</code>
+                    <span className="text-green-500 ml-2">(Verified ✓)</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* NEW: Kenapa PUYOK Berbeda Section */}
       <section id="why-different" className="py-20 bg-card/30">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
