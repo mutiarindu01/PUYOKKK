@@ -25,6 +25,14 @@ import {
   ChevronLeft,
   ChevronRight,
   Trophy,
+  Eye,
+  Heart,
+  Users2,
+  Palette,
+  Camera,
+  Gamepad2,
+  Music,
+  ImageIcon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
