@@ -732,49 +732,45 @@ export default function LandingPage() {
               className="lg:col-span-5 space-y-4"
             >
               {/* Header */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-center mb-6">
                 <div className="flex items-center gap-2">
-                  <Crown className="w-5 h-5 text-yellow-400" />
-                  <h3 className="text-lg font-bold text-white">Legendary Awards</h3>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={prevSlide}
-                    className="w-8 h-8 p-0 border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white bg-transparent"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={nextSlide}
-                    className="w-8 h-8 p-0 border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white bg-transparent"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </Button>
+                  <Crown className="w-6 h-6 text-yellow-400" />
+                  <h3 className="text-xl font-bold text-white">Legendary Awards</h3>
                 </div>
               </div>
 
               {/* Slider Container */}
-              <div className="relative overflow-hidden">
-                <div
-                  ref={scrollRef}
-                  className="flex gap-4 overflow-x-auto scrollbar-hide"
-                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              <div className="relative">
+                {/* Navigation Buttons - Positioned at edges */}
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={prevSlide}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all"
                 >
-                  {legendaryAwards.map((award, index) => (
+                  <ChevronLeft className="w-5 h-5" />
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={nextSlide}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+
+                <div className="flex gap-6 justify-center">
+                  {legendaryAwards.slice(0, 2).map((award, index) => (
                     <motion.div
                       key={award.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex-shrink-0 w-80"
+                      className="w-96"
                     >
-                      <Card className="bg-gray-900/50 border border-gray-700 p-4 hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/10 backdrop-blur-sm">
+                      <Card className="bg-gray-900/50 border border-gray-700 p-6 hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/10 backdrop-blur-sm">
                         {/* Award Image */}
-                        <div className="relative mb-3">
+                        <div className="relative mb-4">
                           <div className="aspect-square bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 rounded-lg flex items-center justify-center overflow-hidden">
                             <img
                               src={award.image || "/placeholder.svg"}
@@ -782,52 +778,51 @@ export default function LandingPage() {
                               className="w-full h-full object-cover"
                             />
                           </div>
-                          {/* Rarity Badge */}
-                          <Badge className="absolute top-2 left-2 bg-yellow-500/20 text-yellow-400 border-yellow-500/50 text-xs">
-                            {award.rarity}
+                          {/* Rarity Badge - Show 1/1 */}
+                          <Badge className="absolute top-3 left-3 bg-red-500/90 text-white border-none text-sm font-bold">
+                            1/1
                           </Badge>
                           {/* Award Badge */}
-                          <Badge className="absolute top-2 right-2 bg-purple-500/20 text-purple-400 border-purple-500/50 text-xs">
+                          <Badge className="absolute top-3 right-3 bg-purple-500/20 text-purple-400 border-purple-500/50 text-sm">
                             {award.badge}
                           </Badge>
                         </div>
 
                         {/* Award Info */}
-                        <div className="space-y-2">
-                          <h4 className="font-semibold text-white text-sm truncate">{award.title}</h4>
+                        <div className="space-y-3">
+                          <h4 className="font-bold text-white text-lg">{award.title}</h4>
 
                           {/* Price */}
-                          <div className="text-brand-green font-bold text-sm">{award.price}</div>
+                          <div className="text-brand-green font-bold text-xl">{award.price}</div>
 
                           {/* Seller Info */}
-                          <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                              <span className="text-white text-xs font-bold">{award.seller[0]}</span>
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-sm font-bold">{award.seller[0]}</span>
                             </div>
-                            <span className="text-gray-300 text-xs truncate">{award.seller}</span>
+                            <span className="text-gray-300 text-sm">{award.seller}</span>
                             {award.verified && (
-                              <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
-                                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                              <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                                <div className="w-2 h-2 bg-white rounded-full"></div>
                               </div>
                             )}
                           </div>
 
                           {/* Stats */}
-                          <div className="flex items-center justify-between text-xs text-gray-400">
-                            <div className="flex items-center gap-1">
-                              <Star className="w-3 h-3" />
+                          <div className="flex items-center justify-between text-sm text-gray-400">
+                            <div className="flex items-center gap-2">
+                              <Star className="w-4 h-4" />
                               <span>{award.likes.toLocaleString()}</span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <Trophy className="w-3 h-3" />
+                            <div className="flex items-center gap-2">
+                              <Trophy className="w-4 h-4" />
                               <span>{award.views.toLocaleString()}</span>
                             </div>
                           </div>
 
                           {/* Action Button */}
                           <Button
-                            size="sm"
-                            className="w-full bg-brand-green/20 hover:bg-brand-green/30 text-brand-green border border-brand-green/50 text-xs"
+                            className="w-full bg-brand-green/20 hover:bg-brand-green/30 text-brand-green border border-brand-green/50"
                             asChild
                           >
                             <Link href={`/awards-marketplace/${award.id}`}>Lihat Detail</Link>
@@ -839,18 +834,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Slide Indicators */}
-              <div className="flex justify-center gap-2 mt-4">
-                {legendaryAwards.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentSlide ? "bg-brand-green" : "bg-gray-600"
-                    }`}
-                  />
-                ))}
-              </div>
+
 
               {/* View All Button */}
               <Button
@@ -864,70 +848,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Small Real-time Activity Widget - Bottom Right */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="absolute bottom-8 right-8 hidden lg:block"
-        >
-          <div className="bg-gradient-to-br from-card/90 to-primary/10 border border-border/50 rounded-xl p-4 backdrop-blur-md w-80">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <h3 className="text-sm font-bold text-white">Live Activity</h3>
-              <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-xs">LIVE</Badge>
-            </div>
 
-            {/* Compact Activity Feed */}
-            <div className="space-y-2">
-              <div className="bg-card/30 border border-green-500/20 rounded-lg p-2">
-                <div className="flex items-start gap-2">
-                  <span className="text-sm">🔥</span>
-                  <div className="flex-1">
-                    <p className="text-white text-xs">
-                      <span className="text-primary font-medium">Budi_</span> bought{" "}
-                      <span className="text-purple-400">Ape #1234</span>{" "}
-                      <span className="text-green-400 font-bold">Rp 850jt</span>
-                    </p>
-                    <p className="text-xs text-gray-500">2 min ago</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-card/30 border border-blue-500/20 rounded-lg p-2">
-                <div className="flex items-start gap-2">
-                  <span className="text-sm">💰</span>
-                  <div className="flex-1">
-                    <p className="text-white text-xs">
-                      <span className="text-primary font-medium">Queen</span> sold{" "}
-                      <span className="text-purple-400">Punk #7890</span>{" "}
-                      <span className="text-green-400 font-bold">Rp 1.2M</span>
-                    </p>
-                    <p className="text-xs text-gray-500">5 min ago</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Compact Stats */}
-            <div className="mt-3 pt-2 border-t border-border/30">
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div>
-                  <div className="text-primary font-bold text-sm">47</div>
-                  <div className="text-xs text-gray-500">Tx/hr</div>
-                </div>
-                <div>
-                  <div className="text-green-400 font-bold text-sm">2.8M</div>
-                  <div className="text-xs text-gray-500">Vol/hr</div>
-                </div>
-                <div>
-                  <div className="text-blue-400 font-bold text-sm">1.2K</div>
-                  <div className="text-xs text-gray-500">Users</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </section>
 
 
@@ -1001,49 +922,7 @@ export default function LandingPage() {
         </div>
       </motion.section>
 
-      {/* Popular Categories */}
-      <motion.section
-        className="py-20 bg-gradient-to-br from-purple-900/20 to-pink-900/20"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              Kategori Populer
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Jelajahi berbagai kategori NFT yang paling diminati di marketplace PUYOK
-            </p>
-          </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {categories.map((category, index) => {
-              const IconComponent = category.icon
-              return (
-                <motion.div
-                  key={category.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Link href={category.href}>
-                    <Card className="bg-gray-900/60 border border-gray-700 p-6 text-center hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/20 rounded-xl">
-                      <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${category.color} rounded-full flex items-center justify-center`}>
-                        <IconComponent className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="font-bold text-white mb-2">{category.name}</h3>
-                      <p className="text-gray-400 text-sm">{category.count} items</p>
-                    </Card>
-                  </Link>
-                </motion.div>
-              )
-            })}
-          </div>
-        </div>
-      </motion.section>
 
       {/* Trust Badges & Payment Partners Section */}
       <section className="py-12 bg-card/20 border-y border-border/50">
@@ -1096,55 +975,26 @@ export default function LandingPage() {
                   <Shield className="w-6 h-6 text-green-500" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-white mb-2">🛡️ Proteksi PUYOK</h3>
-                  <p className="text-sm text-gray-300 mb-4">
-                    Dana Anda diamankan 100% dengan sistem escrow otomatis. Ganti rugi penuh jika terjadi masalah dalam transaksi.
-                  </p>
+                  <h3 className="text-lg font-bold text-white mb-4">🛡️ Proteksi PUYOK</h3>
 
-                  {/* Smart Contract Verification */}
+                  {/* Simplified Contract Verification */}
                   <div className="bg-card/50 border border-green-500/30 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-300">Contract Address:</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="text-green-400 text-sm font-semibold">Smart Contract Terverifikasi</span>
-                        <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">AUDITED</Badge>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-gray-400">Contract Address:</span>
                         <a
                           href="https://sepolia.etherscan.io/address/0x86391db0f7614e31cbaefb0b881f2fb3dbffbffb"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-primary hover:text-primary/80 transition-colors font-mono text-xs flex items-center gap-1"
+                          className="text-primary hover:text-primary/80 transition-colors font-mono text-sm flex items-center gap-1"
                         >
                           0x863...bffb
-                          <ArrowRight className="w-3 h-3" />
+                          <ArrowRight className="w-4 h-4" />
                         </a>
+                        <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">
+                          ✓ Verified
+                        </Badge>
                       </div>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-gray-400">Security Audit:</span>
-                        <span className="text-green-400 text-xs font-medium">✓ CertiK Verified</span>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-gray-400">Escrow Balance:</span>
-                        <span className="text-white text-xs font-medium">Rp 2.8M Protected</span>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-gray-400">Total Secured:</span>
-                        <span className="text-green-400 text-xs font-bold">Rp 125M+ Lifetime</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-3 pt-3 border-t border-green-500/20">
-                      <p className="text-xs text-gray-400">
-                        🔐 Setiap transaksi dilindungi smart contract immutable yang telah diaudit oleh CertiK
-                      </p>
                     </div>
                   </div>
                 </div>
