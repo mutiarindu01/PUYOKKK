@@ -89,9 +89,19 @@ body {
 @layer base {
   * {
     @apply border-border;
+    font-family: 'Inter', sans-serif;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+  }
+
+  p, span, div {
+    font-family: 'Inter', sans-serif;
   }
 
   /* Performance optimizations */
