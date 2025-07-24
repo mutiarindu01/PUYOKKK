@@ -437,14 +437,47 @@ export default function LandingPage() {
           <p className="text-base md:text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
             Marketplace P2P pertama di Indonesia untuk menukar NFT & Token dengan DANA, GoPay, OVO, dan transfer bank.
           </p>
-          <Button
-            size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-xl font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
-            onClick={() => document.getElementById("marketplace")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            Lihat Marketplace
-            <ArrowRight className="ml-3 w-6 h-6" />
-          </Button>
+          {/* Tiered CTA System */}
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-xl font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+                onClick={() => document.getElementById("marketplace")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Lihat Marketplace
+                <ArrowRight className="ml-3 w-6 h-6" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-6 text-lg font-medium"
+                onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Daftar Sekarang - Gratis
+              </Button>
+            </div>
+
+            {/* Lead Magnet */}
+            <Card className="max-w-md mx-auto bg-card/50 border border-primary/30 p-4">
+              <div className="text-center mb-3">
+                <p className="text-sm text-gray-300">💎 Dapatkan Update Eksklusif:</p>
+              </div>
+              <div className="flex gap-2">
+                <Input
+                  type="email"
+                  placeholder="Email Anda"
+                  className="flex-1 bg-background/50 border-border text-white placeholder-gray-400"
+                />
+                <Button size="sm" className="bg-primary hover:bg-primary/90 px-4">
+                  Subscribe
+                </Button>
+              </div>
+              <p className="text-xs text-gray-400 mt-2 text-center">
+                Notifikasi NFT trending • Tips trading • Promo eksklusif
+              </p>
+            </Card>
+          </div>
 
           {/* Enhanced Trust indicators */}
           <div className="mt-12 space-y-6">
