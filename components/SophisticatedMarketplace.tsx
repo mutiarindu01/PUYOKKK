@@ -326,24 +326,24 @@ export default function SophisticatedMarketplace() {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => scrollCarousel("left")}
-                className="border-white/20 text-white hover:bg-white/10"
+                onClick={() => scrollTokenCarousel("left")}
+                className="border-white/20 text-white hover:bg-white/10 hover:border-blue-500/50 transition-all"
               >
                 <ChevronLeft className="w-4 h-4" />
               </Button>
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => scrollCarousel("right")}
-                className="border-white/20 text-white hover:bg-white/10"
+                onClick={() => scrollTokenCarousel("right")}
+                className="border-white/20 text-white hover:bg-white/10 hover:border-blue-500/50 transition-all"
               >
                 <ChevronRight className="w-4 h-4" />
               </Button>
             </div>
           </div>
-          
-          <div 
-            ref={carouselRef}
+
+          <div
+            ref={tokenCarouselRef}
             className="flex gap-4 overflow-x-auto scrollbar-hide pb-4"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
