@@ -37,7 +37,6 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Footer from "@/components/Footer"
-import LoadingButton, { BuyButton } from "@/components/LoadingButton"
 import MarketplaceLoading from "@/components/MarketplaceLoading"
 import BackgroundParticles from "@/components/BackgroundParticles"
 import SplineBackground, { SplineBackgroundDemo } from "@/components/SplineBackground"
