@@ -1018,77 +1018,170 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-card/30">
+      {/* Unified PUYOK Value Proposition - Part 3: Social Proof */}
+      <motion.section
+        id="testimonials"
+        className="py-32 bg-gradient-to-br from-background via-card/30 to-background"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Apa Kata Komunitas Kami?</h2>
-            <p className="text-base text-gray-300 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>Pengalaman nyata dari pengguna PUYOK</p>
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">3</span>
+              </div>
+              <span className="text-blue-500 font-semibold">BUKTI KEPUASAN PENGGUNA</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Bergabung dengan 10,000+ Pengguna Puas
+            </h2>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto font-normal leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Cerita nyata dari komunitas yang sudah merasakan kemudahan dan keamanan bertransaksi di PUYOK
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="bg-card border border-border p-6">
-              <Quote className="w-8 h-8 text-primary mb-4" />
-              <p className="text-gray-300 mb-6 leading-relaxed text-base font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-                "Akhirnya bisa jual NFT langsung dapat Rupiah! Prosesnya cepat dan aman. Paling suka bisa terima
-                pembayaran lewat DANA."
-              </p>
-              <div className="flex items-center gap-3">
-                <Avatar className="w-10 h-10">
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                  <AvatarFallback className="bg-secondary text-secondary-foreground">
-                    <User className="w-5 h-5" />
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="text-foreground font-medium">@rafly_art</div>
-                  <div className="text-muted-foreground text-sm">NFT Creator</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
+                <div className="flex items-center gap-3 mb-4">
+                  <Quote className="w-8 h-8 text-primary" />
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs text-green-500 font-semibold bg-green-500/10 px-2 py-1 rounded">✓ TERVERIFIKASI</span>
+                  </div>
                 </div>
-              </div>
-            </Card>
+                <p className="text-gray-300 mb-6 leading-relaxed text-base font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  "Jual crypto dapat Rupiah langsung ke DANA cuma 2 menit! Fee cuma 2%, sisanya masuk penuh ke rekening."
+                </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold">
+                      B
+                    </div>
+                    <div>
+                      <div className="text-foreground font-medium">@budi_web3</div>
+                      <div className="text-muted-foreground text-sm">Seller Aktif • 47 Transaksi</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-green-500 font-bold text-sm">+Rp 125M</div>
+                    <div className="text-xs text-gray-400">Total Profit</div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
 
-            <Card className="bg-card border border-border p-6">
-              <Quote className="w-8 h-8 text-primary mb-4" />
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                "Sebagai newbie di dunia crypto, PUYOK bikin semuanya jadi gampang. Beli NFT pakai GoPay, langsung masuk
-                wallet!"
-              </p>
-              <div className="flex items-center gap-3">
-                <Avatar className="w-10 h-10">
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                  <AvatarFallback className="bg-secondary text-secondary-foreground">
-                    <User className="w-5 h-5" />
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="text-foreground font-medium">@sarah_collector</div>
-                  <div className="text-muted-foreground text-sm">NFT Enthusiast</div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
+              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
+                <div className="flex items-center gap-3 mb-4">
+                  <Quote className="w-8 h-8 text-primary" />
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs text-green-500 font-semibold bg-green-500/10 px-2 py-1 rounded">✓ TERVERIFIKASI</span>
+                  </div>
                 </div>
-              </div>
-            </Card>
+                <p className="text-gray-300 mb-6 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  "Sebagai newbie di dunia crypto, PUYOK bikin semuanya jadi gampang. Beli NFT pakai GoPay, langsung masuk wallet!"
+                </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                      S
+                    </div>
+                    <div>
+                      <div className="text-foreground font-medium">@sarah_collector</div>
+                      <div className="text-muted-foreground text-sm">NFT Enthusiast • 23 Koleksi</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-blue-500 font-bold text-sm">23 NFT</div>
+                    <div className="text-xs text-gray-400">Koleksi</div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
 
-            <Card className="bg-card border border-border p-6">
-              <Quote className="w-8 h-8 text-primary mb-4" />
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                "Trading USDT jadi lebih praktis. Sistem escrow-nya bikin tenang, ga khawatir kena scam. Recommended
-                banget!"
-              </p>
-              <div className="flex items-center gap-3">
-                <Avatar className="w-10 h-10">
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                  <AvatarFallback className="bg-secondary text-secondary-foreground">
-                    <User className="w-5 h-5" />
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="text-foreground font-medium">@crypto_trader88</div>
-                  <div className="text-muted-foreground text-sm">Token Trader</div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
+              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
+                <div className="flex items-center gap-3 mb-4">
+                  <Quote className="w-8 h-8 text-primary" />
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs text-green-500 font-semibold bg-green-500/10 px-2 py-1 rounded">✓ TERVERIFIKASI</span>
+                  </div>
                 </div>
-              </div>
-            </Card>
+                <p className="text-gray-300 mb-6 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  "Escrow system-nya bikin tenang, ga khawatir kena scam. Success rate 99%, recommended banget!"
+                </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                      A
+                    </div>
+                    <div>
+                      <div className="text-foreground font-medium">@ahmad_trader</div>
+                      <div className="text-muted-foreground text-sm">Token Trader • 156 Trades</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-yellow-500 font-bold text-sm">99%</div>
+                    <div className="text-xs text-gray-400">Success Rate</div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
           </div>
+
+          {/* Final CTA with Statistics */}
+          <motion.div
+            className="text-center"
+            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-primary/10 via-purple-600/10 to-primary/10 border border-primary/30 p-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-2">10,000+</div>
+                  <div className="text-gray-300">Pengguna Aktif</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-green-500 mb-2">Rp 1.2M</div>
+                  <div className="text-gray-300">Volume Harian</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-blue-500 mb-2">98%</div>
+                  <div className="text-gray-300">Tingkat Kepuasan</div>
+                </div>
+              </div>
+
+              <h3 className="text-2xl font-bold text-white mb-4">Siap Menjadi Bagian dari Komunitas?</h3>
+              <p className="text-gray-300 mb-6">Bergabunglah dengan ribuan pengguna yang sudah merasakan kemudahan PUYOK</p>
+
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button className="bg-primary hover:bg-primary/90 px-8 py-4 text-lg">
+                  🚀 Mulai Transaksi Pertama
+                </Button>
+                <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-4 text-lg">
+                  💬 Chat dengan Support
+                </Button>
+              </div>
+
+              <div className="mt-6 text-xs text-gray-400">
+                Gratis daftar • Verifikasi 1 menit • Support 24/7
+              </div>
+            </Card>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* FAQ Section */}
       <section className="py-20">
