@@ -320,7 +320,7 @@ export default function SophisticatedMarketplace() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">
               <TrendingUp className="w-6 h-6 text-blue-500" />
-              <h2 className="text-2xl md:text-3xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Token yang Sedang Tren
               </h2>
             </div>
