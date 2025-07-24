@@ -552,8 +552,8 @@ export default function LandingPage() {
               <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
                 <CreditCard className="w-10 h-10 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">💳 Bayar Seperti Biasa</h3>
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>💳 Bayar Seperti Biasa</h3>
+              <p className="text-base text-gray-300 leading-relaxed mb-6 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Beli NFT langsung dari saldo DANA-mu. Jual token dan terima uang di GoPay dalam hitungan menit. Tidak
                 perlu belajar cara baru - gunakan metode pembayaran yang sudah kamu kenal.
               </p>
