@@ -38,7 +38,18 @@ const trendingTokens = [
     change: "+2.1%",
     trend: "up" as const,
     volume: "Rp 2.100.000",
-    sparklineData: [45, 52, 48, 61, 55, 67, 69, 74, 78, 82]
+    high24h: "Rp 870.000.000",
+    low24h: "Rp 820.000.000",
+    sparklineData: [820000000, 835000000, 825000000, 845000000, 840000000, 855000000, 860000000, 865000000, 855000000, 850000000],
+    topSeller: {
+      username: "crypto_master",
+      avatar: "/placeholder.svg?height=24&width=24",
+      verified: true,
+      completedTrades: 156,
+      successRate: 98.5
+    },
+    paymentMethods: ["dana", "gopay", "ovo", "bank"],
+    totalOrders: 23
   },
   {
     id: "eth",
