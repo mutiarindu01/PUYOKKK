@@ -535,7 +535,7 @@ export default function LandingPage() {
   const [trendingIndex, setTrendingIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [loadingStates, setLoadingStates] = useState<{[key: string]: boolean}>({})
-  const [backgroundType, setBackgroundType] = useState<"gradient" | "particles" | "spline" | "mesh">("gradient")
+  const [backgroundType, setBackgroundType] = useState<"gradient" | "particles" | "spline" | "mesh">("spline")
   const lastScrollY = useRef(0)
   const router = useRouter()
 
