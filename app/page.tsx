@@ -698,64 +698,99 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* NEW: Tiga Pilar Nilai Jual Section */}
-      <section className="py-20">
+      {/* Unified PUYOK Value Proposition - Part 1: Benefits */}
+      <motion.section
+        className="py-32 bg-gradient-to-br from-background via-card/20 to-background"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Tiga Pilar Nilai Jual Kami</h2>
-            <p className="text-base text-gray-300 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>Fokus pada hasil akhir yang Anda rasakan</p>
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 bg-green-500/10 border border-green-500/20 rounded-full px-6 py-3 mb-6">
+              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">1</span>
+              </div>
+              <span className="text-green-500 font-semibold">MENGAPA PILIH PUYOK</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+              3 Keunggulan yang Anda Rasakan
+            </h2>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto font-normal leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Dari kemudahan pembayaran hingga kepastian nilai - inilah mengapa ribuan pengguna memilih PUYOK
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Pilar 1: Pembayaran Familiar */}
-            <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-              <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                <CreditCard className="w-10 h-10 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>💳 Bayar Seperti Biasa</h3>
-              <p className="text-base text-gray-300 leading-relaxed mb-6 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-                Beli NFT langsung dari saldo DANA-mu. Jual token dan terima uang di GoPay dalam hitungan menit. Tidak
-                perlu belajar cara baru - gunakan metode pembayaran yang sudah kamu kenal.
-              </p>
-              <div className="flex justify-center gap-2">
-                <span className="text-2xl">💳</span>
-                <span className="text-2xl">🟢</span>
-                <span className="text-2xl">🟣</span>
-                <span className="text-2xl">🏦</span>
-              </div>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+            <motion.div
+              whileHover={{ scale: 1.05, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full">
+                <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span className="text-4xl">💳</span>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Bayar dengan Dompet Digital Favorit</h3>
+                <p className="text-gray-300 leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  Beli NFT langsung dari saldo DANA-mu. Jual token dan terima uang di GoPay dalam hitungan menit. Tidak perlu belajar cara baru.
+                </p>
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                  <div className="flex justify-center gap-3 mb-2">
+                    <span className="text-2xl">💳</span>
+                    <span className="text-2xl">🟢</span>
+                    <span className="text-2xl">🟣</span>
+                    <span className="text-2xl">🏦</span>
+                  </div>
+                  <div className="text-primary text-sm font-medium">4+ Metode Pembayaran</div>
+                </div>
+              </Card>
+            </motion.div>
 
-            {/* Pilar 2: Uang Sungguhan */}
-            <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-              <div className="w-20 h-20 mx-auto mb-6 bg-green-500/10 rounded-full flex items-center justify-center">
-                <DollarSign className="w-10 h-10 text-green-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>💰 Uang Sungguhan</h3>
-              <p className="text-base text-gray-300 leading-relaxed mb-6 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-                Jual hasil karya digitalmu dan langsung dapat Rupiah di rekening. Tidak ada konversi ribet atau fee
-                tersembunyi. Yang kamu lihat adalah yang kamu dapat - dalam mata uang yang kamu pahami.
-              </p>
-              <div className="text-3xl font-bold text-green-500">Rp</div>
-            </Card>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -10 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
+              <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full">
+                <div className="w-20 h-20 mx-auto mb-6 bg-green-500/10 rounded-full flex items-center justify-center">
+                  <span className="text-4xl">💰</span>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Dapatkan Rupiah Penuh</h3>
+                <p className="text-gray-300 leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  Jual hasil karya digitalmu dan langsung dapat Rupiah di rekening. Tidak ada konversi ribet atau fee tersembunyi.
+                </p>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-lg p-4">
+                  <div className="text-3xl font-bold text-green-500 mb-2">Rp</div>
+                  <div className="text-xs text-gray-400">Platform Lain: $8,200</div>
+                  <div className="text-sm text-green-500 font-semibold">PUYOK: Rp 125,000,000</div>
+                </div>
+              </Card>
+            </motion.div>
 
-            {/* Pilar 3: Transaksi Aman */}
-            <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-              <div className="w-20 h-20 mx-auto mb-6 bg-blue-500/10 rounded-full flex items-center justify-center">
-                <Handshake className="w-10 h-10 text-blue-500" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>🛡️ Tidur Nyenyak</h3>
-              <p className="text-base text-gray-300 leading-relaxed mb-6 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-                Sistem escrow otomatis melindungi setiap transaksi. Pembeli dapat aset setelah bayar, penjual dapat uang
-                setelah aset terkirim. Tidak ada yang bisa curang - semua otomatis dan transparan.
-              </p>
-              <div className="flex justify-center items-center gap-2">
-                <Shield className="w-6 h-6 text-blue-500" />
-                <span className="text-blue-500 font-semibold">100% Aman</span>
-              </div>
-            </Card>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -10 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
+              <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full">
+                <div className="w-20 h-20 mx-auto mb-6 bg-blue-500/10 rounded-full flex items-center justify-center">
+                  <span className="text-4xl">😴</span>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Tidur Nyenyak</h3>
+                <p className="text-gray-300 leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  Sistem escrow otomatis melindungi setiap transaksi. Pembeli dapat aset setelah bayar, penjual dapat uang setelah aset terkirim.
+                </p>
+                <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
+                  <div className="flex justify-center items-center gap-2 mb-2">
+                    <Shield className="w-6 h-6 text-blue-500" />
+                    <span className="text-blue-500 font-semibold">100% Aman</span>
+                  </div>
+                  <div className="text-xs text-gray-400">Keamanan: ████████ 100%</div>
+                  <div className="text-xs text-gray-400">Kepuasan: ███████▌ 98%</div>
+                </div>
+              </Card>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Sophisticated Marketplace Section */}
       <section id="marketplace">
