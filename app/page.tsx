@@ -766,12 +766,18 @@ export default function LandingPage() {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="lg:col-span-5 space-y-4"
             >
-              {/* Header */}
-              <div className="flex items-center justify-center mb-6">
-                <div className="flex items-center gap-2">
+              {/* Enhanced Header with Pioneer System */}
+              <div className="text-center mb-8">
+                <div className="flex items-center justify-center gap-3 mb-4">
                   <Crown className="w-6 h-6 text-yellow-400" />
                   <h3 className="text-xl font-bold text-white">Legendary Awards</h3>
+                  <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50 animate-pulse">
+                    Pioneer System
+                  </Badge>
                 </div>
+                <p className="text-gray-300 text-sm max-w-md mx-auto">
+                  Dapatkan NFT 1/1 eksklusif untuk perilaku pertama kali di PUYOK
+                </p>
               </div>
 
               {/* Slider Container */}
@@ -813,22 +819,34 @@ export default function LandingPage() {
                               className="w-full h-full object-cover"
                             />
                           </div>
-                          {/* Rarity Badge - Show 1/1 */}
-                          <Badge className="absolute top-3 left-3 bg-red-500/90 text-white border-none text-sm font-bold">
-                            1/1
+                          {/* Pioneer Badge - Enhanced */}
+                          <Badge className="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-orange-500 text-white border-none text-sm font-bold shadow-lg">
+                            🏆 1/1 PIONEER
                           </Badge>
-                          {/* Award Badge */}
-                          <Badge className="absolute top-3 right-3 bg-purple-500/20 text-purple-400 border-purple-500/50 text-sm">
+                          {/* Interactive Glow Effect */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-transparent via-purple-500/5 to-yellow-500/10 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                          {/* Award Type */}
+                          <Badge className="absolute top-3 right-3 bg-purple-500/20 text-purple-400 border-purple-500/50 text-sm backdrop-blur-sm">
                             {award.badge}
                           </Badge>
                         </div>
 
-                        {/* Award Info */}
+                        {/* Enhanced Award Info */}
                         <div className="space-y-3">
-                          <h4 className="font-bold text-white text-lg">{award.title}</h4>
+                          <div className="flex items-center gap-2">
+                            <h4 className="font-bold text-white text-lg">{award.title}</h4>
+                            <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/30 text-xs">
+                              EXCLUSIVE
+                            </Badge>
+                          </div>
 
-                          {/* Price */}
-                          <div className="text-brand-green font-bold text-xl">{award.price}</div>
+                          {/* Enhanced Price with Pioneer Value */}
+                          <div className="space-y-1">
+                            <div className="text-brand-green font-bold text-xl">{award.price}</div>
+                            <div className="text-xs text-gray-400">
+                              🎆 Milestone: First Escrow Transaction
+                            </div>
+                          </div>
 
                           {/* Seller Info */}
                           <div className="flex items-center gap-3">
@@ -855,13 +873,20 @@ export default function LandingPage() {
                             </div>
                           </div>
 
-                          {/* Action Button */}
-                          <Button
-                            className="w-full bg-brand-green/20 hover:bg-brand-green/30 text-brand-green border border-brand-green/50"
-                            asChild
-                          >
-                            <Link href={`/awards-marketplace/${award.id}`}>Lihat Detail</Link>
-                          </Button>
+                          {/* Enhanced Action Button */}
+                          <div className="space-y-2">
+                            <Button
+                              className="w-full bg-gradient-to-r from-brand-green/20 to-purple-500/20 hover:from-brand-green/30 hover:to-purple-500/30 text-brand-green border border-brand-green/50 transition-all duration-300"
+                              asChild
+                            >
+                              <Link href={`/awards-marketplace/${award.id}`}>
+                                🏆 Claim Pioneer NFT
+                              </Link>
+                            </Button>
+                            <p className="text-xs text-center text-gray-400">
+                              Otomatis didapat saat milestone tercapai
+                            </p>
+                          </div>
                         </div>
                       </Card>
                     </motion.div>
