@@ -529,16 +529,16 @@ export default function SophisticatedMarketplace() {
                       </div>
 
                       <div className="text-right">
-                        <div className="text-white font-bold text-lg">{order.price}</div>
+                        <div className="text-white font-bold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>{order.price}</div>
                         {order.type === "Token" && order.change && (
                           <div className={`text-sm font-medium ${
                             order.change.startsWith("+") ? "text-green-400" : "text-red-400"
-                          }`}>
+                          }`} style={{ fontFamily: 'Inter, sans-serif' }}>
                             {order.change}
                           </div>
                         )}
                         {order.type === "NFT" && (
-                          <div className="flex items-center gap-1 text-gray-400 text-sm">
+                          <div className="flex items-center gap-1 text-gray-400 text-sm font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
                             <Eye className="w-3 h-3" />
                             {order.views}
                           </div>
