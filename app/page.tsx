@@ -69,29 +69,46 @@ export default function LandingPage() {
   }, [])
 
   useEffect(() => {
-    const scrollHidePosition = 60
-    const scrollDeltaHide = 10
+    const scrollHidePosition = 80
+    const scrollDeltaHide = 15
+    const scrollShowPosition = 300
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       const scrollDifference = currentScrollY - lastScrollY.current
 
+      // Enhanced header hide/show logic
       if (scrollDifference > scrollDeltaHide && currentScrollY > scrollHidePosition) {
         if (isNavOpen) {
           setIsNavOpen(false)
         }
-      } else if (currentScrollY === 0) {
+      } else if (scrollDifference < -scrollDeltaHide || currentScrollY <= 20) {
         if (!isNavOpen) {
           setIsNavOpen(true)
         }
       }
 
+      // Scroll to top button logic
+      setShowScrollToTop(currentScrollY > scrollShowPosition)
+
       lastScrollY.current = currentScrollY
     }
 
-    window.addEventListener("scroll", handleScroll)
+    // Use throttle for better performance
+    let ticking = false
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true })
     return () => {
-      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("scroll", throttledHandleScroll)
     }
   }, [isNavOpen])
 
