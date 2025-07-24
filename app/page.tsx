@@ -491,16 +491,22 @@ export default function LandingPage() {
               />
               <span className="text-xl font-bold text-foreground">PUYOK</span>
 
-              {/* Simplified Desktop Navigation Menu */}
+              {/* Enhanced Desktop Navigation Menu */}
               <nav className="hidden md:flex items-center gap-6 ml-8">
-                <Link href="/marketplace" className="text-foreground hover:text-primary transition-colors font-medium">
-                  Marketplace
+                <Link href="/marketplace" className="text-foreground hover:text-primary transition-colors font-bold text-lg">
+                  MARKETPLACE
                 </Link>
-                <Link href="#about" className="text-foreground hover:text-primary transition-colors font-medium">
-                  Tentang
+                <Link href="/nft" className="text-foreground hover:text-primary transition-colors font-medium">
+                  NFT
                 </Link>
-                <Link href="/help" className="text-foreground hover:text-primary transition-colors font-medium">
-                  Bantuan
+                <Link href="/rewards" className="text-foreground hover:text-primary transition-colors font-medium relative">
+                  HADIAH
+                  <Badge className="absolute -top-2 -right-6 bg-red-500 text-white text-xs animate-pulse">
+                    NEW
+                  </Badge>
+                </Link>
+                <Link href="/voting" className="text-foreground hover:text-primary transition-colors font-medium">
+                  VOTING
                 </Link>
               </nav>
             </div>
@@ -519,17 +525,15 @@ export default function LandingPage() {
 
             {/* Right Side - Buttons */}
             <nav className="flex items-center gap-3">
-              <Button
-                variant="outline"
-                className="border-border text-foreground hover:bg-accent bg-transparent hidden md:inline-flex"
-                asChild
-              >
-                <Link href="/dashboard">Masuk</Link>
-              </Button>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground hidden md:inline-flex">
-                <Plus className="w-4 h-4 mr-2" />
-                Jual Aset
-              </Button>
+              <div className="hidden md:flex items-center gap-3">
+                <Button variant="outline" className="border-border text-foreground hover:bg-accent bg-transparent" asChild>
+                  <Link href="/dashboard">Masuk</Link>
+                </Button>
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Jual Aset
+                </Button>
+              </div>
 
               {/* Mobile Menu Trigger */}
               <Sheet>
@@ -634,7 +638,38 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Enhanced Hero Section with New Layout */}
+      {/* Trust Bar - Positioned prominently */}
+      <motion.div
+        className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border-y border-green-500/20 py-3"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <div className="flex items-center justify-center gap-8 text-sm flex-wrap">
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-green-500" />
+              <span className="text-green-400 font-medium">🔒 Escrow Terverifikasi Etherscan</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 text-xs">
+                ✓ Verified Contract
+              </Badge>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-300">💳</span>
+              <span className="text-gray-300">DANA • GoPay • OVO Support</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge className="bg-purple-500/10 text-purple-400 border-purple-500/20 text-xs animate-pulse">
+                🏆 Pioneer NFT Rewards
+              </Badge>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Enhanced Hero Section with Pioneer NFT Integration */}
       <section className="relative py-20 md:py-32 overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-8 gap-8 items-center min-h-[600px]">
