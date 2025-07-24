@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { User, Verified, Clock, TrendingUp, TrendingDown } from "lucide-react"
 import PaymentMethods from "./PaymentMethods"
+import TokenPriceChart from "./TokenPriceChart"
 import Link from "next/link"
 
 interface OrderBookOrder {
