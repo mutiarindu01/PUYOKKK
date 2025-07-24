@@ -406,7 +406,7 @@ export default function SophisticatedMarketplace() {
           </div>
         </motion.section>
 
-        {/* Section 3: All Orders */}
+        {/* Section 3: All Orders with Refined Controls */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -420,31 +420,56 @@ export default function SophisticatedMarketplace() {
               Jelajahi semua aset digital yang tersedia di marketplace
             </p>
           </div>
-          
-          {/* Control Bar */}
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
-            <Tabs value={activeFilter} onValueChange={setActiveFilter}>
-              <TabsList className="bg-[#1F2937] border border-white/10">
-                <TabsTrigger value="Semua" className="text-white data-[state=active]:bg-blue-600">
-                  Semua
-                </TabsTrigger>
-                <TabsTrigger value="NFT" className="text-white data-[state=active]:bg-blue-600">
-                  NFT
-                </TabsTrigger>
-                <TabsTrigger value="Token" className="text-white data-[state=active]:bg-blue-600">
-                  Token
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-            
-            <div className="flex gap-1 bg-[#1F2937] border border-white/10 rounded-lg p-1">
+
+          {/* Enhanced Control Bar */}
+          <div className="flex items-center gap-4 mb-8 bg-[#1F2937] border border-white/10 rounded-xl p-4">
+            {/* Filter Area */}
+            <div className="flex items-center gap-2 overflow-x-auto">
+              <Button
+                size="sm"
+                onClick={() => setActiveFilter("NFT")}
+                className={`whitespace-nowrap transition-all ${
+                  activeFilter === "NFT"
+                    ? "bg-blue-600 text-white shadow-lg"
+                    : "bg-transparent border border-white/20 text-gray-300 hover:bg-white/10 hover:border-blue-500/50"
+                }`}
+              >
+                NFT
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => setActiveFilter("Token")}
+                className={`whitespace-nowrap transition-all ${
+                  activeFilter === "Token"
+                    ? "bg-blue-600 text-white shadow-lg"
+                    : "bg-transparent border border-white/20 text-gray-300 hover:bg-white/10 hover:border-blue-500/50"
+                }`}
+              >
+                Token
+              </Button>
+            </div>
+
+            {/* Search Bar */}
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Cari berdasarkan nama..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 bg-[#0D1117] border border-white/10 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-lg"
+              />
+            </div>
+
+            {/* View Toggle */}
+            <div className="flex gap-1 bg-[#0D1117] border border-white/10 rounded-lg p-1">
               <Button
                 size="sm"
                 variant="ghost"
                 onClick={() => setViewMode("list")}
-                className={`${
+                className={`transition-all ${
                   viewMode === "list"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-blue-600 text-white shadow-lg"
                     : "text-gray-400 hover:text-white hover:bg-white/10"
                 }`}
               >
@@ -454,9 +479,9 @@ export default function SophisticatedMarketplace() {
                 size="sm"
                 variant="ghost"
                 onClick={() => setViewMode("grid")}
-                className={`${
+                className={`transition-all ${
                   viewMode === "grid"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-blue-600 text-white shadow-lg"
                     : "text-gray-400 hover:text-white hover:bg-white/10"
                 }`}
               >
