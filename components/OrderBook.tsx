@@ -35,6 +35,10 @@ interface OrderBookProps {
   currentPrice: string
   priceChange: string
   trend: "up" | "down"
+  chartData?: number[]
+  volume?: string
+  high24h?: string
+  low24h?: string
 }
 
 export default function OrderBook({ 
