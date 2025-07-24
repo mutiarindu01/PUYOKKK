@@ -545,16 +545,6 @@ export default function LandingPage() {
     return () => clearTimeout(timer)
   }, [])
 
-  const handleBuyAction = async (itemId: string) => {
-    setLoadingStates(prev => ({ ...prev, [itemId]: true }))
-
-    // Simulate transaction processing
-    await new Promise(resolve => setTimeout(resolve, 2000))
-
-    setLoadingStates(prev => ({ ...prev, [itemId]: false }))
-    router.push(`/marketplace/${itemId}`)
-  }
-
   useEffect(() => {
     const scrollHidePosition = 60
     const scrollDeltaHide = 10
@@ -581,26 +571,6 @@ export default function LandingPage() {
       window.removeEventListener("scroll", handleScroll)
     }
   }, [isNavOpen])
-
-  useEffect(() => {
-    if (activeFilter === "Token") {
-      setFilteredItems(marketplaceTokens)
-    } else if (activeFilter === "NFT") {
-      setFilteredItems(marketplaceNFTs)
-    } else {
-      setFilteredItems([...marketplaceTokens, ...marketplaceNFTs])
-    }
-  }, [activeFilter])
-
-  const nextTrending = () => {
-    setTrendingIndex((prev) => (prev + 1) % Math.max(1, trendingItems.length - 2))
-  }
-
-  const prevTrending = () => {
-    setTrendingIndex(
-      (prev) => (prev - 1 + Math.max(1, trendingItems.length - 2)) % Math.max(1, trendingItems.length - 2),
-    )
-  }
 
   // Show loading screen while data is being fetched
   if (isLoading) {
