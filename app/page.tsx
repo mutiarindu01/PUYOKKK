@@ -364,67 +364,179 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Enhanced Hero Section */}
-      <section className="relative py-20 md:py-32 text-center overflow-hidden">
-        <div className="relative z-10 max-w-4xl mx-auto px-6">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Tukar Aset Digital,
-            <br />
-            <span className="text-primary">Terima Rupiah.</span>
-          </h1>
-          <p className="text-base md:text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Marketplace P2P pertama di Indonesia untuk menukar NFT & Token dengan DANA, GoPay, OVO, dan transfer bank.
-          </p>
-          {/* Focused CTA System */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-xl font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
-              onClick={() => document.getElementById("trending-tokens")?.scrollIntoView({ behavior: "smooth" })}
+      {/* Enhanced Hero Section with Split Layout */}
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Real-time Activity Widget */}
+            <motion.div
+              className="order-2 lg:order-1"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              🛒 Beli Aset Digital
-              <ArrowRight className="ml-3 w-6 h-6" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-6 text-lg font-medium"
-              asChild
+              <div className="bg-gradient-to-br from-card/80 to-primary/5 border border-border/50 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <h3 className="text-lg font-bold text-white">Aktivitas Real-time</h3>
+                  <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-xs">LIVE</Badge>
+                </div>
+
+                {/* Real-time Activity Feed */}
+                <div className="space-y-4">
+                  <motion.div
+                    className="bg-card/50 border border-green-500/20 rounded-lg p-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">🔥</span>
+                      <div className="flex-1">
+                        <p className="text-white text-sm">
+                          <span className="text-primary font-semibold">Budi_</span> baru saja membeli{" "}
+                          <span className="text-purple-400 font-medium">Bored Ape #1234</span> seharga{" "}
+                          <span className="text-green-400 font-bold">Rp 850jt</span>!
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">2 menit lalu via DANA</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="bg-card/50 border border-blue-500/20 rounded-lg p-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">💰</span>
+                      <div className="flex-1">
+                        <p className="text-white text-sm">
+                          <span className="text-primary font-semibold">CryptoQueen</span> menjual{" "}
+                          <span className="text-purple-400 font-medium">CryptoPunk #7890</span> seharga{" "}
+                          <span className="text-green-400 font-bold">Rp 1,2M</span>
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">5 menit lalu via GoPay</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="bg-card/50 border border-purple-500/20 rounded-lg p-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">🎨</span>
+                      <div className="flex-1">
+                        <p className="text-white text-sm">
+                          <span className="text-primary font-semibold">ArtistIndo</span> listing baru{" "}
+                          <span className="text-purple-400 font-medium">Batik Genesis Collection</span> mulai dari{" "}
+                          <span className="text-green-400 font-bold">Rp 15jt</span>
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">8 menit lalu</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="bg-card/50 border border-orange-500/20 rounded-lg p-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.9 }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">⚡</span>
+                      <div className="flex-1">
+                        <p className="text-white text-sm">
+                          <span className="text-primary font-semibold">TokenMaster</span> swap{" "}
+                          <span className="text-orange-400 font-medium">50 ETH → 750jt USDT</span> dalam{" "}
+                          <span className="text-green-400 font-bold">30 detik</span>
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">12 menit lalu via OVO</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Activity Stats */}
+                <div className="mt-6 pt-4 border-t border-border/50">
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-primary font-bold text-lg">47</div>
+                      <div className="text-xs text-gray-400">Transaksi/jam</div>
+                    </div>
+                    <div>
+                      <div className="text-green-400 font-bold text-lg">Rp 2.8M</div>
+                      <div className="text-xs text-gray-400">Volume/jam</div>
+                    </div>
+                    <div>
+                      <div className="text-blue-400 font-bold text-lg">1,234</div>
+                      <div className="text-xs text-gray-400">User aktif</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Side - Main Content */}
+            <motion.div
+              className="order-1 lg:order-2 text-center lg:text-left"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <Link href="/create-listing">
-                💰 Jual Aset Sekarang
-              </Link>
-            </Button>
-          </div>
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+                Tukar Aset Digital,
+                <br />
+                <span className="text-primary">Terima Rupiah.</span>
+              </h1>
+              <p className="text-base md:text-lg text-gray-300 mb-10 leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
+                Marketplace P2P pertama di Indonesia untuk menukar NFT & Token dengan DANA, GoPay, OVO, dan transfer bank.
+              </p>
 
-          {/* Enhanced Trust indicators */}
-          <div className="mt-12 space-y-6">
-            <div className="flex flex-wrap justify-center items-center gap-8 text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-green-500" />
-                <span className="text-sm">Transaksi Aman: Dana diamankan escrow</span>
+              {/* Focused CTA System */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-xl font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+                  onClick={() => document.getElementById("trending-tokens")?.scrollIntoView({ behavior: "smooth" })}
+                >
+                  🛒 Beli Aset Digital
+                  <ArrowRight className="ml-3 w-6 h-6" />
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-6 text-lg font-medium"
+                  asChild
+                >
+                  <Link href="/create-listing">
+                    💰 Jual Aset Sekarang
+                  </Link>
+                </Button>
               </div>
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-blue-500" />
-                <span className="text-sm">10,000+ Pengguna</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Star className="w-5 h-5 text-yellow-500" />
-                <span className="text-sm">Rating 4.8/5</span>
-              </div>
-            </div>
 
-            {/* Real-time Activity Widget */}
-            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-400">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span>24 NFT terjual dalam 1 jam terakhir</span>
+              {/* Enhanced Trust indicators */}
+              <div className="mt-12 space-y-6">
+                <div className="flex flex-wrap justify-center lg:justify-start items-center gap-8 text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-5 h-5 text-green-500" />
+                    <span className="text-sm">Transaksi Aman: Dana diamankan escrow</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5 text-blue-500" />
+                    <span className="text-sm">10,000+ Pengguna</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Star className="w-5 h-5 text-yellow-500" />
+                    <span className="text-sm">Rating 4.8/5</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                <span>1,240 pengguna aktif sekarang</span>
-              </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
