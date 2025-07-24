@@ -56,6 +56,9 @@ import LoadingButton, { BuyButton } from "@/components/LoadingButton"
 import MarketplaceLoading from "@/components/MarketplaceLoading"
 import BackgroundParticles from "@/components/BackgroundParticles"
 import SplineBackground, { SplineBackgroundDemo } from "@/components/SplineBackground"
+import FloatingBackgroundSwitcher from "@/components/FloatingBackgroundSwitcher"
+import NavBackgroundSwitcher from "@/components/NavBackgroundSwitcher"
+import BackgroundSwitcherInMenu from "@/components/BackgroundSwitcherInMenu"
 import { motion } from "framer-motion"
 
 // Sample data for trending items
