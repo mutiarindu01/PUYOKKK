@@ -903,14 +903,26 @@ export default function LandingPage() {
 
 
 
-              {/* View All Button */}
-              <Button
-                variant="outline"
-                className="w-full border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white bg-transparent"
-                asChild
-              >
-                <Link href="/awards-marketplace">Lihat Semua Awards</Link>
-              </Button>
+              {/* Enhanced Action Buttons */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Button
+                  variant="outline"
+                  className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white bg-transparent"
+                  asChild
+                >
+                  <Link href="/awards-marketplace">
+                    🏆 Lihat Semua Awards
+                  </Link>
+                </Button>
+                <Button
+                  className="bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-500/50"
+                  asChild
+                >
+                  <Link href="/voting">
+                    🗳️ Voting Aktif (3)
+                  </Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </div>
