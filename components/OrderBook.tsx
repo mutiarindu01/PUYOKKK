@@ -75,7 +75,7 @@ export default function OrderBook({
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="text-xl font-bold text-white mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Order Book - {tokenSymbol}
+              {tokenSymbol} Trading
             </h3>
             <div className="flex items-center gap-3">
               <span className="text-white font-bold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -91,65 +91,122 @@ export default function OrderBook({
           </div>
           <div className="text-right">
             <p className="text-gray-400 text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Total Orders
+              Live Trading
             </p>
-            <p className="text-white font-bold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>
-              {orders.length}
-            </p>
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse ml-auto mt-1" />
           </div>
         </div>
 
-        {/* Tabs */}
+        {/* Combined Chart and Order Book Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
           <TabsList className="bg-[#0D1117] border border-white/10 w-full">
-            <TabsTrigger 
-              value="all" 
+            <TabsTrigger
+              value="all"
               className="text-white data-[state=active]:bg-blue-600 flex-1"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              Semua Order
+              Chart & Orders
             </TabsTrigger>
-            <TabsTrigger 
-              value="sell" 
+            <TabsTrigger
+              value="sell"
               className="text-white data-[state=active]:bg-red-600 flex-1"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Jual ({sellOrders.length})
             </TabsTrigger>
-            <TabsTrigger 
-              value="buy" 
+            <TabsTrigger
+              value="buy"
               className="text-white data-[state=active]:bg-green-600 flex-1"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Beli ({buyOrders.length})
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="all" className="mt-4">
+            {/* Price Chart Section */}
+            {chartData.length > 0 && (
+              <div className="mb-6 p-4 bg-[#0D1117] border border-white/5 rounded-lg">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <h4 className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      Price Chart (24h)
+                    </h4>
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  </div>
+                  <div className={`flex items-center gap-1 text-xs font-medium ${
+                    trend === "up" ? "text-green-400" : "text-red-400"
+                  }`}>
+                    {trend === "up" ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                    {priceChange}
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <TokenPriceChart
+                    data={chartData}
+                    trend={trend}
+                    change={priceChange}
+                    size="lg"
+                    showTrend={false}
+                    animated={true}
+                  />
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 text-xs">
+                  <div>
+                    <p className="text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>Volume 24h</p>
+                    <p className="text-white font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{volume}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>High 24h</p>
+                    <p className="text-green-400 font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{high24h}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>Low 24h</p>
+                    <p className="text-red-400 font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>{low24h}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Order Book Section */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-white font-semibold text-sm" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  Recent Orders ({orders.length})
+                </h4>
+                <div className="flex gap-2 text-xs">
+                  <span className="text-red-400">{sellOrders.length} Sell</span>
+                  <span className="text-gray-400">•</span>
+                  <span className="text-green-400">{buyOrders.length} Buy</span>
+                </div>
+              </div>
+
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {getFilteredOrders().slice(0, 6).map((order) => (
+                  <OrderRowCompact key={order.id} order={order} />
+                ))}
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="sell" className="mt-4">
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {sellOrders.map((order) => (
+                <OrderRow key={order.id} order={order} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="buy" className="mt-4">
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {buyOrders.map((order) => (
+                <OrderRow key={order.id} order={order} />
+              ))}
+            </div>
+          </TabsContent>
         </Tabs>
-
-        {/* Order List */}
-        <div className="space-y-3 max-h-96 overflow-y-auto">
-          {getFilteredOrders().map((order) => (
-            <OrderRow key={order.id} order={order} />
-          ))}
-        </div>
-
-        {/* Summary */}
-        <div className="mt-6 pt-4 border-t border-white/10">
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>Sell Orders</p>
-              <p className="text-red-400 font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
-                {sellOrders.length} orders
-              </p>
-            </div>
-            <div>
-              <p className="text-gray-400" style={{ fontFamily: 'Inter, sans-serif' }}>Buy Orders</p>
-              <p className="text-green-400 font-bold" style={{ fontFamily: 'Inter, sans-serif' }}>
-                {buyOrders.length} orders
-              </p>
-            </div>
-          </div>
-        </div>
       </CardContent>
     </Card>
   )
