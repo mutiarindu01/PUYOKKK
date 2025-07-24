@@ -773,15 +773,6 @@ export default function LandingPage() {
 
                     <DropdownMenuSeparator />
 
-                    {/* Background Style Options */}
-                    <BackgroundSwitcherInMenu
-                      backgroundType={backgroundType}
-                      setBackgroundType={setBackgroundType}
-                      onClose={() => setIsExploreDropdownOpen(false)}
-                    />
-
-                    <DropdownMenuSeparator />
-
                     <DropdownMenuSub>
                       <DropdownMenuSubTrigger>Tentang PUYOK</DropdownMenuSubTrigger>
                       <DropdownMenuSubContent className="bg-card border-border text-foreground">
