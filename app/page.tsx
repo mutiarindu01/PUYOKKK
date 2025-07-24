@@ -632,7 +632,7 @@ export default function LandingPage() {
               <div className="w-16 h-16 mx-auto mb-6 border-2 border-border rounded-full flex items-center justify-center">
                 <Zap className="w-8 h-8 text-foreground" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-4">Bayar & Verifikasi</h3>
+              <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Bayar & Verifikasi</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Pembeli transfer ke rekening penjual via DANA, GoPay, atau OVO. Upload bukti pembayaran untuk verifikasi
                 cepat.
