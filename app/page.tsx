@@ -21,6 +21,10 @@ import {
   DollarSign,
   Handshake,
   TrendingUp,
+  Crown,
+  ChevronLeft,
+  ChevronRight,
+  Trophy,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -56,10 +60,114 @@ export default function LandingPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [backgroundType, setBackgroundType] = useState<"gradient" | "particles" | "spline" | "mesh">("spline")
   const [showScrollToTop, setShowScrollToTop] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
   const lastScrollY = useRef(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
 
   const [isExploreDropdownOpen, setIsExploreDropdownOpen] = useState(false)
+
+  // Live stats data
+  const [liveStats, setLiveStats] = useState({
+    collections: "1,247",
+    partners: "89",
+    creators: "2,350"
+  })
+
+  // Legendary Awards Data
+  const legendaryAwards = [
+    {
+      id: 1,
+      title: "Golden Dragon Legendary",
+      price: "Rp 125.000.000",
+      image: "/placeholder.svg",
+      rarity: "Legendary",
+      badge: "Award",
+      seller: "DragonMaster_ID",
+      verified: true,
+      likes: 1247,
+      views: 8924
+    },
+    {
+      id: 2,
+      title: "Epic Phoenix Crown",
+      price: "Rp 89.500.000",
+      image: "/placeholder.svg",
+      rarity: "Epic",
+      badge: "Award",
+      seller: "PhoenixArt",
+      verified: true,
+      likes: 892,
+      views: 5634
+    },
+    {
+      id: 3,
+      title: "Mythical Garuda Shield",
+      price: "Rp 156.000.000",
+      image: "/placeholder.svg",
+      rarity: "Mythical",
+      badge: "Award",
+      seller: "GarudaLegend",
+      verified: true,
+      likes: 2156,
+      views: 12847
+    },
+    {
+      id: 4,
+      title: "Rare Batik Medallion",
+      price: "Rp 67.800.000",
+      image: "/placeholder.svg",
+      rarity: "Rare",
+      badge: "Award",
+      seller: "BatikArtisan",
+      verified: false,
+      likes: 634,
+      views: 3421
+    },
+    {
+      id: 5,
+      title: "Divine Wayang Trophy",
+      price: "Rp 198.000.000",
+      image: "/placeholder.svg",
+      rarity: "Divine",
+      badge: "Award",
+      seller: "WayangMaster",
+      verified: true,
+      likes: 3247,
+      views: 18925
+    }
+  ]
+
+  // Slider functions
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % legendaryAwards.length)
+    if (scrollRef.current) {
+      const cardWidth = 320 // 300px width + 20px gap
+      scrollRef.current.scrollTo({
+        left: ((currentSlide + 1) % legendaryAwards.length) * cardWidth,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + legendaryAwards.length) % legendaryAwards.length)
+    if (scrollRef.current) {
+      const cardWidth = 320
+      scrollRef.current.scrollTo({
+        left: ((currentSlide - 1 + legendaryAwards.length) % legendaryAwards.length) * cardWidth,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  // Auto slide effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide()
+    }, 5000) // Change slide every 5 seconds
+    return () => clearInterval(interval)
+  }, [currentSlide])
 
   // Simulate initial loading
   useEffect(() => {
@@ -364,181 +472,311 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Enhanced Hero Section with Split Layout */}
+      {/* Enhanced Hero Section with New Layout */}
       <section className="relative py-20 md:py-32 overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Real-time Activity Widget */}
+        <div className="relative max-w-7xl mx-auto px-6 md:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-8 gap-8 items-center min-h-[600px]">
+            {/* Left Column - Hero Content */}
             <motion.div
-              className="order-2 lg:order-1"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-3 space-y-8"
             >
-              <div className="bg-gradient-to-br from-card/80 to-primary/5 border border-border/50 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <h3 className="text-lg font-bold text-white">Aktivitas Real-time</h3>
-                  <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-xs">LIVE</Badge>
-                </div>
+              {/* Badge */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                <Badge className="bg-brand-green/20 text-brand-green border-brand-green/50 px-4 py-2 text-sm font-medium">
+                  🔥 Bergabung dengan 10,000+ Pengguna
+                </Badge>
+              </motion.div>
 
-                {/* Real-time Activity Feed */}
-                <div className="space-y-4">
-                  <motion.div
-                    className="bg-card/50 border border-green-500/20 rounded-lg p-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">🔥</span>
-                      <div className="flex-1">
-                        <p className="text-white text-sm">
-                          <span className="text-primary font-semibold">Budi_</span> baru saja membeli{" "}
-                          <span className="text-purple-400 font-medium">Bored Ape #1234</span> seharga{" "}
-                          <span className="text-green-400 font-bold">Rp 850jt</span>!
-                        </p>
-                        <p className="text-xs text-gray-400 mt-1">2 menit lalu via DANA</p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="bg-card/50 border border-blue-500/20 rounded-lg p-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">💰</span>
-                      <div className="flex-1">
-                        <p className="text-white text-sm">
-                          <span className="text-primary font-semibold">CryptoQueen</span> menjual{" "}
-                          <span className="text-purple-400 font-medium">CryptoPunk #7890</span> seharga{" "}
-                          <span className="text-green-400 font-bold">Rp 1,2M</span>
-                        </p>
-                        <p className="text-xs text-gray-400 mt-1">5 menit lalu via GoPay</p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="bg-card/50 border border-purple-500/20 rounded-lg p-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.7 }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">🎨</span>
-                      <div className="flex-1">
-                        <p className="text-white text-sm">
-                          <span className="text-primary font-semibold">ArtistIndo</span> listing baru{" "}
-                          <span className="text-purple-400 font-medium">Batik Genesis Collection</span> mulai dari{" "}
-                          <span className="text-green-400 font-bold">Rp 15jt</span>
-                        </p>
-                        <p className="text-xs text-gray-400 mt-1">8 menit lalu</p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="bg-card/50 border border-orange-500/20 rounded-lg p-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.9 }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="text-2xl">⚡</span>
-                      <div className="flex-1">
-                        <p className="text-white text-sm">
-                          <span className="text-primary font-semibold">TokenMaster</span> swap{" "}
-                          <span className="text-orange-400 font-medium">50 ETH → 750jt USDT</span> dalam{" "}
-                          <span className="text-green-400 font-bold">30 detik</span>
-                        </p>
-                        <p className="text-xs text-gray-400 mt-1">12 menit lalu via OVO</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Activity Stats */}
-                <div className="mt-6 pt-4 border-t border-border/50">
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="text-primary font-bold text-lg">47</div>
-                      <div className="text-xs text-gray-400">Transaksi/jam</div>
-                    </div>
-                    <div>
-                      <div className="text-green-400 font-bold text-lg">Rp 2.8M</div>
-                      <div className="text-xs text-gray-400">Volume/jam</div>
-                    </div>
-                    <div>
-                      <div className="text-blue-400 font-bold text-lg">1,234</div>
-                      <div className="text-xs text-gray-400">User aktif</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Side - Main Content */}
-            <motion.div
-              className="order-1 lg:order-2 text-center lg:text-left"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
-                Tukar Aset Digital,
-                <br />
-                <span className="text-primary">Terima Rupiah.</span>
-              </h1>
-              <p className="text-base md:text-lg text-gray-300 mb-10 leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-                Marketplace P2P pertama di Indonesia untuk menukar NFT & Token dengan DANA, GoPay, OVO, dan transfer bank.
-              </p>
-
-              {/* Focused CTA System */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-xl font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
-                  onClick={() => document.getElementById("trending-tokens")?.scrollIntoView({ behavior: "smooth" })}
+              {/* Main Headlines */}
+              <div className="space-y-4">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-lg text-gray-300"
                 >
-                  🛒 Beli Aset Digital
-                  <ArrowRight className="ml-3 w-6 h-6" />
-                </Button>
+                  Aset Digital Bertemu Realitas
+                </motion.p>
+
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-4xl md:text-6xl font-bold text-white leading-tight"
+                >
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-blue-400">
+                    Marketplace
+                  </span>
+                  <br />
+                  P2P Indonesia
+                </motion.h1>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-lg text-gray-300 leading-relaxed max-w-lg"
+                >
+                  PUYOK mempelopori panggung NFT di Indonesia dengan marketplace untuk koleksi digital dan aset kreatif
+                </motion.p>
+              </div>
+
+              {/* Statistics */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="grid grid-cols-3 gap-6"
+              >
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold text-brand-green mb-1">{liveStats.collections}</div>
+                  <div className="text-sm text-gray-400">Koleksi Unik</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold text-blue-400 mb-1">{liveStats.partners}</div>
+                  <div className="text-sm text-gray-400">Mitra Resmi</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold text-purple-400 mb-1">{liveStats.creators}</div>
+                  <div className="text-sm text-gray-400">Koleksi/Kreator</div>
+                </div>
+              </motion.div>
+
+              {/* CTA Button */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-6 text-lg font-medium"
+                  className="bg-brand-green hover:bg-brand-green/90 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-brand-green/25 transition-all"
                   asChild
                 >
-                  <Link href="/create-listing">
-                    💰 Jual Aset Sekarang
+                  <Link href="/marketplace">
+                    Jelajahi Marketplace
+                    <ArrowRight className="ml-3 w-6 h-6" />
                   </Link>
                 </Button>
-              </div>
+              </motion.div>
 
-              {/* Enhanced Trust indicators */}
-              <div className="mt-12 space-y-6">
-                <div className="flex flex-wrap justify-center lg:justify-start items-center gap-8 text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-green-500" />
-                    <span className="text-sm">Transaksi Aman: Dana diamankan escrow</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-blue-500" />
-                    <span className="text-sm">10,000+ Pengguna</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Star className="w-5 h-5 text-yellow-500" />
-                    <span className="text-sm">Rating 4.8/5</span>
-                  </div>
+              {/* Trust Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="flex items-center gap-3 pt-4"
+              >
+                <Shield className="w-5 h-5 text-blue-400" />
+                <span className="text-sm text-gray-400">
+                  Diaudit Oleh <span className="font-semibold text-white">CERTIK</span>
+                </span>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column - Legendary Awards Marketplace Slider */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="lg:col-span-5 space-y-4"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Crown className="w-5 h-5 text-yellow-400" />
+                  <h3 className="text-lg font-bold text-white">Legendary Awards</h3>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={prevSlide}
+                    className="w-8 h-8 p-0 border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white bg-transparent"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={nextSlide}
+                    className="w-8 h-8 p-0 border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white bg-transparent"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
+
+              {/* Slider Container */}
+              <div className="relative overflow-hidden">
+                <div
+                  ref={scrollRef}
+                  className="flex gap-4 overflow-x-auto scrollbar-hide"
+                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                >
+                  {legendaryAwards.map((award, index) => (
+                    <motion.div
+                      key={award.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex-shrink-0 w-80"
+                    >
+                      <Card className="bg-gray-900/50 border border-gray-700 p-4 hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/10 backdrop-blur-sm">
+                        {/* Award Image */}
+                        <div className="relative mb-3">
+                          <div className="aspect-square bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 rounded-lg flex items-center justify-center overflow-hidden">
+                            <img
+                              src={award.image || "/placeholder.svg"}
+                              alt={award.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          {/* Rarity Badge */}
+                          <Badge className="absolute top-2 left-2 bg-yellow-500/20 text-yellow-400 border-yellow-500/50 text-xs">
+                            {award.rarity}
+                          </Badge>
+                          {/* Award Badge */}
+                          <Badge className="absolute top-2 right-2 bg-purple-500/20 text-purple-400 border-purple-500/50 text-xs">
+                            {award.badge}
+                          </Badge>
+                        </div>
+
+                        {/* Award Info */}
+                        <div className="space-y-2">
+                          <h4 className="font-semibold text-white text-sm truncate">{award.title}</h4>
+
+                          {/* Price */}
+                          <div className="text-brand-green font-bold text-sm">{award.price}</div>
+
+                          {/* Seller Info */}
+                          <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">{award.seller[0]}</span>
+                            </div>
+                            <span className="text-gray-300 text-xs truncate">{award.seller}</span>
+                            {award.verified && (
+                              <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
+                                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Stats */}
+                          <div className="flex items-center justify-between text-xs text-gray-400">
+                            <div className="flex items-center gap-1">
+                              <Star className="w-3 h-3" />
+                              <span>{award.likes.toLocaleString()}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Trophy className="w-3 h-3" />
+                              <span>{award.views.toLocaleString()}</span>
+                            </div>
+                          </div>
+
+                          {/* Action Button */}
+                          <Button
+                            size="sm"
+                            className="w-full bg-brand-green/20 hover:bg-brand-green/30 text-brand-green border border-brand-green/50 text-xs"
+                            asChild
+                          >
+                            <Link href={`/awards-marketplace/${award.id}`}>Lihat Detail</Link>
+                          </Button>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Slide Indicators */}
+              <div className="flex justify-center gap-2 mt-4">
+                {legendaryAwards.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      index === currentSlide ? "bg-brand-green" : "bg-gray-600"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* View All Button */}
+              <Button
+                variant="outline"
+                className="w-full border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white bg-transparent"
+                asChild
+              >
+                <Link href="/awards-marketplace">Lihat Semua Awards</Link>
+              </Button>
             </motion.div>
           </div>
         </div>
+
+        {/* Small Real-time Activity Widget - Bottom Right */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="absolute bottom-8 right-8 hidden lg:block"
+        >
+          <div className="bg-gradient-to-br from-card/90 to-primary/10 border border-border/50 rounded-xl p-4 backdrop-blur-md w-80">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <h3 className="text-sm font-bold text-white">Live Activity</h3>
+              <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-xs">LIVE</Badge>
+            </div>
+
+            {/* Compact Activity Feed */}
+            <div className="space-y-2">
+              <div className="bg-card/30 border border-green-500/20 rounded-lg p-2">
+                <div className="flex items-start gap-2">
+                  <span className="text-sm">🔥</span>
+                  <div className="flex-1">
+                    <p className="text-white text-xs">
+                      <span className="text-primary font-medium">Budi_</span> bought{" "}
+                      <span className="text-purple-400">Ape #1234</span>{" "}
+                      <span className="text-green-400 font-bold">Rp 850jt</span>
+                    </p>
+                    <p className="text-xs text-gray-500">2 min ago</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-card/30 border border-blue-500/20 rounded-lg p-2">
+                <div className="flex items-start gap-2">
+                  <span className="text-sm">💰</span>
+                  <div className="flex-1">
+                    <p className="text-white text-xs">
+                      <span className="text-primary font-medium">Queen</span> sold{" "}
+                      <span className="text-purple-400">Punk #7890</span>{" "}
+                      <span className="text-green-400 font-bold">Rp 1.2M</span>
+                    </p>
+                    <p className="text-xs text-gray-500">5 min ago</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Compact Stats */}
+            <div className="mt-3 pt-2 border-t border-border/30">
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <div className="text-primary font-bold text-sm">47</div>
+                  <div className="text-xs text-gray-500">Tx/hr</div>
+                </div>
+                <div>
+                  <div className="text-green-400 font-bold text-sm">2.8M</div>
+                  <div className="text-xs text-gray-500">Vol/hr</div>
+                </div>
+                <div>
+                  <div className="text-blue-400 font-bold text-sm">1.2K</div>
+                  <div className="text-xs text-gray-500">Users</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* Trust Badges & Payment Partners Section */}
