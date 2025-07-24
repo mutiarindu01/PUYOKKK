@@ -749,6 +749,106 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Live Social Proof Section */}
+      <section className="py-16 bg-gradient-to-r from-primary/5 to-purple-600/5">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Aktivitas Real-time</h2>
+            <p className="text-gray-300">Transaksi yang terjadi saat ini di PUYOK</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Live Transaction Feed */}
+            <Card className="bg-card border border-border p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-xs text-green-500 font-semibold">BARU SAJA</span>
+              </div>
+              <p className="text-sm text-gray-300 mb-2">
+                <span className="text-primary font-medium">@crypto_art</span> menjual NFT
+              </p>
+              <p className="text-xs text-muted-foreground">
+                💰 Rp 2,500,000 via DANA • 2 menit lalu
+              </p>
+            </Card>
+
+            <Card className="bg-card border border-border p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                <span className="text-xs text-blue-500 font-semibold">AKTIF</span>
+              </div>
+              <p className="text-sm text-gray-300 mb-2">
+                <span className="text-primary font-medium">@token_trader</span> beli USDT
+              </p>
+              <p className="text-xs text-muted-foreground">
+                💳 Rp 15,000,000 via GoPay • 5 menit lalu
+              </p>
+            </Card>
+
+            <Card className="bg-card border border-border p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                <span className="text-xs text-purple-500 font-semibold">SELESAI</span>
+              </div>
+              <p className="text-sm text-gray-300 mb-2">
+                <span className="text-primary font-medium">@nft_collector</span> terima aset
+              </p>
+              <p className="text-xs text-muted-foreground">
+                🎨 Digital Art Collection • 8 menit lalu
+              </p>
+            </Card>
+
+            <Card className="bg-card border border-primary/50 p-4 shadow-lg shadow-primary/20">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary mb-1">Rp 1.2M</div>
+                <div className="text-xs text-muted-foreground mb-2">Volume 24 Jam</div>
+                <div className="text-lg font-semibold text-green-500 mb-1">98%</div>
+                <div className="text-xs text-muted-foreground">Transaksi Sukses</div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Quick Testimonials */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="bg-card/50 border border-border p-4">
+              <p className="text-sm text-gray-300 mb-3">
+                "Jual Crypto dapat Rupiah instan! 🔥"
+              </p>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center text-xs text-white">
+                  B
+                </div>
+                <span className="text-xs text-muted-foreground">@budi_web3 • 5 menit lalu</span>
+              </div>
+            </Card>
+
+            <Card className="bg-card/50 border border-border p-4">
+              <p className="text-sm text-gray-300 mb-3">
+                "Escrow system nya TOP! Aman banget 🛡️"
+              </p>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-xs text-white">
+                  S
+                </div>
+                <span className="text-xs text-muted-foreground">@sara_nft • 12 menit lalu</span>
+              </div>
+            </Card>
+
+            <Card className="bg-card/50 border border-border p-4">
+              <p className="text-sm text-gray-300 mb-3">
+                "Payment via DANA langsung masuk! 💰"
+              </p>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs text-white">
+                  A
+                </div>
+                <span className="text-xs text-muted-foreground">@ahmad_trader • 18 menit lalu</span>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-card/30">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
