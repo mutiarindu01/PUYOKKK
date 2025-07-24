@@ -686,51 +686,80 @@ export default function SophisticatedMarketplace() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="flex items-center justify-between py-4 border-b border-white/5 last:border-b-0 hover:bg-white/5 hover:border-blue-500/20 transition-all duration-200 rounded-lg px-4 -mx-4 cursor-pointer group"
+                      className="py-4 border-b border-white/5 last:border-b-0 hover:bg-white/5 hover:border-blue-500/20 transition-all duration-200 rounded-lg px-4 -mx-4 cursor-pointer group"
                     >
-                      <div className="flex items-center gap-4">
-                        <div className="relative">
-                          <img
-                            src={order.type === "Token" ? order.icon : order.image}
-                            alt={order.name}
-                            className="w-12 h-12 rounded-full object-cover border border-white/10 group-hover:border-blue-500/30 transition-all"
-                          />
-                          {order.verified && (
-                            <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1">
-                              <Verified className="w-3 h-3 text-white" />
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="relative">
+                            <img
+                              src={order.type === "Token" ? order.icon : order.image}
+                              alt={order.name}
+                              className="w-12 h-12 rounded-full object-cover border border-white/10 group-hover:border-blue-500/30 transition-all"
+                            />
+                            {order.verified && (
+                              <div className="absolute -bottom-1 -right-1 bg-blue-600 rounded-full p-1">
+                                <Verified className="w-3 h-3 text-white" />
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-white font-semibold text-lg group-hover:text-blue-400 transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
+                                {order.name}
+                              </span>
+                            </div>
+                            <div className="text-gray-400 text-sm font-normal mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+                              {order.symbol}
+                              {order.type === "Token" && order.totalOrders && (
+                                <span className="ml-2">• {order.totalOrders} orders</span>
+                              )}
+                            </div>
+                            {order.type === "Token" && order.topSeller && (
+                              <Link href={`/profile/${order.topSeller.username}`} className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+                                <Avatar className="w-4 h-4">
+                                  <AvatarImage src={order.topSeller.avatar} />
+                                  <AvatarFallback className="bg-[#1F2937] text-white text-xs">
+                                    <User className="w-2 h-2" />
+                                  </AvatarFallback>
+                                </Avatar>
+                                <span className="text-gray-500 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+                                  Top: @{order.topSeller.username}
+                                </span>
+                                {order.topSeller.verified && <Verified className="w-3 h-3 text-blue-500" />}
+                              </Link>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="text-center">
+                          <div className="text-white font-bold text-lg mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>{order.price}</div>
+                          {order.type === "Token" && order.change && (
+                            <div className={`text-sm font-medium mb-2 ${
+                              order.change.startsWith("+") ? "text-green-400" : "text-red-400"
+                            }`} style={{ fontFamily: 'Inter, sans-serif' }}>
+                              {order.change}
                             </div>
                           )}
+                          {order.type === "NFT" && (
+                            <div className="flex items-center justify-center gap-1 text-gray-400 text-sm font-normal mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                              <Eye className="w-3 h-3" />
+                              {order.views}
+                            </div>
+                          )}
+                          <PaymentMethods methods={order.paymentMethods || ["dana", "gopay"]} size="sm" />
                         </div>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-white font-semibold text-lg group-hover:text-blue-400 transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
-                              {order.name}
-                            </span>
-                          </div>
-                          <div className="text-gray-400 text-sm font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>{order.symbol}</div>
+
+                        <div className="text-right">
+                          <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-600/25 transition-all mb-2">
+                            Lihat Orders
+                          </Button>
+                          {order.type === "Token" && (
+                            <p className="text-gray-400 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+                              Volume: {order.volume}
+                            </p>
+                          )}
                         </div>
                       </div>
-
-                      <div className="text-right">
-                        <div className="text-white font-bold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>{order.price}</div>
-                        {order.type === "Token" && order.change && (
-                          <div className={`text-sm font-medium ${
-                            order.change.startsWith("+") ? "text-green-400" : "text-red-400"
-                          }`} style={{ fontFamily: 'Inter, sans-serif' }}>
-                            {order.change}
-                          </div>
-                        )}
-                        {order.type === "NFT" && (
-                          <div className="flex items-center gap-1 text-gray-400 text-sm font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-                            <Eye className="w-3 h-3" />
-                            {order.views}
-                          </div>
-                        )}
-                      </div>
-
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-600/25 transition-all">
-                        Beli
-                      </Button>
                     </motion.div>
                   ))}
                 </div>
