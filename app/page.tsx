@@ -606,10 +606,10 @@ export default function LandingPage() {
       <section id="how-it-works" className="py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
               Transaksi Aman dalam 3 Langkah Mudah
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base text-gray-300 max-w-2xl mx-auto font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
               Sistem escrow otomatis melindungi setiap transaksi Anda
             </p>
           </div>
