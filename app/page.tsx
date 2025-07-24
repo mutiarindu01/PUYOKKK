@@ -489,26 +489,6 @@ export default function LandingPage() {
                 Daftar Sekarang - Gratis
               </Button>
             </div>
-
-            {/* Lead Magnet */}
-            <Card className="max-w-md mx-auto bg-card/50 border border-primary/30 p-4">
-              <div className="text-center mb-3">
-                <p className="text-sm text-gray-300">💎 Dapatkan Update Eksklusif:</p>
-              </div>
-              <div className="flex gap-2">
-                <Input
-                  type="email"
-                  placeholder="Email Anda"
-                  className="flex-1 bg-background/50 border-border text-white placeholder-gray-400"
-                />
-                <Button size="sm" className="bg-primary hover:bg-primary/90 px-4">
-                  Subscribe
-                </Button>
-              </div>
-              <p className="text-xs text-gray-400 mt-2 text-center">
-                Notifikasi NFT trending • Tips trading • Promo eksklusif
-              </p>
-            </Card>
           </div>
 
           {/* Enhanced Trust indicators */}
@@ -786,7 +766,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="w-20 h-20 mx-auto mb-6 bg-primary/20 rounded-full flex items-center justify-center">
-                  <span className="text-4xl">🇮🇩</span>
+                  <span className="text-4xl">����🇩</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">PUYOK</h3>
                 <Badge className="mb-6 bg-primary text-primary-foreground">
