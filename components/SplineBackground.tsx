@@ -1,9 +1,6 @@
 "use client"
 
-import { Suspense, lazy } from 'react'
-
-// Lazy load Spline component to improve initial load time
-const Spline = lazy(() => import('@splinetool/react-spline'))
+import { useEffect, useRef } from 'react'
 
 interface SplineBackgroundProps {
   scene?: string
@@ -11,40 +8,28 @@ interface SplineBackgroundProps {
   style?: React.CSSProperties
 }
 
-function SplineLoadingFallback() {
-  return (
-    <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-pink-950/20">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    </div>
-  )
-}
+// For actual Spline integration, uncomment and install @splinetool/react-spline
+// import { Suspense, lazy } from 'react'
+// const Spline = lazy(() => import('@splinetool/react-spline'))
 
-export default function SplineBackground({ 
-  scene = "https://prod.spline.design/your-scene-id/scene.splinecode", 
+export default function SplineBackground({
+  scene = "https://prod.spline.design/your-scene-id/scene.splinecode",
   className = "",
   style = {}
 }: SplineBackgroundProps) {
   return (
-    <div 
-      className={`fixed inset-0 pointer-events-none z-0 ${className}`}
-      style={{ 
-        opacity: 0.7,
-        filter: 'blur(0.5px)',
-        ...style 
-      }}
-    >
-      <Suspense fallback={<SplineLoadingFallback />}>
-        <Spline 
-          scene={scene}
-          style={{
-            width: '100%',
-            height: '100%',
-            background: 'transparent'
-          }}
-        />
-      </Suspense>
+    <div className={`fixed inset-0 pointer-events-none z-0 ${className}`}>
+      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50/30 via-purple-50/30 to-pink-50/30 dark:from-blue-950/10 dark:via-purple-950/10 dark:to-pink-950/10">
+        <div className="text-center p-8">
+          <div className="w-12 h-12 mx-auto mb-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+          <p className="text-sm text-muted-foreground">
+            Spline 3D Background
+          </p>
+          <p className="text-xs text-muted-foreground/70 mt-1">
+            Install @splinetool/react-spline untuk scene sesungguhnya
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
