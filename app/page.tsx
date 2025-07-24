@@ -783,7 +783,7 @@ export default function LandingPage() {
                   </Badge>
                 </div>
                 <p className="text-gray-300 text-sm max-w-md mx-auto">
-                  Dapatkan NFT 1/1 eksklusif untuk perilaku pertama kali di PUYOK
+                  NFT 1/1 eksklusif otomatis dikirim untuk milestone pertama
                 </p>
               </div>
 
