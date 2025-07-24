@@ -529,19 +529,13 @@ function NFTCard({ nft, onBuyClick, isLoading }: {
 }
 
 export default function LandingPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [activeFilter, setActiveFilter] = useState("Token")
-  const [viewMode, setViewMode] = useState<"list" | "grid">("list")
   const [isNavOpen, setIsNavOpen] = useState(true)
-  const [trendingIndex, setTrendingIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
-  const [loadingStates, setLoadingStates] = useState<{[key: string]: boolean}>({})
   const [backgroundType, setBackgroundType] = useState<"gradient" | "particles" | "spline" | "mesh">("spline")
   const lastScrollY = useRef(0)
   const router = useRouter()
 
   const [isExploreDropdownOpen, setIsExploreDropdownOpen] = useState(false)
-  const [filteredItems, setFilteredItems] = useState([...marketplaceTokens, ...marketplaceNFTs])
 
   // Simulate initial loading
   useEffect(() => {
