@@ -620,8 +620,8 @@ export default function LandingPage() {
               <div className="w-16 h-16 mx-auto mb-6 border-2 border-border rounded-full flex items-center justify-center">
                 <Plus className="w-8 h-8 text-foreground" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-4">Jual & Escrow</h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Jual & Escrow</h3>
+              <p className="text-base text-gray-300 leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
                 List aset Anda dengan harga yang diinginkan. Sistem escrow otomatis mengamankan aset hingga pembayaran
                 dikonfirmasi.
               </p>
