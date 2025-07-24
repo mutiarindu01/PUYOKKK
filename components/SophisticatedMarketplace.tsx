@@ -353,12 +353,12 @@ export default function SophisticatedMarketplace() {
           </div>
         </motion.section>
 
-        {/* Section 2: Featured NFTs */}
+        {/* Section 2: Featured NFTs Carousel */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mb-20"
+          className="mb-20 relative"
         >
           <div className="mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
@@ -368,10 +368,40 @@ export default function SophisticatedMarketplace() {
               Koleksi NFT terpilih dengan kualitas dan nilai investasi terbaik
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Carousel Navigation Arrows */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 z-10">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => scrollNftCarousel("left")}
+              className="w-12 h-12 rounded-full bg-black/60 border-white/20 text-white hover:bg-black/80 hover:border-blue-500/50 backdrop-blur-sm transition-all"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </Button>
+          </div>
+
+          <div className="absolute top-1/2 -translate-y-1/2 right-0 z-10">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => scrollNftCarousel("right")}
+              className="w-12 h-12 rounded-full bg-black/60 border-white/20 text-white hover:bg-black/80 hover:border-blue-500/50 backdrop-blur-sm transition-all"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </Button>
+          </div>
+
+          {/* NFT Carousel */}
+          <div
+            ref={nftCarouselRef}
+            className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 px-8"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
             {featuredNFTs.map((nft) => (
-              <FeaturedNFTCard key={nft.id} nft={nft} />
+              <div key={nft.id} className="flex-none w-80">
+                <FeaturedNFTCard nft={nft} />
+              </div>
             ))}
           </div>
         </motion.section>
