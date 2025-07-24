@@ -292,27 +292,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Newsletter Signup */}
-        <div className="mt-12 p-6 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-xl border border-primary/20">
-          <div className="text-center md:text-left md:flex md:items-center md:justify-between">
-            <div className="mb-4 md:mb-0">
-              <h3 className="font-semibold text-foreground mb-2">Tetap Update dengan PUYOK</h3>
-              <p className="text-sm text-muted-foreground">
-                Dapatkan berita terbaru, tips trading, dan update fitur langsung ke email Anda.
-              </p>
-            </div>
-            <div className="flex gap-2 max-w-sm mx-auto md:mx-0">
-              <input
-                type="email"
-                placeholder="Masukkan email Anda"
-                className="flex-1 px-3 py-2 text-sm bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Button size="sm">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
+
       </div>
 
       {/* Bottom Bar */}
