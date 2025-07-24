@@ -91,6 +91,16 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Performance optimizations */
+  .animated-background,
+  .floating-orbs,
+  .mesh-gradient,
+  .grid-pattern {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
 }
 
 /* Animated background gradients */
