@@ -675,23 +675,11 @@ export default function LandingPage() {
         )}
       </motion.div>
 
-      {/* Background Switcher Options - Pilih salah satu */}
-
-      {/* Option 1: Floating Button (Bottom Right) - Recommended */}
+      {/* Floating Background Switcher */}
       <FloatingBackgroundSwitcher
         backgroundType={backgroundType}
         setBackgroundType={setBackgroundType}
       />
-
-      {/* Option 2: Demo selector yang bisa dihapus - untuk testing */}
-      <div className="fixed top-24 left-4 z-50 bg-card/90 backdrop-blur-sm border border-border rounded-lg p-3">
-        <p className="text-xs text-muted-foreground mb-2">Demo Placement Options:</p>
-        <div className="space-y-1">
-          <p className="text-xs">✅ Floating (bottom-right)</p>
-          <p className="text-xs">📱 Navigation (lihat navbar)</p>
-          <p className="text-xs">📋 Menu Jelajahi (dropdown)</p>
-        </div>
-      </div>
 
       {/* Navigation Bar - Cleaner Design */}
       <header
