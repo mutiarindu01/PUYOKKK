@@ -34,7 +34,7 @@ const trendingTokens = [
     price: "Rp 850.000.000",
     change: "+2.1%",
     trend: "up" as const,
-    volume: "Rp 2.1M",
+    volume: "Rp 2.100.000",
     sparklineData: [45, 52, 48, 61, 55, 67, 69, 74, 78, 82]
   },
   {
@@ -45,7 +45,7 @@ const trendingTokens = [
     price: "Rp 45.000.000",
     change: "-1.5%",
     trend: "down" as const,
-    volume: "Rp 1.8M",
+    volume: "Rp 1.800.000",
     sparklineData: [67, 65, 62, 59, 55, 52, 48, 45, 43, 41]
   },
   {
@@ -56,7 +56,7 @@ const trendingTokens = [
     price: "Rp 15.500",
     change: "+0.2%",
     trend: "up" as const,
-    volume: "Rp 5.2M",
+    volume: "Rp 5.200.000",
     sparklineData: [15, 15.1, 15.05, 15.2, 15.18, 15.25, 15.3, 15.28, 15.35, 15.4]
   },
   {
@@ -67,7 +67,7 @@ const trendingTokens = [
     price: "Rp 6.000.000",
     change: "+0.8%",
     trend: "up" as const,
-    volume: "Rp 980K",
+    volume: "Rp 980.000",
     sparklineData: [58, 59, 61, 63, 65, 67, 66, 68, 70, 72]
   },
   {
@@ -78,7 +78,7 @@ const trendingTokens = [
     price: "Rp 7.500",
     change: "+5.2%",
     trend: "up" as const,
-    volume: "Rp 1.2M",
+    volume: "Rp 1.200.000",
     sparklineData: [6.8, 7.1, 7.3, 7.5, 7.8, 8.0, 7.9, 8.2, 8.1, 8.4]
   }
 ]
