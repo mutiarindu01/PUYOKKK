@@ -509,31 +509,25 @@ export default function SophisticatedMarketplace() {
           </div>
         </motion.section>
 
-        {/* Section 1.5: Featured Token with OrderBook */}
+        {/* Section 1.5: Featured Token with Combined Chart & OrderBook */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="mb-20"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Detailed Chart */}
-            <DetailedTokenChart
-              data={trendingTokens[0].sparklineData}
-              trend={trendingTokens[0].trend}
-              change={trendingTokens[0].change}
-              volume={trendingTokens[0].volume}
-              high24h={trendingTokens[0].high24h}
-              low24h={trendingTokens[0].low24h}
-            />
-
-            {/* Order Book */}
+          <div className="max-w-4xl mx-auto">
+            {/* Combined Chart & Order Book */}
             <OrderBook
               tokenSymbol={trendingTokens[0].symbol}
               orders={sampleOrderBookData.btc}
               currentPrice={trendingTokens[0].price}
               priceChange={trendingTokens[0].change}
               trend={trendingTokens[0].trend}
+              chartData={trendingTokens[0].sparklineData}
+              volume={trendingTokens[0].volume}
+              high24h={trendingTokens[0].high24h}
+              low24h={trendingTokens[0].low24h}
             />
           </div>
         </motion.section>
