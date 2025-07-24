@@ -721,18 +721,7 @@ export default function LandingPage() {
                 </Button>
               </motion.div>
 
-              {/* Trust Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="flex items-center gap-3 pt-4"
-              >
-                <Shield className="w-5 h-5 text-blue-400" />
-                <span className="text-sm text-gray-400">
-                  Diaudit Oleh <span className="font-semibold text-white">CERTIK</span>
-                </span>
-              </motion.div>
+
             </motion.div>
 
             {/* Right Column - Legendary Awards Marketplace Slider */}
@@ -941,83 +930,7 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
-      {/* Featured NFTs Section */}
-      <motion.section
-        className="py-20 bg-gradient-to-br from-gray-900/50 to-gray-800/30"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              Featured NFTs
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Koleksi NFT pilihan dengan kualitas terbaik dari kreator Indonesia terpercaya
-            </p>
-          </div>
 
-          {/* NFT Grid - 2 columns on desktop, carousel on mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredNFTs.map((nft, index) => (
-              <motion.div
-                key={nft.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <Card className="bg-gray-900/60 border border-gray-700 overflow-hidden hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/20 rounded-xl">
-                  <div className="relative">
-                    <img
-                      src={nft.image}
-                      alt={nft.title}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute top-2 right-2 flex gap-1">
-                      <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 text-xs text-white flex items-center gap-1">
-                        <Heart className="w-3 h-3" />
-                        {nft.likes}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-white text-lg mb-1">{nft.title}</h3>
-                    <p className="text-gray-400 text-sm mb-3">{nft.collection}</p>
-
-                    <div className="flex justify-between items-center mb-3">
-                      <div className="text-brand-green font-bold text-lg">{nft.price}</div>
-                      <div className="text-gray-400 text-sm">{nft.offers} offers</div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">{nft.creator[0]}</span>
-                        </div>
-                        <span className="text-gray-300 text-sm truncate">{nft.creator}</span>
-                        {nft.verified && (
-                          <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
-                            <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    <Button
-                      className="w-full mt-3 bg-brand-green/20 hover:bg-brand-green/30 text-brand-green border border-brand-green/50 rounded-lg"
-                      asChild
-                    >
-                      <Link href={`/marketplace/${nft.id}`}>Lihat Detail</Link>
-                    </Button>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
 
       {/* Live Activity Feed */}
       <motion.section
@@ -1172,21 +1085,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Security Badges */}
-            <div className="flex flex-wrap justify-center items-center gap-6 text-xs text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-green-500" />
-                <span>Escrow terverifikasi</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-blue-500" />
-                <span>Smart contract audited</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-purple-500" />
-                <span>Terdaftar BAPPEBTI</span>
-              </div>
-            </div>
+
           </div>
 
           {/* Enhanced Escrow Transparency */}
