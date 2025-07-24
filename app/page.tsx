@@ -1085,6 +1085,46 @@ export default function LandingPage() {
       </section>
 
       <Footer />
+
+      {/* Scroll to Top Bubble */}
+      <motion.button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 z-50 w-12 h-12 bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 flex items-center justify-center transition-all duration-300 ${
+          showScrollToTop ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
+        }`}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{
+          opacity: showScrollToTop ? 1 : 0,
+          scale: showScrollToTop ? 1 : 0.75
+        }}
+        whileHover={{
+          scale: 1.1,
+          y: -2,
+          transition: { duration: 0.2 }
+        }}
+        whileTap={{ scale: 0.95 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20
+        }}
+      >
+        <motion.div
+          animate={{
+            y: [0, -3, 0]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <ArrowRight className="w-5 h-5 transform -rotate-90" />
+        </motion.div>
+
+        {/* Subtle pulse ring */}
+        <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+      </motion.button>
     </motion.div>
   )
 }
