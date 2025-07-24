@@ -415,10 +415,10 @@ export default function SophisticatedMarketplace() {
           transition={{ delay: 0.6 }}
         >
           <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
               Semua Order
             </h2>
-            <p className="text-gray-400">
+            <p className="text-gray-300 text-base font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
               Jelajahi semua aset digital yang tersedia di marketplace
             </p>
           </div>
