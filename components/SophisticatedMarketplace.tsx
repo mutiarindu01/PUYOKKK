@@ -520,11 +520,11 @@ export default function SophisticatedMarketplace() {
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="text-white font-medium text-lg group-hover:text-blue-400 transition-colors">
+                            <span className="text-white font-semibold text-lg group-hover:text-blue-400 transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>
                               {order.name}
                             </span>
                           </div>
-                          <div className="text-gray-400 text-sm">{order.symbol}</div>
+                          <div className="text-gray-400 text-sm font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>{order.symbol}</div>
                         </div>
                       </div>
 
