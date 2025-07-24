@@ -273,7 +273,7 @@ function TokenCard({ token }: { token: typeof trendingTokens[0] }) {
   return (
     <motion.div
       whileHover={{ scale: 1.02, borderColor: "#3B82F6" }}
-      className="min-w-[280px] bg-[#1F2937] border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all duration-300 cursor-pointer"
+      className="min-w-[320px] bg-[#1F2937] border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all duration-300 cursor-pointer"
       style={{ fontFamily: 'Inter, sans-serif' }}
     >
       <div className="flex items-center justify-between mb-3">
@@ -289,13 +289,48 @@ function TokenCard({ token }: { token: typeof trendingTokens[0] }) {
         </Badge>
       </div>
 
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-3">
         <span className="text-white font-bold text-lg" style={{ fontFamily: 'Inter, sans-serif' }}>{token.price}</span>
-        <Sparkline data={token.sparklineData} trend={token.trend} />
+        <TokenPriceChart
+          data={token.sparklineData}
+          trend={token.trend}
+          change={token.change}
+          size="sm"
+          showTrend={false}
+        />
       </div>
 
-      <div className="text-gray-400 text-xs font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-        Volume 24h: {token.volume}
+      {/* Top Seller Info */}
+      <div className="mb-3 p-2 bg-[#0D1117] rounded-lg">
+        <p className="text-gray-400 text-xs mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Top Seller:</p>
+        <Link href={`/profile/${token.topSeller.username}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <Avatar className="w-5 h-5">
+            <AvatarImage src={token.topSeller.avatar} />
+            <AvatarFallback className="bg-[#1F2937] text-white text-xs">
+              <User className="w-3 h-3" />
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex items-center gap-1">
+            <span className="text-white text-xs font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+              @{token.topSeller.username}
+            </span>
+            {token.topSeller.verified && <Verified className="w-3 h-3 text-blue-500" />}
+          </div>
+        </Link>
+        <p className="text-gray-500 text-xs mt-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+          {token.topSeller.completedTrades} trades • {token.topSeller.successRate}% success
+        </p>
+      </div>
+
+      {/* Payment Methods */}
+      <div className="mb-3">
+        <p className="text-gray-400 text-xs mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>Payment:</p>
+        <PaymentMethods methods={token.paymentMethods} size="sm" />
+      </div>
+
+      <div className="flex items-center justify-between text-xs text-gray-400">
+        <span style={{ fontFamily: 'Inter, sans-serif' }}>Volume 24h: {token.volume}</span>
+        <span style={{ fontFamily: 'Inter, sans-serif' }}>{token.totalOrders} orders</span>
       </div>
     </motion.div>
   )
