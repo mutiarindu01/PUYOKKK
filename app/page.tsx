@@ -624,79 +624,282 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* NEW: Kenapa PUYOK Berbeda Section */}
-      <section id="why-different" className="py-20 bg-card/30">
+      {/* Enhanced: Kenapa PUYOK Berbeda Section */}
+      <motion.section
+        id="why-different"
+        className="py-32 bg-gradient-to-br from-red-950/20 via-card/30 to-green-950/20"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Kenapa PUYOK Berbeda?</h2>
-            <p className="text-base text-gray-300 font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>Solusi lokal untuk kebutuhan global Anda</p>
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 bg-orange-500/10 border border-orange-500/20 rounded-full px-6 py-3 mb-6">
+              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">⚡</span>
+              </div>
+              <span className="text-orange-500 font-semibold">PERBANDINGAN KOMPETITOR</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Kenapa PUYOK Jauh Lebih Baik?
+            </h2>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto font-normal leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+              Platform global bikin ribet dan mahal. PUYOK hadir sebagai solusi lokal yang benar-benar memahami kebutuhan Anda.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Platform Global (Rumit & Mahal) */}
-            <Card className="bg-card border border-border p-8 text-center relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
-              <Building2 className="w-20 h-20 text-muted-foreground mx-auto mb-6 opacity-50" />
-              <h3 className="text-2xl font-bold text-foreground mb-4">Platform Global</h3>
-              <Badge variant="destructive" className="mb-4">
-                Rumit & Mahal
-              </Badge>
-              <div className="space-y-3 text-left">
-                <div className="flex items-start gap-3">
-                  <span className="text-red-500 text-lg">❌</span>
-                  <p className="text-muted-foreground">Fee tinggi hingga 10-15%</p>
+          {/* Interactive Fee Calculator */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-orange-500/5 via-primary/5 to-green-500/5 border border-primary/20 p-8">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-white mb-3">💰 Kalkulator Penghematan</h3>
+                <p className="text-gray-300">Lihat berapa banyak yang bisa Anda hemat dengan PUYOK</p>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-white mb-3 font-medium">Nilai Transaksi Anda:</label>
+                  <div className="relative">
+                    <input
+                      type="range"
+                      min="500000"
+                      max="100000000"
+                      defaultValue="10000000"
+                      className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer"
+                      style={{
+                        background: 'linear-gradient(to right, #10B981 0%, #10B981 20%, #374151 20%, #374151 100%)'
+                      }}
+                    />
+                    <div className="flex justify-between text-sm text-gray-400 mt-2">
+                      <span>Rp 500K</span>
+                      <span className="text-primary font-bold">Rp 10M</span>
+                      <span>Rp 100M</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-red-500 text-lg">❌</span>
-                  <p className="text-muted-foreground">Proses KYC rumit & lama</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-red-500 text-lg">❌</span>
-                  <p className="text-muted-foreground">Tidak support pembayaran lokal</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-red-500 text-lg">❌</span>
-                  <p className="text-muted-foreground">Customer service bahasa Inggris</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-red-500 text-lg">❌</span>
-                  <p className="text-muted-foreground">Interface kompleks untuk pemula</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-center">
+                    <div className="text-red-400 text-sm font-medium mb-2">Platform Global</div>
+                    <div className="text-red-500 text-2xl font-bold mb-1">Rp 1.500.000</div>
+                    <div className="text-red-400 text-xs">Fee 15%</div>
+                  </div>
+
+                  <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 text-center">
+                    <div className="text-primary text-sm font-medium mb-2">PUYOK</div>
+                    <div className="text-primary text-2xl font-bold mb-1">Rp 300.000</div>
+                    <div className="text-primary text-xs">Fee 3%</div>
+                  </div>
+
+                  <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 text-center">
+                    <div className="text-green-400 text-sm font-medium mb-2">Penghematan Anda</div>
+                    <div className="text-green-500 text-2xl font-bold mb-1">Rp 1.200.000</div>
+                    <div className="text-green-400 text-xs">Hemat 80%!</div>
+                  </div>
                 </div>
               </div>
             </Card>
+          </motion.div>
 
-            {/* PUYOK (Lokal & Mudah) */}
-            <Card className="bg-card border border-primary p-8 text-center relative overflow-hidden shadow-lg shadow-primary/20">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-purple-600"></div>
-              <Coffee className="w-20 h-20 text-primary mx-auto mb-6" />
-              <h3 className="text-2xl font-bold text-foreground mb-4">PUYOK</h3>
-              <Badge className="mb-4 bg-primary text-primary-foreground">Lokal & Mudah</Badge>
-              <div className="space-y-3 text-left">
-                <div className="flex items-start gap-3">
-                  <span className="text-green-500 text-lg">✅</span>
-                  <p className="text-muted-foreground">Fee rendah hanya 2-3%</p>
+          {/* Enhanced Comparison Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            {/* Platform Global */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <Card className="bg-gradient-to-br from-red-950/30 to-orange-950/30 border border-red-500/20 p-8 text-center relative overflow-hidden h-full">
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 to-orange-500"></div>
+                <div className="absolute top-4 right-4">
+                  <span className="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded-full">MAHAL</span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-green-500 text-lg">✅</span>
-                  <p className="text-muted-foreground">Daftar cukup dengan nomor HP</p>
+
+                <div className="w-20 h-20 mx-auto mb-6 bg-red-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-4xl">🌐</span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-green-500 text-lg">✅</span>
-                  <p className="text-muted-foreground">DANA, GoPay, OVO, Bank Lokal</p>
+                <h3 className="text-2xl font-bold text-white mb-2">Platform Global</h3>
+                <Badge variant="destructive" className="mb-6">
+                  Rumit & Mahal
+                </Badge>
+
+                <div className="space-y-4 text-left">
+                  <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                    <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-red-500 text-sm">💸</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Fee Menggerus Keuntungan</p>
+                      <p className="text-red-400 text-sm">Hingga 15% dari nilai transaksi</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                    <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-red-500 text-sm">⏳</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Verifikasi Berbelit-belit</p>
+                      <p className="text-red-400 text-sm">KYC bisa sampai berminggu-minggu</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                    <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-red-500 text-sm">🚫</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Pembayaran Ribet</p>
+                      <p className="text-red-400 text-sm">Tidak support DANA, GoPay, OVO</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                    <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-red-500 text-sm">🗣️</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Support Bahasa Asing</p>
+                      <p className="text-red-400 text-sm">Sulit komunikasi saat ada masalah</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-green-500 text-lg">✅</span>
-                  <p className="text-muted-foreground">Support 24/7 dalam Bahasa Indonesia</p>
+              </Card>
+            </motion.div>
+
+            {/* PUYOK */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              whileHover={{ scale: 1.02 }}
+            >
+              <Card className="bg-gradient-to-br from-primary/20 to-green-500/20 border border-primary p-8 text-center relative overflow-hidden shadow-lg shadow-primary/20 h-full">
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-green-500"></div>
+                <div className="absolute top-4 right-4">
+                  <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full">JUARA!</span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-green-500 text-lg">✅</span>
-                  <p className="text-muted-foreground">Interface sederhana seperti e-commerce</p>
+
+                <div className="w-20 h-20 mx-auto mb-6 bg-primary/20 rounded-full flex items-center justify-center">
+                  <span className="text-4xl">🇮🇩</span>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">PUYOK</h3>
+                <Badge className="mb-6 bg-primary text-primary-foreground">
+                  Lokal & Menguntungkan
+                </Badge>
+
+                <div className="space-y-4 text-left">
+                  <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-primary text-sm">💰</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Hemat 80% Biaya Transaksi</p>
+                      <p className="text-primary text-sm">Fee hanya 2-3%, keuntungan maksimal</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-primary text-sm">⚡</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Daftar Instan</p>
+                      <p className="text-primary text-sm">Cukup nomor HP, langsung trading</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-primary text-sm">📱</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Pembayaran Familiar</p>
+                      <p className="text-primary text-sm">DANA, GoPay, OVO, Bank Lokal</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-primary text-sm">🗨️</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">Support Bahasa Indonesia</p>
+                      <p className="text-primary text-sm">24/7 siap bantu dalam bahasa kita</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+
+          {/* Social Proof & Testimonial */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-primary/5 to-green-500/5 border border-primary/20 p-8">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Quote className="w-6 h-6 text-primary" />
+                    <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full">PENGHEMATAN NYATA</span>
+                  </div>
+                  <blockquote className="text-white font-medium text-lg mb-3">
+                    "Berhasil hemat 12 juta rupiah dengan fee rendah PUYOK! Dulu pake platform lain habis buat biaya admin."
+                  </blockquote>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold">
+                      B
+                    </div>
+                    <div>
+                      <div className="text-white font-medium">@budi_nft_art</div>
+                      <div className="text-gray-400 text-sm">NFT Creator • 89 Transaksi Sukses</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-green-500 mb-1">Rp 12M</div>
+                  <div className="text-green-400 text-sm">Total Penghematan</div>
                 </div>
               </div>
             </Card>
-          </div>
+          </motion.div>
+
+          {/* Call to Action */}
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-primary/10 via-green-500/10 to-primary/10 border border-primary/30 p-8">
+              <h3 className="text-2xl font-bold text-white mb-4">🚀 Siap Hemat 80% Biaya Transaksi?</h3>
+              <p className="text-gray-300 mb-6">Bergabunglah dengan 10,000+ pengguna yang sudah merasakan keuntungan PUYOK</p>
+
+              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+                <Button className="bg-primary hover:bg-primary/90 px-8 py-4 text-lg">
+                  📱 Daftar Sekarang & Hemat 80%
+                </Button>
+                <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 px-6 py-4">
+                  🧮 Hitung Penghematan Anda
+                </Button>
+              </div>
+
+              <div className="text-xs text-gray-400">
+                ✓ Gratis daftar • ✓ Verifikasi 1 menit • ✓ Fee transparan tanpa biaya tersembunyi
+              </div>
+            </Card>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Unified PUYOK Value Proposition - Part 1: Benefits */}
       <motion.section
