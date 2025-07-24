@@ -47,6 +47,7 @@ module.exports = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        "brand-green": "hsl(var(--brand-green))",
       },
       borderRadius: {
         lg: "var(--radius)",
