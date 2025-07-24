@@ -665,7 +665,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="bg-card border border-border p-6">
               <Quote className="w-8 h-8 text-primary mb-4" />
-              <p className="text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed text-base font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
                 "Akhirnya bisa jual NFT langsung dapat Rupiah! Prosesnya cepat dan aman. Paling suka bisa terima
                 pembayaran lewat DANA."
               </p>
