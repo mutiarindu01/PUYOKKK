@@ -817,7 +817,19 @@ export default function LandingPage() {
                       transition={{ delay: index * 0.1 }}
                       className="w-80"
                     >
-                      <Card className="bg-gray-900/50 border border-gray-700 p-6 hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/10 backdrop-blur-sm">
+                      <ProfileCard
+                        avatarUrl="https://cdn.builder.io/o/assets%2Fe1c1ed8edce84b16b5c048c563eec914%2Fa6583448df0d4e7b9175452307243e11?alt=media&token=58823c53-5fd4-4a44-8922-03d6fe609378&apiKey=e1c1ed8edce84b16b5c048c563eec914"
+                        name={award.title}
+                        title={`🏆 1/1 PIONEER • ${award.price}`}
+                        handle={award.seller}
+                        status="✅ Auto Mint"
+                        contactText="🏆 Lihat NFT"
+                        showUserInfo={true}
+                        enableTilt={true}
+                        enableMobileTilt={false}
+                        onContactClick={() => window.open(`/awards-marketplace/${award.id}`, '_blank')}
+                        className="legendary-card"
+                      >
                         {/* Award Image */}
                         <div className="relative mb-4">
                           <div className="aspect-square bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 rounded-lg flex items-center justify-center overflow-hidden">
@@ -896,7 +908,7 @@ export default function LandingPage() {
                             </p>
                           </div>
                         </div>
-                      </Card>
+                      </ProfileCard>
                     </motion.div>
                   ))}
                 </div>
