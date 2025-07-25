@@ -227,7 +227,16 @@ function DashboardHeader() {
     <header className="bg-background border-b border-border px-6 py-4 sticky top-0 z-10">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
+          <ScrollReveal
+            baseOpacity={0.2}
+            enableBlur={true}
+            baseRotation={2}
+            blurStrength={6}
+            containerClassName="mb-2"
+            textClassName="text-2xl font-bold text-foreground"
+          >
+            Dashboard
+          </ScrollReveal>
           <p className="text-muted-foreground">Kelola bisnis digital Anda dengan mudah</p>
         </div>
 
