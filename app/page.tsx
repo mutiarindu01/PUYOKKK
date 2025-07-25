@@ -1422,9 +1422,17 @@ export default function LandingPage() {
               </div>
               <span className="text-green-500 font-semibold">MENGAPA PILIH PUYOK</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <ScrollFloat
+              animationDuration={1.2}
+              ease="back.inOut(2)"
+              scrollStart="center bottom+=30%"
+              scrollEnd="bottom bottom-=20%"
+              stagger={0.05}
+              containerClassName="mb-6"
+              textClassName="text-4xl md:text-5xl font-bold text-white"
+            >
               3 Keunggulan yang Anda Rasakan
-            </h2>
+            </ScrollFloat>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto font-normal leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
               Dari kemudahan pembayaran hingga kepastian nilai - inilah mengapa ribuan pengguna memilih PUYOK
             </p>
