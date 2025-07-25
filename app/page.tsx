@@ -815,7 +815,7 @@ export default function LandingPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="w-96"
+                      className="w-80"
                     >
                       <Card className="bg-gray-900/50 border border-gray-700 p-6 hover:border-brand-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-brand-green/10 backdrop-blur-sm">
                         {/* Award Image */}
