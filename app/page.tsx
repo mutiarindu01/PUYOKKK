@@ -924,18 +924,8 @@ export default function LandingPage() {
       >
         <div className="max-w-5xl mx-auto px-6 md:px-10">
           <div className="compact-header">
-            <ScrollFloat
-              animationDuration={1}
-              ease="power2.out"
-              scrollStart="center bottom+=50%"
-              scrollEnd="bottom bottom-=30%"
-              stagger={0.06}
-              containerClassName="mb-4"
-              textClassName="text-2xl font-bold text-white"
-            >
-              Pioneer NFT Auto-Delivery
-            </ScrollFloat>
-            <p className="text-gray-300">Sistem AI otomatis mint & kirim NFT 1/1 ke wallet Anda saat milestone tercapai</p>
+            <h4>🏆 Pioneer NFT Auto-Delivery</h4>
+            <p>AI otomatis mint & kirim NFT 1/1 eksklusif ke wallet Anda</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
