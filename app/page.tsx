@@ -1509,6 +1509,129 @@ export default function LandingPage() {
         </div>
       </motion.section>
 
+      {/* Tutorial Section with ScrollFloat */}
+      <motion.section
+        className="py-20 bg-gradient-to-br from-purple-900/10 to-blue-900/10"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="max-w-4xl mx-auto px-6 md:px-10">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">2</span>
+              </div>
+              <span className="text-blue-500 font-semibold">TUTORIAL MUDAH</span>
+            </div>
+
+            <ScrollFloat
+              animationDuration={1.5}
+              ease="power2.inOut"
+              scrollStart="center bottom+=40%"
+              scrollEnd="bottom bottom-=30%"
+              stagger={0.04}
+              containerClassName="mb-6"
+              textClassName="text-3xl md:text-4xl font-bold text-white"
+            >
+              Cara Menggunakan PUYOK
+            </ScrollFloat>
+
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Panduan sederhana untuk memulai transaksi aman di PUYOK
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {/* Step 1 */}
+            <motion.div
+              className="flex items-start gap-4 p-6 bg-gradient-to-r from-green-500/5 to-blue-500/5 border border-green-500/20 rounded-xl"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-green-400 font-bold text-lg">1</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">📱 Daftar dengan Nomor HP</h3>
+                <p className="text-gray-300">
+                  Cukup masukkan nomor HP, verifikasi OTP, dan langsung bisa mulai trading. Tidak ada KYC yang merepotkan.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Step 2 */}
+            <motion.div
+              className="flex items-start gap-4 p-6 bg-gradient-to-r from-blue-500/5 to-purple-500/5 border border-blue-500/20 rounded-xl"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-blue-400 font-bold text-lg">2</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">💰 Pilih Metode Pembayaran</h3>
+                <p className="text-gray-300">
+                  Bayar pakai DANA, GoPay, OVO, atau transfer bank. Semua metode yang sudah familiar dengan Anda.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Step 3 */}
+            <motion.div
+              className="flex items-start gap-4 p-6 bg-gradient-to-r from-purple-500/5 to-pink-500/5 border border-purple-500/20 rounded-xl"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-purple-400 font-bold text-lg">3</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">🛡️ Escrow Otomatis Aktif</h3>
+                <p className="text-gray-300">
+                  Sistem escrow melindungi kedua belah pihak. Pembeli dapat aset setelah bayar, penjual dapat uang setelah transfer aset.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Step 4 */}
+            <motion.div
+              className="flex items-start gap-4 p-6 bg-gradient-to-r from-orange-500/5 to-red-500/5 border border-orange-500/20 rounded-xl"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-orange-400 font-bold text-lg">4</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">🏆 Dapatkan Pioneer NFT</h3>
+                <p className="text-gray-300">
+                  NFT 1/1 eksklusif otomatis dikirim ke wallet Anda untuk setiap milestone pertama yang dicapai.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-12">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
+              asChild
+            >
+              <Link href="/marketplace">
+                🚀 Mulai Sekarang
+                <ArrowRight className="ml-3 w-6 h-6" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </motion.section>
+
       {/* Trending Tokens Section */}
       <motion.section
         id="trending-tokens"
