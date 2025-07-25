@@ -1068,8 +1068,8 @@ export default function LandingPage() {
 
 
 
-      {/* Trust Badges & Payment Partners Section */}
-      <section className="py-12 bg-card/20 border-y border-border/50">
+      {/* Payment Partners */}
+      <section className="compact-section-sm bg-card/20 border-y border-border/50">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground mb-6">Didukung Pembayaran:</p>
