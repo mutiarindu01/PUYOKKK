@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import ScrollReveal from "@/components/ScrollReveal"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -276,7 +277,16 @@ export default function AwardsMarketplacePage() {
                 <Trophy className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-foreground">Awards Marketplace</h1>
+                <ScrollReveal
+                  baseOpacity={0.1}
+                  enableBlur={true}
+                  baseRotation={4}
+                  blurStrength={8}
+                  containerClassName=""
+                  textClassName="text-xl font-semibold text-foreground"
+                >
+                  Awards Marketplace
+                </ScrollReveal>
                 <p className="text-sm text-muted-foreground">Perdagangkan Trofi & Pencapaian Digital</p>
               </div>
             </div>

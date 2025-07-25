@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
+import ScrollReveal from "@/components/ScrollReveal"
+import ContentReveal from "@/components/ContentReveal"
 import { DashboardStatsSkeleton, ActivityFeedSkeleton } from "@/components/LoadingSkeletons"
 import LoadingButton, { BuyButton, SellButton } from "@/components/LoadingButton"
 import { Button } from "@/components/ui/button"
@@ -226,7 +228,16 @@ function DashboardHeader() {
     <header className="bg-background border-b border-border px-6 py-4 sticky top-0 z-10">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
+          <ScrollReveal
+            baseOpacity={0.2}
+            enableBlur={true}
+            baseRotation={2}
+            blurStrength={6}
+            containerClassName="mb-2"
+            textClassName="text-2xl font-bold text-foreground"
+          >
+            Dashboard
+          </ScrollReveal>
           <p className="text-muted-foreground">Kelola bisnis digital Anda dengan mudah</p>
         </div>
 
@@ -334,20 +345,22 @@ function OrdersTab() {
     <div className="space-y-6">
       {/* Quick Actions */}
       <div className="flex items-center justify-between">
-        <div className="grid grid-cols-3 gap-4">
-          <Card className="p-4">
-            <div className="text-2xl font-bold text-orange-600">{pendingOrders.length}</div>
-            <div className="text-sm text-muted-foreground">Menunggu Pembayaran</div>
-          </Card>
-          <Card className="p-4">
-            <div className="text-2xl font-bold text-blue-600">{activeOrders.length}</div>
-            <div className="text-sm text-muted-foreground">Dalam Proses</div>
-          </Card>
-          <Card className="p-4">
-            <div className="text-2xl font-bold text-green-600">{completedOrders.length}</div>
-            <div className="text-sm text-muted-foreground">Selesai</div>
-          </Card>
-        </div>
+        <ContentReveal direction="up" delay={0.2}>
+          <div className="grid grid-cols-3 gap-4">
+            <Card className="p-4">
+              <div className="text-2xl font-bold text-orange-600">{pendingOrders.length}</div>
+              <div className="text-sm text-muted-foreground">Menunggu Pembayaran</div>
+            </Card>
+            <Card className="p-4">
+              <div className="text-2xl font-bold text-blue-600">{activeOrders.length}</div>
+              <div className="text-sm text-muted-foreground">Dalam Proses</div>
+            </Card>
+            <Card className="p-4">
+              <div className="text-2xl font-bold text-green-600">{completedOrders.length}</div>
+              <div className="text-sm text-muted-foreground">Selesai</div>
+            </Card>
+          </div>
+        </ContentReveal>
         
         <Button
           size="lg"

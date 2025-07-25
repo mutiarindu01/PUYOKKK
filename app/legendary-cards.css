@@ -1,0 +1,105 @@
+/* Custom styles for legendary ProfileCards */
+.legendary-card {
+  width: 100% !important;
+  max-width: 320px;
+}
+
+.legendary-card .pc-card {
+  height: 500px !important;
+  max-height: 500px !important;
+  aspect-ratio: 0.65 !important;
+}
+
+.legendary-card .pc-details {
+  top: 1.5em !important;
+}
+
+.legendary-card .pc-details h3 {
+  font-size: min(4vh, 1.6em) !important;
+  background-image: linear-gradient(to bottom, #ffd700, #ff6b35) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.legendary-card .pc-details p {
+  font-size: 13px !important;
+  background-image: linear-gradient(to bottom, #10b981, #059669) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.legendary-card .pc-user-info {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+}
+
+.legendary-card .pc-contact-btn {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 107, 53, 0.2)) !important;
+  border: 1px solid rgba(255, 215, 0, 0.4) !important;
+  color: #ffd700 !important;
+}
+
+.legendary-card .pc-contact-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 107, 53, 0.3)) !important;
+  border-color: rgba(255, 215, 0, 0.6) !important;
+  transform: translateY(-2px) !important;
+}
+
+.legendary-card .pc-handle {
+  color: rgba(255, 215, 0, 0.9) !important;
+  font-weight: 600 !important;
+}
+
+.legendary-card .pc-status {
+  color: rgba(16, 185, 129, 0.9) !important;
+  font-weight: 500 !important;
+}
+
+/* Enhanced glow effect for legendary cards */
+.legendary-card .pc-card-wrapper::before {
+  background-image: conic-gradient(from 0deg at 50% 50%, #ffd700, #ff6b35, #10b981, #3b82f6, #8b5cf6, #ffd700) !important;
+}
+
+.legendary-card .pc-card {
+  box-shadow: rgba(255, 215, 0, 0.4) calc((var(--pointer-from-left) * 10px) - 3px) calc((var(--pointer-from-top) * 20px) - 6px) 30px -5px !important;
+}
+
+@media (max-width: 768px) {
+  .legendary-card .pc-card {
+    height: 420px !important;
+    max-height: 420px !important;
+  }
+  
+  .legendary-card .pc-details {
+    top: 1.2em !important;
+  }
+  
+  .legendary-card .pc-details h3 {
+    font-size: min(3.5vh, 1.4em) !important;
+  }
+  
+  .legendary-card .pc-details p {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .legendary-card .pc-card {
+    height: 360px !important;
+    max-height: 360px !important;
+  }
+  
+  .legendary-card .pc-details {
+    top: 1em !important;
+  }
+  
+  .legendary-card .pc-details h3 {
+    font-size: min(3vh, 1.2em) !important;
+  }
+  
+  .legendary-card .pc-details p {
+    font-size: 11px !important;
+  }
+}
