@@ -1458,8 +1458,10 @@ export default function LandingPage() {
 
           <div className="compact-features-grid">
             <motion.div
-              whileHover={{ scale: 1.05, y: -10 }}
-              transition={{ duration: 0.3 }}
+              className="compact-feature-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
               <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full">
                 <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
