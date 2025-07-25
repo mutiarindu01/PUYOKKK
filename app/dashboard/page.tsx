@@ -345,20 +345,22 @@ function OrdersTab() {
     <div className="space-y-6">
       {/* Quick Actions */}
       <div className="flex items-center justify-between">
-        <div className="grid grid-cols-3 gap-4">
-          <Card className="p-4">
-            <div className="text-2xl font-bold text-orange-600">{pendingOrders.length}</div>
-            <div className="text-sm text-muted-foreground">Menunggu Pembayaran</div>
-          </Card>
-          <Card className="p-4">
-            <div className="text-2xl font-bold text-blue-600">{activeOrders.length}</div>
-            <div className="text-sm text-muted-foreground">Dalam Proses</div>
-          </Card>
-          <Card className="p-4">
-            <div className="text-2xl font-bold text-green-600">{completedOrders.length}</div>
-            <div className="text-sm text-muted-foreground">Selesai</div>
-          </Card>
-        </div>
+        <ContentReveal direction="up" delay={0.2}>
+          <div className="grid grid-cols-3 gap-4">
+            <Card className="p-4">
+              <div className="text-2xl font-bold text-orange-600">{pendingOrders.length}</div>
+              <div className="text-sm text-muted-foreground">Menunggu Pembayaran</div>
+            </Card>
+            <Card className="p-4">
+              <div className="text-2xl font-bold text-blue-600">{activeOrders.length}</div>
+              <div className="text-sm text-muted-foreground">Dalam Proses</div>
+            </Card>
+            <Card className="p-4">
+              <div className="text-2xl font-bold text-green-600">{completedOrders.length}</div>
+              <div className="text-sm text-muted-foreground">Selesai</div>
+            </Card>
+          </div>
+        </ContentReveal>
         
         <Button
           size="lg"
