@@ -189,7 +189,15 @@ export default function WhitepaperPage() {
                 <FileText className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-foreground">Whitepaper PUYOK</h1>
+                <ScrollReveal
+                  baseOpacity={0.15}
+                  enableBlur={true}
+                  baseRotation={3}
+                  blurStrength={7}
+                  textClassName="text-xl font-semibold text-foreground"
+                >
+                  Whitepaper PUYOK
+                </ScrollReveal>
                 <p className="text-sm text-muted-foreground">Dokumen Teknis & Visi Platform</p>
               </div>
             </div>
