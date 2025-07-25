@@ -1712,7 +1712,209 @@ export default function LandingPage() {
         </div>
       </motion.section>
 
+      {/* Pioneer NFT Reward System Section */}
+      <motion.section
+        className="py-20 bg-gradient-to-br from-purple-900/20 via-background to-yellow-900/20 relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
+        <div className="max-w-7xl mx-auto px-6 md:px-10 relative">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 bg-yellow-500/10 border border-yellow-500/20 rounded-full px-6 py-3 mb-6">
+              <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                <span className="text-background font-bold text-sm">🏆</span>
+              </div>
+              <span className="text-yellow-500 font-semibold">SISTEM REWARD EKSKLUSIF</span>
+            </div>
+            <motion.h2
+              className="text-4xl md:text-6xl font-bold text-white mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-purple-400 to-blue-400">
+                Jadilah Legenda
+              </span>
+              <br />
+              <span className="text-white">PUYOK</span>
+            </motion.h2>
+            <motion.p
+              className="text-xl text-gray-300 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              Setiap kali Anda melakukan aksi <span className="text-yellow-400 font-semibold">pertama</span> di ekosistem PUYOK,
+              Anda akan mendapatkan <span className="text-purple-400 font-semibold">NFT Pioneer 1/1</span> yang langka dan tidak bisa diduplikasi.
+            </motion.p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {/* First Mint Card */}
+            <motion.div
+              className="group relative"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              whileHover={{ y: -10 }}
+            >
+              <Card className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 p-6 h-full hover:border-yellow-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20">
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-yellow-500 text-black font-bold">FIRST MINT</Badge>
+                </div>
+                <div className="h-48 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
+                  <div className="text-6xl group-hover:scale-110 transition-transform duration-300">🎨</div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Pertama Mencetak Karya</h3>
+                <p className="text-gray-300 mb-4">NFT unik "Genesis Creator" untuk kreator pertama yang mencetak karya digital di PUYOK</p>
+                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3">
+                  <div className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-yellow-500" />
+                    <span className="text-yellow-500 text-sm font-medium">Rarity: Legendary</span>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+
+            {/* First Trade Card */}
+            <motion.div
+              className="group relative"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              whileHover={{ y: -10 }}
+            >
+              <Card className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 p-6 h-full hover:border-purple-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-purple-600 text-white font-bold">FIRST TRADE</Badge>
+                </div>
+                <div className="h-48 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
+                  <div className="text-6xl group-hover:scale-110 transition-transform duration-300">⚡</div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Pertama Bertransaksi</h3>
+                <p className="text-gray-300 mb-4">NFT eksklusif "Pioneer Trader" untuk trader pertama yang menyelesaikan escrow dengan sukses</p>
+                <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-purple-500" />
+                    <span className="text-purple-500 text-sm font-medium">Rarity: Epic</span>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+
+            {/* First Referral Card */}
+            <motion.div
+              className="group relative"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ y: -10 }}
+            >
+              <Card className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 p-6 h-full hover:border-green-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-green-600 text-white font-bold">COMMUNITY</Badge>
+                </div>
+                <div className="h-48 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
+                  <div className="text-6xl group-hover:scale-110 transition-transform duration-300">🤝</div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Pertama Mengajak Teman</h3>
+                <p className="text-gray-300 mb-4">NFT spesial "Community Builder" untuk pioneer yang berhasil mengajak 10+ teman bergabung</p>
+                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-green-500" />
+                    <span className="text-green-500 text-sm font-medium">Rarity: Rare</span>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+
+          {/* Historical Proof Section */}
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-brand-green/10 via-purple-500/10 to-blue-500/10 border border-brand-green/20 p-8">
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">🔥</span>
+                </div>
+                <div className="text-left">
+                  <h3 className="text-2xl font-bold text-white mb-2">Bukti Sejarah Digital</h3>
+                  <p className="text-gray-300">Setiap NFT Pioneer bersifat 1/1 dan tidak bisa diduplikasi</p>
+                </div>
+              </div>
+              <div className="bg-background/50 rounded-lg p-4">
+                <p className="text-brand-green font-medium text-lg">
+                  "NFT ini adalah bukti sejarah bahwa Anda adalah pelopor di PUYOK dan tidak akan bisa diduplikasi.
+                  Jadilah bagian dari cerita sukses yang terukir selamanya di blockchain."
+                </p>
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* Community Governance Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <Card className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/20 p-8">
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-bold text-white mb-4">
+                  <span className="text-purple-400">Suara Anda</span> Menentukan Masa Depan PUYOK
+                </h3>
+                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+                  Jika selama 30 hari tidak ada aksi baru yang memicu pencetakan NFT Pioneer,
+                  sistem akan otomatis membuka voting untuk fitur atau aksi baru.
+                  <span className="text-purple-400 font-semibold"> PUYOK berkembang sesuai keinginan komunitas!</span>
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-purple-400 font-bold text-xl">1</span>
+                  </div>
+                  <h4 className="text-white font-bold mb-2">Deteksi Stagnasi</h4>
+                  <p className="text-gray-300 text-sm">Sistem memantau aktivitas pioneer NFT secara otomatis</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-blue-400 font-bold text-xl">2</span>
+                  </div>
+                  <h4 className="text-white font-bold mb-2">Buka Voting</h4>
+                  <p className="text-gray-300 text-sm">Proposal fitur baru dirilis ke komunitas untuk dipilih</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-green-400 font-bold text-xl">3</span>
+                  </div>
+                  <h4 className="text-white font-bold mb-2">Eksekusi Upgrade</h4>
+                  <p className="text-gray-300 text-sm">Fitur terpilih langsung diimplementasikan ke platform</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
+                  asChild
+                >
+                  <Link href="/marketplace">
+                    🏆 Bergabunglah Sekarang dan Jadilah Bagian dari Sejarah!
+                    <ArrowRight className="ml-3 w-6 h-6" />
+                  </Link>
+                </Button>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+      </motion.section>
 
       {/* Simple CTA Section */}
       <motion.section
