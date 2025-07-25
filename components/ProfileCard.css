@@ -460,3 +460,24 @@
     border-radius: 50px;
   }
 }
+
+/* Legendary card custom styles */
+.legendary-card .pc-card {
+  height: 450px;
+  max-height: 450px;
+  aspect-ratio: 0.7;
+}
+
+.legendary-card .pc-details {
+  top: 2em;
+}
+
+.legendary-card .pc-details h3 {
+  font-size: min(4vh, 1.8em);
+  background-image: linear-gradient(to bottom, #ffd700, #ff6b35);
+}
+
+.legendary-card .pc-details p {
+  font-size: 14px;
+  background-image: linear-gradient(to bottom, #fff, #10b981);
+}
