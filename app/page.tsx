@@ -59,6 +59,7 @@ import SplineBackground, { SplineBackgroundDemo } from "@/components/SplineBackg
 import FloatingBackgroundSwitcher from "@/components/FloatingBackgroundSwitcher"
 import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
 import ProfileCard from "@/components/ProfileCard"
+import ScrollFloat from "@/components/ScrollFloat"
 import { motion } from "framer-motion"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
