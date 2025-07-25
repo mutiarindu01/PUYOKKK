@@ -1,0 +1,38 @@
+<motion.div
+              className="compact-feature-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="compact-feature-icon">💳</div>
+              <h3 className="compact-feature-title">Bayar dengan Dompet Digital Favorit</h3>
+              <p className="compact-feature-desc">
+                DANA, GoPay, OVO, Bank - semua metode yang familiar langsung bisa dipakai
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="compact-feature-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="compact-feature-icon">💰</div>
+              <h3 className="compact-feature-title">Dapat Rupiah Penuh</h3>
+              <p className="compact-feature-desc">
+                Jual aset digital langsung dapat Rupiah di rekening tanpa konversi ribet
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="compact-feature-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="compact-feature-icon">🛡️</div>
+              <h3 className="compact-feature-title">Tidur Nyenyak</h3>
+              <p className="compact-feature-desc">
+                Escrow otomatis melindungi semua transaksi - 100% aman terjamin
+              </p>
+            </motion.div>
