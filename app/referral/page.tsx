@@ -236,7 +236,15 @@ PUYOK bikin jual-beli NFT & crypto jadi mudah dengan pembayaran DANA, GoPay, OVO
                 <Users className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-foreground">Program Referral</h1>
+                <ScrollReveal
+                  baseOpacity={0.2}
+                  enableBlur={true}
+                  baseRotation={4}
+                  blurStrength={9}
+                  textClassName="text-xl font-semibold text-foreground"
+                >
+                  Program Referral
+                </ScrollReveal>
                 <p className="text-sm text-muted-foreground">Ajak Teman, Dapat Untung Bersama!</p>
               </div>
             </div>
