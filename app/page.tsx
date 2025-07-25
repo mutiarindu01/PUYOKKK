@@ -72,6 +72,7 @@ export default function LandingPage() {
   const [backgroundType, setBackgroundType] = useState<"gradient" | "particles" | "spline" | "mesh">("spline")
   const [showScrollToTop, setShowScrollToTop] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [transactionValue, setTransactionValue] = useState(10000000)
   const lastScrollY = useRef(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
@@ -866,55 +867,7 @@ export default function LandingPage() {
 
       </section>
 
-      {/* Voting System Preview */}
-      <motion.section
-        className="compact-section bg-gradient-to-br from-purple-900/10 to-blue-900/10"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-5xl mx-auto px-6 md:px-10">
-          <div className="compact-header">
-            <h4>🗳️ Community Governance</h4>
-            <p>Voting otomatis setiap 30 hari • 3 Proposal Aktif</p>
-          </div>
 
-          <div className="compact-grid compact-grid-3">
-            <div className="compact-card">
-              <h4>QRIS Payment</h4>
-              <p>New payment method proposal</p>
-              <div className="tag-list">
-                <span className="tag">68% Setuju</span>
-                <span className="tag">2 hari lagi</span>
-              </div>
-            </div>
-
-            <div className="compact-card">
-              <h4>Reduce Trading Fees</h4>
-              <p>Lower transaction costs</p>
-              <div className="tag-list">
-                <span className="tag">84% Setuju</span>
-                <span className="tag">5 hari lagi</span>
-              </div>
-            </div>
-
-            <div className="compact-card">
-              <h4>NFT Staking Feature</h4>
-              <p>Earn rewards from staking</p>
-              <div className="tag-list">
-                <span className="tag">45% Setuju</span>
-                <span className="tag">1 minggu lagi</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-4">
-            <a href="/voting" className="quick-action">
-              🗳️ Vote & Terima POAP NFT
-            </a>
-          </div>
-        </div>
-      </motion.section>
 
       {/* Pioneer NFT Auto-Delivery */}
       <motion.section
@@ -990,82 +943,7 @@ export default function LandingPage() {
         </div>
       </motion.section>
 
-      {/* Live Activity Feed */}
-      <motion.section
-        className="compact-section bg-gradient-to-br from-blue-900/20 to-purple-900/20"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-4xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <ScrollFloat
-                animationDuration={1.3}
-                ease="elastic.out(1, 0.3)"
-                scrollStart="center bottom+=40%"
-                scrollEnd="bottom bottom-=25%"
-                stagger={0.07}
-                containerClassName=""
-                textClassName="text-3xl md:text-4xl font-bold text-white"
-              >
-                Aktivitas Terbaru
-              </ScrollFloat>
-            </div>
-            <p className="text-gray-300">
-              Pantau transaksi dan aktivitas terbaru dari komunitas PUYOK
-            </p>
-          </div>
 
-          <Card className="bg-gray-900/60 border border-gray-700 p-6 rounded-xl">
-            <div className="space-y-4">
-              {liveActivities.map((activity, index) => (
-                <motion.div
-                  key={activity.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-start gap-4 p-4 bg-gray-800/30 border border-gray-700/50 rounded-lg hover:border-brand-green/30 transition-colors"
-                >
-                  <img
-                    src={activity.avatar}
-                    alt={activity.user}
-                    className="w-12 h-12 rounded-full border-2 border-gray-600"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-semibold text-white">{activity.user}</span>
-                      {activity.verified && (
-                        <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                          <div className="w-2 h-2 bg-white rounded-full"></div>
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-gray-300 mb-1">
-                      {activity.action} <Link href="#" className="text-brand-green hover:underline">{activity.item}</Link>
-                    </p>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-brand-green font-bold">{activity.price}</span>
-                      <span className="text-gray-500">{activity.time}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="text-center mt-6">
-              <Button
-                variant="outline"
-                className="border-brand-green/50 text-brand-green hover:bg-brand-green/10"
-                asChild
-              >
-                <Link href="/activity">Lihat Semua Aktivitas</Link>
-              </Button>
-            </div>
-          </Card>
-        </div>
-      </motion.section>
 
 
 
@@ -1464,15 +1342,18 @@ export default function LandingPage() {
                       type="range"
                       min="500000"
                       max="100000000"
-                      defaultValue="10000000"
+                      value={transactionValue}
+                      onChange={(e) => setTransactionValue(parseInt(e.target.value))}
                       className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer"
                       style={{
-                        background: 'linear-gradient(to right, #10B981 0%, #10B981 20%, #374151 20%, #374151 100%)'
+                        background: `linear-gradient(to right, #10B981 0%, #10B981 ${((transactionValue - 500000) / (100000000 - 500000)) * 100}%, #374151 ${((transactionValue - 500000) / (100000000 - 500000)) * 100}%, #374151 100%)`
                       }}
                     />
                     <div className="flex justify-between text-sm text-gray-400 mt-2">
                       <span>Rp 500K</span>
-                      <span className="text-primary font-bold">Rp 10M</span>
+                      <span className="text-primary font-bold">
+                        Rp {(transactionValue / 1000000).toFixed(transactionValue >= 1000000 ? 0 : 1)}M
+                      </span>
                       <span>Rp 100M</span>
                     </div>
                   </div>
@@ -1481,20 +1362,26 @@ export default function LandingPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-center">
                     <div className="text-red-400 text-sm font-medium mb-2">Platform Global</div>
-                    <div className="text-red-500 text-2xl font-bold mb-1">Rp 1.500.000</div>
+                    <div className="text-red-500 text-2xl font-bold mb-1">
+                      Rp {((transactionValue * 0.15) / 1000000).toFixed(1)}M
+                    </div>
                     <div className="text-red-400 text-xs">Fee 15%</div>
                   </div>
 
                   <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 text-center">
                     <div className="text-primary text-sm font-medium mb-2">PUYOK</div>
-                    <div className="text-primary text-2xl font-bold mb-1">Rp 300.000</div>
+                    <div className="text-primary text-2xl font-bold mb-1">
+                      Rp {((transactionValue * 0.03) / 1000000).toFixed(1)}M
+                    </div>
                     <div className="text-primary text-xs">Fee 3%</div>
                   </div>
 
                   <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 text-center">
                     <div className="text-green-400 text-sm font-medium mb-2">Penghematan Anda</div>
-                    <div className="text-green-500 text-2xl font-bold mb-1">Rp 1.200.000</div>
-                    <div className="text-green-400 text-xs">Hemat 80%!</div>
+                    <div className="text-green-500 text-2xl font-bold mb-1">
+                      Rp {((transactionValue * 0.12) / 1000000).toFixed(1)}M
+                    </div>
+                    <div className="text-green-400 text-xs">Hemat {Math.round(((0.15 - 0.03) / 0.15) * 100)}%!</div>
                   </div>
                 </div>
               </div>
