@@ -878,8 +878,8 @@ export default function LandingPage() {
       >
         <div className="max-w-5xl mx-auto px-6 md:px-10">
           <div className="compact-header">
-            <h4>🏆 Pioneer NFT Auto-Delivery</h4>
-            <p>AI otomatis mint & kirim NFT 1/1 eksklusif ke wallet Anda</p>
+            <h4>🏆 Pioneer NFT Reward System</h4>
+            <p>Dapatkan NFT 1/1 eksklusif untuk setiap aksi pertama di PUYOK</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
