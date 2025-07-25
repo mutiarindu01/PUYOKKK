@@ -1024,9 +1024,17 @@ export default function LandingPage() {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <ScrollFloat
+                animationDuration={1.3}
+                ease="elastic.out(1, 0.3)"
+                scrollStart="center bottom+=40%"
+                scrollEnd="bottom bottom-=25%"
+                stagger={0.07}
+                containerClassName=""
+                textClassName="text-3xl md:text-4xl font-bold text-white"
+              >
                 Aktivitas Terbaru
-              </h2>
+              </ScrollFloat>
             </div>
             <p className="text-gray-300">
               Pantau transaksi dan aktivitas terbaru dari komunitas PUYOK
