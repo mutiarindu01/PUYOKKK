@@ -277,7 +277,16 @@ export default function AwardsMarketplacePage() {
                 <Trophy className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-foreground">Awards Marketplace</h1>
+                <ScrollReveal
+                  baseOpacity={0.1}
+                  enableBlur={true}
+                  baseRotation={4}
+                  blurStrength={8}
+                  containerClassName=""
+                  textClassName="text-xl font-semibold text-foreground"
+                >
+                  Awards Marketplace
+                </ScrollReveal>
                 <p className="text-sm text-muted-foreground">Perdagangkan Trofi & Pencapaian Digital</p>
               </div>
             </div>
