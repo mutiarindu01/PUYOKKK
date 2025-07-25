@@ -58,6 +58,7 @@ import BackgroundParticles from "@/components/BackgroundParticles"
 import SplineBackground, { SplineBackgroundDemo } from "@/components/SplineBackground"
 import FloatingBackgroundSwitcher from "@/components/FloatingBackgroundSwitcher"
 import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
+import ProfileCard from "@/components/ProfileCard"
 import { motion } from "framer-motion"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
@@ -1502,7 +1503,7 @@ export default function LandingPage() {
             >
               <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full">
                 <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span className="text-4xl">💳</span>
+                  <span className="text-4xl">���</span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Bayar dengan Dompet Digital Favorit</h3>
                 <p className="text-gray-300 leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
