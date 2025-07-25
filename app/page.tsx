@@ -1456,7 +1456,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+          <div className="compact-features-grid">
             <motion.div
               whileHover={{ scale: 1.05, y: -10 }}
               transition={{ duration: 0.3 }}
