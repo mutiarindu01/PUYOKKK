@@ -877,7 +877,7 @@ export default function LandingPage() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="max-w-5xl mx-auto px-6 md:px-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="compact-header">
             <h4>🏆 Pioneer NFT Reward System</h4>
             <p>Dapatkan NFT 1/1 eksklusif untuk setiap aksi pertama di PUYOK</p>
