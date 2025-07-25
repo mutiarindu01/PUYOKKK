@@ -960,7 +960,7 @@ export default function LandingPage() {
             <Card className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-2xl">����</span>
+                  <span className="text-2xl">������</span>
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">AI Monitoring</h3>
@@ -1069,85 +1069,355 @@ export default function LandingPage() {
 
 
 
-      {/* Payment Partners */}
-      <section className="compact-section-sm bg-card/20 border-y border-border/50">
+      {/* Trending Tokens Section */}
+      <section className="py-20 bg-card/10">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-8">
-            <p className="text-sm text-muted-foreground mb-6">Didukung Pembayaran:</p>
-
-            {/* Payment Partner Logos */}
-            <div className="flex flex-wrap justify-center items-center gap-8 mb-8">
-              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
-                <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white text-xs font-bold">
-                  DANA
-                </div>
-                <span className="text-foreground font-medium">DANA</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
-                <div className="w-8 h-8 bg-green-600 rounded flex items-center justify-center text-white text-xs font-bold">
-                  Go
-                </div>
-                <span className="text-foreground font-medium">GoPay</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
-                <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center text-white text-xs font-bold">
-                  OVO
-                </div>
-                <span className="text-foreground font-medium">OVO</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
-                <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center text-white text-xs font-bold">
-                  BRI
-                </div>
-                <span className="text-foreground font-medium">Bank BRI</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg">
-                <div className="w-8 h-8 bg-blue-800 rounded flex items-center justify-center text-white text-xs font-bold">
-                  BCA
-                </div>
-                <span className="text-foreground font-medium">Bank BCA</span>
-              </div>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
+              <TrendingUp className="w-5 h-5 text-blue-500" />
+              <span className="text-blue-500 font-semibold">TRENDING SEKARANG</span>
             </div>
-
-
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Token yang Sedang Tren</h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">Cryptocurrency dengan volume trading tertinggi dan paling diminati saat ini</p>
           </div>
 
-          {/* Enhanced Escrow Transparency */}
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center shrink-0">
-                  <Shield className="w-6 h-6 text-green-500" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-white mb-4">🛡️ Proteksi PUYOK</h3>
-
-                  {/* Simplified Contract Verification */}
-                  <div className="bg-card/50 border border-green-500/30 rounded-lg p-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-300">Contract Address:</span>
-                      <div className="flex items-center gap-2">
-                        <a
-                          href="https://sepolia.etherscan.io/address/0x86391db0f7614e31cbaefb0b881f2fb3dbffbffb"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:text-primary/80 transition-colors font-mono text-sm flex items-center gap-1"
-                        >
-                          0x863...bffb
-                          <ArrowRight className="w-4 h-4" />
-                        </a>
-                        <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">
-                          ✓ Verified
-                        </Badge>
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {/* Bitcoin Card */}
+            <div>
+              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-lg font-normal leading-7">
+                      ₿
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white leading-7">Bitcoin</h3>
+                      <p className="text-sm text-gray-400 leading-5">BTC</p>
                     </div>
                   </div>
+                  <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-xs font-semibold leading-4 px-2.5 py-0.5">🔥 #1</Badge>
                 </div>
+
+                <div className="mb-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Harga</span>
+                    <span className="text-white font-bold">Rp 850.000.000</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">24h Change</span>
+                    <span className="text-green-400 font-medium">+2.15%</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">Volume 24h</span>
+                    <span className="text-white">Rp 2.1M</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">Order Aktif</span>
+                    <span className="text-white">23 orders</span>
+                  </div>
+                </div>
+
+                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold leading-4">
+                        CM
+                      </div>
+                      <div>
+                        <div className="text-white text-sm font-medium leading-5">@crypto_master</div>
+                        <div className="text-gray-400 text-xs leading-4">98.5% sukses • 156 trades</div>
+                      </div>
+                    </div>
+                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs px-2.5 py-0.5">Verified</Badge>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex gap-2">
+                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                    <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
+                    <span className="text-gray-400 text-xs ml-1">+2 lainnya</span>
+                  </div>
+                </div>
+
+                <Button className="w-full bg-primary hover:bg-primary/90">Beli Sekarang</Button>
+              </Card>
+            </div>
+
+            {/* Ethereum Card */}
+            <div>
+              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-lg font-normal leading-7">
+                      Ξ
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white leading-7">Ethereum</h3>
+                      <p className="text-sm text-gray-400 leading-5">ETH</p>
+                    </div>
+                  </div>
+                  <Badge className="bg-orange-500/10 text-orange-400 border-orange-500/20 text-xs font-semibold leading-4 px-2.5 py-0.5">🔥 #2</Badge>
+                </div>
+
+                <div className="mb-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Harga</span>
+                    <span className="text-white font-bold">Rp 45.000.000</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">24h Change</span>
+                    <span className="text-red-400 font-medium">-1.8%</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">Volume 24h</span>
+                    <span className="text-white">Rp 1.8M</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">Order Aktif</span>
+                    <span className="text-white">18 orders</span>
+                  </div>
+                </div>
+
+                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold leading-4">
+                        ET
+                      </div>
+                      <div>
+                        <div className="text-white text-sm font-medium leading-5">@eth_trader</div>
+                        <div className="text-gray-400 text-xs leading-4">97.2% sukses • 89 trades</div>
+                      </div>
+                    </div>
+                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs px-2.5 py-0.5">Verified</Badge>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex gap-2">
+                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                    <span className="text-gray-400 text-xs ml-1">+3 lainnya</span>
+                  </div>
+                </div>
+
+                <Button className="w-full bg-primary hover:bg-primary/90">Beli Sekarang</Button>
+              </Card>
+            </div>
+
+            {/* USDT Card */}
+            <div>
+              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-lg font-normal leading-7">
+                      ₮
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white leading-7">Tether</h3>
+                      <p className="text-sm text-gray-400 leading-5">USDT</p>
+                    </div>
+                  </div>
+                  <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/20 text-xs font-semibold leading-4 px-2.5 py-0.5">🔥 #3</Badge>
+                </div>
+
+                <div className="mb-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Harga</span>
+                    <span className="text-white font-bold">Rp 15.750</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">24h Change</span>
+                    <span className="text-green-400 font-medium">+0.1%</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">Volume 24h</span>
+                    <span className="text-white">Rp 3.2M</span>
+                  </div>
+                  <div className="flex justify-between mt-3">
+                    <span className="text-gray-400">Order Aktif</span>
+                    <span className="text-white">34 orders</span>
+                  </div>
+                </div>
+
+                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold leading-4">
+                        ST
+                      </div>
+                      <div>
+                        <div className="text-white text-sm font-medium leading-5">@stable_pro</div>
+                        <div className="text-gray-400 text-xs leading-4">99.1% sukses • 234 trades</div>
+                      </div>
+                    </div>
+                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs px-2.5 py-0.5">Verified</Badge>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex gap-2">
+                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                    <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
+                    <div className="w-6 h-6 bg-red-600 rounded text-white text-xs flex items-center justify-center font-bold">B</div>
+                  </div>
+                </div>
+
+                <Button className="w-full bg-primary hover:bg-primary/90">Beli Sekarang</Button>
+              </Card>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <a href="https://eec0a15f2e554f09a52ca736de5e6964-865decb6dea74217ab9b117f9.fly.dev/marketplace" className="inline-flex items-center justify-center bg-card border border-primary/50 rounded-md text-sm font-medium h-10 px-4 py-2 gap-2 hover:bg-primary/10 transition-colors">
+              <span>Lihat Semua Token</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* NFT Featured Section */}
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-3 bg-purple-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+            <Star className="w-5 h-5 text-purple-500" />
+            <span className="text-purple-500 font-semibold">KOLEKSI UNGGULAN</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">NFT Pilihan Minggu Ini</h2>
+          <p className="text-gray-300 max-w-2xl mx-auto">Koleksi NFT terpilih dengan kualitas dan nilai investasi terbaik dari kreator Indonesia</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* NFT 1 */}
+          <div>
+            <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300">
+              <div className="relative">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F1234567890abcdef" alt="Mystical Dragon #001" className="w-full h-48 object-cover block" />
+                <Badge className="absolute top-2 right-2 bg-red-500/90 text-white border-none text-xs font-semibold leading-4 px-2.5 py-0.5">Legendary</Badge>
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-white mb-1 leading-7">Mystical Dragon #001</h3>
+                <p className="text-sm text-gray-400 mb-3 leading-5">Indonesian Mythology Collection</p>
+                <div className="mb-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400 text-sm leading-5">Harga</span>
+                    <span className="text-white font-bold">Rp 25.000.000</span>
+                  </div>
+                  <div className="flex justify-between mt-2">
+                    <span className="text-gray-400 text-sm leading-5">Pemilik</span>
+                    <span className="text-sm leading-5">@dragon_artist</span>
+                  </div>
+                </div>
+                <div className="flex gap-2 mb-4">
+                  <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                  <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                  <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
+                </div>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Ajukan Penawaran</Button>
+              </div>
+            </Card>
+          </div>
+
+          {/* NFT 2 */}
+          <div>
+            <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300">
+              <div className="relative">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Fabcdef1234567890" alt="Batik Genesis #042" className="w-full h-48 object-cover block" />
+                <Badge className="absolute top-2 right-2 bg-orange-500/90 text-white border-none text-xs font-semibold leading-4 px-2.5 py-0.5">Rare</Badge>
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-white mb-1 leading-7">Batik Genesis #042</h3>
+                <p className="text-sm text-gray-400 mb-3 leading-5">Traditional Art Digital</p>
+                <div className="mb-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400 text-sm leading-5">Harga</span>
+                    <span className="text-white font-bold">Rp 15.000.000</span>
+                  </div>
+                  <div className="flex justify-between mt-2">
+                    <span className="text-gray-400 text-sm leading-5">Pemilik</span>
+                    <span className="text-sm leading-5">@batik_creator</span>
+                  </div>
+                </div>
+                <div className="flex gap-2 mb-4">
+                  <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                  <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                </div>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Ajukan Penawaran</Button>
+              </div>
+            </Card>
+          </div>
+
+          {/* NFT 3 */}
+          <div>
+            <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300">
+              <div className="relative">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F0987654321fedcba" alt="Wayang Punk #117" className="w-full h-48 object-cover block" />
+                <Badge className="absolute top-2 right-2 bg-blue-500/90 text-white border-none text-xs font-semibold leading-4 px-2.5 py-0.5">Epic</Badge>
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-white mb-1 leading-7">Wayang Punk #117</h3>
+                <p className="text-sm text-gray-400 mb-3 leading-5">Modern Traditional Fusion</p>
+                <div className="mb-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400 text-sm leading-5">Harga</span>
+                    <span className="text-white font-bold">Rp 12.000.000</span>
+                  </div>
+                  <div className="flex justify-between mt-2">
+                    <span className="text-gray-400 text-sm leading-5">Pemilik</span>
+                    <span className="text-sm leading-5">@wayang_modern</span>
+                  </div>
+                </div>
+                <div className="flex gap-2 mb-4">
+                  <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                  <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                  <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
+                </div>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Ajukan Penawaran</Button>
+              </div>
+            </Card>
+          </div>
+
+          {/* NFT 4 */}
+          <div>
+            <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300">
+              <div className="relative">
+                <img src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Ffedcba0987654321" alt="Cyberpunk Jakarta #055" className="w-full h-48 object-cover block" />
+                <Badge className="absolute top-2 right-2 bg-green-500/90 text-white border-none text-xs font-semibold leading-4 px-2.5 py-0.5">Common</Badge>
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-white mb-1 leading-7">Cyberpunk Jakarta #055</h3>
+                <p className="text-sm text-gray-400 mb-3 leading-5">Future City Collection</p>
+                <div className="mb-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400 text-sm leading-5">Harga</span>
+                    <span className="text-white font-bold">Rp 8.500.000</span>
+                  </div>
+                  <div className="flex justify-between mt-2">
+                    <span className="text-gray-400 text-sm leading-5">Pemilik</span>
+                    <span className="text-sm leading-5">@cyber_artist</span>
+                  </div>
+                </div>
+                <div className="flex gap-2 mb-4">
+                  <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                  <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                </div>
+                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Ajukan Penawaran</Button>
               </div>
             </Card>
           </div>
         </div>
-      </section>
+
+        <div className="text-center">
+          <a href="https://eec0a15f2e554f09a52ca736de5e6964-865decb6dea74217ab9b117f9.fly.dev/marketplace?tab=nft" className="inline-flex items-center justify-center bg-card border border-purple-500/50 rounded-md text-purple-400 text-sm font-medium h-10 px-4 py-2 gap-2 hover:bg-purple-500/10 transition-colors">
+            <span>Jelajahi Semua NFT</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
 
       {/* Enhanced: Kenapa PUYOK Berbeda Section */}
       <motion.section
@@ -1629,442 +1899,7 @@ export default function LandingPage() {
         </div>
       </motion.section>
 
-      {/* Trending Tokens Section */}
-      <motion.section
-        id="trending-tokens"
-        className="py-20 bg-card/10"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
-              <TrendingUp className="w-5 h-5 text-blue-500" />
-              <span className="text-blue-500 font-semibold">TRENDING SEKARANG</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Token yang Sedang Tren
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Cryptocurrency dengan volume trading tertinggi dan paling diminati saat ini
-            </p>
-          </div>
 
-          {/* Token Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {/* Bitcoin Card */}
-            <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">₿</span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white">Bitcoin</h3>
-                      <p className="text-sm text-gray-400">BTC</p>
-                    </div>
-                  </div>
-                  <Badge className="bg-red-500/10 text-red-400 border-red-500/20">🔥 #1</Badge>
-                </div>
-
-                <div className="space-y-3 mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Harga</span>
-                    <span className="text-white font-bold">Rp 850.000.000</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">24h Change</span>
-                    <span className="text-green-400 font-medium">+2.15%</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Volume 24h</span>
-                    <span className="text-white">Rp 2.1M</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Order Aktif</span>
-                    <span className="text-primary">23 orders</span>
-                  </div>
-                </div>
-
-                {/* Top Seller */}
-                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        CM
-                      </div>
-                      <div>
-                        <div className="text-white text-sm font-medium">@crypto_master</div>
-                        <div className="text-xs text-gray-400">98.5% sukses • 156 trades</div>
-                      </div>
-                    </div>
-                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">
-                      Verified
-                    </Badge>
-                  </div>
-                </div>
-
-                {/* Payment Methods */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex gap-2">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                    <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
-                    <span className="text-xs text-gray-400 ml-1">+2 lainnya</span>
-                  </div>
-                </div>
-
-                <Button className="w-full bg-primary hover:bg-primary/90">
-                  Beli Sekarang
-                </Button>
-              </Card>
-            </motion.div>
-
-            {/* Ethereum Card */}
-            <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">Ξ</span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white">Ethereum</h3>
-                      <p className="text-sm text-gray-400">ETH</p>
-                    </div>
-                  </div>
-                  <Badge className="bg-orange-500/10 text-orange-400 border-orange-500/20">🔥 #2</Badge>
-                </div>
-
-                <div className="space-y-3 mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Harga</span>
-                    <span className="text-white font-bold">Rp 45.000.000</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">24h Change</span>
-                    <span className="text-red-400 font-medium">-1.8%</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Volume 24h</span>
-                    <span className="text-white">Rp 1.8M</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Order Aktif</span>
-                    <span className="text-primary">18 orders</span>
-                  </div>
-                </div>
-
-                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        ET
-                      </div>
-                      <div>
-                        <div className="text-white text-sm font-medium">@eth_trader</div>
-                        <div className="text-xs text-gray-400">97.2% sukses • 89 trades</div>
-                      </div>
-                    </div>
-                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">
-                      Verified
-                    </Badge>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex gap-2">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                    <span className="text-xs text-gray-400 ml-1">+3 lainnya</span>
-                  </div>
-                </div>
-
-                <Button className="w-full bg-primary hover:bg-primary/90">
-                  Beli Sekarang
-                </Button>
-              </Card>
-            </motion.div>
-
-            {/* USDT Card */}
-            <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">₮</span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white">Tether</h3>
-                      <p className="text-sm text-gray-400">USDT</p>
-                    </div>
-                  </div>
-                  <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/20">🔥 #3</Badge>
-                </div>
-
-                <div className="space-y-3 mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Harga</span>
-                    <span className="text-white font-bold">Rp 15.750</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">24h Change</span>
-                    <span className="text-green-400 font-medium">+0.1%</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Volume 24h</span>
-                    <span className="text-white">Rp 3.2M</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Order Aktif</span>
-                    <span className="text-primary">34 orders</span>
-                  </div>
-                </div>
-
-                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        ST
-                      </div>
-                      <div>
-                        <div className="text-white text-sm font-medium">@stable_pro</div>
-                        <div className="text-xs text-gray-400">99.1% sukses • 234 trades</div>
-                      </div>
-                    </div>
-                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">
-                      Verified
-                    </Badge>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex gap-2">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                    <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
-                    <div className="w-6 h-6 bg-red-600 rounded text-white text-xs flex items-center justify-center font-bold">B</div>
-                  </div>
-                </div>
-
-                <Button className="w-full bg-primary hover:bg-primary/90">
-                  Beli Sekarang
-                </Button>
-              </Card>
-            </motion.div>
-          </div>
-
-          {/* View All Tokens CTA */}
-          <div className="text-center">
-            <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10" asChild>
-              <Link href="/marketplace">
-                Lihat Semua Token
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Featured NFTs Section */}
-      <motion.section
-        className="py-20 bg-gradient-to-br from-purple-900/20 to-pink-900/20"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-purple-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-              <Star className="w-5 h-5 text-purple-500" />
-              <span className="text-purple-500 font-semibold">KOLEKSI UNGGULAN</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
-              NFT Pilihan Minggu Ini
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Koleksi NFT terpilih dengan kualitas dan nilai investasi terbaik dari kreator Indonesia
-            </p>
-          </div>
-
-          {/* NFT Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {/* NFT 1 */}
-            <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-              <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
-                <div className="relative">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F1234567890abcdef"
-                    alt="Mystical Dragon #001"
-                    className="w-full h-48 object-cover"
-                  />
-                  <Badge className="absolute top-2 right-2 bg-red-500/90 text-white border-none">
-                    Legendary
-                  </Badge>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold text-white mb-1">Mystical Dragon #001</h3>
-                  <p className="text-sm text-gray-400 mb-3">Indonesian Mythology Collection</p>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400 text-sm">Harga</span>
-                      <span className="text-white font-bold">Rp 25.000.000</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400 text-sm">Pemilik</span>
-                      <span className="text-primary text-sm">@dragon_artist</span>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2 mb-4">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                    <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
-                  </div>
-
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
-                    Ajukan Penawaran
-                  </Button>
-                </div>
-              </Card>
-            </motion.div>
-
-            {/* NFT 2 */}
-            <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-              <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
-                <div className="relative">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Fabcdef1234567890"
-                    alt="Batik Genesis #042"
-                    className="w-full h-48 object-cover"
-                  />
-                  <Badge className="absolute top-2 right-2 bg-orange-500/90 text-white border-none">
-                    Rare
-                  </Badge>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold text-white mb-1">Batik Genesis #042</h3>
-                  <p className="text-sm text-gray-400 mb-3">Traditional Art Digital</p>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400 text-sm">Harga</span>
-                      <span className="text-white font-bold">Rp 15.000.000</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400 text-sm">Pemilik</span>
-                      <span className="text-primary text-sm">@batik_creator</span>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2 mb-4">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                  </div>
-
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
-                    Ajukan Penawaran
-                  </Button>
-                </div>
-              </Card>
-            </motion.div>
-
-            {/* NFT 3 */}
-            <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-              <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
-                <div className="relative">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F0987654321fedcba"
-                    alt="Wayang Punk #117"
-                    className="w-full h-48 object-cover"
-                  />
-                  <Badge className="absolute top-2 right-2 bg-blue-500/90 text-white border-none">
-                    Epic
-                  </Badge>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold text-white mb-1">Wayang Punk #117</h3>
-                  <p className="text-sm text-gray-400 mb-3">Modern Traditional Fusion</p>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400 text-sm">Harga</span>
-                      <span className="text-white font-bold">Rp 12.000.000</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400 text-sm">Pemilik</span>
-                      <span className="text-primary text-sm">@wayang_modern</span>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2 mb-4">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                    <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
-                  </div>
-
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
-                    Ajukan Penawaran
-                  </Button>
-                </div>
-              </Card>
-            </motion.div>
-
-            {/* NFT 4 */}
-            <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-              <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
-                <div className="relative">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Ffedcba0987654321"
-                    alt="Cyberpunk Jakarta #055"
-                    className="w-full h-48 object-cover"
-                  />
-                  <Badge className="absolute top-2 right-2 bg-green-500/90 text-white border-none">
-                    Common
-                  </Badge>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold text-white mb-1">Cyberpunk Jakarta #055</h3>
-                  <p className="text-sm text-gray-400 mb-3">Future City Collection</p>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400 text-sm">Harga</span>
-                      <span className="text-white font-bold">Rp 8.500.000</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400 text-sm">Pemilik</span>
-                      <span className="text-primary text-sm">@cyber_artist</span>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2 mb-4">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                  </div>
-
-                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
-                    Ajukan Penawaran
-                  </Button>
-                </div>
-              </Card>
-            </motion.div>
-          </div>
-
-          {/* View All NFTs CTA */}
-          <div className="text-center">
-            <Button variant="outline" className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10" asChild>
-              <Link href="/marketplace?tab=nft">
-                Jelajahi Semua NFT
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </motion.section>
 
       {/* Simple CTA Section */}
       <motion.section
