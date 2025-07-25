@@ -1,0 +1,128 @@
+/* Custom styles for scroll sections */
+.scroll-section-compact {
+  padding: 60px 0 !important;
+}
+
+.scroll-section-compact .scroll-float {
+  margin-bottom: 2rem !important;
+}
+
+.scroll-section-compact .scroll-float-text {
+  background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Tutorial steps animation */
+.tutorial-step {
+  transition: all 0.3s ease;
+}
+
+.tutorial-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Compact card grid */
+.compact-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.compact-feature-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.compact-feature-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(16, 185, 129, 0.3);
+  transform: translateY(-5px);
+}
+
+.compact-feature-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+  font-size: 1.5rem;
+}
+
+.compact-feature-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.compact-feature-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .scroll-section-compact {
+    padding: 40px 0 !important;
+  }
+  
+  .compact-features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .compact-feature-card {
+    padding: 1.25rem;
+  }
+  
+  .scroll-float-text {
+    font-size: clamp(1.2rem, 6vw, 3rem) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-section-compact {
+    padding: 30px 0 !important;
+  }
+  
+  .compact-feature-card {
+    padding: 1rem;
+  }
+  
+  .compact-feature-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+  
+  .compact-feature-title {
+    font-size: 1rem;
+  }
+  
+  .compact-feature-desc {
+    font-size: 0.85rem;
+  }
+}
