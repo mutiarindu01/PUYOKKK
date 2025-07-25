@@ -971,7 +971,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex items-center justify-between p-3 bg-card/30 border border-orange-500/20 rounded-lg">
                   <span className="text-white">First NFT Creation</span>
-                  <Badge className="bg-green-500/10 text-green-400">✅ Auto Mint</Badge>
+                  <Badge className="bg-green-500/10 text-green-400">��� Auto Mint</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-card/30 border border-orange-500/20 rounded-lg">
                   <span className="text-white">First Voting Participation</span>
@@ -1427,7 +1427,7 @@ export default function LandingPage() {
 
       {/* Unified PUYOK Value Proposition - Part 1: Benefits */}
       <motion.section
-        className="py-32 bg-gradient-to-br from-background via-card/20 to-background"
+        className="scroll-section-compact bg-gradient-to-br from-background via-card/20 to-background"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
