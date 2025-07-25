@@ -39,6 +39,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -1508,7 +1509,7 @@ export default function LandingPage() {
 
                   <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-primary text-sm">🗨️</span>
+                      <span className="text-primary text-sm">🗨��</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Support Bahasa Indonesia</p>
