@@ -991,7 +991,7 @@ export default function LandingPage() {
 
       {/* Live Activity Feed */}
       <motion.section
-        className="py-20 bg-gradient-to-br from-blue-900/20 to-purple-900/20"
+        className="compact-section bg-gradient-to-br from-blue-900/20 to-purple-900/20"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
