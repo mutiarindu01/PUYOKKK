@@ -915,9 +915,9 @@ export default function LandingPage() {
         </div>
       </motion.section>
 
-      {/* Pioneer NFT Behavior Tracker Preview */}
+      {/* Pioneer NFT Auto-Delivery */}
       <motion.section
-        className="py-16 bg-gradient-to-br from-orange-900/10 to-red-900/10"
+        className="compact-section bg-gradient-to-br from-orange-900/10 to-red-900/10"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -1295,7 +1295,7 @@ export default function LandingPage() {
 
                   <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
                     <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-red-500 text-sm">🗣��</span>
+                      <span className="text-red-500 text-sm">🗣️</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Support Bahasa Asing</p>
