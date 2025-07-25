@@ -922,8 +922,8 @@ export default function LandingPage() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="max-w-4xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-8">
+        <div className="max-w-5xl mx-auto px-6 md:px-10">
+          <div className="compact-header">
             <ScrollFloat
               animationDuration={1}
               ease="power2.out"
