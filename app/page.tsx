@@ -878,9 +878,15 @@ export default function LandingPage() {
         transition={{ duration: 0.6 }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="compact-header">
-            <h4>🏆 Pioneer NFT Reward System</h4>
-            <p>Dapatkan NFT 1/1 eksklusif untuk setiap aksi pertama di PUYOK</p>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-full px-6 py-3 mb-6">
+              <Trophy className="w-6 h-6 text-yellow-400" />
+              <span className="text-yellow-400 font-semibold">PIONEER NFT SYSTEM</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Jadilah yang Pertama dan Dapatkan NFT Eksklusif!</h2>
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              Setiap kali Anda melakukan aksi pertama di ekosistem PUYOK, Anda akan mendapatkan NFT Pioneer 1/1 yang langka dan tidak dapat diduplikasi.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1469,7 +1475,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="w-20 h-20 mx-auto mb-6 bg-primary/20 rounded-full flex items-center justify-center">
-                  <span className="text-4xl">����🇩</span>
+                  <span className="text-4xl">������🇩</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">PUYOK</h3>
                 <Badge className="mb-6 bg-primary text-primary-foreground">
