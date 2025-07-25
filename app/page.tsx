@@ -870,6 +870,7 @@ export default function LandingPage() {
 
 
 
+      {/* Pioneer NFT Auto-Delivery */}
       <motion.section
         className="py-20 bg-gradient-to-br from-purple-900/20 to-pink-900/20"
         initial={{ opacity: 0 }}
