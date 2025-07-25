@@ -867,7 +867,7 @@ export default function LandingPage() {
 
       {/* Voting System Preview */}
       <motion.section
-        className="py-16 bg-gradient-to-br from-purple-900/10 to-blue-900/10"
+        className="compact-section bg-gradient-to-br from-purple-900/10 to-blue-900/10"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
