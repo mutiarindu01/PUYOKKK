@@ -889,7 +889,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <Card className="bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20 p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center">
