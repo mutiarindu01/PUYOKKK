@@ -872,60 +872,46 @@ export default function LandingPage() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="max-w-4xl mx-auto px-6 md:px-10">
-          <Card className="bg-gradient-to-r from-purple-500/5 to-blue-500/5 border border-purple-500/20 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-purple-400">🗳️</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-white">Community Governance</h3>
-                  <p className="text-sm text-gray-400">Otomatis trigger voting setiap 30 hari</p>
-                </div>
-              </div>
-              <Badge className="bg-green-500/10 text-green-400 border-green-500/20 animate-pulse">
-                3 Proposal Aktif
-              </Badge>
-            </div>
+        <div className="max-w-5xl mx-auto px-6 md:px-10">
+          <div className="compact-header">
+            <h4>🗳️ Community Governance</h4>
+            <p>Voting otomatis setiap 30 hari • 3 Proposal Aktif</p>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-card/30 border border-purple-500/20 rounded-lg p-4">
-                <div className="text-sm text-purple-400 mb-1">Proposal #1</div>
-                <div className="text-white font-medium mb-2">New Payment Method: QRIS</div>
-                <div className="flex justify-between text-xs">
-                  <span className="text-green-400">68% Setuju</span>
-                  <span className="text-gray-400">2 hari lagi</span>
-                </div>
-              </div>
-
-              <div className="bg-card/30 border border-blue-500/20 rounded-lg p-4">
-                <div className="text-sm text-blue-400 mb-1">Proposal #2</div>
-                <div className="text-white font-medium mb-2">Reduce Trading Fees</div>
-                <div className="flex justify-between text-xs">
-                  <span className="text-green-400">84% Setuju</span>
-                  <span className="text-gray-400">5 hari lagi</span>
-                </div>
-              </div>
-
-              <div className="bg-card/30 border border-yellow-500/20 rounded-lg p-4">
-                <div className="text-sm text-yellow-400 mb-1">Proposal #3</div>
-                <div className="text-white font-medium mb-2">NFT Staking Feature</div>
-                <div className="flex justify-between text-xs">
-                  <span className="text-orange-400">45% Setuju</span>
-                  <span className="text-gray-400">1 minggu lagi</span>
-                </div>
+          <div className="compact-grid compact-grid-3">
+            <div className="compact-card">
+              <h4>QRIS Payment</h4>
+              <p>New payment method proposal</p>
+              <div className="tag-list">
+                <span className="tag">68% Setuju</span>
+                <span className="tag">2 hari lagi</span>
               </div>
             </div>
 
-            <div className="mt-4 text-center">
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white" asChild>
-                <Link href="/voting">
-                  🗳️ Vote & Terima POAP NFT Otomatis
-                </Link>
-              </Button>
+            <div className="compact-card">
+              <h4>Reduce Trading Fees</h4>
+              <p>Lower transaction costs</p>
+              <div className="tag-list">
+                <span className="tag">84% Setuju</span>
+                <span className="tag">5 hari lagi</span>
+              </div>
             </div>
-          </Card>
+
+            <div className="compact-card">
+              <h4>NFT Staking Feature</h4>
+              <p>Earn rewards from staking</p>
+              <div className="tag-list">
+                <span className="tag">45% Setuju</span>
+                <span className="tag">1 minggu lagi</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-4">
+            <a href="/voting" className="quick-action">
+              🗳️ Vote & Terima POAP NFT
+            </a>
+          </div>
         </div>
       </motion.section>
 
@@ -1309,7 +1295,7 @@ export default function LandingPage() {
 
                   <div className="flex items-start gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
                     <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-red-500 text-sm">🗣️</span>
+                      <span className="text-red-500 text-sm">🗣��</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Support Bahasa Asing</p>
