@@ -52,7 +52,6 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import Footer from "@/components/Footer"
 import MarketplaceLoading from "@/components/MarketplaceLoading"
 import BackgroundParticles from "@/components/BackgroundParticles"
