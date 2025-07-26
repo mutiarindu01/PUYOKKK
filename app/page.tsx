@@ -2326,7 +2326,7 @@ export default function LandingPage() {
 
                   <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-primary text-sm">📱</span>
+                      <span className="text-primary text-sm">��</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Pembayaran Familiar</p>
@@ -2989,16 +2989,29 @@ export default function LandingPage() {
               className="group flex items-start gap-4 p-6 bg-gradient-to-r from-green-500/5 to-blue-500/5 border border-green-500/20 rounded-xl hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 cursor-pointer"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02, x: 5 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <motion.div
+                className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-green-500/30 transition-colors"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+              >
                 <span className="text-green-400 font-bold text-lg">1</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">📱 Daftar dengan Nomor HP</h3>
-                <p className="text-gray-300">
+              </motion.div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">📱 Daftar dengan Nomor HP</h3>
+                <p className="text-gray-300 mb-3">
                   Cukup masukkan nomor HP, verifikasi OTP, dan langsung bisa mulai trading. Tidak ada KYC yang merepotkan.
                 </p>
+                <div className="flex items-center gap-2">
+                  <div className="bg-green-500/10 border border-green-500/20 rounded-full px-3 py-1 text-xs text-green-400 font-medium">
+                    ⏱️ ~2 menit
+                  </div>
+                  <div className="bg-green-500/10 border border-green-500/20 rounded-full px-3 py-1 text-xs text-green-400 font-medium">
+                    ✅ Instant
+                  </div>
+                </div>
               </div>
             </motion.div>
 
