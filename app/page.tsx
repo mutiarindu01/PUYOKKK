@@ -1113,24 +1113,24 @@ export default function LandingPage() {
                   <div className="bg-background/50 border border-border/50 rounded-lg p-3 mb-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        <div className="w-8 h-8 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
                           ET
                         </div>
                         <div>
                           <div className="flex items-center gap-1">
                             <span className="text-white text-sm font-medium">@eth_trader</span>
-                            <Shield className="w-3 h-3 text-green-400" />
+                            <Shield className="w-3 h-3 text-slate-400" />
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-green-400 text-xs">97.2% sukses</span>
+                            <span className="text-slate-400 text-xs">97.2% sukses</span>
                             <span className="text-gray-400 text-xs">• 89 trades</span>
-                            <div className="flex text-yellow-400 text-xs">
+                            <div className="flex text-slate-400 text-xs">
                               ⭐⭐⭐⭐⭐
                             </div>
                           </div>
                         </div>
                       </div>
-                      <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">Verified</Badge>
+                      <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">Verified</Badge>
                     </div>
                   </div>
 
