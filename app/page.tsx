@@ -1125,7 +1125,7 @@ export default function LandingPage() {
                             <span className="text-slate-400 text-xs">97.2% sukses</span>
                             <span className="text-gray-400 text-xs">• 89 trades</span>
                             <div className="flex text-slate-400 text-xs">
-                              ⭐⭐⭐⭐⭐
+                              ⭐⭐⭐⭐��
                             </div>
                           </div>
                         </div>
@@ -1528,7 +1528,7 @@ export default function LandingPage() {
                           <div className="flex gap-2">
                             <Button
                               size="sm"
-                              className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold"
+                              className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
                               asChild
                             >
                               <Link href={`/marketplace/${nft.id}`}>
@@ -1539,7 +1539,7 @@ export default function LandingPage() {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="flex-1 border-white/30 text-white hover:bg-white/10"
+                              className="flex-1 border-slate-500/30 text-slate-300 hover:bg-slate-800/10"
                               asChild
                             >
                               <Link href={`/marketplace/${nft.id}`}>
