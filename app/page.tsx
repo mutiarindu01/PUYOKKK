@@ -1624,7 +1624,7 @@ export default function LandingPage() {
                         {/* Action Buttons */}
                         <div className="flex gap-2">
                           <Button
-                            className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold"
+                            className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
                             asChild
                           >
                             <Link href={`/marketplace/${nft.id}`}>
@@ -1634,7 +1634,7 @@ export default function LandingPage() {
                           <Button
                             size="icon"
                             variant="outline"
-                            className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
+                            className="border-slate-600/50 text-slate-400 hover:bg-slate-800/10"
                           >
                             <Heart className="w-4 h-4" />
                           </Button>
