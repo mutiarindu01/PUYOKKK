@@ -1194,9 +1194,9 @@ export default function LandingPage() {
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-2xl font-bold text-white">Rp 15.750</span>
-                      <div className="flex items-center gap-1 bg-green-500/20 border border-green-500/30 rounded-full px-3 py-1">
-                        <TrendingUp className="w-4 h-4 text-green-400" />
-                        <span className="text-green-400 font-bold text-sm">+0.1%</span>
+                      <div className="flex items-center gap-1 bg-slate-700/50 border border-slate-600/50 rounded-full px-3 py-1">
+                        <TrendingUp className="w-4 h-4 text-slate-300" />
+                        <span className="text-slate-300 font-bold text-sm">+0.1%</span>
                       </div>
                     </div>
 
@@ -1803,7 +1803,7 @@ export default function LandingPage() {
                     <div className="flex items-center gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
                       <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">3</div>
                       <div>
-                        <div className="text-white font-medium">Konversi ETH → IDR</div>
+                        <div className="text-white font-medium">Konversi ETH �� IDR</div>
                         <div className="text-red-400 text-sm">⏱️ ~1 jam</div>
                       </div>
                     </div>
