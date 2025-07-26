@@ -1170,15 +1170,15 @@ export default function LandingPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 whileHover={{ y: -8 }}
               >
-                <Card className="bg-gradient-to-br from-green-500/5 to-emerald-500/5 border border-green-500/20 p-6 hover:border-green-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 h-full">
+                <Card className="bg-gradient-to-br from-slate-800/30 to-gray-800/30 border border-slate-600/30 p-6 hover:border-slate-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-slate-500/20 h-full">
                   {/* Header with Logo and Trending Badge */}
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3">
                       <div className="relative">
-                        <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
+                        <div className="w-12 h-12 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
                           ₮
                         </div>
-                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background flex items-center justify-center">
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-slate-500 rounded-full border-2 border-background flex items-center justify-center">
                           <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                         </div>
                       </div>
@@ -1187,7 +1187,7 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">USDT</p>
                       </div>
                     </div>
-                    <Badge className="bg-yellow-500 text-black font-bold">🔥 #3 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">🔥 #3 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
@@ -3184,7 +3184,7 @@ export default function LandingPage() {
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}
                   >
-                    🚀 Mulai Sekarang & Dapat Pioneer NFT!
+                    �� Mulai Sekarang & Dapat Pioneer NFT!
                     <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
                   </motion.span>
                 </Link>
