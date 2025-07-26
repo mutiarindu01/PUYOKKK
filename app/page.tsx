@@ -1123,7 +1123,7 @@ export default function LandingPage() {
                           </div>
                           <div className="flex items-center gap-2">
                             <span className="text-slate-400 text-xs">97.2% sukses</span>
-                            <span className="text-gray-400 text-xs">• 89 trades</span>
+                            <span className="text-gray-400 text-xs">�� 89 trades</span>
                             <div className="flex text-slate-400 text-xs">
                               ⭐⭐⭐⭐⭐
                             </div>
@@ -1326,7 +1326,7 @@ export default function LandingPage() {
 
       {/* Enhanced Interactive NFT Carousel Section */}
       <motion.section
-        className="py-20 bg-gradient-to-br from-purple-900/20 via-background to-pink-900/20 relative overflow-hidden"
+        className="py-20 bg-gradient-to-br from-slate-900/20 via-background to-gray-900/20 relative overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
