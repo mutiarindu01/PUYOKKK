@@ -1490,7 +1490,7 @@ export default function LandingPage() {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     whileHover={{ y: -12, scale: 1.02 }}
                   >
-                    <Card className="bg-gradient-to-br from-card/80 to-card/40 border border-border hover:border-purple-500/50 transition-all duration-500 overflow-hidden backdrop-blur-sm h-full group-hover:shadow-2xl group-hover:shadow-purple-500/20">
+                    <Card className="bg-gradient-to-br from-card/80 to-card/40 border border-border hover:border-slate-500/50 transition-all duration-500 overflow-hidden backdrop-blur-sm h-full group-hover:shadow-2xl group-hover:shadow-slate-500/20">
                       {/* Enhanced Image Section */}
                       <div className="relative overflow-hidden">
                         <img
@@ -2630,7 +2630,7 @@ export default function LandingPage() {
             >
               <Card className="bg-card border border-border p-8 text-center hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 h-full">
                 <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span className="text-4xl">���</span>
+                  <span className="text-4xl">�����</span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>Bayar dengan Dompet Digital Favorit</h3>
                 <p className="text-gray-300 leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
