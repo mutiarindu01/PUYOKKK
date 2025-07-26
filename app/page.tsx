@@ -21,6 +21,7 @@ import {
   DollarSign,
   Handshake,
   TrendingUp,
+  TrendingDown,
   Crown,
   ChevronLeft,
   ChevronRight,
@@ -2282,7 +2283,7 @@ export default function LandingPage() {
 
                 <div className="flex items-start gap-4 p-4 bg-blue-500/5 border border-blue-500/20 rounded-lg hover:bg-blue-500/10 transition-colors">
                   <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-blue-400 text-xl">✓</span>
+                    <span className="text-blue-400 text-xl">���</span>
                   </div>
                   <div>
                     <h4 className="text-white font-bold mb-2">Pengalaman Seperti Web2</h4>
@@ -2302,7 +2303,7 @@ export default function LandingPage() {
 
                 <div className="flex items-start gap-4 p-4 bg-yellow-500/5 border border-yellow-500/20 rounded-lg hover:bg-yellow-500/10 transition-colors">
                   <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-yellow-400 text-xl">✓</span>
+                    <span className="text-yellow-400 text-xl">���</span>
                   </div>
                   <div>
                     <h4 className="text-white font-bold mb-2">Transaksi Lebih Cepat</h4>
