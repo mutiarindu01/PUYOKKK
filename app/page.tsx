@@ -2889,7 +2889,7 @@ export default function LandingPage() {
               </div>
 
               <div className="text-center p-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
-                <div className="text-green-400 font-bold mb-1">��� Keunggulan Pembayaran PUYOK</div>
+                <div className="text-green-400 font-bold mb-1">✨ Keunggulan Pembayaran PUYOK</div>
                 <div className="text-sm text-green-300">Transfer instan • Tanpa biaya tambahan • Support 24/7</div>
               </div>
             </Card>
@@ -3314,28 +3314,52 @@ export default function LandingPage() {
               </Card>
             </motion.div>
 
-            {/* First Trade Card */}
+            {/* First Trade Card - AVAILABLE */}
             <motion.div
               className="group relative"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              whileHover={{ y: -10 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ y: -10, scale: 1.02 }}
             >
-              <Card className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 p-6 h-full hover:border-purple-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+              <Card className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 p-6 h-full hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 relative overflow-hidden">
+                {/* Available Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 animate-pulse" />
+
                 <div className="absolute top-4 right-4">
-                  <Badge className="bg-purple-600 text-white font-bold">FIRST TRADE</Badge>
+                  <Badge className="bg-green-500 text-white font-bold animate-pulse">⚡ AVAILABLE</Badge>
                 </div>
-                <div className="h-48 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
+                <div className="h-48 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl mb-6 flex items-center justify-center overflow-hidden relative">
                   <div className="text-6xl group-hover:scale-110 transition-transform duration-300">⚡</div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center animate-bounce">
+                    <span className="text-white text-sm font-bold">1</span>
+                  </div>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">Pertama Bertransaksi</h3>
                 <p className="text-gray-300 mb-4">NFT eksklusif "Pioneer Trader" untuk trader pertama yang menyelesaikan escrow dengan sukses</p>
-                <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3">
+
+                {/* Urgency Timer */}
+                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3 mb-4">
+                  <div className="text-center">
+                    <div className="text-yellow-400 text-sm font-medium mb-1">⏱️ Kesempatan Terbatas</div>
+                    <div className="text-yellow-300 text-xs">Hanya 1 orang yang bisa mendapat NFT ini!</div>
+                  </div>
+                </div>
+
+                <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 mb-4">
                   <div className="flex items-center gap-2">
                     <Zap className="w-4 h-4 text-purple-500" />
-                    <span className="text-purple-500 text-sm font-medium">Rarity: Epic</span>
+                    <span className="text-purple-500 text-sm font-medium">Epic • 1/1</span>
                   </div>
+                </div>
+
+                <div className="text-center">
+                  <Button
+                    size="sm"
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold px-6 py-2 animate-pulse"
+                  >
+                    🏆 Jadilah yang Pertama!
+                  </Button>
                 </div>
               </Card>
             </motion.div>
