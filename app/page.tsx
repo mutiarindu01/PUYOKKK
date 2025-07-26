@@ -1323,144 +1323,408 @@ export default function LandingPage() {
         </div>
       </motion.section>
 
-      {/* NFT Featured Section */}
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 bg-purple-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-            <Star className="w-5 h-5 text-purple-500" />
-            <span className="text-purple-500 font-semibold">KOLEKSI UNGGULAN</span>
+      {/* Enhanced Interactive NFT Carousel Section */}
+      <motion.section
+        className="py-20 bg-gradient-to-br from-purple-900/20 via-background to-pink-900/20 relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
+        <div className="max-w-7xl mx-auto px-6 md:px-10 relative">
+          {/* Enhanced Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 bg-purple-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+              <Star className="w-5 h-5 text-purple-500" />
+              <span className="text-purple-500 font-semibold">KOLEKSI UNGGULAN</span>
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                className="w-2 h-2 bg-purple-500 rounded-full"
+              />
+            </div>
+            <motion.h2
+              className="text-3xl md:text-5xl font-bold text-white mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              NFT
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400"> Pilihan Minggu</span> Ini
+            </motion.h2>
+            <motion.p
+              className="text-gray-300 max-w-3xl mx-auto text-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              Koleksi NFT terpilih dengan kualitas premium dan nilai investasi terbaik dari kreator Indonesia.
+              <span className="text-purple-400 font-medium"> Swipe untuk melihat lebih banyak koleksi.</span>
+            </motion.p>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">NFT Pilihan Minggu Ini</h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">Koleksi NFT terpilih dengan kualitas dan nilai investasi terbaik dari kreator Indonesia</p>
+
+          {/* Interactive NFT Carousel */}
+          <div className="relative">
+            {/* Navigation Arrows */}
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => setCurrentSlide(prev => Math.max(0, prev - 1))}
+              disabled={currentSlide === 0}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </Button>
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => setCurrentSlide(prev => Math.min(featuredNFTs.length - 3, prev + 1))}
+              disabled={currentSlide >= featuredNFTs.length - 3}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </Button>
+
+            {/* Mobile Swipe Container */}
+            <div className="overflow-x-auto pb-4 hide-scrollbar md:overflow-hidden">
+              <div
+                className="flex gap-6 transition-transform duration-500 ease-out min-w-max md:min-w-0"
+                style={{
+                  transform: `translateX(-${currentSlide * 350}px)`,
+                }}
+              >
+                {/* Enhanced NFT Cards */}
+                {[
+                  {
+                    id: 1,
+                    name: "Mystical Dragon #001",
+                    collection: "Indonesian Mythology Collection",
+                    price: "Rp 25.000.000",
+                    floorPrice: "Rp 22.000.000",
+                    volume24h: "Rp 125.5M",
+                    rarity: "Legendary",
+                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F1234567890abcdef",
+                    creator: "@dragon_artist",
+                    verified: true,
+                    likes: 324,
+                    views: 1247,
+                    properties: ["Fire Element", "Golden Scales", "Ancient Runes"],
+                    rarityColor: "from-red-500 to-orange-500",
+                    bidCount: 12
+                  },
+                  {
+                    id: 2,
+                    name: "Batik Genesis #042",
+                    collection: "Traditional Art Digital",
+                    price: "Rp 15.000.000",
+                    floorPrice: "Rp 12.500.000",
+                    volume24h: "Rp 89.3M",
+                    rarity: "Rare",
+                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Fabcdef1234567890",
+                    creator: "@batik_creator",
+                    verified: true,
+                    likes: 198,
+                    views: 856,
+                    properties: ["Traditional Pattern", "Java Style", "Hand Drawn"],
+                    rarityColor: "from-orange-500 to-yellow-500",
+                    bidCount: 8
+                  },
+                  {
+                    id: 3,
+                    name: "Wayang Punk #117",
+                    collection: "Modern Traditional Fusion",
+                    price: "Rp 12.000.000",
+                    floorPrice: "Rp 10.200.000",
+                    volume24h: "Rp 67.8M",
+                    rarity: "Epic",
+                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F0987654321fedcba",
+                    creator: "@wayang_modern",
+                    verified: true,
+                    likes: 156,
+                    views: 634,
+                    properties: ["Cyber Enhancement", "Traditional Mask", "Neon Glow"],
+                    rarityColor: "from-blue-500 to-purple-500",
+                    bidCount: 5
+                  },
+                  {
+                    id: 4,
+                    name: "Cyberpunk Jakarta #055",
+                    collection: "Future City Collection",
+                    price: "Rp 8.500.000",
+                    floorPrice: "Rp 7.100.000",
+                    volume24h: "Rp 45.2M",
+                    rarity: "Common",
+                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Ffedcba0987654321",
+                    creator: "@cyber_artist",
+                    verified: false,
+                    likes: 87,
+                    views: 312,
+                    properties: ["Neon Lights", "Urban Style", "Night Scene"],
+                    rarityColor: "from-green-500 to-emerald-500",
+                    bidCount: 3
+                  },
+                  {
+                    id: 5,
+                    name: "Garuda Phoenix #009",
+                    collection: "National Pride Series",
+                    price: "Rp 35.000.000",
+                    floorPrice: "Rp 32.500.000",
+                    volume24h: "Rp 156.7M",
+                    rarity: "Mythical",
+                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F9876543210abcdef",
+                    creator: "@garuda_master",
+                    verified: true,
+                    likes: 567,
+                    views: 2134,
+                    properties: ["Divine Wings", "Sacred Fire", "National Symbol"],
+                    rarityColor: "from-purple-500 to-pink-500",
+                    bidCount: 18
+                  }
+                ].map((nft, index) => (
+                  <motion.div
+                    key={nft.id}
+                    className="min-w-[320px] md:min-w-[350px] group"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    whileHover={{ y: -12, scale: 1.02 }}
+                  >
+                    <Card className="bg-gradient-to-br from-card/80 to-card/40 border border-border hover:border-purple-500/50 transition-all duration-500 overflow-hidden backdrop-blur-sm h-full group-hover:shadow-2xl group-hover:shadow-purple-500/20">
+                      {/* Enhanced Image Section */}
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={nft.image}
+                          alt={nft.name}
+                          className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+
+                        {/* Overlay Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                        {/* Enhanced Rarity Badge */}
+                        <Badge className={`absolute top-3 right-3 bg-gradient-to-r ${nft.rarityColor} text-white border-none font-bold px-3 py-1 shadow-lg`}>
+                          {nft.rarity}
+                        </Badge>
+
+                        {/* Wishlist Button */}
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="absolute top-3 left-3 w-10 h-10 bg-background/20 backdrop-blur-md border border-white/20 text-white hover:bg-background/40 hover:text-red-400 transition-all"
+                        >
+                          <Heart className="w-5 h-5" />
+                        </Button>
+
+                        {/* Live Auction Indicator */}
+                        {nft.bidCount > 0 && (
+                          <div className="absolute bottom-3 left-3 bg-red-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium animate-pulse">
+                            🔴 LIVE • {nft.bidCount} bids
+                          </div>
+                        )}
+
+                        {/* Quick Action Buttons (Appear on Hover) */}
+                        <div className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold"
+                              asChild
+                            >
+                              <Link href={`/marketplace/${nft.id}`}>
+                                <DollarSign className="w-4 h-4 mr-1" />
+                                Beli
+                              </Link>
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="flex-1 border-white/30 text-white hover:bg-white/10"
+                              asChild
+                            >
+                              <Link href={`/marketplace/${nft.id}`}>
+                                <Eye className="w-4 h-4 mr-1" />
+                                Detail
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Enhanced Content Section */}
+                      <div className="p-6">
+                        {/* Header with Creator Info */}
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex-1">
+                            <h3 className="text-xl font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">
+                              {nft.name}
+                            </h3>
+                            <p className="text-sm text-gray-400 mb-2">{nft.collection}</p>
+                            <div className="flex items-center gap-2">
+                              <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                {nft.creator.slice(1, 3).toUpperCase()}
+                              </div>
+                              <span className="text-sm text-gray-300">{nft.creator}</span>
+                              {nft.verified && (
+                                <Shield className="w-4 h-4 text-green-400" />
+                              )}
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold text-white">{nft.price}</div>
+                            <div className="text-xs text-gray-400">Floor: {nft.floorPrice}</div>
+                          </div>
+                        </div>
+
+                        {/* Market Statistics */}
+                        <div className="bg-background/30 border border-border/50 rounded-lg p-3 mb-4">
+                          <div className="grid grid-cols-2 gap-3 text-xs">
+                            <div>
+                              <span className="text-gray-400">24h Volume</span>
+                              <div className="text-white font-semibold">{nft.volume24h}</div>
+                            </div>
+                            <div>
+                              <span className="text-gray-400">Activity</span>
+                              <div className="flex items-center gap-1">
+                                <Eye className="w-3 h-3 text-gray-400" />
+                                <span className="text-white">{nft.views}</span>
+                                <Heart className="w-3 h-3 text-red-400 ml-2" />
+                                <span className="text-white">{nft.likes}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* NFT Properties */}
+                        <div className="mb-4">
+                          <div className="text-xs text-gray-400 mb-2">Featured Properties</div>
+                          <div className="flex flex-wrap gap-1">
+                            {nft.properties.slice(0, 3).map((prop, propIndex) => (
+                              <Badge
+                                key={propIndex}
+                                variant="outline"
+                                className="text-xs border-purple-500/30 text-purple-400 bg-purple-500/10"
+                              >
+                                {prop}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Payment Methods */}
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="text-gray-400 text-sm">Payment:</span>
+                          <div className="flex gap-1">
+                            <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                            <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                            <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex gap-2">
+                          <Button
+                            className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold"
+                            asChild
+                          >
+                            <Link href={`/marketplace/${nft.id}`}>
+                              Ajukan Penawaran
+                            </Link>
+                          </Button>
+                          <Button
+                            size="icon"
+                            variant="outline"
+                            className="border-purple-500/50 text-purple-400 hover:bg-purple-500/10"
+                          >
+                            <Heart className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Slide Indicators */}
+            <div className="flex justify-center gap-2 mt-8">
+              {Array.from({ length: Math.max(1, featuredNFTs.length - 2) }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentSlide
+                      ? 'bg-purple-500 w-8'
+                      : 'bg-gray-600 hover:bg-gray-500'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Enhanced CTA Section */}
+          <motion.div
+            className="text-center mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 p-8">
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Temukan Koleksi NFT Terlengkap
+              </h3>
+              <p className="text-gray-300 mb-6">
+                Jelajahi ribuan NFT berkualitas tinggi dari kreator terbaik Indonesia dengan berbagai kategori dan harga.
+              </p>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
+                asChild
+              >
+                <Link href="/marketplace?tab=nft">
+                  🎨 Jelajahi Semua NFT
+                  <ArrowRight className="ml-3 w-6 h-6" />
+                </Link>
+              </Button>
+            </Card>
+          </motion.div>
+
+          {/* Live Market Stats */}
+          <motion.div
+            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
+              <div className="text-2xl font-bold text-purple-400 mb-1">2,341</div>
+              <div className="text-sm text-gray-400">NFT Listed</div>
+            </div>
+            <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
+              <div className="text-2xl font-bold text-pink-400 mb-1">89</div>
+              <div className="text-sm text-gray-400">Live Auctions</div>
+            </div>
+            <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
+              <div className="text-2xl font-bold text-blue-400 mb-1">1,247</div>
+              <div className="text-sm text-gray-400">Active Collectors</div>
+            </div>
+            <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
+              <div className="text-2xl font-bold text-green-400 mb-1">Rp 234M</div>
+              <div className="text-sm text-gray-400">Total Volume</div>
+            </div>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* NFT 1 */}
-          <div>
-            <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300">
-              <div className="relative">
-                <img src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F1234567890abcdef" alt="Mystical Dragon #001" className="w-full h-48 object-cover block" />
-                <Badge className="absolute top-2 right-2 bg-red-500/90 text-white border-none text-xs font-semibold leading-4 px-2.5 py-0.5">Legendary</Badge>
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-1 leading-7">Mystical Dragon #001</h3>
-                <p className="text-sm text-gray-400 mb-3 leading-5">Indonesian Mythology Collection</p>
-                <div className="mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400 text-sm leading-5">Harga</span>
-                    <span className="text-white font-bold">Rp 25.000.000</span>
-                  </div>
-                  <div className="flex justify-between mt-2">
-                    <span className="text-gray-400 text-sm leading-5">Pemilik</span>
-                    <span className="text-sm leading-5">@dragon_artist</span>
-                  </div>
-                </div>
-                <div className="flex gap-2 mb-4">
-                  <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                  <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                  <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
-                </div>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Ajukan Penawaran</Button>
-              </div>
-            </Card>
-          </div>
-
-          {/* NFT 2 */}
-          <div>
-            <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300">
-              <div className="relative">
-                <img src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Fabcdef1234567890" alt="Batik Genesis #042" className="w-full h-48 object-cover block" />
-                <Badge className="absolute top-2 right-2 bg-orange-500/90 text-white border-none text-xs font-semibold leading-4 px-2.5 py-0.5">Rare</Badge>
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-1 leading-7">Batik Genesis #042</h3>
-                <p className="text-sm text-gray-400 mb-3 leading-5">Traditional Art Digital</p>
-                <div className="mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400 text-sm leading-5">Harga</span>
-                    <span className="text-white font-bold">Rp 15.000.000</span>
-                  </div>
-                  <div className="flex justify-between mt-2">
-                    <span className="text-gray-400 text-sm leading-5">Pemilik</span>
-                    <span className="text-sm leading-5">@batik_creator</span>
-                  </div>
-                </div>
-                <div className="flex gap-2 mb-4">
-                  <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                  <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                </div>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Ajukan Penawaran</Button>
-              </div>
-            </Card>
-          </div>
-
-          {/* NFT 3 */}
-          <div>
-            <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300">
-              <div className="relative">
-                <img src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F0987654321fedcba" alt="Wayang Punk #117" className="w-full h-48 object-cover block" />
-                <Badge className="absolute top-2 right-2 bg-blue-500/90 text-white border-none text-xs font-semibold leading-4 px-2.5 py-0.5">Epic</Badge>
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-1 leading-7">Wayang Punk #117</h3>
-                <p className="text-sm text-gray-400 mb-3 leading-5">Modern Traditional Fusion</p>
-                <div className="mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400 text-sm leading-5">Harga</span>
-                    <span className="text-white font-bold">Rp 12.000.000</span>
-                  </div>
-                  <div className="flex justify-between mt-2">
-                    <span className="text-gray-400 text-sm leading-5">Pemilik</span>
-                    <span className="text-sm leading-5">@wayang_modern</span>
-                  </div>
-                </div>
-                <div className="flex gap-2 mb-4">
-                  <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                  <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                  <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
-                </div>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Ajukan Penawaran</Button>
-              </div>
-            </Card>
-          </div>
-
-          {/* NFT 4 */}
-          <div>
-            <Card className="bg-card border border-border overflow-hidden hover:border-purple-500/50 transition-all duration-300">
-              <div className="relative">
-                <img src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Ffedcba0987654321" alt="Cyberpunk Jakarta #055" className="w-full h-48 object-cover block" />
-                <Badge className="absolute top-2 right-2 bg-green-500/90 text-white border-none text-xs font-semibold leading-4 px-2.5 py-0.5">Common</Badge>
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-1 leading-7">Cyberpunk Jakarta #055</h3>
-                <p className="text-sm text-gray-400 mb-3 leading-5">Future City Collection</p>
-                <div className="mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400 text-sm leading-5">Harga</span>
-                    <span className="text-white font-bold">Rp 8.500.000</span>
-                  </div>
-                  <div className="flex justify-between mt-2">
-                    <span className="text-gray-400 text-sm leading-5">Pemilik</span>
-                    <span className="text-sm leading-5">@cyber_artist</span>
-                  </div>
-                </div>
-                <div className="flex gap-2 mb-4">
-                  <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                  <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                </div>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">Ajukan Penawaran</Button>
-              </div>
-            </Card>
-          </div>
-        </div>
-
-        <div className="text-center">
-          <a href="https://eec0a15f2e554f09a52ca736de5e6964-865decb6dea74217ab9b117f9.fly.dev/marketplace?tab=nft" className="inline-flex items-center justify-center bg-card border border-purple-500/50 rounded-md text-purple-400 text-sm font-medium h-10 px-4 py-2 gap-2 hover:bg-purple-500/10 transition-colors">
-            <span>Jelajahi Semua NFT</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </div>
+        {/* Add custom styles for smooth scrolling */}
+        <style jsx>{`
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+      </motion.section>
 
       {/* Enhanced: Kenapa PUYOK Berbeda Section */}
       <motion.section
