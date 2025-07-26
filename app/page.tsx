@@ -3213,6 +3213,26 @@ export default function LandingPage() {
               </div>
               <span className="text-yellow-500 font-semibold">SISTEM REWARD EKSKLUSIF</span>
             </div>
+
+            {/* Exclusive Alert Badge */}
+            <motion.div
+              className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500/40 rounded-full px-6 py-3 mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              animate={{
+                boxShadow: [
+                  '0 0 0 0 rgba(239, 68, 68, 0.4)',
+                  '0 0 0 8px rgba(239, 68, 68, 0)',
+                  '0 0 0 0 rgba(239, 68, 68, 0)'
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <span className="text-red-400 font-bold text-sm animate-pulse">⚠️ EKSKLUSIF</span>
+              <span className="text-red-300 text-sm">Hanya Pioneer Pertama yang Mendapat NFT!</span>
+            </motion.div>
+
             <motion.h2
               className="text-4xl md:text-6xl font-bold text-white mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -3226,14 +3246,35 @@ export default function LandingPage() {
               <span className="text-white">PUYOK</span>
             </motion.h2>
             <motion.p
-              className="text-xl text-gray-300 max-w-3xl mx-auto"
+              className="text-xl text-gray-300 max-w-4xl mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Setiap kali Anda melakukan aksi <span className="text-yellow-400 font-semibold">pertama</span> di ekosistem PUYOK,
-              Anda akan mendapatkan <span className="text-purple-400 font-semibold">NFT Pioneer 1/1</span> yang langka dan tidak bisa diduplikasi.
+              Hanya <span className="text-yellow-400 font-bold text-2xl">USER PERTAMA</span> yang melakukan aksi bersejarah
+              akan mendapatkan <span className="text-purple-400 font-semibold">NFT Pioneer 1/1</span> yang tidak bisa diduplikasi selamanya.
             </motion.p>
+
+            {/* Live Status Counter */}
+            <motion.div
+              className="flex justify-center gap-8 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-400 mb-1">3</div>
+                <div className="text-green-300 text-sm">NFT Sudah Diklaim</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-yellow-400 mb-1 animate-pulse">9</div>
+                <div className="text-yellow-300 text-sm">Masih Tersedia</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-400 mb-1">18</div>
+                <div className="text-purple-300 text-sm">Hari Tanpa Pioneer</div>
+              </div>
+            </motion.div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
