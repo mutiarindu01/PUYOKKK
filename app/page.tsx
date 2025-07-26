@@ -1073,17 +1073,17 @@ export default function LandingPage() {
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-2xl font-bold text-white">Rp 45.000.000</span>
-                      <div className="flex items-center gap-1 bg-red-500/20 border border-red-500/30 rounded-full px-3 py-1">
-                        <TrendingDown className="w-4 h-4 text-red-400" />
-                        <span className="text-red-400 font-bold text-sm">-1.8%</span>
+                      <div className="flex items-center gap-1 bg-slate-700/50 border border-slate-600/50 rounded-full px-3 py-1">
+                        <TrendingDown className="w-4 h-4 text-slate-300" />
+                        <span className="text-slate-300 font-bold text-sm">-1.8%</span>
                       </div>
                     </div>
 
                     {/* Market Sentiment */}
-                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 mb-4">
+                    <div className="bg-slate-800/50 border border-slate-600/30 rounded-lg p-3 mb-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-blue-400 text-xl">📊</span>
-                        <span className="text-blue-400 font-medium text-sm">Stabil</span>
+                        <span className="text-slate-400 text-xl">📊</span>
+                        <span className="text-slate-400 font-medium text-sm">Stabil</span>
                       </div>
                       <p className="text-xs text-gray-400">Analisis teknikal menunjukkan konsolidasi</p>
                     </div>
