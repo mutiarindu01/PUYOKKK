@@ -1049,15 +1049,15 @@ export default function LandingPage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 whileHover={{ y: -8 }}
               >
-                <Card className="bg-gradient-to-br from-blue-500/5 to-purple-500/5 border border-blue-500/20 p-6 hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 h-full">
+                <Card className="bg-gradient-to-br from-slate-800/30 to-gray-800/30 border border-slate-600/30 p-6 hover:border-slate-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-slate-500/20 h-full">
                   {/* Header with Logo and Trending Badge */}
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3">
                       <div className="relative">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
+                        <div className="w-12 h-12 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
                           Ξ
                         </div>
-                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-500 rounded-full border-2 border-background flex items-center justify-center">
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-slate-500 rounded-full border-2 border-background flex items-center justify-center">
                           <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                         </div>
                       </div>
@@ -1066,7 +1066,7 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">ETH</p>
                       </div>
                     </div>
-                    <Badge className="bg-orange-500 text-white font-bold">🔥 #2 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">🔥 #2 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
@@ -1960,7 +1960,7 @@ export default function LandingPage() {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-white font-semibold">@sarah_art</span>
-                      <span className="text-green-400 text-sm">��� berhasil cairkan</span>
+                      <span className="text-green-400 text-sm">• berhasil cairkan</span>
                     </div>
                     <div className="text-gray-300 text-sm">Batik Digital #123 → GoPay</div>
                   </div>
