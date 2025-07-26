@@ -1682,7 +1682,7 @@ export default function LandingPage() {
                 asChild
               >
                 <Link href="/marketplace?tab=nft">
-                  ��� Jelajahi Semua NFT
+                  🎨 Jelajahi Semua NFT
                   <ArrowRight className="ml-3 w-6 h-6" />
                 </Link>
               </Button>
@@ -2326,7 +2326,7 @@ export default function LandingPage() {
 
                   <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-primary text-sm">����</span>
+                      <span className="text-primary text-sm">📱</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Pembayaran Familiar</p>
@@ -2951,10 +2951,42 @@ export default function LandingPage() {
             </div>
           </div>
 
+          {/* Pioneer NFT Preview */}
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-xl p-6 text-center">
+              <h3 className="text-lg font-bold text-white mb-4">🏆 Preview: Pioneer NFT yang Akan Anda Dapatkan</h3>
+              <div className="flex justify-center items-center gap-6">
+                <motion.div
+                  className="w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-3xl"
+                  whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  🏆
+                </motion.div>
+                <div className="text-left">
+                  <div className="text-yellow-400 font-bold mb-1">PUYOK Pioneer #1247</div>
+                  <div className="text-gray-300 text-sm mb-2">Status: Exclusive 1/1</div>
+                  <div className="flex gap-2">
+                    <span className="bg-yellow-500/20 text-yellow-400 text-xs px-2 py-1 rounded-full">Rare</span>
+                    <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-full">Tradeable</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-400 text-sm mt-4">
+                NFT ini akan otomatis masuk ke wallet Anda setelah menyelesaikan tutorial!
+              </p>
+            </div>
+          </motion.div>
+
           <div className="space-y-6">
             {/* Step 1 */}
             <motion.div
-              className="flex items-start gap-4 p-6 bg-gradient-to-r from-green-500/5 to-blue-500/5 border border-green-500/20 rounded-xl"
+              className="group flex items-start gap-4 p-6 bg-gradient-to-r from-green-500/5 to-blue-500/5 border border-green-500/20 rounded-xl hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 cursor-pointer"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
