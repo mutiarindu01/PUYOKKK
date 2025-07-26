@@ -3017,19 +3017,35 @@ export default function LandingPage() {
 
             {/* Step 2 */}
             <motion.div
-              className="flex items-start gap-4 p-6 bg-gradient-to-r from-blue-500/5 to-purple-500/5 border border-blue-500/20 rounded-xl"
+              className="group flex items-start gap-4 p-6 bg-gradient-to-r from-blue-500/5 to-purple-500/5 border border-blue-500/20 rounded-xl hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02, x: -5 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <motion.div
+                className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500/30 transition-colors"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+              >
                 <span className="text-blue-400 font-bold text-lg">2</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">💰 Pilih Metode Pembayaran</h3>
-                <p className="text-gray-300">
+              </motion.div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">💰 Pilih Metode Pembayaran</h3>
+                <p className="text-gray-300 mb-3">
                   Bayar pakai DANA, GoPay, OVO, atau transfer bank. Semua metode yang sudah familiar dengan Anda.
                 </p>
+                <div className="flex items-center gap-2">
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1 text-xs text-blue-400 font-medium">
+                    🟢 DANA
+                  </div>
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1 text-xs text-blue-400 font-medium">
+                    🟢 GoPay
+                  </div>
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1 text-xs text-blue-400 font-medium">
+                    🟣 OVO
+                  </div>
+                </div>
               </div>
             </motion.div>
 
