@@ -1026,7 +1026,7 @@ export default function LandingPage() {
                   {/* Enhanced Action Buttons */}
                   <div className="flex gap-2">
                     <Button
-                      className="flex-1 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-bold"
+                      className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
                       asChild
                     >
                       <Link href="/marketplace">
@@ -1034,7 +1034,7 @@ export default function LandingPage() {
                         Beli Sekarang
                       </Link>
                     </Button>
-                    <Button size="icon" variant="outline" className="border-orange-500/50 text-orange-400 hover:bg-orange-500/10">
+                    <Button size="icon" variant="outline" className="border-slate-600/50 text-slate-400 hover:bg-slate-800/50">
                       <Heart className="w-4 h-4" />
                     </Button>
                   </div>
@@ -1790,7 +1790,7 @@ export default function LandingPage() {
                       <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">1</div>
                       <div>
                         <div className="text-white font-medium">Jual NFT → Dapat ETH/MATIC</div>
-                        <div className="text-red-400 text-sm">⏱��� ~10 menit</div>
+                        <div className="text-red-400 text-sm">⏱️ ~10 menit</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
@@ -1960,7 +1960,7 @@ export default function LandingPage() {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-white font-semibold">@sarah_art</span>
-                      <span className="text-green-400 text-sm">• berhasil cairkan</span>
+                      <span className="text-green-400 text-sm">��� berhasil cairkan</span>
                     </div>
                     <div className="text-gray-300 text-sm">Batik Digital #123 → GoPay</div>
                   </div>
