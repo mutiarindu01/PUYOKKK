@@ -1669,7 +1669,7 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 p-8">
+            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-slate-800/30 to-gray-800/30 border border-slate-600/30 p-8">
               <h3 className="text-2xl font-bold text-white mb-4">
                 Temukan Koleksi NFT Terlengkap
               </h3>
@@ -1678,7 +1678,7 @@ export default function LandingPage() {
               </p>
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
+                className="bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
                 asChild
               >
                 <Link href="/marketplace?tab=nft">
@@ -1818,7 +1818,7 @@ export default function LandingPage() {
                       <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">5</div>
                       <div>
                         <div className="text-white font-medium">Transfer ke E-wallet</div>
-                        <div className="text-red-400 text-sm">⏱️ ~5 menit</div>
+                        <div className="text-red-400 text-sm">⏱�� ~5 menit</div>
                       </div>
                     </div>
                   </div>
