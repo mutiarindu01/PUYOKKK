@@ -3051,37 +3051,66 @@ export default function LandingPage() {
 
             {/* Step 3 */}
             <motion.div
-              className="flex items-start gap-4 p-6 bg-gradient-to-r from-purple-500/5 to-pink-500/5 border border-purple-500/20 rounded-xl"
+              className="group flex items-start gap-4 p-6 bg-gradient-to-r from-purple-500/5 to-pink-500/5 border border-purple-500/20 rounded-xl hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 cursor-pointer"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02, x: 5 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <motion.div
+                className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-purple-500/30 transition-colors"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+              >
                 <span className="text-purple-400 font-bold text-lg">3</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">🛡️ Escrow Otomatis Aktif</h3>
-                <p className="text-gray-300">
+              </motion.div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">🛡️ Escrow Otomatis Aktif</h3>
+                <p className="text-gray-300 mb-3">
                   Sistem escrow melindungi kedua belah pihak. Pembeli dapat aset setelah bayar, penjual dapat uang setelah transfer aset.
                 </p>
+                <div className="flex items-center gap-2">
+                  <div className="bg-purple-500/10 border border-purple-500/20 rounded-full px-3 py-1 text-xs text-purple-400 font-medium">
+                    🛡️ 100% Aman
+                  </div>
+                  <div className="bg-purple-500/10 border border-purple-500/20 rounded-full px-3 py-1 text-xs text-purple-400 font-medium">
+                    ⚙️ Otomatis
+                  </div>
+                </div>
               </div>
             </motion.div>
 
             {/* Step 4 */}
             <motion.div
-              className="flex items-start gap-4 p-6 bg-gradient-to-r from-orange-500/5 to-red-500/5 border border-orange-500/20 rounded-xl"
+              className="group flex items-start gap-4 p-6 bg-gradient-to-r from-orange-500/5 to-red-500/5 border border-orange-500/20 rounded-xl hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02, x: -5 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <motion.div
+                className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500/30 transition-colors"
+                whileHover={{ rotate: 360, scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              >
                 <span className="text-orange-400 font-bold text-lg">4</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">🏆 Dapatkan Pioneer NFT</h3>
-                <p className="text-gray-300">
+              </motion.div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">🏆 Dapatkan Pioneer NFT</h3>
+                <p className="text-gray-300 mb-3">
                   NFT 1/1 eksklusif otomatis dikirim ke wallet Anda untuk setiap milestone pertama yang dicapai.
                 </p>
+                <div className="flex items-center gap-2">
+                  <div className="bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1 text-xs text-orange-400 font-medium">
+                    🏆 Eksklusif
+                  </div>
+                  <div className="bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1 text-xs text-orange-400 font-medium">
+                    🎁 Gratis
+                  </div>
+                  <div className="bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1 text-xs text-orange-400 font-medium">
+                    ✨ 1/1
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
