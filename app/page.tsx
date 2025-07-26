@@ -943,7 +943,7 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">BTC</p>
                       </div>
                     </div>
-                    <Badge className="bg-slate-700 text-white font-bold">🔥 #1 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">�� #1 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
@@ -1290,7 +1290,7 @@ export default function LandingPage() {
           <div className="text-center mt-8 md:hidden">
             <Link
               href="/marketplace"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-lg font-bold transition-all shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white px-8 py-4 rounded-lg font-bold transition-all shadow-lg hover:shadow-xl"
             >
               <span>Lihat Semua Token</span>
               <ArrowRight className="w-5 h-5" />
