@@ -72,7 +72,7 @@ export function SplineBackgroundDemo() {
             }}
           >
             <div
-              className="w-12 h-12 bg-gradient-to-br from-pink-400/15 to-blue-600/15 rounded-full"
+              className="w-12 h-12 bg-gradient-to-br from-slate-400/08 to-slate-600/08 rounded-full"
               style={{
                 animation: `float ${5 + Math.random() * 2}s ease-in-out infinite reverse ${i * 0.4}s`
               }}
