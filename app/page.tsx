@@ -1203,7 +1203,7 @@ export default function LandingPage() {
                     {/* Market Sentiment */}
                     <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3 mb-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-green-400 text-xl">🛡️</span>
+                        <span className="text-green-400 text-xl">��️</span>
                         <span className="text-green-400 font-medium text-sm">Safe Haven</span>
                       </div>
                       <p className="text-xs text-gray-400">Stablecoin terpercaya dengan demand tinggi</p>
@@ -1744,34 +1744,282 @@ export default function LandingPage() {
               <span className="text-orange-500 font-semibold">PERBANDINGAN KOMPETITOR</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Kenapa PUYOK Jauh Lebih Baik?
+              Jual NFT, Dapat Rupiah Instan!
             </h2>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto font-normal leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Platform global bikin ribet dan mahal. PUYOK hadir sebagai solusi lokal yang benar-benar memahami kebutuhan Anda.
+              Tidak perlu ribet crypto - Tarik langsung ke DANA/GoPay dalam hitungan menit
             </p>
+
+            {/* Unique Badge */}
+            <motion.div
+              className="mt-8 flex justify-center"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/40 rounded-full px-8 py-4">
+                <span className="text-3xl">💰</span>
+                <div className="text-center">
+                  <div className="text-yellow-400 font-bold text-lg">Satu-satunya di Indonesia</div>
+                  <div className="text-yellow-300 text-sm">NFT → Rupiah Instan</div>
+                </div>
+                <span className="text-3xl">⚡</span>
+              </div>
+            </motion.div>
           </div>
 
-          {/* Trust Badges Indonesia */}
+          {/* Process Flow Comparison */}
           <motion.div
             className="mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="flex flex-wrap justify-center gap-6 mb-12">
-              <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/20 rounded-full px-6 py-3">
-                <span className="text-2xl">🇮🇩</span>
-                <span className="text-red-400 font-semibold">100% Tim Lokal Indonesia</span>
+            <Card className="max-w-6xl mx-auto bg-gradient-to-r from-slate-900/50 to-gray-900/50 border border-gray-700/50 p-8">
+              <h3 className="text-2xl font-bold text-white mb-8 text-center">Bandingkan Proses Pencairan Dana</h3>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Other Platforms - Complex Process */}
+                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6">
+                  <h4 className="text-lg font-bold text-red-400 mb-6 flex items-center gap-2">
+                    <span className="text-2xl">😵‍💫</span>
+                    Platform Lain (Rumit & Lama)
+                  </h4>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                      <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">1</div>
+                      <div>
+                        <div className="text-white font-medium">Jual NFT → Dapat ETH/MATIC</div>
+                        <div className="text-red-400 text-sm">⏱️ ~10 menit</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                      <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">2</div>
+                      <div>
+                        <div className="text-white font-medium">Kirim ke Exchange</div>
+                        <div className="text-red-400 text-sm">⏱️ ~30 menit</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                      <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">3</div>
+                      <div>
+                        <div className="text-white font-medium">Konversi ETH → IDR</div>
+                        <div className="text-red-400 text-sm">⏱️ ~1 jam</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                      <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">4</div>
+                      <div>
+                        <div className="text-white font-medium">Withdraw ke Bank</div>
+                        <div className="text-red-400 text-sm">⏱️ 3-7 hari</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                      <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">5</div>
+                      <div>
+                        <div className="text-white font-medium">Transfer ke E-wallet</div>
+                        <div className="text-red-400 text-sm">⏱️ ~5 menit</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg text-center">
+                    <div className="text-red-300 font-bold">Total Waktu: 5-10 hari</div>
+                    <div className="text-red-400 text-sm">Total Fee: 15-20%</div>
+                  </div>
+                </div>
+
+                {/* PUYOK - Simple Process */}
+                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-6">
+                  <h4 className="text-lg font-bold text-green-400 mb-6 flex items-center gap-2">
+                    <span className="text-2xl">⚡</span>
+                    PUYOK (Cepat & Langsung)
+                  </h4>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 p-3 bg-green-500/5 border border-green-500/10 rounded-lg">
+                      <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 font-bold text-sm">1</div>
+                      <div>
+                        <div className="text-white font-medium">Jual NFT</div>
+                        <div className="text-green-400 text-sm">⏱️ ~10 detik</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-green-500/5 border border-green-500/10 rounded-lg">
+                      <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 font-bold text-sm">2</div>
+                      <div>
+                        <div className="text-white font-medium">Verifikasi Pembayaran</div>
+                        <div className="text-green-400 text-sm">⏱️ ~1 menit</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-green-500/5 border border-green-500/10 rounded-lg">
+                      <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center text-green-400 font-bold text-sm">3</div>
+                      <div>
+                        <div className="text-white font-medium">Dana Masuk DANA/GoPay</div>
+                        <div className="text-green-400 text-sm">⏱️ ~3 menit</div>
+                      </div>
+                    </div>
+
+                    {/* Empty slots to match height */}
+                    <div className="h-16"></div>
+                    <div className="h-16"></div>
+                  </div>
+                  <div className="mt-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg text-center">
+                    <div className="text-green-300 font-bold">Total Waktu: 2-5 menit</div>
+                    <div className="text-green-400 text-sm">Total Fee: 3%</div>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3">
-                <Shield className="w-5 h-5 text-blue-400" />
-                <span className="text-blue-400 font-semibold">Didukung Regulator Indonesia</span>
+
+              {/* Time Savings Highlight */}
+              <div className="mt-8 text-center p-6 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-lg">
+                <div className="text-4xl font-bold text-yellow-400 mb-2">Hemat 99% Waktu!</div>
+                <div className="text-yellow-300">Dari berhari-hari menjadi hanya hitungan menit</div>
               </div>
-              <div className="flex items-center gap-3 bg-green-500/10 border border-green-500/20 rounded-full px-6 py-3">
-                <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-green-400 font-semibold">Terpercaya 10,000+ User</span>
+            </Card>
+          </motion.div>
+
+          {/* Time Comparison Calculator */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-blue-950/30 to-purple-950/30 border border-blue-500/20 p-8">
+              <h3 className="text-2xl font-bold text-white mb-8 text-center">Kalkulator Perbandingan Waktu</h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Competitor Time */}
+                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6">
+                  <h4 className="text-lg font-bold text-red-400 mb-4 text-center">Platform Kompetitor</h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center p-3 bg-red-500/5 rounded-lg">
+                      <span className="text-white">Verifikasi:</span>
+                      <span className="text-red-400 font-bold">2 hari</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-red-500/5 rounded-lg">
+                      <span className="text-white">Pencairan:</span>
+                      <span className="text-red-400 font-bold">3-7 hari</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                      <span className="text-white font-bold">Total:</span>
+                      <span className="text-red-400 font-bold text-xl">5-9 hari</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* PUYOK Time */}
+                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-6">
+                  <h4 className="text-lg font-bold text-green-400 mb-4 text-center">PUYOK</h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center p-3 bg-green-500/5 rounded-lg">
+                      <span className="text-white">Verifikasi:</span>
+                      <span className="text-green-400 font-bold">2 menit</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-green-500/5 rounded-lg">
+                      <span className="text-white">Pencairan:</span>
+                      <span className="text-green-400 font-bold">3 menit</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                      <span className="text-white font-bold">Total:</span>
+                      <span className="text-green-400 font-bold text-xl">5 menit</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+
+              <div className="mt-8 text-center p-6 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
+                <div className="text-3xl font-bold text-green-400 mb-2">Hemat 99% Waktu Anda!</div>
+                <div className="text-green-300">1,440 menit vs 5 menit - Selisih 1,435 menit lebih cepat!</div>
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* Live Withdrawal Tracker */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <Card className="max-w-5xl mx-auto bg-gradient-to-r from-green-950/30 to-blue-950/30 border border-green-500/20 p-8">
+              <h3 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-3">
+                <span className="text-2xl">🔴</span>
+                Live Feed: Pencairan Real-time
+                <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-green-400 border-green-500/20 animate-pulse">LIVE</div>
+              </h3>
+
+              <div className="space-y-4">
+                <motion.div
+                  className="flex items-center gap-4 p-4 bg-green-500/5 border border-green-500/10 rounded-lg"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white font-bold">
+                    S
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-white font-semibold">@sarah_art</span>
+                      <span className="text-green-400 text-sm">• berhasil cairkan</span>
+                    </div>
+                    <div className="text-gray-300 text-sm">Batik Digital #123 → GoPay</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-green-400 font-bold">Rp 850,000</div>
+                    <div className="text-green-300 text-sm">2 menit lalu</div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="flex items-center gap-4 p-4 bg-green-500/5 border border-green-500/10 rounded-lg"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
+                    D
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-white font-semibold">@digital_creator</span>
+                      <span className="text-green-400 text-sm">• berhasil cairkan</span>
+                    </div>
+                    <div className="text-gray-300 text-sm">Garuda Shield NFT → DANA</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-green-400 font-bold">Rp 1,200,000</div>
+                    <div className="text-green-300 text-sm">5 menit lalu</div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="flex items-center gap-4 p-4 bg-green-500/5 border border-green-500/10 rounded-lg"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-400 rounded-full flex items-center justify-center text-white font-bold">
+                    R
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-white font-semibold">@rizki_trader</span>
+                      <span className="text-green-400 text-sm">• berhasil cairkan</span>
+                    </div>
+                    <div className="text-gray-300 text-sm">Wayang Collection #45 → OVO</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-green-400 font-bold">Rp 675,000</div>
+                    <div className="text-green-300 text-sm">8 menit lalu</div>
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="mt-6 text-center p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <div className="text-green-400 font-bold mb-1">Total hari ini: Rp 45,8M dicairkan</div>
+                <div className="text-green-300 text-sm">Rata-rata waktu pencairan: 3 menit 24 detik</div>
+              </div>
+            </Card>
           </motion.div>
 
           {/* Interactive Fee Calculator */}
@@ -1839,6 +2087,29 @@ export default function LandingPage() {
                 </div>
               </div>
             </Card>
+          </motion.div>
+
+          {/* Trust Badges Indonesia */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <div className="flex flex-wrap justify-center gap-6 mb-12">
+              <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/20 rounded-full px-6 py-3">
+                <span className="text-2xl">🇮🇩</span>
+                <span className="text-red-400 font-semibold">100% Tim Lokal Indonesia</span>
+              </div>
+              <div className="flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3">
+                <Shield className="w-5 h-5 text-blue-400" />
+                <span className="text-blue-400 font-semibold">Didukung Regulator Indonesia</span>
+              </div>
+              <div className="flex items-center gap-3 bg-green-500/10 border border-green-500/20 rounded-full px-6 py-3">
+                <CheckCircle className="w-5 h-5 text-green-400" />
+                <span className="text-green-400 font-semibold">Terpercaya 10,000+ User</span>
+              </div>
+            </div>
           </motion.div>
 
           {/* Live Market Comparison Table */}
@@ -2077,80 +2348,84 @@ export default function LandingPage() {
             </motion.div>
           </div>
 
-          {/* Real User Testimonials Grid */}
+          {/* Speed-Focused Testimonials */}
           <motion.div
             className="mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <h3 className="text-2xl font-bold text-white mb-8 text-center">Kata Mereka yang Sudah Beralih ke PUYOK</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Testimonial 1 */}
-              <Card className="bg-gradient-to-br from-primary/10 to-green-500/10 border border-primary/20 p-6">
+            <h3 className="text-2xl font-bold text-white mb-8 text-center">Testimonial: Kecepatan Pencairan Dana</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Speed Testimonial 1 */}
+              <Card className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     B
                   </div>
                   <div>
-                    <div className="text-white font-semibold">Budi Santoso</div>
-                    <div className="text-gray-400 text-sm">NFT Trader • 47 transaksi</div>
+                    <div className="text-white font-semibold">@budi_art</div>
+                    <div className="text-gray-400 text-sm">NFT Creator • Verified ✓</div>
+                  </div>
+                  <div className="ml-auto">
+                    <div className="text-green-400 text-sm font-bold">⚡ 3 menit</div>
                   </div>
                 </div>
-                <blockquote className="text-gray-300 mb-4 italic">
-                  "Dulu saya rugi 12 juta per bulan karena fee tinggi, sekarang hemat 80%! PUYOK game changer buat trader lokal."
+                <blockquote className="text-gray-300 mb-4 italic text-lg">
+                  "Dulu butuh seminggu buat cairkan NFT, sekarang cuma 5 menit langsung masuk GoPay!"
                 </blockquote>
                 <div className="flex items-center justify-between">
-                  <div className="text-green-400 font-bold">Hemat Rp 12M/bulan</div>
+                  <div className="text-green-400 font-bold">NFT → GoPay: 5 menit</div>
                   <div className="flex text-yellow-400">
                     {'★'.repeat(5)}
                   </div>
                 </div>
               </Card>
 
-              {/* Testimonial 2 */}
-              <Card className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 p-6">
+              {/* Speed Testimonial 2 */}
+              <Card className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    S
+                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    L
                   </div>
                   <div>
-                    <div className="text-white font-semibold">Sari Dewi</div>
-                    <div className="text-gray-400 text-sm">Digital Artist • 23 transaksi</div>
+                    <div className="text-white font-semibold">@lisa_digital</div>
+                    <div className="text-gray-400 text-sm">Digital Artist • Verified ✓</div>
+                  </div>
+                  <div className="ml-auto">
+                    <div className="text-purple-400 text-sm font-bold">⚡ 2 menit</div>
                   </div>
                 </div>
-                <blockquote className="text-gray-300 mb-4 italic">
-                  "Verifikasi cuma 5 menit, support 24/7 dalam bahasa Indonesia. Akhirnya platform yang ngerti kebutuhan kita!"
+                <blockquote className="text-gray-300 mb-4 italic text-lg">
+                  "Gak percaya awalnya, ternyata beneran bisa langsung ke DANA tanpa ribet crypto!"
                 </blockquote>
                 <div className="flex items-center justify-between">
-                  <div className="text-blue-400 font-bold">Verifikasi Instant</div>
+                  <div className="text-purple-400 font-bold">Tanpa Konversi Crypto</div>
                   <div className="flex text-yellow-400">
                     {'★'.repeat(5)}
                   </div>
                 </div>
               </Card>
+            </div>
 
-              {/* Testimonial 3 */}
-              <Card className="bg-gradient-to-br from-orange-500/10 to-red-500/10 border border-orange-500/20 p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    A
-                  </div>
-                  <div>
-                    <div className="text-white font-semibold">Ahmad Rizki</div>
-                    <div className="text-gray-400 text-sm">Collector • 156 transaksi</div>
-                  </div>
-                </div>
-                <blockquote className="text-gray-300 mb-4 italic">
-                  "Bisa bayar pakai DANA dan GoPay? Mantap! Gak perlu ribet transfer bank atau beli crypto dulu."
-                </blockquote>
-                <div className="flex items-center justify-between">
-                  <div className="text-orange-400 font-bold">Payment Mudah</div>
-                  <div className="flex text-yellow-400">
-                    {'★'.repeat(5)}
-                  </div>
-                </div>
-              </Card>
+            {/* Speed Stats */}
+            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="text-center p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <div className="text-2xl font-bold text-green-400 mb-1">2.3</div>
+                <div className="text-sm text-green-300">Rata-rata menit</div>
+              </div>
+              <div className="text-center p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                <div className="text-2xl font-bold text-blue-400 mb-1">99%</div>
+                <div className="text-sm text-blue-300">Lebih cepat</div>
+              </div>
+              <div className="text-center p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                <div className="text-2xl font-bold text-purple-400 mb-1">24/7</div>
+                <div className="text-sm text-purple-300">Available</div>
+              </div>
+              <div className="text-center p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                <div className="text-2xl font-bold text-yellow-400 mb-1">0</div>
+                <div className="text-sm text-yellow-300">Konversi crypto</div>
+              </div>
             </div>
           </motion.div>
 
@@ -2256,30 +2531,56 @@ export default function LandingPage() {
             </Card>
           </motion.div>
 
-          {/* Risk Reversal Guarantee */}
+          {/* 5-Minute Liquidation Guarantee */}
           <motion.div
             className="mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <Card className="max-w-3xl mx-auto bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/30 p-8">
+            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 p-8">
               <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-6 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <Shield className="w-10 h-10 text-green-400" />
+                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-4xl">⚡</span>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">🛡️ 100% Guarantee Safe Switching</h3>
-                <p className="text-gray-300 mb-6">
-                  Tidak puas dengan layanan PUYOK? Kami berikan jaminan uang kembali 100% dalam 30 hari pertama.
+                <h3 className="text-3xl font-bold text-white mb-4">Garansi Pencairan 5 Menit</h3>
+                <p className="text-lg text-gray-300 mb-6">
+                  Jika pencairan Anda melebihi 5 menit, kami berikan kompensasi 2x lipat nilai transaksi!
                 </p>
-                <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4">
-                  <div className="text-green-400 font-bold mb-2">Apa yang Dijamin:</div>
-                  <div className="text-sm text-green-300 space-y-1">
-                    <div>✓ Fee transparan tanpa biaya tersembunyi</div>
-                    <div>✓ Verifikasi maksimal 24 jam</div>
-                    <div>✓ Support responsif dalam 1 jam</div>
-                    <div>✓ Platform stabil 99.9% uptime</div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-4">
+                    <div className="text-orange-400 font-bold mb-2 text-lg">Jaminan Kecepatan:</div>
+                    <div className="text-sm text-orange-300 space-y-2">
+                      <div className="flex justify-between">
+                        <span>⚡ Verifikasi:</span>
+                        <span className="font-bold">≤ 2 menit</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>💰 Pencairan:</span>
+                        <span className="font-bold">≤ 3 menit</span>
+                      </div>
+                      <div className="flex justify-between border-t border-orange-500/20 pt-2">
+                        <span>🎯 Total:</span>
+                        <span className="font-bold text-lg">≤ 5 menit</span>
+                      </div>
+                    </div>
                   </div>
+
+                  <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                    <div className="text-green-400 font-bold mb-2 text-lg">Jika Terlambat:</div>
+                    <div className="text-sm text-green-300 space-y-2">
+                      <div>🎁 Kompensasi 2x nilai transaksi</div>
+                      <div>📞 Priority support 24/7</div>
+                      <div>🔄 Proses ulang gratis</div>
+                      <div>✅ Tanpa pertanyaan tambahan</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/40 rounded-lg p-6">
+                  <div className="text-2xl font-bold text-yellow-400 mb-2">99.7% Success Rate</div>
+                  <div className="text-yellow-300">Dari 10,847 transaksi bulan ini, hanya 0.3% yang melebihi 5 menit</div>
                 </div>
               </div>
             </Card>
