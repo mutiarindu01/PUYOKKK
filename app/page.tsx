@@ -2870,7 +2870,7 @@ export default function LandingPage() {
                 {[
                   { name: 'DANA', icon: '🟢', color: 'blue' },
                   { name: 'GoPay', icon: '🟢', color: 'green' },
-                  { name: 'OVO', icon: '🟣', color: 'purple' },
+                  { name: 'OVO', icon: '��', color: 'purple' },
                   { name: 'Bank', icon: '🏦', color: 'orange' }
                 ].map((method, index) => (
                   <motion.div
@@ -3040,7 +3040,7 @@ export default function LandingPage() {
                     🟢 DANA
                   </div>
                   <div className="bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1 text-xs text-blue-400 font-medium">
-                    🟢 GoPay
+                    �� GoPay
                   </div>
                   <div className="bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1 text-xs text-blue-400 font-medium">
                     🟣 OVO
@@ -3500,6 +3500,26 @@ export default function LandingPage() {
               </div>
               <span className="text-blue-500 font-semibold">TEKNOLOGI GASLESS</span>
             </div>
+
+            {/* Live Demo Badge */}
+            <motion.div
+              className="inline-flex items-center gap-2 bg-green-500/20 border border-green-500/40 rounded-full px-6 py-3 mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              animate={{
+                boxShadow: [
+                  '0 0 0 0 rgba(34, 197, 94, 0.4)',
+                  '0 0 0 8px rgba(34, 197, 94, 0)',
+                  '0 0 0 0 rgba(34, 197, 94, 0)'
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <span className="text-green-400 font-bold text-sm animate-pulse">🔴 DEMO LANGSUNG</span>
+              <span className="text-green-300 text-sm">Transaksi Real-time Tanpa Gas!</span>
+            </motion.div>
+
             <motion.h2
               className="text-4xl md:text-6xl font-bold text-white mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -3513,7 +3533,7 @@ export default function LandingPage() {
               </span>
             </motion.h2>
             <motion.p
-              className="text-xl text-gray-300 max-w-4xl mx-auto"
+              className="text-xl text-gray-300 max-w-4xl mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -3522,6 +3542,27 @@ export default function LandingPage() {
               sehingga Anda tidak perlu memikirkan biaya gas. Cukup tanda tangani transaksi dengan dompet Anda,
               dan <span className="text-green-400 font-semibold">biaya gas akan ditanggung oleh sistem</span>.
             </motion.p>
+
+            {/* Live Gas Savings Counter */}
+            <motion.div
+              className="flex justify-center gap-8 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-400 mb-1">24,891+</div>
+                <div className="text-green-300 text-sm">Transaksi Gasless Berhasil</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-400 mb-1">Rp 189M</div>
+                <div className="text-blue-300 text-sm">Gas Fee Ditanggung PUYOK</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-400 mb-1">3.2 detik</div>
+                <div className="text-purple-300 text-sm">Rata-rata Kecepatan</div>
+              </div>
+            </motion.div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
