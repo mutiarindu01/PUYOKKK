@@ -646,7 +646,7 @@ export default function LandingPage() {
 
       {/* Trust Bar - Positioned prominently */}
       <motion.div
-        className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border-y border-green-500/20 py-3"
+        className="bg-gradient-to-r from-slate-900/30 to-gray-900/30 border-y border-slate-700/30 py-3"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -654,20 +654,20 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="flex items-center justify-center gap-8 text-sm flex-wrap">
             <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-green-500" />
-              <span className="text-green-400 font-medium">🔒 Escrow Terverifikasi Etherscan</span>
+              <Shield className="w-4 h-4 text-slate-400" />
+              <span className="text-slate-300 font-medium">🔒 Escrow Terverifikasi Etherscan</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 text-xs">
+              <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">
                 ✓ Verified Contract
               </Badge>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-gray-300">💳</span>
-              <span className="text-gray-300">DANA • GoPay • OVO Support</span>
+              <span className="text-slate-400">💳</span>
+              <span className="text-slate-400">DANA • GoPay • OVO Support</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-purple-500/10 text-purple-400 border-purple-500/20 text-xs animate-pulse">
+              <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">
                 🏆 Pioneer NFT Rewards
               </Badge>
             </div>
@@ -688,7 +688,7 @@ export default function LandingPage() {
             >
               {/* Badge */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <Badge className="bg-brand-green/20 text-brand-green border-brand-green/50 px-4 py-2 text-sm font-medium">
+                <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/50 px-4 py-2 text-sm font-medium">
                   🔥 Bergabung dengan 10,000+ Pengguna
                 </Badge>
               </motion.div>
@@ -710,7 +710,7 @@ export default function LandingPage() {
                   transition={{ delay: 0.4 }}
                   className="text-4xl md:text-6xl font-bold text-white leading-tight"
                 >
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-blue-400">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-slate-400">
                     Marketplace
                   </span>
                   <br />
@@ -735,21 +735,21 @@ export default function LandingPage() {
                 className="grid grid-cols-2 md:grid-cols-4 gap-4"
               >
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-brand-green mb-1">{liveStats.collections}</div>
+                  <div className="text-2xl md:text-3xl font-bold text-slate-200 mb-1">{liveStats.collections}</div>
                   <div className="text-sm text-gray-400">Koleksi Unik</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-blue-400 mb-1">{liveStats.partners}</div>
+                  <div className="text-2xl md:text-3xl font-bold text-slate-300 mb-1">{liveStats.partners}</div>
                   <div className="text-sm text-gray-400">Mitra Resmi</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-purple-400 mb-1">{liveStats.creators}</div>
+                  <div className="text-2xl md:text-3xl font-bold text-slate-300 mb-1">{liveStats.creators}</div>
                   <div className="text-sm text-gray-400">Pioneers NFT</div>
                 </div>
                 <div className="text-center relative">
-                  <div className="text-2xl md:text-3xl font-bold text-yellow-400 mb-1">156</div>
+                  <div className="text-2xl md:text-3xl font-bold text-slate-200 mb-1">156</div>
                   <div className="text-sm text-gray-400">Active Voters</div>
-                  <Badge className="absolute -top-2 -right-1 bg-green-500 text-white text-xs animate-pulse">
+                  <Badge className="absolute -top-2 -right-1 bg-slate-700 text-slate-200 text-xs">
                     LIVE
                   </Badge>
                 </div>
@@ -759,7 +759,7 @@ export default function LandingPage() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
                 <Button
                   size="lg"
-                  className="bg-brand-green hover:bg-brand-green/90 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-brand-green/25 transition-all"
+                  className="bg-slate-700 hover:bg-slate-600 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-slate-700/25 transition-all"
                   asChild
                 >
                   <Link href="/marketplace">
@@ -782,9 +782,9 @@ export default function LandingPage() {
               {/* Enhanced Header with Pioneer System */}
               <div className="text-center mb-8">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <Crown className="w-6 h-6 text-yellow-400" />
+                  <Crown className="w-6 h-6 text-slate-400" />
                   <h3 className="text-xl font-bold text-white">Legendary Awards</h3>
-                  <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/50 animate-pulse">
+                  <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/50">
                     Pioneer System
                   </Badge>
                 </div>
@@ -854,7 +854,7 @@ export default function LandingPage() {
                   </Link>
                 </Button>
                 <Button
-                  className="bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-500/50"
+                  className="bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 border border-slate-600/50"
                   asChild
                 >
                   <Link href="/voting">
