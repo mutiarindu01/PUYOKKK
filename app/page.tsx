@@ -873,216 +873,454 @@ export default function LandingPage() {
 
 
 
-      {/* Trending Tokens Section */}
-      <section className="py-20 bg-card/10">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
-              <TrendingUp className="w-5 h-5 text-blue-500" />
-              <span className="text-blue-500 font-semibold">TRENDING SEKARANG</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Token yang Sedang Tren</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">Cryptocurrency dengan volume trading tertinggi dan paling diminati saat ini</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {/* Bitcoin Card */}
+      {/* Enhanced Trending Tokens Section */}
+      <motion.section
+        className="py-20 bg-gradient-to-br from-blue-900/10 via-background to-purple-900/10 relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
+        <div className="max-w-7xl mx-auto px-6 md:px-10 relative">
+          {/* Section Header */}
+          <div className="flex items-center justify-between mb-16">
             <div>
-              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-lg font-normal leading-7">
-                      ₿
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white leading-7">Bitcoin</h3>
-                      <p className="text-sm text-gray-400 leading-5">BTC</p>
-                    </div>
-                  </div>
-                  <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-xs font-semibold leading-4 px-2.5 py-0.5">🔥 #1</Badge>
-                </div>
-
-                <div className="mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Harga</span>
-                    <span className="text-white font-bold">Rp 850.000.000</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">24h Change</span>
-                    <span className="text-green-400 font-medium">+2.15%</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">Volume 24h</span>
-                    <span className="text-white">Rp 2.1M</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">Order Aktif</span>
-                    <span className="text-white">23 orders</span>
-                  </div>
-                </div>
-
-                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs font-bold leading-4">
-                        CM
-                      </div>
-                      <div>
-                        <div className="text-white text-sm font-medium leading-5">@crypto_master</div>
-                        <div className="text-gray-400 text-xs leading-4">98.5% sukses • 156 trades</div>
-                      </div>
-                    </div>
-                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs px-2.5 py-0.5">Verified</Badge>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex gap-2">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                    <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
-                    <span className="text-gray-400 text-xs ml-1">+2 lainnya</span>
-                  </div>
-                </div>
-
-                <Button className="w-full bg-primary hover:bg-primary/90">Beli Sekarang</Button>
-              </Card>
+              <div className="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
+                <TrendingUp className="w-5 h-5 text-blue-500" />
+                <span className="text-blue-500 font-semibold">TRENDING SEKARANG</span>
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-2 h-2 bg-red-500 rounded-full"
+                />
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+                Token yang
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> Sedang Tren</span>
+              </h2>
+              <p className="text-gray-300 max-w-2xl">
+                Cryptocurrency dengan volume trading tertinggi dan paling diminati saat ini.
+                <span className="text-blue-400 font-medium"> Live update setiap 30 detik.</span>
+              </p>
             </div>
-
-            {/* Ethereum Card */}
-            <div>
-              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-lg font-normal leading-7">
-                      Ξ
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white leading-7">Ethereum</h3>
-                      <p className="text-sm text-gray-400 leading-5">ETH</p>
-                    </div>
-                  </div>
-                  <Badge className="bg-orange-500/10 text-orange-400 border-orange-500/20 text-xs font-semibold leading-4 px-2.5 py-0.5">🔥 #2</Badge>
-                </div>
-
-                <div className="mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Harga</span>
-                    <span className="text-white font-bold">Rp 45.000.000</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">24h Change</span>
-                    <span className="text-red-400 font-medium">-1.8%</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">Volume 24h</span>
-                    <span className="text-white">Rp 1.8M</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">Order Aktif</span>
-                    <span className="text-white">18 orders</span>
-                  </div>
-                </div>
-
-                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold leading-4">
-                        ET
-                      </div>
-                      <div>
-                        <div className="text-white text-sm font-medium leading-5">@eth_trader</div>
-                        <div className="text-gray-400 text-xs leading-4">97.2% sukses • 89 trades</div>
-                      </div>
-                    </div>
-                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs px-2.5 py-0.5">Verified</Badge>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex gap-2">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                    <span className="text-gray-400 text-xs ml-1">+3 lainnya</span>
-                  </div>
-                </div>
-
-                <Button className="w-full bg-primary hover:bg-primary/90">Beli Sekarang</Button>
-              </Card>
-            </div>
-
-            {/* USDT Card */}
-            <div>
-              <Card className="bg-card border border-border p-6 hover:border-primary/50 transition-all duration-300">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-lg font-normal leading-7">
-                      ₮
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white leading-7">Tether</h3>
-                      <p className="text-sm text-gray-400 leading-5">USDT</p>
-                    </div>
-                  </div>
-                  <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/20 text-xs font-semibold leading-4 px-2.5 py-0.5">🔥 #3</Badge>
-                </div>
-
-                <div className="mb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Harga</span>
-                    <span className="text-white font-bold">Rp 15.750</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">24h Change</span>
-                    <span className="text-green-400 font-medium">+0.1%</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">Volume 24h</span>
-                    <span className="text-white">Rp 3.2M</span>
-                  </div>
-                  <div className="flex justify-between mt-3">
-                    <span className="text-gray-400">Order Aktif</span>
-                    <span className="text-white">34 orders</span>
-                  </div>
-                </div>
-
-                <div className="bg-card/50 border border-border/50 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold leading-4">
-                        ST
-                      </div>
-                      <div>
-                        <div className="text-white text-sm font-medium leading-5">@stable_pro</div>
-                        <div className="text-gray-400 text-xs leading-4">99.1% sukses • 234 trades</div>
-                      </div>
-                    </div>
-                    <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs px-2.5 py-0.5">Verified</Badge>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex gap-2">
-                    <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                    <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                    <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
-                    <div className="w-6 h-6 bg-red-600 rounded text-white text-xs flex items-center justify-center font-bold">B</div>
-                  </div>
-                </div>
-
-                <Button className="w-full bg-primary hover:bg-primary/90">Beli Sekarang</Button>
-              </Card>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <a href="https://eec0a15f2e554f09a52ca736de5e6964-865decb6dea74217ab9b117f9.fly.dev/marketplace" className="inline-flex items-center justify-center bg-card border border-primary/50 rounded-md text-sm font-medium h-10 px-4 py-2 gap-2 hover:bg-primary/10 transition-colors">
-              <span>Lihat Semua Token</span>
+            <Link
+              href="/marketplace"
+              className="hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-lg hover:shadow-xl"
+            >
+              <span>Lihat Semua</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
           </div>
+
+          {/* Token Cards - Mobile Responsive with Horizontal Scroll */}
+          <div className="overflow-x-auto pb-4">
+            <div className="flex gap-6 min-w-max md:grid md:grid-cols-3 md:min-w-0">
+              {/* Enhanced Bitcoin Card */}
+              <motion.div
+                className="min-w-[320px] md:min-w-0"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                whileHover={{ y: -8 }}
+              >
+                <Card className="bg-gradient-to-br from-orange-500/5 to-yellow-500/5 border border-orange-500/20 p-6 hover:border-orange-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20 h-full">
+                  {/* Header with Logo and Trending Badge */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      {/* Enhanced Bitcoin Logo */}
+                      <div className="relative">
+                        <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-yellow-500 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
+                          ₿
+                        </div>
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">Bitcoin</h3>
+                        <p className="text-sm text-gray-400">BTC</p>
+                      </div>
+                    </div>
+                    <Badge className="bg-red-500 text-white font-bold animate-pulse">🔥 #1 Trending</Badge>
+                  </div>
+
+                  {/* Price with Live Change Indicator */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl font-bold text-white">Rp 850.000.000</span>
+                      <div className="flex items-center gap-1 bg-green-500/20 border border-green-500/30 rounded-full px-3 py-1">
+                        <TrendingUp className="w-4 h-4 text-green-400" />
+                        <span className="text-green-400 font-bold text-sm">+2.15%</span>
+                      </div>
+                    </div>
+
+                    {/* Market Sentiment Indicator */}
+                    <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 mb-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-red-400 text-xl">🔥</span>
+                        <span className="text-red-400 font-medium text-sm">Hot Trend</span>
+                      </div>
+                      <p className="text-xs text-gray-400">Dibicarakan 247x/jam di media sosial</p>
+                    </div>
+
+                    {/* Enhanced Market Data */}
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Volume 24h</span>
+                        <span className="text-white font-bold">Rp 2.1M</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Order Aktif</span>
+                        <span className="text-white">23 orders</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Likuiditas</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-2 bg-background rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-green-500 to-red-500" style={{ width: '75%' }} />
+                          </div>
+                          <span className="text-xs text-gray-400">Tinggi</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Enhanced Seller Info */}
+                  <div className="bg-background/50 border border-border/50 rounded-lg p-3 mb-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          CM
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-1">
+                            <span className="text-white text-sm font-medium">@crypto_master</span>
+                            <Shield className="w-3 h-3 text-green-400" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-green-400 text-xs">98.5% sukses</span>
+                            <span className="text-gray-400 text-xs">• 156 trades</span>
+                            <div className="flex text-yellow-400 text-xs">
+                              ⭐⭐⭐⭐⭐
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">Verified Pro</Badge>
+                    </div>
+                  </div>
+
+                  {/* Payment Methods */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-gray-400 text-sm">Metode Bayar:</span>
+                    <div className="flex gap-1">
+                      <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                      <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                      <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
+                      <span className="text-gray-400 text-xs ml-1">+2</span>
+                    </div>
+                  </div>
+
+                  {/* Enhanced Action Buttons */}
+                  <div className="flex gap-2">
+                    <Button
+                      className="flex-1 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-bold"
+                      asChild
+                    >
+                      <Link href="/marketplace">
+                        <DollarSign className="w-4 h-4 mr-2" />
+                        Beli Sekarang
+                      </Link>
+                    </Button>
+                    <Button size="icon" variant="outline" className="border-orange-500/50 text-orange-400 hover:bg-orange-500/10">
+                      <Heart className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </Card>
+              </motion.div>
+
+              {/* Enhanced Ethereum Card */}
+              <motion.div
+                className="min-w-[320px] md:min-w-0"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                whileHover={{ y: -8 }}
+              >
+                <Card className="bg-gradient-to-br from-blue-500/5 to-purple-500/5 border border-blue-500/20 p-6 hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 h-full">
+                  {/* Header with Logo and Trending Badge */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
+                          Ξ
+                        </div>
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-500 rounded-full border-2 border-background flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">Ethereum</h3>
+                        <p className="text-sm text-gray-400">ETH</p>
+                      </div>
+                    </div>
+                    <Badge className="bg-orange-500 text-white font-bold">🔥 #2 Trending</Badge>
+                  </div>
+
+                  {/* Price with Live Change Indicator */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl font-bold text-white">Rp 45.000.000</span>
+                      <div className="flex items-center gap-1 bg-red-500/20 border border-red-500/30 rounded-full px-3 py-1">
+                        <TrendingDown className="w-4 h-4 text-red-400" />
+                        <span className="text-red-400 font-bold text-sm">-1.8%</span>
+                      </div>
+                    </div>
+
+                    {/* Market Sentiment */}
+                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 mb-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-blue-400 text-xl">📊</span>
+                        <span className="text-blue-400 font-medium text-sm">Stabil</span>
+                      </div>
+                      <p className="text-xs text-gray-400">Analisis teknikal menunjukkan konsolidasi</p>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Volume 24h</span>
+                        <span className="text-white font-bold">Rp 1.8M</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Order Aktif</span>
+                        <span className="text-white">18 orders</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Likuiditas</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-2 bg-background rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-green-500 to-red-500" style={{ width: '60%' }} />
+                          </div>
+                          <span className="text-xs text-gray-400">Sedang</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Seller Info */}
+                  <div className="bg-background/50 border border-border/50 rounded-lg p-3 mb-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          ET
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-1">
+                            <span className="text-white text-sm font-medium">@eth_trader</span>
+                            <Shield className="w-3 h-3 text-green-400" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-green-400 text-xs">97.2% sukses</span>
+                            <span className="text-gray-400 text-xs">• 89 trades</span>
+                            <div className="flex text-yellow-400 text-xs">
+                              ⭐⭐⭐⭐⭐
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">Verified</Badge>
+                    </div>
+                  </div>
+
+                  {/* Payment Methods */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-gray-400 text-sm">Metode Bayar:</span>
+                    <div className="flex gap-1">
+                      <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                      <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                      <span className="text-gray-400 text-xs ml-1">+3</span>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <Button
+                      className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold"
+                      asChild
+                    >
+                      <Link href="/marketplace">
+                        <DollarSign className="w-4 h-4 mr-2" />
+                        Beli Sekarang
+                      </Link>
+                    </Button>
+                    <Button size="icon" variant="outline" className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10">
+                      <Heart className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </Card>
+              </motion.div>
+
+              {/* Enhanced USDT Card */}
+              <motion.div
+                className="min-w-[320px] md:min-w-0"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                whileHover={{ y: -8 }}
+              >
+                <Card className="bg-gradient-to-br from-green-500/5 to-emerald-500/5 border border-green-500/20 p-6 hover:border-green-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 h-full">
+                  {/* Header with Logo and Trending Badge */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
+                          ₮
+                        </div>
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">Tether</h3>
+                        <p className="text-sm text-gray-400">USDT</p>
+                      </div>
+                    </div>
+                    <Badge className="bg-yellow-500 text-black font-bold">🔥 #3 Trending</Badge>
+                  </div>
+
+                  {/* Price with Live Change Indicator */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl font-bold text-white">Rp 15.750</span>
+                      <div className="flex items-center gap-1 bg-green-500/20 border border-green-500/30 rounded-full px-3 py-1">
+                        <TrendingUp className="w-4 h-4 text-green-400" />
+                        <span className="text-green-400 font-bold text-sm">+0.1%</span>
+                      </div>
+                    </div>
+
+                    {/* Market Sentiment */}
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3 mb-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-green-400 text-xl">🛡️</span>
+                        <span className="text-green-400 font-medium text-sm">Safe Haven</span>
+                      </div>
+                      <p className="text-xs text-gray-400">Stablecoin terpercaya dengan demand tinggi</p>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Volume 24h</span>
+                        <span className="text-white font-bold">Rp 3.2M</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Order Aktif</span>
+                        <span className="text-white">34 orders</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400 text-sm">Likuiditas</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-16 h-2 bg-background rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-green-500 to-red-500" style={{ width: '90%' }} />
+                          </div>
+                          <span className="text-xs text-gray-400">Sangat Tinggi</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Seller Info */}
+                  <div className="bg-background/50 border border-border/50 rounded-lg p-3 mb-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          ST
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-1">
+                            <span className="text-white text-sm font-medium">@stable_pro</span>
+                            <Shield className="w-3 h-3 text-green-400" />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-green-400 text-xs">99.1% sukses</span>
+                            <span className="text-gray-400 text-xs">• 234 trades</span>
+                            <div className="flex text-yellow-400 text-xs">
+                              ⭐⭐⭐⭐⭐
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">Verified Pro+</Badge>
+                    </div>
+                  </div>
+
+                  {/* Payment Methods */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-gray-400 text-sm">Metode Bayar:</span>
+                    <div className="flex gap-1">
+                      <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                      <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                      <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
+                      <div className="w-6 h-6 bg-red-600 rounded text-white text-xs flex items-center justify-center font-bold">B</div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <Button
+                      className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold"
+                      asChild
+                    >
+                      <Link href="/marketplace">
+                        <DollarSign className="w-4 h-4 mr-2" />
+                        Beli Sekarang
+                      </Link>
+                    </Button>
+                    <Button size="icon" variant="outline" className="border-green-500/50 text-green-400 hover:bg-green-500/10">
+                      <Heart className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Mobile View All Button */}
+          <div className="text-center mt-8 md:hidden">
+            <Link
+              href="/marketplace"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-lg font-bold transition-all shadow-lg hover:shadow-xl"
+            >
+              <span>Lihat Semua Token</span>
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+
+          {/* Live Market Stats */}
+          <motion.div
+            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
+              <div className="text-2xl font-bold text-green-400 mb-1">Rp 7.1M</div>
+              <div className="text-sm text-gray-400">Total Volume 24h</div>
+            </div>
+            <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
+              <div className="text-2xl font-bold text-blue-400 mb-1">75</div>
+              <div className="text-sm text-gray-400">Order Aktif</div>
+            </div>
+            <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
+              <div className="text-2xl font-bold text-purple-400 mb-1">142</div>
+              <div className="text-sm text-gray-400">Trader Online</div>
+            </div>
+            <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
+              <div className="text-2xl font-bold text-yellow-400 mb-1">98.5%</div>
+              <div className="text-sm text-gray-400">Success Rate</div>
+            </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* NFT Featured Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-10">
