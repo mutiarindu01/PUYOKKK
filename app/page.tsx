@@ -1351,7 +1351,7 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               NFT
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400"> Pilihan Minggu</span> Ini
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-slate-500"> Pilihan Minggu</span> Ini
             </motion.h2>
             <motion.p
               className="text-gray-300 max-w-3xl mx-auto text-lg"
@@ -1360,7 +1360,7 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               Koleksi NFT terpilih dengan kualitas premium dan nilai investasi terbaik dari kreator Indonesia.
-              <span className="text-purple-400 font-medium"> Swipe untuk melihat lebih banyak koleksi.</span>
+              <span className="text-slate-400 font-medium"> Swipe untuk melihat lebih banyak koleksi.</span>
             </motion.p>
           </div>
 
