@@ -1603,7 +1603,7 @@ export default function LandingPage() {
                               <Badge
                                 key={propIndex}
                                 variant="outline"
-                                className="text-xs border-purple-500/30 text-purple-400 bg-purple-500/10"
+                                className="text-xs border-slate-600/30 text-slate-400 bg-slate-800/10"
                               >
                                 {prop}
                               </Badge>
@@ -2375,7 +2375,7 @@ export default function LandingPage() {
                   "Dulu butuh seminggu buat cairkan NFT, sekarang cuma 5 menit langsung masuk GoPay!"
                 </blockquote>
                 <div className="flex items-center justify-between">
-                  <div className="text-green-400 font-bold">NFT → GoPay: 5 menit</div>
+                  <div className="text-green-400 font-bold">NFT ��� GoPay: 5 menit</div>
                   <div className="flex text-yellow-400">
                     {'★'.repeat(5)}
                   </div>
