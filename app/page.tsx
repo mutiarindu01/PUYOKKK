@@ -2792,9 +2792,9 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="mt-8 text-center p-6 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
-                <div className="text-3xl font-bold text-green-400 mb-2">Selisih: +Rp 15,000,000</div>
-                <div className="text-green-300">Lebih untung 14.1% dengan PUYOK!</div>
+              <div className="mt-8 text-center p-6 bg-gradient-to-r from-slate-800/30 to-gray-800/30 border border-slate-600/30 rounded-lg">
+                <div className="text-3xl font-bold text-slate-300 mb-2">Selisih: +Rp 15,000,000</div>
+                <div className="text-slate-400">Lebih untung 14.1% dengan PUYOK!</div>
               </div>
             </Card>
           </motion.div>
