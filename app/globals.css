@@ -233,7 +233,7 @@ body {
   content: '';
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0.05) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(100, 116, 139, 0.12) 0%, rgba(100, 116, 139, 0.03) 40%, transparent 70%);
   animation: float 8s ease-in-out infinite;
   filter: blur(1px);
 }
