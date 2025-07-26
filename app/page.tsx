@@ -1682,7 +1682,7 @@ export default function LandingPage() {
                 asChild
               >
                 <Link href="/marketplace?tab=nft">
-                  🎨 Jelajahi Semua NFT
+                  ��� Jelajahi Semua NFT
                   <ArrowRight className="ml-3 w-6 h-6" />
                 </Link>
               </Button>
@@ -2326,7 +2326,7 @@ export default function LandingPage() {
 
                   <div className="flex items-start gap-3 p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
                     <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                      <span className="text-primary text-sm">📱</span>
+                      <span className="text-primary text-sm">����</span>
                     </div>
                     <div>
                       <p className="text-white font-medium">Pembayaran Familiar</p>
@@ -2925,9 +2925,30 @@ export default function LandingPage() {
               Cara Menggunakan PUYOK
             </ScrollFloat>
 
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-8">
               Panduan sederhana untuk memulai transaksi aman di PUYOK
             </p>
+
+            {/* Progress Tracker */}
+            <div className="flex justify-center mb-8">
+              <div className="bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-blue-400 text-sm font-medium">Progress Tutorial:</span>
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3, 4].map((step) => (
+                      <motion.div
+                        key={step}
+                        className="w-3 h-3 rounded-full bg-blue-500/20 border border-blue-500/40"
+                        initial={{ scale: 0.8, opacity: 0.5 }}
+                        whileInView={{ scale: 1, opacity: 1, backgroundColor: 'rgba(59, 130, 246, 0.8)' }}
+                        transition={{ duration: 0.4, delay: step * 0.2 }}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-blue-300 text-sm">4 langkah mudah</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-6">
