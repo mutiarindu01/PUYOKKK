@@ -877,7 +877,7 @@ export default function LandingPage() {
 
       {/* Enhanced Trending Tokens Section */}
       <motion.section
-        className="py-20 bg-gradient-to-br from-blue-900/10 via-background to-purple-900/10 relative overflow-hidden"
+        className="py-20 bg-gradient-to-br from-slate-900/20 via-background to-gray-900/20 relative overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -887,9 +887,9 @@ export default function LandingPage() {
           {/* Section Header */}
           <div className="flex items-center justify-between mb-16">
             <div>
-              <div className="inline-flex items-center gap-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
-                <TrendingUp className="w-5 h-5 text-blue-500" />
-                <span className="text-blue-500 font-semibold">TRENDING SEKARANG</span>
+              <div className="inline-flex items-center gap-3 bg-slate-800/30 border border-slate-600/30 rounded-full px-6 py-3 mb-6">
+                <TrendingUp className="w-5 h-5 text-slate-400" />
+                <span className="text-slate-400 font-semibold">TRENDING SEKARANG</span>
                 <motion.div
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -898,16 +898,16 @@ export default function LandingPage() {
               </div>
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 Token yang
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> Sedang Tren</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-slate-500"> Sedang Tren</span>
               </h2>
               <p className="text-gray-300 max-w-2xl">
                 Cryptocurrency dengan volume trading tertinggi dan paling diminati saat ini.
-                <span className="text-blue-400 font-medium"> Live update setiap 30 detik.</span>
+                <span className="text-slate-400 font-medium"> Live update setiap 30 detik.</span>
               </p>
             </div>
             <Link
               href="/marketplace"
-              className="hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-lg hover:shadow-xl"
+              className="hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-lg hover:shadow-xl"
             >
               <span>Lihat Semua</span>
               <ArrowRight className="w-4 h-4" />
@@ -1305,19 +1305,19 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-400 mb-1">Rp 7.1M</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">Rp 7.1M</div>
               <div className="text-sm text-gray-400">Total Volume 24h</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-blue-400 mb-1">75</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">75</div>
               <div className="text-sm text-gray-400">Order Aktif</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-purple-400 mb-1">142</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">142</div>
               <div className="text-sm text-gray-400">Trader Online</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-yellow-400 mb-1">98.5%</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">98.5%</div>
               <div className="text-sm text-gray-400">Success Rate</div>
             </div>
           </motion.div>
