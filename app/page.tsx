@@ -2637,13 +2637,31 @@ export default function LandingPage() {
                   Beli NFT langsung dari saldo DANA-mu. Jual token dan terima uang di GoPay dalam hitungan menit. Tidak perlu belajar cara baru.
                 </p>
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                  <div className="flex justify-center gap-3 mb-2">
-                    <span className="text-2xl">💳</span>
-                    <span className="text-2xl">🟢</span>
-                    <span className="text-2xl">🟣</span>
-                    <span className="text-2xl">🏦</span>
+                  <div className="flex justify-center gap-3 mb-3">
+                    {[
+                      { icon: '💳', name: 'Card' },
+                      { icon: '🟢', name: 'DANA' },
+                      { icon: '🟣', name: 'OVO' },
+                      { icon: '🏦', name: 'Bank' }
+                    ].map((method, index) => (
+                      <motion.span
+                        key={method.name}
+                        className="text-2xl hover:scale-125 transition-transform cursor-pointer"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        whileHover={{ scale: 1.3, rotate: [0, -10, 10, 0] }}
+                        transition={{
+                          duration: 0.3,
+                          delay: index * 0.1,
+                          rotate: { duration: 0.4 }
+                        }}
+                        title={method.name}
+                      >
+                        {method.icon}
+                      </motion.span>
+                    ))}
                   </div>
-                  <div className="text-primary text-sm font-medium">4+ Metode Pembayaran</div>
+                  <div className="text-primary text-sm font-medium">4+ Metode Pembayaran Instant</div>
                 </div>
               </Card>
             </motion.div>
@@ -2681,20 +2699,205 @@ export default function LandingPage() {
                   Sistem escrow otomatis melindungi setiap transaksi. Pembeli dapat aset setelah bayar, penjual dapat uang setelah aset terkirim.
                 </p>
                 <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
-                  <div className="flex justify-center items-center gap-2 mb-2">
+                  <div className="flex justify-center items-center gap-2 mb-3">
                     <Shield className="w-6 h-6 text-blue-500" />
                     <span className="text-blue-500 font-semibold">100% Aman</span>
                   </div>
-                  <div className="text-xs text-gray-400">Keamanan: ████████ 100%</div>
-                  <div className="text-xs text-gray-400">Kepuasan: ███████▌ 98%</div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-400">Keamanan:</span>
+                      <div className="flex items-center gap-1">
+                        <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full bg-blue-500 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: '100%' }}
+                            transition={{ duration: 1.5, delay: 0.3 }}
+                          />
+                        </div>
+                        <span className="text-xs text-blue-400 font-bold">100%</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-400">Kepuasan:</span>
+                      <div className="flex items-center gap-1">
+                        <div className="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full bg-green-500 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: '98%' }}
+                            transition={{ duration: 1.5, delay: 0.5 }}
+                          />
+                        </div>
+                        <span className="text-xs text-green-400 font-bold">98%</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </Card>
             </motion.div>
           </div>
+          {/* Real-time Conversion Demo */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-primary/5 to-green-500/5 border border-primary/20 p-8">
+              <h3 className="text-2xl font-bold text-white mb-6 text-center">Demo Konversi Real-time</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6">
+                  <h4 className="text-lg font-bold text-red-400 mb-4">Platform Lain (Ribet)</h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-white">Jual NFT:</span>
+                      <span className="text-red-400">$8,200</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-white">Konversi ke IDR:</span>
+                      <span className="text-red-400">Rp 125,000,000</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-white">Fee (15%):</span>
+                      <span className="text-red-400">-Rp 18,750,000</span>
+                    </div>
+                    <div className="flex justify-between items-center border-t border-red-500/20 pt-3">
+                      <span className="text-white font-bold">Anda Terima:</span>
+                      <span className="text-red-400 font-bold">Rp 106,250,000</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-6">
+                  <h4 className="text-lg font-bold text-green-400 mb-4">PUYOK (Langsung)</h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-white">Jual NFT:</span>
+                      <span className="text-green-400">Rp 125,000,000</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-white">Konversi:</span>
+                      <span className="text-green-400">Tidak perlu!</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-white">Fee (3%):</span>
+                      <span className="text-green-400">-Rp 3,750,000</span>
+                    </div>
+                    <div className="flex justify-between items-center border-t border-green-500/20 pt-3">
+                      <span className="text-white font-bold">Anda Terima:</span>
+                      <span className="text-green-400 font-bold">Rp 121,250,000</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 text-center p-6 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
+                <div className="text-3xl font-bold text-green-400 mb-2">Selisih: +Rp 15,000,000</div>
+                <div className="text-green-300">Lebih untung 14.1% dengan PUYOK!</div>
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* Milestone Counter */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <Card className="max-w-5xl mx-auto bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 p-8">
+              <h3 className="text-2xl font-bold text-white mb-8 text-center">Pencapaian PUYOK Real-time</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="text-center p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                  <motion.div
+                    className="text-3xl font-bold text-green-400 mb-2"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                  >
+                    12,847+
+                  </motion.div>
+                  <div className="text-green-300 text-sm">Pioneer Users</div>
+                </div>
+                <div className="text-center p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                  <motion.div
+                    className="text-3xl font-bold text-blue-400 mb-2"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                  >
+                    1,247
+                  </motion.div>
+                  <div className="text-blue-300 text-sm">Unique NFTs</div>
+                </div>
+                <div className="text-center p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                  <motion.div
+                    className="text-3xl font-bold text-purple-400 mb-2"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  >
+                    Rp 2.8B
+                  </motion.div>
+                  <div className="text-purple-300 text-sm">Total Volume</div>
+                </div>
+                <div className="text-center p-4 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+                  <motion.div
+                    className="text-3xl font-bold text-orange-400 mb-2"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                  >
+                    98.7%
+                  </motion.div>
+                  <div className="text-orange-300 text-sm">Satisfaction</div>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* Enhanced Payment Methods Showcase */}
+          <motion.div
+            className="mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-primary/5 to-green-500/5 border border-primary/20 p-8">
+              <h3 className="text-2xl font-bold text-white mb-6 text-center">Metode Pembayaran Indonesia</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+                {[
+                  { name: 'DANA', icon: '🟢', color: 'blue' },
+                  { name: 'GoPay', icon: '🟢', color: 'green' },
+                  { name: 'OVO', icon: '🟣', color: 'purple' },
+                  { name: 'Bank', icon: '🏦', color: 'orange' }
+                ].map((method, index) => (
+                  <motion.div
+                    key={method.name}
+                    className={`text-center p-4 bg-${method.color}-500/10 border border-${method.color}-500/20 rounded-lg hover:scale-110 transition-all duration-300 cursor-pointer`}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                  >
+                    <div className="text-4xl mb-2">{method.icon}</div>
+                    <div className={`text-${method.color}-400 font-semibold`}>{method.name}</div>
+                    <div className="text-xs text-gray-400 mt-1">Instant</div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="text-center p-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
+                <div className="text-green-400 font-bold mb-1">✨ Keunggulan Pembayaran PUYOK</div>
+                <div className="text-sm text-green-300">Transfer instan • Tanpa biaya tambahan • Support 24/7</div>
+              </div>
+            </Card>
+          </motion.div>
         </div>
       </motion.section>
 
-      {/* Tutorial Section with ScrollFloat */}
+      {/* Enhanced Tutorial Section */}
       <motion.section
         className="py-20 bg-gradient-to-br from-purple-900/10 to-blue-900/10"
         initial={{ opacity: 0 }}
