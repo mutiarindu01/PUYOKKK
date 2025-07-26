@@ -1615,9 +1615,9 @@ export default function LandingPage() {
                         <div className="flex items-center justify-between mb-4">
                           <span className="text-gray-400 text-sm">Payment:</span>
                           <div className="flex gap-1">
-                            <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
-                            <div className="w-6 h-6 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
-                            <div className="w-6 h-6 bg-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
+                            <div className="w-6 h-6 bg-slate-700 rounded text-white text-xs flex items-center justify-center font-bold">D</div>
+                            <div className="w-6 h-6 bg-slate-700 rounded text-white text-xs flex items-center justify-center font-bold">G</div>
+                            <div className="w-6 h-6 bg-slate-700 rounded text-white text-xs flex items-center justify-center font-bold">O</div>
                           </div>
                         </div>
 
@@ -2375,7 +2375,7 @@ export default function LandingPage() {
                   "Dulu butuh seminggu buat cairkan NFT, sekarang cuma 5 menit langsung masuk GoPay!"
                 </blockquote>
                 <div className="flex items-center justify-between">
-                  <div className="text-green-400 font-bold">NFT ��� GoPay: 5 menit</div>
+                  <div className="text-green-400 font-bold">NFT → GoPay: 5 menit</div>
                   <div className="flex text-yellow-400">
                     {'★'.repeat(5)}
                   </div>
