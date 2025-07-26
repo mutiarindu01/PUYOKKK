@@ -19,7 +19,7 @@ export default function SplineBackground({
 }: SplineBackgroundProps) {
   return (
     <div className={`fixed inset-0 pointer-events-none z-0 ${className}`}>
-      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50/30 via-purple-50/30 to-pink-50/30 dark:from-blue-950/10 dark:via-purple-950/10 dark:to-pink-950/10">
+      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50/10 via-gray-50/10 to-slate-50/10 dark:from-slate-950/05 dark:via-gray-950/05 dark:to-slate-950/05">
         <div className="text-center p-8">
           <div className="w-12 h-12 mx-auto mb-4 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
           <p className="text-sm text-muted-foreground">
