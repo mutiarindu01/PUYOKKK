@@ -1123,7 +1123,7 @@ export default function LandingPage() {
                           </div>
                           <div className="flex items-center gap-2">
                             <span className="text-slate-400 text-xs">97.2% sukses</span>
-                            <span className="text-gray-400 text-xs">�� 89 trades</span>
+                            <span className="text-gray-400 text-xs">• 89 trades</span>
                             <div className="flex text-slate-400 text-xs">
                               ⭐⭐⭐⭐⭐
                             </div>
@@ -1335,13 +1335,13 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-10 relative">
           {/* Enhanced Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-purple-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-              <Star className="w-5 h-5 text-purple-500" />
-              <span className="text-purple-500 font-semibold">KOLEKSI UNGGULAN</span>
+            <div className="inline-flex items-center gap-3 bg-slate-800/30 border border-slate-600/30 rounded-full px-6 py-3 mb-6">
+              <Star className="w-5 h-5 text-slate-400" />
+              <span className="text-slate-400 font-semibold">KOLEKSI UNGGULAN</span>
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="w-2 h-2 bg-purple-500 rounded-full"
+                className="w-2 h-2 bg-slate-400 rounded-full"
               />
             </div>
             <motion.h2
@@ -2869,7 +2869,7 @@ export default function LandingPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
                 {[
                   { name: 'DANA', icon: '🟢', color: 'blue' },
-                  { name: 'GoPay', icon: '🟢', color: 'green' },
+                  { name: 'GoPay', icon: '���', color: 'green' },
                   { name: 'OVO', icon: '��', color: 'purple' },
                   { name: 'Bank', icon: '🏦', color: 'orange' }
                 ].map((method, index) => (
