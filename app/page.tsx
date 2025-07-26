@@ -2809,38 +2809,38 @@ export default function LandingPage() {
             <Card className="max-w-5xl mx-auto bg-gradient-to-r from-slate-800/30 to-gray-800/30 border border-slate-600/30 p-8">
               <h3 className="text-2xl font-bold text-white mb-8 text-center">Pencapaian PUYOK Real-time</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <div className="text-center p-4 bg-slate-800/20 border border-slate-600/30 rounded-lg">
                   <motion.div
-                    className="text-3xl font-bold text-green-400 mb-2"
+                    className="text-3xl font-bold text-slate-300 mb-2"
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                   >
                     12,847+
                   </motion.div>
-                  <div className="text-green-300 text-sm">Pioneer Users</div>
+                  <div className="text-slate-400 text-sm">Pioneer Users</div>
                 </div>
-                <div className="text-center p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                <div className="text-center p-4 bg-slate-800/20 border border-slate-600/30 rounded-lg">
                   <motion.div
-                    className="text-3xl font-bold text-blue-400 mb-2"
+                    className="text-3xl font-bold text-slate-300 mb-2"
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
                   >
                     1,247
                   </motion.div>
-                  <div className="text-blue-300 text-sm">Unique NFTs</div>
+                  <div className="text-slate-400 text-sm">Unique NFTs</div>
                 </div>
-                <div className="text-center p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                <div className="text-center p-4 bg-slate-800/20 border border-slate-600/30 rounded-lg">
                   <motion.div
-                    className="text-3xl font-bold text-purple-400 mb-2"
+                    className="text-3xl font-bold text-slate-300 mb-2"
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                   >
                     Rp 2.8B
                   </motion.div>
-                  <div className="text-purple-300 text-sm">Total Volume</div>
+                  <div className="text-slate-400 text-sm">Total Volume</div>
                 </div>
                 <div className="text-center p-4 bg-orange-500/10 border border-orange-500/20 rounded-lg">
                   <motion.div
