@@ -2889,7 +2889,7 @@ export default function LandingPage() {
               </div>
 
               <div className="text-center p-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
-                <div className="text-green-400 font-bold mb-1">✨ Keunggulan Pembayaran PUYOK</div>
+                <div className="text-green-400 font-bold mb-1">��� Keunggulan Pembayaran PUYOK</div>
                 <div className="text-sm text-green-300">Transfer instan • Tanpa biaya tambahan • Support 24/7</div>
               </div>
             </Card>
@@ -3277,28 +3277,38 @@ export default function LandingPage() {
             </motion.div>
           </div>
 
+          {/* Enhanced NFT Pioneer Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {/* First Mint Card */}
+            {/* First Mint Card - CLAIMED */}
             <motion.div
               className="group relative"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              whileHover={{ y: -10 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <Card className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 p-6 h-full hover:border-yellow-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20">
+              <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-600/30 p-6 h-full relative overflow-hidden">
+                {/* Claimed Overlay */}
+                <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm z-10 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">🔒</div>
+                    <div className="text-red-400 font-bold text-lg mb-2">SUDAH DIKLAIM</div>
+                    <div className="text-gray-300 text-sm">oleh @budi_art</div>
+                    <div className="text-xs text-gray-500 mt-1">24 Jan 2024, 14:32</div>
+                  </div>
+                </div>
+
                 <div className="absolute top-4 right-4">
-                  <Badge className="bg-yellow-500 text-black font-bold">FIRST MINT</Badge>
+                  <Badge className="bg-red-500 text-white font-bold">✓ CLAIMED</Badge>
                 </div>
                 <div className="h-48 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
-                  <div className="text-6xl group-hover:scale-110 transition-transform duration-300">🎨</div>
+                  <div className="text-6xl">🎨</div>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">Pertama Mencetak Karya</h3>
                 <p className="text-gray-300 mb-4">NFT unik "Genesis Creator" untuk kreator pertama yang mencetak karya digital di PUYOK</p>
                 <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3">
                   <div className="flex items-center gap-2">
                     <Crown className="w-4 h-4 text-yellow-500" />
-                    <span className="text-yellow-500 text-sm font-medium">Rarity: Legendary</span>
+                    <span className="text-yellow-500 text-sm font-medium">Legendary • 1/1</span>
                   </div>
                 </div>
               </Card>
