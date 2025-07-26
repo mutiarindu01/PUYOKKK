@@ -858,7 +858,7 @@ export default function LandingPage() {
                   asChild
                 >
                   <Link href="/voting">
-                    🗳�� Voting Aktif (3)
+                    🗳️ Voting Aktif (3)
                   </Link>
                 </Button>
               </div>
@@ -991,24 +991,24 @@ export default function LandingPage() {
                   <div className="bg-background/50 border border-border/50 rounded-lg p-3 mb-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        <div className="w-8 h-8 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
                           CM
                         </div>
                         <div>
                           <div className="flex items-center gap-1">
                             <span className="text-white text-sm font-medium">@crypto_master</span>
-                            <Shield className="w-3 h-3 text-green-400" />
+                            <Shield className="w-3 h-3 text-slate-400" />
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-green-400 text-xs">98.5% sukses</span>
+                            <span className="text-slate-400 text-xs">98.5% sukses</span>
                             <span className="text-gray-400 text-xs">• 156 trades</span>
-                            <div className="flex text-yellow-400 text-xs">
+                            <div className="flex text-slate-400 text-xs">
                               ⭐⭐⭐⭐⭐
                             </div>
                           </div>
                         </div>
                       </div>
-                      <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs">Verified Pro</Badge>
+                      <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">Verified Pro</Badge>
                     </div>
                   </div>
 
@@ -1187,7 +1187,7 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">USDT</p>
                       </div>
                     </div>
-                    <Badge className="bg-yellow-500 text-black font-bold">��� #3 Trending</Badge>
+                    <Badge className="bg-yellow-500 text-black font-bold">🔥 #3 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
@@ -1790,7 +1790,7 @@ export default function LandingPage() {
                       <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 font-bold text-sm">1</div>
                       <div>
                         <div className="text-white font-medium">Jual NFT → Dapat ETH/MATIC</div>
-                        <div className="text-red-400 text-sm">⏱️ ~10 menit</div>
+                        <div className="text-red-400 text-sm">⏱��� ~10 menit</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
@@ -3685,7 +3685,7 @@ export default function LandingPage() {
 
               {/* Technical Details */}
               <div className="mt-8 p-6 bg-background/50 border border-border rounded-lg">
-                <h4 className="text-white font-bold mb-4">���� Teknologi Di Balik Layar:</h4>
+                <h4 className="text-white font-bold mb-4">��� Teknologi Di Balik Layar:</h4>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline" className="border-blue-500/50 text-blue-400">Meta-Transactions</Badge>
                   <Badge variant="outline" className="border-green-500/50 text-green-400">EIP-2771</Badge>
