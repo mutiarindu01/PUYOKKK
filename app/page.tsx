@@ -1269,7 +1269,7 @@ export default function LandingPage() {
                   {/* Action Buttons */}
                   <div className="flex gap-2">
                     <Button
-                      className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold"
+                      className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
                       asChild
                     >
                       <Link href="/marketplace">
@@ -1277,7 +1277,7 @@ export default function LandingPage() {
                         Beli Sekarang
                       </Link>
                     </Button>
-                    <Button size="icon" variant="outline" className="border-green-500/50 text-green-400 hover:bg-green-500/10">
+                    <Button size="icon" variant="outline" className="border-slate-600/50 text-slate-400 hover:bg-slate-800/50">
                       <Heart className="w-4 h-4" />
                     </Button>
                   </div>
