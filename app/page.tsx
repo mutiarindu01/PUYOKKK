@@ -3364,27 +3364,36 @@ export default function LandingPage() {
               </Card>
             </motion.div>
 
-            {/* First Referral Card */}
+            {/* Community Builder Card - UPCOMING */}
             <motion.div
               className="group relative"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              whileHover={{ y: -10 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
             >
-              <Card className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 p-6 h-full hover:border-green-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
+              <Card className="bg-gradient-to-br from-gray-700/30 to-gray-800/30 border border-gray-600/30 p-6 h-full relative overflow-hidden">
+                {/* Upcoming Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-900/60 to-gray-800/60 backdrop-blur-sm z-10 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">🔒</div>
+                    <div className="text-gray-400 font-bold text-lg mb-2">BELUM TERSEDIA</div>
+                    <div className="text-yellow-400 text-sm mb-1">⏱️ Mulai 1 Agustus 2024</div>
+                    <div className="text-xs text-gray-500">12 hari lagi</div>
+                  </div>
+                </div>
+
                 <div className="absolute top-4 right-4">
-                  <Badge className="bg-green-600 text-white font-bold">COMMUNITY</Badge>
+                  <Badge className="bg-gray-500 text-white font-bold">🕒 UPCOMING</Badge>
                 </div>
                 <div className="h-48 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
-                  <div className="text-6xl group-hover:scale-110 transition-transform duration-300">🤝</div>
+                  <div className="text-6xl">🤝</div>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">Pertama Mengajak Teman</h3>
                 <p className="text-gray-300 mb-4">NFT spesial "Community Builder" untuk pioneer yang berhasil mengajak 10+ teman bergabung</p>
                 <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4 text-green-500" />
-                    <span className="text-green-500 text-sm font-medium">Rarity: Rare</span>
+                    <span className="text-green-500 text-sm font-medium">Rare • 1/1</span>
                   </div>
                 </div>
               </Card>
