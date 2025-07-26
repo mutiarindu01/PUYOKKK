@@ -2806,7 +2806,7 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Card className="max-w-5xl mx-auto bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 p-8">
+            <Card className="max-w-5xl mx-auto bg-gradient-to-r from-slate-800/30 to-gray-800/30 border border-slate-600/30 p-8">
               <h3 className="text-2xl font-bold text-white mb-8 text-center">Pencapaian PUYOK Real-time</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
