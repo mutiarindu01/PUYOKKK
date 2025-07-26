@@ -3115,18 +3115,84 @@ export default function LandingPage() {
             </motion.div>
           </div>
 
-          {/* CTA */}
+          {/* Testimonial Carousel */}
+          <motion.div
+            className="mt-12 mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <div className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-xl p-6">
+              <div className="text-center mb-4">
+                <div className="text-sm text-green-400 font-medium mb-2">💬 Kata Mereka yang Sudah Mencoba</div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <motion.div
+                  className="bg-white/5 border border-white/10 rounded-lg p-4"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      R
+                    </div>
+                    <div>
+                      <div className="text-white font-semibold text-sm">@rini_creator</div>
+                      <div className="text-gray-400 text-xs">Digital Artist</div>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm italic">
+                    "Tutorial PUYOK jelas banget! 10 menit udah bisa jual NFT pertama."
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  className="bg-white/5 border border-white/10 rounded-lg p-4"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                      D
+                    </div>
+                    <div>
+                      <div className="text-white font-semibold text-sm">@deni_trader</div>
+                      <div className="text-gray-400 text-xs">NFT Collector</div>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm italic">
+                    "Gampang banget daftar pakai HP, langsung dapat Pioneer NFT!"
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Enhanced CTA */}
           <div className="text-center mt-12">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
-              asChild
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <Link href="/marketplace">
-                🚀 Mulai Sekarang
-                <ArrowRight className="ml-3 w-6 h-6" />
-              </Link>
-            </Button>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-6 text-xl font-bold shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 group"
+                asChild
+              >
+                <Link href="/marketplace">
+                  <motion.span
+                    className="flex items-center gap-3"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    🚀 Mulai Sekarang & Dapat Pioneer NFT!
+                    <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                  </motion.span>
+                </Link>
+              </Button>
+              <p className="text-gray-400 text-sm mt-4">
+                ✨ Gratis daftar • 🏆 Pioneer NFT eksklusif • 🛡️ 100% aman
+              </p>
+            </motion.div>
           </div>
         </div>
       </motion.section>
@@ -3494,7 +3560,7 @@ export default function LandingPage() {
 
               {/* Technical Details */}
               <div className="mt-8 p-6 bg-background/50 border border-border rounded-lg">
-                <h4 className="text-white font-bold mb-4">🔧 Teknologi Di Balik Layar:</h4>
+                <h4 className="text-white font-bold mb-4">��� Teknologi Di Balik Layar:</h4>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline" className="border-blue-500/50 text-blue-400">Meta-Transactions</Badge>
                   <Badge variant="outline" className="border-green-500/50 text-green-400">EIP-2771</Badge>
