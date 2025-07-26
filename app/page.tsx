@@ -1125,7 +1125,7 @@ export default function LandingPage() {
                             <span className="text-slate-400 text-xs">97.2% sukses</span>
                             <span className="text-gray-400 text-xs">• 89 trades</span>
                             <div className="flex text-slate-400 text-xs">
-                              ⭐⭐⭐⭐��
+                              ⭐⭐⭐⭐⭐
                             </div>
                           </div>
                         </div>
@@ -1561,12 +1561,12 @@ export default function LandingPage() {
                             </h3>
                             <p className="text-sm text-gray-400 mb-2">{nft.collection}</p>
                             <div className="flex items-center gap-2">
-                              <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                              <div className="w-6 h-6 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                 {nft.creator.slice(1, 3).toUpperCase()}
                               </div>
                               <span className="text-sm text-gray-300">{nft.creator}</span>
                               {nft.verified && (
-                                <Shield className="w-4 h-4 text-green-400" />
+                                <Shield className="w-4 h-4 text-slate-400" />
                               )}
                             </div>
                           </div>
