@@ -858,7 +858,7 @@ export default function LandingPage() {
                   asChild
                 >
                   <Link href="/voting">
-                    🗳️ Voting Aktif (3)
+                    🗳�� Voting Aktif (3)
                   </Link>
                 </Button>
               </div>
@@ -950,17 +950,17 @@ export default function LandingPage() {
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-2xl font-bold text-white">Rp 850.000.000</span>
-                      <div className="flex items-center gap-1 bg-green-500/20 border border-green-500/30 rounded-full px-3 py-1">
-                        <TrendingUp className="w-4 h-4 text-green-400" />
-                        <span className="text-green-400 font-bold text-sm">+2.15%</span>
+                      <div className="flex items-center gap-1 bg-slate-700/50 border border-slate-600/50 rounded-full px-3 py-1">
+                        <TrendingUp className="w-4 h-4 text-slate-300" />
+                        <span className="text-slate-300 font-bold text-sm">+2.15%</span>
                       </div>
                     </div>
 
                     {/* Market Sentiment Indicator */}
-                    <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 mb-4">
+                    <div className="bg-slate-800/50 border border-slate-600/30 rounded-lg p-3 mb-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-red-400 text-xl">🔥</span>
-                        <span className="text-red-400 font-medium text-sm">Hot Trend</span>
+                        <span className="text-slate-400 text-xl">🔥</span>
+                        <span className="text-slate-400 font-medium text-sm">Hot Trend</span>
                       </div>
                       <p className="text-xs text-gray-400">Dibicarakan 247x/jam di media sosial</p>
                     </div>
@@ -1187,7 +1187,7 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">USDT</p>
                       </div>
                     </div>
-                    <Badge className="bg-yellow-500 text-black font-bold">🔥 #3 Trending</Badge>
+                    <Badge className="bg-yellow-500 text-black font-bold">��� #3 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
@@ -3685,7 +3685,7 @@ export default function LandingPage() {
 
               {/* Technical Details */}
               <div className="mt-8 p-6 bg-background/50 border border-border rounded-lg">
-                <h4 className="text-white font-bold mb-4">��� Teknologi Di Balik Layar:</h4>
+                <h4 className="text-white font-bold mb-4">���� Teknologi Di Balik Layar:</h4>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline" className="border-blue-500/50 text-blue-400">Meta-Transactions</Badge>
                   <Badge variant="outline" className="border-green-500/50 text-green-400">EIP-2771</Badge>
