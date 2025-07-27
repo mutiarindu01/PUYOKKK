@@ -4,10 +4,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { 
   CheckCircle, 
   XCircle, 
-  TrendingUp, 
   Users, 
   Shield, 
-  Zap, 
   DollarSign,
   Clock,
   Star,
