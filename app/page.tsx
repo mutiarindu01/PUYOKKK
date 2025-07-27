@@ -1730,9 +1730,7 @@ export default function LandingPage() {
         `}</style>
       </motion.section>
 
-      {/* Enhanced: Kenapa PUYOK Berbeda Section */}
-      <motion.section
-        id="why-different"
+
 
       <div />
 
