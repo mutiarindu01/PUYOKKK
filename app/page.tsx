@@ -1852,78 +1852,7 @@ export default function LandingPage() {
           <div />
 
           <div />
-          {/* Case Study Section */}
-          <motion.div
-            className="mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <Card className="max-w-5xl mx-auto bg-gradient-to-r from-purple-950/30 to-blue-950/30 border border-purple-500/20 p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-4">📊 Case Study: Digital Art Gallery</h3>
-                <p className="text-gray-300">Transformasi nyata sebuah galeri digital setelah beralih ke PUYOK</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6">
-                  <h4 className="text-lg font-bold text-red-400 mb-4 flex items-center gap-2">
-                    <span className="text-2xl">❌</span>
-                    Sebelum PUYOK
-                  </h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Fee Bulanan:</span>
-                      <span className="text-red-400 font-bold">Rp 45M (15%)</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Waktu Verifikasi:</span>
-                      <span className="text-red-400 font-bold">2 minggu</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Support:</span>
-                      <span className="text-red-400 font-bold">Bahasa Inggris</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Pembayaran:</span>
-                      <span className="text-red-400 font-bold">Crypto saja</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-6">
-                  <h4 className="text-lg font-bold text-green-400 mb-4 flex items-center gap-2">
-                    <span className="text-2xl">✅</span>
-                    Setelah PUYOK
-                  </h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Fee Bulanan:</span>
-                      <span className="text-green-400 font-bold">Rp 9M (3%)</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Waktu Verifikasi:</span>
-                      <span className="text-green-400 font-bold">5 menit</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Support:</span>
-                      <span className="text-green-400 font-bold">Indonesia 24/7</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Pembayaran:</span>
-                      <span className="text-green-400 font-bold">DANA, GoPay, OVO</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="text-center mt-8 p-6 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
-                <div className="text-3xl font-bold text-green-400 mb-2">Total Penghematan: Rp 36M/bulan</div>
-                <div className="text-green-300">ROI: 400% dalam 6 bulan pertama</div>
-              </div>
-            </Card>
-          </motion.div>
-
+          <div />
           {/* Expert Endorsement */}
           <motion.div
             className="mb-16"
