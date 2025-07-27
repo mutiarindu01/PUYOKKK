@@ -63,6 +63,7 @@ import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
 import ProfileCard from "@/components/ProfileCard"
 import ScrollFloat from "@/components/ScrollFloat"
 import CompactStats from "@/components/CompactStats"
+import ModernCompetitorComparison from "@/components/ModernCompetitorComparison"
 import { motion } from "framer-motion"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
@@ -3102,7 +3103,7 @@ export default function LandingPage() {
                 </p>
                 <div className="flex items-center gap-2">
                   <div className="bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1 text-xs text-orange-400 font-medium">
-                    🏆 Eksklusif
+                    ��� Eksklusif
                   </div>
                   <div className="bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1 text-xs text-orange-400 font-medium">
                     🎁 Gratis
