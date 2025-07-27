@@ -311,25 +311,31 @@ export default function LandingPage() {
 
   // Slider functions
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % legendaryAwards.length)
-    if (scrollRef.current) {
-      const cardWidth = 320 // 300px width + 20px gap
-      scrollRef.current.scrollTo({
-        left: ((currentSlide + 1) % legendaryAwards.length) * cardWidth,
-        behavior: 'smooth'
-      })
-    }
+    setCurrentSlide((prev) => {
+      const newSlide = (prev + 1) % legendaryAwards.length
+      if (scrollRef.current) {
+        const cardWidth = 320 // 300px width + 20px gap
+        scrollRef.current.scrollTo({
+          left: newSlide * cardWidth,
+          behavior: 'smooth'
+        })
+      }
+      return newSlide
+    })
   }
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + legendaryAwards.length) % legendaryAwards.length)
-    if (scrollRef.current) {
-      const cardWidth = 320
-      scrollRef.current.scrollTo({
-        left: ((currentSlide - 1 + legendaryAwards.length) % legendaryAwards.length) * cardWidth,
-        behavior: 'smooth'
-      })
-    }
+    setCurrentSlide((prev) => {
+      const newSlide = (prev - 1 + legendaryAwards.length) % legendaryAwards.length
+      if (scrollRef.current) {
+        const cardWidth = 320
+        scrollRef.current.scrollTo({
+          left: newSlide * cardWidth,
+          behavior: 'smooth'
+        })
+      }
+      return newSlide
+    })
   }
 
   // Auto slide effect
