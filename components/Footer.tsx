@@ -145,22 +145,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-900 text-gray-100 relative">
-      {/* Performance Stats Bar */}
-      <div className="bg-emerald-600/10 border-b border-emerald-500/20">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <div className="text-emerald-400">{stat.icon}</div>
-                  <div className="text-lg font-bold text-white">{stat.value}</div>
-                </div>
-                <div className="text-xs text-gray-300">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 py-16">
