@@ -1128,7 +1128,7 @@ export default function LandingPage() {
                             <span className="text-slate-400 text-xs">97.2% sukses</span>
                             <span className="text-gray-400 text-xs">• 89 trades</span>
                             <div className="flex text-slate-400 text-xs">
-                              ⭐⭐⭐⭐⭐
+                              ⭐⭐���⭐⭐
                             </div>
                           </div>
                         </div>
@@ -1739,37 +1739,24 @@ export default function LandingPage() {
         transition={{ duration: 0.6 }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-3 bg-orange-500/10 border border-orange-500/20 rounded-full px-6 py-3 mb-6">
-              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">⚡</span>
-              </div>
-              <span className="text-orange-500 font-semibold">PERBANDINGAN KOMPETITOR</span>
+          <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <div className="inline-flex items-center gap-2 bg-slate-800/30 border border-slate-600/30 rounded-full px-6 py-2 mb-6">
+              <Globe className="w-4 h-4 text-slate-400" />
+              <span className="text-slate-400 font-medium">Platform Comparison</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Jual NFT, Dapat Rupiah Instan!
-            </h2>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto font-normal leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Tidak perlu ribet crypto - Tarik langsung ke DANA/GoPay dalam hitungan menit
-            </p>
 
-            {/* Unique Badge */}
-            <motion.div
-              className="mt-8 flex justify-center"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/40 rounded-full px-8 py-4">
-                <span className="text-3xl">💰</span>
-                <div className="text-center">
-                  <div className="text-yellow-400 font-bold text-lg">Satu-satunya di Indonesia</div>
-                  <div className="text-yellow-300 text-sm">NFT → Rupiah Instan</div>
-                </div>
-                <span className="text-3xl">⚡</span>
-              </div>
-            </motion.div>
-          </div>
+            <h2 className="text-5xl font-bold text-white mb-6">
+              Mengapa PUYOK
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-slate-500">
+                {" "}Berbeda?
+              </span>
+            </h2>
+
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Perbandingan jujur antara PUYOK dengan platform global lainnya.
+              Lihat sendiri mengapa ribuan pengguna beralih ke PUYOK.
+            </p>
+          </motion.div>
 
           {/* Process Flow Comparison */}
           <motion.div
