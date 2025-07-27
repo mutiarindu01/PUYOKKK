@@ -338,13 +338,23 @@ export default function LandingPage() {
     })
   }
 
-  // Auto slide effect
+  // Auto slide effect with infinite loop
   useEffect(() => {
     const interval = setInterval(() => {
-      nextSlide()
+      setCurrentSlide((prev) => {
+        const newSlide = (prev + 1) % featuredNFTs.length
+        if (scrollRef.current) {
+          const cardWidth = 320
+          scrollRef.current.scrollTo({
+            left: newSlide * cardWidth,
+            behavior: 'smooth'
+          })
+        }
+        return newSlide
+      })
     }, 5000) // Change slide every 5 seconds
     return () => clearInterval(interval)
-  }, []) // Remove currentSlide dependency to prevent infinite loop
+  }, [])
 
   // Simulate initial loading
   useEffect(() => {
