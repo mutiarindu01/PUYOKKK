@@ -1853,60 +1853,7 @@ export default function LandingPage() {
 
           <div />
           <div />
-          {/* 5-Minute Liquidation Guarantee */}
-          <motion.div
-            className="mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-          >
-            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 p-8">
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-4xl">⚡</span>
-                </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Garansi Pencairan 5 Menit</h3>
-                <p className="text-lg text-gray-300 mb-6">
-                  Jika pencairan Anda melebihi 5 menit, kami berikan kompensasi 2x lipat nilai transaksi!
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-4">
-                    <div className="text-orange-400 font-bold mb-2 text-lg">Jaminan Kecepatan:</div>
-                    <div className="text-sm text-orange-300 space-y-2">
-                      <div className="flex justify-between">
-                        <span>⚡ Verifikasi:</span>
-                        <span className="font-bold">≤ 2 menit</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>💰 Pencairan:</span>
-                        <span className="font-bold">≤ 3 menit</span>
-                      </div>
-                      <div className="flex justify-between border-t border-orange-500/20 pt-2">
-                        <span>🎯 Total:</span>
-                        <span className="font-bold text-lg">≤ 5 menit</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
-                    <div className="text-green-400 font-bold mb-2 text-lg">Jika Terlambat:</div>
-                    <div className="text-sm text-green-300 space-y-2">
-                      <div>🎁 Kompensasi 2x nilai transaksi</div>
-                      <div>📞 Priority support 24/7</div>
-                      <div>🔄 Proses ulang gratis</div>
-                      <div>✅ Tanpa pertanyaan tambahan</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/40 rounded-lg p-6">
-                  <div className="text-2xl font-bold text-yellow-400 mb-2">99.7% Success Rate</div>
-                  <div className="text-yellow-300">Dari 10,847 transaksi bulan ini, hanya 0.3% yang melebihi 5 menit</div>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
+          <div />
 
 
         </div>
