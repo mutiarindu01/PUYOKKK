@@ -397,21 +397,38 @@ export default function LandingPage() {
     })
   }
 
-  // Auto slide effect - stops at last viewable NFT
+  // Responsive screen size detection
+  useEffect(() => {
+    const updateVisibleNFTs = () => {
+      const width = window.innerWidth
+      if (width < 640) {
+        setVisibleNFTs(1) // Mobile: 1 NFT
+      } else if (width < 1024) {
+        setVisibleNFTs(2) // Tablet: 2 NFTs
+      } else {
+        setVisibleNFTs(3) // Desktop: 3 NFTs
+      }
+    }
+
+    updateVisibleNFTs()
+    window.addEventListener('resize', updateVisibleNFTs)
+    return () => window.removeEventListener('resize', updateVisibleNFTs)
+  }, [])
+
+  // Auto slide effect - loops back to beginning after reaching end
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => {
-        // Calculate max slide position (show 3 NFTs at once on desktop)
-        const maxSlide = Math.max(0, featuredNFTs.length - 3)
+        const maxSlide = Math.max(0, featuredNFTs.length - visibleNFTs)
         if (prev >= maxSlide) {
-          // Stop at the last position, don't continue
-          return prev
+          // Return to first slide when reaching the end
+          return 0
         }
         return prev + 1
       })
     }, 5000) // Change slide every 5 seconds
     return () => clearInterval(interval)
-  }, [])
+  }, [visibleNFTs])
 
   // Simulate initial loading
   useEffect(() => {
