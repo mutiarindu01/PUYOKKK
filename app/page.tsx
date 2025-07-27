@@ -396,19 +396,17 @@ export default function LandingPage() {
     })
   }
 
-  // Auto slide effect with infinite loop
+  // Auto slide effect - stops at last viewable NFT
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => {
-        const newSlide = (prev + 1) % featuredNFTs.length
-        if (scrollRef.current) {
-          const cardWidth = 320
-          scrollRef.current.scrollTo({
-            left: newSlide * cardWidth,
-            behavior: 'smooth'
-          })
+        // Calculate max slide position (show 3 NFTs at once on desktop)
+        const maxSlide = Math.max(0, featuredNFTs.length - 3)
+        if (prev >= maxSlide) {
+          // Stop at the last position, don't continue
+          return prev
         }
-        return newSlide
+        return prev + 1
       })
     }, 5000) // Change slide every 5 seconds
     return () => clearInterval(interval)
@@ -1009,7 +1007,7 @@ export default function LandingPage() {
                       {/* Enhanced Bitcoin Logo */}
                       <div className="relative">
                         <div className="w-12 h-12 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg">
-                          ₿
+                          ��
                         </div>
                         <div className="absolute -top-1 -right-1 w-4 h-4 bg-slate-500 rounded-full border-2 border-background flex items-center justify-center">
                           <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
