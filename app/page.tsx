@@ -1389,18 +1389,16 @@ export default function LandingPage() {
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => setCurrentSlide(prev => Math.max(0, prev - 1))}
-              disabled={currentSlide === 0}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              onClick={() => setCurrentSlide(prev => (prev - 1 + featuredNFTs.length) % featuredNFTs.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full transition-all"
             >
               <ChevronLeft className="w-6 h-6" />
             </Button>
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => setCurrentSlide(prev => Math.min(featuredNFTs.length - 3, prev + 1))}
-              disabled={currentSlide >= featuredNFTs.length - 3}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              onClick={() => setCurrentSlide(prev => (prev + 1) % featuredNFTs.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full transition-all"
             >
               <ChevronRight className="w-6 h-6" />
             </Button>
