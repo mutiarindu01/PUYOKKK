@@ -946,7 +946,7 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">BTC</p>
                       </div>
                     </div>
-                    <Badge className="bg-slate-700 text-white font-bold">�� #1 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">���� #1 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
@@ -1763,6 +1763,60 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
+          {/* Simple comparison cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <motion.div
+              className="bg-gradient-to-br from-slate-800/30 to-gray-800/30 backdrop-blur-lg rounded-2xl border border-slate-600/30 p-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <div className="text-center">
+                <DollarSign className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-white mb-2">Biaya Transaksi</h3>
+                <div className="text-slate-300 text-3xl font-bold mb-2">2-3%</div>
+                <p className="text-gray-400 text-sm">vs 10-15% platform lain</p>
+                <div className="mt-4 bg-slate-700/50 text-slate-300 text-xs font-bold px-3 py-1 rounded-full inline-block">
+                  Hemat 80%
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="bg-gradient-to-br from-slate-800/30 to-gray-800/30 backdrop-blur-lg rounded-2xl border border-slate-600/30 p-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="text-center">
+                <Clock className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-white mb-2">Waktu Pendaftaran</h3>
+                <div className="text-slate-300 text-3xl font-bold mb-2">2 menit</div>
+                <p className="text-gray-400 text-sm">vs 3-7 hari platform lain</p>
+                <div className="mt-4 bg-slate-700/50 text-slate-300 text-xs font-bold px-3 py-1 rounded-full inline-block">
+                  98% lebih cepat
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="bg-gradient-to-br from-slate-800/30 to-gray-800/30 backdrop-blur-lg rounded-2xl border border-slate-600/30 p-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="text-center">
+                <Shield className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-white mb-2">Pembayaran</h3>
+                <div className="text-slate-300 text-lg font-bold mb-2">DANA, GoPay, OVO</div>
+                <p className="text-gray-400 text-sm">vs Kripto saja</p>
+                <div className="mt-4 bg-slate-700/50 text-slate-300 text-xs font-bold px-3 py-1 rounded-full inline-block">
+                  0% friction
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
           {/* Process Flow Comparison */}
           <motion.div
             className="mb-16"
@@ -2001,7 +2055,7 @@ export default function LandingPage() {
                       <span className="text-white font-semibold">@rizki_trader</span>
                       <span className="text-green-400 text-sm">• berhasil cairkan</span>
                     </div>
-                    <div className="text-gray-300 text-sm">Wayang Collection #45 → OVO</div>
+                    <div className="text-gray-300 text-sm">Wayang Collection #45 �� OVO</div>
                   </div>
                   <div className="text-right">
                     <div className="text-green-400 font-bold">Rp 675,000</div>
