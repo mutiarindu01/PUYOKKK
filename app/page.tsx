@@ -1495,7 +1495,10 @@ export default function LandingPage() {
                 {featuredNFTs.map((nft, index) => (
                   <motion.div
                     key={nft.id}
-                    className="min-w-[320px] md:min-w-[350px] group"
+                    className="min-w-[320px] sm:min-w-[350px] md:min-w-[350px] lg:min-w-[350px] group"
+                    style={{
+                      width: visibleNFTs === 1 ? '320px' : visibleNFTs === 2 ? '350px' : '350px'
+                    }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
