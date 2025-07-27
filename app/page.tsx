@@ -63,7 +63,6 @@ import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
 import ProfileCard from "@/components/ProfileCard"
 import ScrollFloat from "@/components/ScrollFloat"
 import CompactStats from "@/components/CompactStats"
-import ModernCompetitorComparison from "@/components/ModernCompetitorComparison"
 import { motion } from "framer-motion"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
