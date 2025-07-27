@@ -1659,7 +1659,7 @@ export default function LandingPage() {
 
             {/* Slide Indicators */}
             <div className="flex justify-center gap-2 mt-8">
-              {Array.from({ length: Math.max(1, featuredNFTs.length - 2) }).map((_, index) => (
+              {Array.from({ length: Math.max(1, featuredNFTs.length - visibleNFTs + 1) }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
