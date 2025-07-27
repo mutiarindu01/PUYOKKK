@@ -338,7 +338,7 @@ export default function LandingPage() {
       nextSlide()
     }, 5000) // Change slide every 5 seconds
     return () => clearInterval(interval)
-  }, [currentSlide])
+  }, []) // Remove currentSlide dependency to prevent infinite loop
 
   // Simulate initial loading
   useEffect(() => {
