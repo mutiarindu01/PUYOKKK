@@ -2219,51 +2219,7 @@ export default function LandingPage() {
             </Card>
           </motion.div>
 
-          {/* Fee Comparison Progress Bars */}
-          <motion.div
-            className="mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-red-950/30 to-green-950/30 border border-gray-700/50 p-8">
-              <h3 className="text-2xl font-bold text-white mb-8 text-center">Visualisasi Perbandingan Fee</h3>
-              <div className="space-y-6">
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-red-400 font-semibold">Platform Global</span>
-                    <span className="text-red-400 font-bold">15%</span>
-                  </div>
-                  <div className="w-full bg-gray-800 rounded-full h-4 overflow-hidden">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-red-500 to-red-600"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: '100%' }}
-                      transition={{ duration: 1.5, delay: 0.5 }}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-green-400 font-semibold">PUYOK</span>
-                    <span className="text-green-400 font-bold">3%</span>
-                  </div>
-                  <div className="w-full bg-gray-800 rounded-full h-4 overflow-hidden">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-green-500 to-green-600"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: '20%' }}
-                      transition={{ duration: 1.5, delay: 0.7 }}
-                    />
-                  </div>
-                </div>
-                <div className="text-center mt-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
-                  <div className="text-green-400 text-lg font-bold">Penghematan: 80% 🎉</div>
-                  <div className="text-green-300 text-sm">Dari transaksi Rp 10 juta, Anda hemat Rp 1.2 juta!</div>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
+
 
           {/* Enhanced Comparison Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
