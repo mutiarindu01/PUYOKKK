@@ -1128,7 +1128,7 @@ export default function LandingPage() {
                             <span className="text-slate-400 text-xs">97.2% sukses</span>
                             <span className="text-gray-400 text-xs">• 89 trades</span>
                             <div className="flex text-slate-400 text-xs">
-                              ⭐⭐���⭐⭐
+                              ⭐⭐⭐⭐⭐
                             </div>
                           </div>
                         </div>
@@ -1733,12 +1733,17 @@ export default function LandingPage() {
       {/* Enhanced: Kenapa PUYOK Berbeda Section */}
       <motion.section
         id="why-different"
-        className="py-32 bg-gradient-to-br from-red-950/20 via-card/30 to-green-950/20"
+        className="py-20 bg-gradient-to-br from-slate-900/20 via-background to-gray-900/20 relative overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-slate-600/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gray-600/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
           <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <div className="inline-flex items-center gap-2 bg-slate-800/30 border border-slate-600/30 rounded-full px-6 py-2 mb-6">
               <Globe className="w-4 h-4 text-slate-400" />
