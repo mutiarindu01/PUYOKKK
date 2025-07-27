@@ -1862,39 +1862,6 @@ export default function LandingPage() {
       <div />
 
       <div />
-      {/* Simple CTA Section */}
-      <motion.section
-        className="py-20 bg-gradient-to-r from-primary/10 to-purple-600/10"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-4xl mx-auto px-6 md:px-10 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Siap Mulai Trading?
-          </h2>
-          <p className="text-lg text-gray-300 mb-10 leading-relaxed font-normal" style={{ fontFamily: 'Inter, sans-serif' }}>
-            Bergabunglah dengan ribuan trader yang sudah mempercayai PUYOK untuk transaksi aset digital mereka.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg" asChild>
-              <Link href="/marketplace">
-                🛒 Mulai Beli Aset
-              </Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-4 text-lg"
-              asChild
-            >
-              <Link href="/create-listing">
-                💰 Jual Aset Anda
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </motion.section>
 
       <Footer />
 
