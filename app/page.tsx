@@ -1488,7 +1488,7 @@ export default function LandingPage() {
               <div
                 className="flex gap-6 transition-transform duration-500 ease-out min-w-max md:min-w-0"
                 style={{
-                  transform: `translateX(-${currentSlide * 350}px)`,
+                  transform: `translateX(-${currentSlide * (visibleNFTs === 1 ? 350 : visibleNFTs === 2 ? 350 : 350)}px)`,
                 }}
               >
                 {/* Enhanced NFT Cards */}
