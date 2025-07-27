@@ -1831,56 +1831,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-blue-950/30 to-purple-950/30 border border-blue-500/20 p-8">
-              <h3 className="text-2xl font-bold text-white mb-8 text-center">Kalkulator Perbandingan Waktu</h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Competitor Time */}
-                <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6">
-                  <h4 className="text-lg font-bold text-red-400 mb-4 text-center">Platform Kompetitor</h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center p-3 bg-red-500/5 rounded-lg">
-                      <span className="text-white">Verifikasi:</span>
-                      <span className="text-red-400 font-bold">2 hari</span>
-                    </div>
-                    <div className="flex justify-between items-center p-3 bg-red-500/5 rounded-lg">
-                      <span className="text-white">Pencairan:</span>
-                      <span className="text-red-400 font-bold">3-7 hari</span>
-                    </div>
-                    <div className="flex justify-between items-center p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                      <span className="text-white font-bold">Total:</span>
-                      <span className="text-red-400 font-bold text-xl">5-9 hari</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* PUYOK Time */}
-                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-6">
-                  <h4 className="text-lg font-bold text-green-400 mb-4 text-center">PUYOK</h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center p-3 bg-green-500/5 rounded-lg">
-                      <span className="text-white">Verifikasi:</span>
-                      <span className="text-green-400 font-bold">2 menit</span>
-                    </div>
-                    <div className="flex justify-between items-center p-3 bg-green-500/5 rounded-lg">
-                      <span className="text-white">Pencairan:</span>
-                      <span className="text-green-400 font-bold">3 menit</span>
-                    </div>
-                    <div className="flex justify-between items-center p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
-                      <span className="text-white font-bold">Total:</span>
-                      <span className="text-green-400 font-bold text-xl">5 menit</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 text-center p-6 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
-                <div className="text-3xl font-bold text-green-400 mb-2">Hemat 99% Waktu Anda!</div>
-                <div className="text-green-300">1,440 menit vs 5 menit - Selisih 1,435 menit lebih cepat!</div>
-              </div>
-            </Card>
-          </motion.div>
+          />
 
           {/* Live Withdrawal Tracker */}
           <motion.div
