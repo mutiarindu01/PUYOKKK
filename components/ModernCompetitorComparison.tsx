@@ -249,7 +249,6 @@ const SavingsCalculator = () => {
       <div className="mb-8">
         <label className="block text-white font-medium mb-3">Nilai Transaksi NFT</label>
         <div className="relative">
-          <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">Rp</span>
           <input
             type="range"
             min="1000000"
@@ -349,7 +348,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: any, index: numb
         </div>
         
         <blockquote className="text-gray-300 mb-4 italic">
-          "{testimonial.text}"
+          &quot;{testimonial.text}&quot;
         </blockquote>
         
         <div className="bg-[#10B981]/10 rounded-lg p-3 border border-[#10B981]/20">
@@ -513,7 +512,6 @@ const ModernCompetitorComparison = () => {
         </div>
       </div>
 
-      {/* Custom styles */}
       <style jsx>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
