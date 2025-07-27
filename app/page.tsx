@@ -1839,88 +1839,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <Card className="max-w-5xl mx-auto bg-gradient-to-r from-green-950/30 to-blue-950/30 border border-green-500/20 p-8">
-              <h3 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-3">
-                <span className="text-2xl">🔴</span>
-                Live Feed: Pencairan Real-time
-                <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-green-400 border-green-500/20 animate-pulse">LIVE</div>
-              </h3>
-
-              <div className="space-y-4">
-                <motion.div
-                  className="flex items-center gap-4 p-4 bg-green-500/5 border border-green-500/10 rounded-lg"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                >
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white font-bold">
-                    S
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-white font-semibold">@sarah_art</span>
-                      <span className="text-green-400 text-sm">• berhasil cairkan</span>
-                    </div>
-                    <div className="text-gray-300 text-sm">Batik Digital #123 → GoPay</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-green-400 font-bold">Rp 850,000</div>
-                    <div className="text-green-300 text-sm">2 menit lalu</div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="flex items-center gap-4 p-4 bg-green-500/5 border border-green-500/10 rounded-lg"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
-                    D
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-white font-semibold">@digital_creator</span>
-                      <span className="text-green-400 text-sm">• berhasil cairkan</span>
-                    </div>
-                    <div className="text-gray-300 text-sm">Garuda Shield NFT → DANA</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-green-400 font-bold">Rp 1,200,000</div>
-                    <div className="text-green-300 text-sm">5 menit lalu</div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="flex items-center gap-4 p-4 bg-green-500/5 border border-green-500/10 rounded-lg"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-400 rounded-full flex items-center justify-center text-white font-bold">
-                    R
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-white font-semibold">@rizki_trader</span>
-                      <span className="text-green-400 text-sm">• berhasil cairkan</span>
-                    </div>
-                    <div className="text-gray-300 text-sm">Wayang Collection #45 �� OVO</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-green-400 font-bold">Rp 675,000</div>
-                    <div className="text-green-300 text-sm">8 menit lalu</div>
-                  </div>
-                </motion.div>
-              </div>
-
-              <div className="mt-6 text-center p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
-                <div className="text-green-400 font-bold mb-1">Total hari ini: Rp 45,8M dicairkan</div>
-                <div className="text-green-300 text-sm">Rata-rata waktu pencairan: 3 menit 24 detik</div>
-              </div>
-            </Card>
-          </motion.div>
+          />
 
           {/* Interactive Fee Calculator */}
           <motion.div
@@ -2746,7 +2665,7 @@ export default function LandingPage() {
 
               <div className="text-center p-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 rounded-lg">
                 <div className="text-green-400 font-bold mb-1">✨ Keunggulan Pembayaran PUYOK</div>
-                <div className="text-sm text-green-300">Transfer instan • Tanpa biaya tambahan • Support 24/7</div>
+                <div className="text-sm text-green-300">Transfer instan • Tanpa biaya tambahan �� Support 24/7</div>
               </div>
             </Card>
           </motion.div>
