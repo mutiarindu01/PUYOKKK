@@ -91,7 +91,7 @@ export default function LandingPage() {
     creators: "2,350"
   })
 
-  // Featured NFTs Data
+  // Featured NFTs Data - Extended for better infinite scroll
   const featuredNFTs = [
     {
       id: 1,
@@ -136,6 +136,28 @@ export default function LandingPage() {
       verified: true,
       likes: 267,
       offers: 15
+    },
+    {
+      id: 5,
+      title: "Divine Phoenix Crown",
+      collection: "Legendary Collection",
+      price: "Rp 78.000.000",
+      image: "/placeholder.svg",
+      creator: "PhoenixArt",
+      verified: true,
+      likes: 445,
+      offers: 22
+    },
+    {
+      id: 6,
+      title: "Sacred Temple Guardian",
+      collection: "Ancient Spirits",
+      price: "Rp 39.500.000",
+      image: "/placeholder.svg",
+      creator: "TempleKeeper",
+      verified: true,
+      likes: 189,
+      offers: 11
     }
   ]
 
