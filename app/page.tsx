@@ -1853,36 +1853,6 @@ export default function LandingPage() {
 
           <div />
           <div />
-          {/* Expert Endorsement */}
-          <motion.div
-            className="mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-          >
-            <Card className="max-w-4xl mx-auto bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 p-8">
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-2xl shrink-0">
-                  AW
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <blockquote className="text-white font-medium text-lg mb-4 italic">
-                    "PUYOK mengubah permainan NFT Indonesia dengan model fee revolusioner dan infrastruktur yang benar-benar memahami ekosistem lokal."
-                  </blockquote>
-                  <div>
-                    <div className="text-white font-bold text-lg">Dr. Andi Wijaya</div>
-                    <div className="text-purple-400 font-medium">Blockchain Expert - Universitas Indonesia</div>
-                    <div className="text-gray-400 text-sm">Penulis "Masa Depan Digital Indonesia"</div>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-purple-400 text-2xl mb-2">🏆</div>
-                  <div className="text-purple-300 text-sm font-medium">Expert<br/>Verified</div>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-
           {/* 5-Minute Liquidation Guarantee */}
           <motion.div
             className="mb-16"
