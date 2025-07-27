@@ -78,6 +78,7 @@ export default function LandingPage() {
   const [showScrollToTop, setShowScrollToTop] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [transactionValue, setTransactionValue] = useState(10000000)
+  const [visibleNFTs, setVisibleNFTs] = useState(3) // Default to desktop
   const lastScrollY = useRef(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
