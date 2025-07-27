@@ -136,12 +136,7 @@ export default function Footer() {
     { name: "KYC Verified", icon: <CheckCircle className="w-4 h-4" /> }
   ]
 
-  const stats = [
-    { label: "Pengguna Aktif", value: "50,000+", icon: <Users className="w-5 h-5" /> },
-    { label: "Transaksi Berhasil", value: "Rp 25.8M+", icon: <TrendingUp className="w-5 h-5" /> },
-    { label: "Uptime", value: "99.9%", icon: <Clock className="w-5 h-5" /> },
-    { label: "Rating Pengguna", value: "4.9/5", icon: <Star className="w-5 h-5" /> }
-  ]
+
 
   return (
     <footer className="bg-gray-900 text-gray-100 relative">
