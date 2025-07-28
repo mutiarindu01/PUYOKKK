@@ -49,11 +49,16 @@
   }
 
   .pc-card-wrapper .pc-avatar-content .avatar {
-    top: 75px !important;
-    width: 100% !important;
-    left: 52% !important;
-    height: 67% !important;
-    transform: translateX(-50%) !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 85% !important;
+    height: auto !important;
+    transform: translate(-50%, -50%) !important;
+    object-fit: contain !important;
+  }
+
+  .pc-card-wrapper .pc-avatar-content {
+    padding: 40px 15px 100px 15px !important;
   }
 
   .pc-card-wrapper .pc-user-info {
@@ -64,22 +69,31 @@
   }
 
   .pc-card-wrapper .pc-details {
-    top: 4px !important;
-    padding: 0 12px !important;
-    max-height: 100px;
+    top: 8px !important;
+    padding: 8px 12px !important;
+    max-height: 120px;
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(8px) !important;
+    border-radius: 12px !important;
+    margin: 0 8px !important;
   }
 
   .pc-card-wrapper .pc-details h3 {
     font-size: clamp(13px, 3.5vw, 18px) !important;
-    line-height: 1.1 !important;
-    margin-bottom: 4px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 6px !important;
+    white-space: normal !important;
+    overflow: visible !important;
   }
 
   .pc-card-wrapper .pc-details p {
-    font-size: clamp(10px, 2.2vw, 12px) !important;
-    line-height: 1.2 !important;
-    top: -4px !important;
-    color: rgba(226, 232, 240, 0.9) !important;
+    font-size: clamp(10px, 2.5vw, 13px) !important;
+    line-height: 1.25 !important;
+    top: -2px !important;
+    color: rgba(226, 232, 240, 0.95) !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    font-weight: 600 !important;
   }
 
   .pc-user-details {
