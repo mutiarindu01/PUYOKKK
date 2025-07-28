@@ -58,7 +58,7 @@
   }
 
   .pc-card-wrapper .pc-avatar-content {
-    padding: 40px 0px 100px 0px !important;
+    padding: 40px 0px 120px 0px !important;
   }
 
   .pc-card-wrapper .pc-user-info {
@@ -532,6 +532,9 @@
   .pc-card {
     height: 60svh;
     max-height: 380px;
+  }
+  .pc-avatar-content {
+    padding: 50px 0px 140px 0px !important;
   }
   .pc-details {
     top: 6px !important;
