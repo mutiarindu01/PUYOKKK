@@ -592,16 +592,15 @@
   .pc-details {
     max-height: 100px;
     padding: 5px 8px;
-    background: rgba(0, 0, 0, 0.4) !important;
-    backdrop-filter: blur(12px) !important;
-    border-radius: 8px !important;
-    margin: 0 4px !important;
   }
   .pc-details h3 {
-    font-size: clamp(11px, 3vw, 15px);
+    font-size: 15px !important;
     line-height: 1.1;
     white-space: normal !important;
     overflow: visible !important;
+  }
+  .legendary-card .pc-details h3 {
+    font-size: 15px !important;
   }
   .pc-details p {
     font-size: clamp(8px, 2.2vw, 11px);
