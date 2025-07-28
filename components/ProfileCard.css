@@ -35,6 +35,15 @@
   touch-action: none;
 }
 
+@media (max-width: 640px) {
+  .pc-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
 .pc-card-wrapper::before {
   content: '';
   position: absolute;
