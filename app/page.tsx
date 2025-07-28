@@ -1085,7 +1085,7 @@ export default function LandingPage() {
                           </div>
                         </div>
                       </div>
-                      <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">Verified Pro</Badge>
+                      <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">Verified</Badge>
                     </div>
                   </div>
 
