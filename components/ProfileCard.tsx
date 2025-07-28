@@ -350,7 +350,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     truncateText(name, maxLengths.name), [name, maxLengths.name]);
 
   const truncatedTitle = useMemo(() =>
-    truncateText(title, maxLengths.title, true), [title, maxLengths.title]);
+    truncateText(title, maxLengths.title, preserveImportantText), [title, maxLengths.title, preserveImportantText]);
 
   const truncatedHandle = useMemo(() =>
     truncateText(handle, maxLengths.handle), [handle, maxLengths.handle]);
