@@ -15,16 +15,16 @@
 }
 
 .legendary-card .pc-details h3 {
-  font-size: clamp(14px, min(4vh, 4vw), 1.6em) !important;
+  font-size: 19px !important;
   background-image: linear-gradient(to bottom, #ffd700, #ff6b35) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
+  white-space: normal;
   max-width: 100%;
   line-height: 1.2;
+  word-wrap: break-word;
 }
 
 .legendary-card .pc-details p {
