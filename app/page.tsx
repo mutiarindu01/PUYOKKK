@@ -945,6 +945,12 @@ export default function LandingPage() {
       {/* Gasless Section */}
       <GaslessSection />
 
+      {/* Value Proposition Section */}
+      <ValuePropositionSection />
+
+      {/* Legend Section */}
+      <LegendSection />
+
       {/* Enhanced Trending Tokens Section */}
       <motion.section
         className="py-20 bg-gradient-to-br from-slate-900/20 via-background to-gray-900/20 relative overflow-hidden"
