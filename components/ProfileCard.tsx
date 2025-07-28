@@ -388,8 +388,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
           </div>
           <div className="pc-content">
             <div className="pc-details">
-              <h3>{name}</h3>
-              <p>{title}</p>
+              <h3>{truncatedName}</h3>
+              <p>{truncatedTitle}</p>
             </div>
           </div>
         </div>
