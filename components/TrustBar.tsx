@@ -68,16 +68,7 @@ const TrustBar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <motion.div 
-            className="text-white font-bold text-lg"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            🔐 Platform Terpercaya oleh 15.000+ Pengguna
-          </motion.div>
-          
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-6 mx-auto">
             {trustItems.map((item, index) => (
               <motion.div
                 key={index}
