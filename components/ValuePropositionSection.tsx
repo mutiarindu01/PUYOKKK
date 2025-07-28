@@ -242,14 +242,14 @@ const SavingsCalculator = () => {
             Di Platform Lain
           </h4>
           <div className="text-3xl font-bold text-red-400 mb-2">
-            Rp {(amount - othersFee - gasFee).toLocaleString('id-ID')}
+            {formatRupiah(amount - othersFee - gasFee)}
           </div>
           <div className="text-sm text-gray-400">
-            Termasuk biaya platform 10% + biaya gas Rp 250.000
+            Termasuk biaya platform 10% + biaya gas {formatRupiah(250000)}
           </div>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="bg-slate-800/30 p-6 rounded-xl border border-green-500/50"
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 300 }}
@@ -259,15 +259,15 @@ const SavingsCalculator = () => {
             Di PUYOK
           </h4>
           <div className="text-3xl font-bold text-green-500 mb-2">
-            Rp {(amount - puyokFee).toLocaleString('id-ID')}
+            {formatRupiah(amount - puyokFee)}
           </div>
           <div className="text-sm text-gray-400">
             Biaya platform 3% + biaya gas gratis
           </div>
         </motion.div>
       </div>
-      
-      <motion.div 
+
+      <motion.div
         className="mt-8 p-6 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/30 rounded-xl"
         initial={{ scale: 0.95 }}
         animate={{ scale: 1 }}
@@ -275,7 +275,7 @@ const SavingsCalculator = () => {
       >
         <div className="text-center">
           <div className="text-green-400 font-bold text-2xl mb-2">
-            🎉 Hemat Rp {savings.toLocaleString('id-ID')}!
+            🎉 Hemat {formatRupiah(savings)}!
           </div>
           <div className="text-gray-300 text-lg">
             Itu <span className="text-green-400 font-bold">{((savings / amount) * 100).toFixed(1)}%</span> lebih banyak di kantong Anda
