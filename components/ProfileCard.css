@@ -43,7 +43,7 @@
     align-items: center;
   }
 
-  .pc-avatar-content .avatar {
+  .pc-card-wrapper .pc-avatar-content .avatar {
     top: 56px !important;
     width: 100% !important;
     left: 52% !important;
@@ -51,25 +51,25 @@
     transform: translateX(-50%) !important;
   }
 
-  .pc-user-info {
+  .pc-card-wrapper .pc-user-info {
     bottom: 8px !important;
     left: 8px !important;
     right: 8px !important;
     padding: 6px 8px !important;
   }
 
-  .pc-details {
+  .pc-card-wrapper .pc-details {
     top: 4px !important;
     padding: 0 15px !important;
   }
 
-  .pc-details h3 {
+  .pc-card-wrapper .pc-details h3 {
     font-size: 15px !important;
     line-height: 20px !important;
     margin-bottom: 4px !important;
   }
 
-  .pc-details p {
+  .pc-card-wrapper .pc-details p {
     font-size: 12px !important;
     line-height: 17px !important;
     top: -4px !important;
