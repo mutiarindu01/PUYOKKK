@@ -419,7 +419,7 @@
 .pc-details h3 {
   font-weight: 600;
   margin: 0 0 8px 0;
-  font-size: clamp(14px, 4vw, 19px) !important;
+  font-size: clamp(14px, 4vw, 17px) !important;
   background-image: linear-gradient(to bottom, #FFD700, #FF6B35);
   background-size: 100% 100%;
   -webkit-text-fill-color: transparent;
