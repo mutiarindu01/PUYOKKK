@@ -66,6 +66,9 @@ import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
 import ProfileCard from "@/components/ProfileCard"
 import ScrollFloat from "@/components/ScrollFloat"
 import CompactStats from "@/components/CompactStats"
+import TrustBar from "@/components/TrustBar"
+import SafeTransactionSteps from "@/components/SafeTransactionSteps"
+import GaslessSection from "@/components/GaslessSection"
 import { motion } from "framer-motion"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
