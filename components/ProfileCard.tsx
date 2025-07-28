@@ -21,20 +21,34 @@ const clamp = (value: number, min = 0, max = 100) =>
 const round = (value: number, precision = 3) =>
   parseFloat(value.toFixed(precision));
 
-const truncateText = (text: string, maxLength: number) => {
+const truncateText = (text: string, maxLength: number, preserveImportant = false) => {
   if (text.length <= maxLength) return text;
+
+  // Special handling for price information
+  if (preserveImportant && text.includes('Rp ')) {
+    const priceMatch = text.match(/Rp\s?[\d.,]+/);
+    if (priceMatch) {
+      const price = priceMatch[0];
+      const beforePrice = text.substring(0, text.indexOf(price)).trim();
+      if (beforePrice.length + price.length + 3 <= maxLength) {
+        return beforePrice.substring(0, maxLength - price.length - 3) + "..." + price;
+      }
+      return price; // Show only price if no space
+    }
+  }
+
   return text.substring(0, maxLength - 3) + "...";
 };
 
 const getResponsiveMaxLength = () => {
-  if (typeof window === 'undefined') return { name: 20, title: 30, handle: 15 };
+  if (typeof window === 'undefined') return { name: 25, title: 40, handle: 18 };
 
   const width = window.innerWidth;
-  if (width <= 320) return { name: 12, title: 20, handle: 10 };
-  if (width <= 480) return { name: 15, title: 25, handle: 12 };
-  if (width <= 640) return { name: 18, title: 28, handle: 14 };
-  if (width <= 768) return { name: 20, title: 30, handle: 15 };
-  return { name: 25, title: 35, handle: 18 };
+  if (width <= 320) return { name: 18, title: 35, handle: 12 };
+  if (width <= 480) return { name: 22, title: 38, handle: 15 };
+  if (width <= 640) return { name: 25, title: 40, handle: 16 };
+  if (width <= 768) return { name: 28, title: 45, handle: 18 };
+  return { name: 35, title: 50, handle: 20 };
 };
 
 const adjust = (
