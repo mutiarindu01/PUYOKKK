@@ -52,6 +52,7 @@ interface ProfileCardProps {
   contactText?: string;
   showUserInfo?: boolean;
   onContactClick?: () => void;
+  index?: number;
 }
 
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
@@ -73,6 +74,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   contactText = "Contact",
   showUserInfo = true,
   onContactClick,
+  index = 0,
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLElement>(null);
@@ -315,13 +317,23 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               src={avatarUrl}
               alt={`${name || "User"} avatar`}
               loading="lazy"
+              style={index === 0 ? {
+                left: "160px",
+                width: "400px",
+                top: "70px"
+              } : {
+                left: "50%",
+                width: "100%",
+                top: "70px",
+                transform: "translateX(-50%)"
+              }}
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.style.display = "none";
               }}
             />
             {showUserInfo && (
-              <div className="pc-user-info">
+              <div className="pc-user-info" style={{ top: "4px" }}>
                 <div className="pc-user-details">
                   <div className="pc-mini-avatar">
                     <img
@@ -336,14 +348,21 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                     />
                   </div>
                   <div className="pc-user-text">
-                    <div className="pc-handle">@{handle}</div>
-                    <div className="pc-status">{status}</div>
+                    <div className="pc-handle" style={{ fontSize: "14px" }}>
+                      <p>@{handle}</p>
+                    </div>
+                    <div className="pc-status" style={{ fontSize: "12px" }}>{status}</div>
                   </div>
                 </div>
                 <button
                   className="pc-contact-btn"
                   onClick={handleContactClick}
-                  style={{ pointerEvents: "auto" }}
+                  style={{
+                    pointerEvents: "auto",
+                    fontSize: "10px",
+                    lineHeight: "15px",
+                    padding: "14px 6px"
+                  }}
                   type="button"
                   aria-label={`Contact ${name || "user"}`}
                 >
@@ -354,8 +373,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
           </div>
           <div className="pc-content">
             <div className="pc-details">
-              <h3>{name}</h3>
-              <p>{title}</p>
+              <h3 style={{ fontSize: "19.6px", lineHeight: "45.4px" }}>{name}</h3>
+              <p style={{ fontSize: "12px" }}>{title}</p>
             </div>
           </div>
         </div>

@@ -66,7 +66,13 @@ import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
 import ProfileCard from "@/components/ProfileCard"
 import ScrollFloat from "@/components/ScrollFloat"
 import CompactStats from "@/components/CompactStats"
+import TrustBar from "@/components/TrustBar"
+import SafeTransactionSteps from "@/components/SafeTransactionSteps"
+import GaslessSection from "@/components/GaslessSection"
+import ValuePropositionSection from "@/components/ValuePropositionSection"
+import LegendSection from "@/components/LegendSection"
 import { motion } from "framer-motion"
+import { formatRupiah, formatVolume, formatActivity, formatNumber } from "@/lib/formatters"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
 
@@ -78,6 +84,7 @@ export default function LandingPage() {
   const [showScrollToTop, setShowScrollToTop] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [transactionValue, setTransactionValue] = useState(10000000)
+  const [visibleNFTs, setVisibleNFTs] = useState(3) // Default to desktop
   const lastScrollY = useRef(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
@@ -86,56 +93,114 @@ export default function LandingPage() {
 
   // Live stats data
   const [liveStats, setLiveStats] = useState({
-    collections: "1,247",
-    partners: "89",
-    creators: "2,350"
+    collections: formatNumber(1247),
+    partners: formatNumber(89),
+    creators: formatNumber(2350)
   })
 
-  // Featured NFTs Data
+  // Featured NFTs Data - Extended for better infinite scroll
   const featuredNFTs = [
     {
       id: 1,
-      title: "Mystical Garuda Shield",
+      name: "Mystical Garuda Shield",
       collection: "Indonesian Mythology",
-      price: "Rp 45.000.000",
+      price: formatRupiah(45000000),
+      floorPrice: formatRupiah(42000000),
+      volume24h: formatVolume(165500000),
+      rarity: "Legendary",
       image: "/placeholder.svg",
-      creator: "MythArt_ID",
+      creator: "@MythArt_ID",
       verified: true,
       likes: 324,
-      offers: 12
+      views: formatActivity(1567),
+      properties: ["Fire Element", "Golden Shield", "Ancient Power"],
+      rarityColor: "from-red-500 to-orange-500",
+      bidCount: 12
     },
     {
       id: 2,
-      title: "Rare Batik Medallion",
+      name: "Rare Batik Medallion",
       collection: "Traditional Arts",
-      price: "Rp 25.800.000",
+      price: formatRupiah(25800000),
+      floorPrice: formatRupiah(23000000),
+      volume24h: formatVolume(89300000),
+      rarity: "Rare",
       image: "/placeholder.svg",
-      creator: "BatikMaster",
+      creator: "@BatikMaster",
       verified: true,
       likes: 198,
-      offers: 8
+      views: formatActivity(856),
+      properties: ["Traditional Pattern", "Java Style", "Hand Drawn"],
+      rarityColor: "from-orange-500 to-yellow-500",
+      bidCount: 8
     },
     {
       id: 3,
-      title: "Cyberpunk Jakarta",
+      name: "Cyberpunk Jakarta",
       collection: "Future Indonesia",
-      price: "Rp 18.500.000",
+      price: formatRupiah(18500000),
+      floorPrice: formatRupiah(16200000),
+      volume24h: formatVolume(67800000),
+      rarity: "Epic",
       image: "/placeholder.svg",
-      creator: "PixelIndo",
+      creator: "@PixelIndo",
       verified: false,
       likes: 156,
-      offers: 5
+      views: formatActivity(634),
+      properties: ["Neon Lights", "Urban Style", "Night Scene"],
+      rarityColor: "from-blue-500 to-purple-500",
+      bidCount: 5
     },
     {
       id: 4,
-      title: "Wayang Punk Genesis",
+      name: "Wayang Punk Genesis",
       collection: "Modern Traditional",
-      price: "Rp 32.000.000",
+      price: formatRupiah(32000000),
+      floorPrice: formatRupiah(29500000),
+      volume24h: formatVolume(125700000),
+      rarity: "Epic",
       image: "/placeholder.svg",
-      creator: "WayangPunk",
+      creator: "@WayangPunk",
       verified: true,
       likes: 267,
-      offers: 15
+      views: formatActivity(1134),
+      properties: ["Cyber Enhancement", "Traditional Mask", "Neon Glow"],
+      rarityColor: "from-blue-500 to-purple-500",
+      bidCount: 15
+    },
+    {
+      id: 5,
+      name: "Divine Phoenix Crown",
+      collection: "Legendary Collection",
+      price: formatRupiah(78000000),
+      floorPrice: formatRupiah(75000000),
+      volume24h: formatVolume(234200000),
+      rarity: "Mythical",
+      image: "/placeholder.svg",
+      creator: "@PhoenixArt",
+      verified: true,
+      likes: 445,
+      views: formatActivity(2341),
+      properties: ["Divine Wings", "Sacred Fire", "Royal Crown"],
+      rarityColor: "from-purple-500 to-pink-500",
+      bidCount: 22
+    },
+    {
+      id: 6,
+      name: "Sacred Temple Guardian",
+      collection: "Ancient Spirits",
+      price: formatRupiah(39500000),
+      floorPrice: formatRupiah(36000000),
+      volume24h: formatVolume(98500000),
+      rarity: "Rare",
+      image: "/placeholder.svg",
+      creator: "@TempleKeeper",
+      verified: true,
+      likes: 189,
+      views: formatActivity(745),
+      properties: ["Guardian Spirit", "Temple Stone", "Ancient Magic"],
+      rarityColor: "from-orange-500 to-yellow-500",
+      bidCount: 11
     }
   ]
 
@@ -338,13 +403,38 @@ export default function LandingPage() {
     })
   }
 
-  // Auto slide effect
+  // Responsive screen size detection
+  useEffect(() => {
+    const updateVisibleNFTs = () => {
+      const width = window.innerWidth
+      if (width < 640) {
+        setVisibleNFTs(1) // Mobile: 1 NFT
+      } else if (width < 1024) {
+        setVisibleNFTs(2) // Tablet: 2 NFTs
+      } else {
+        setVisibleNFTs(3) // Desktop: 3 NFTs
+      }
+    }
+
+    updateVisibleNFTs()
+    window.addEventListener('resize', updateVisibleNFTs)
+    return () => window.removeEventListener('resize', updateVisibleNFTs)
+  }, [])
+
+  // Auto slide effect - loops back to beginning after reaching end
   useEffect(() => {
     const interval = setInterval(() => {
-      nextSlide()
+      setCurrentSlide((prev) => {
+        const maxSlide = Math.max(0, featuredNFTs.length - visibleNFTs)
+        if (prev >= maxSlide) {
+          // Return to first slide when reaching the end
+          return 0
+        }
+        return prev + 1
+      })
     }, 5000) // Change slide every 5 seconds
     return () => clearInterval(interval)
-  }, []) // Remove currentSlide dependency to prevent infinite loop
+  }, [visibleNFTs])
 
   // Simulate initial loading
   useEffect(() => {
@@ -653,36 +743,8 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Trust Bar - Positioned prominently */}
-      <motion.div
-        className="bg-gradient-to-r from-slate-900/30 to-gray-900/30 border-y border-slate-700/30 py-3"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="flex items-center justify-center gap-8 text-sm flex-wrap">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-slate-400" />
-              <span className="text-slate-300 font-medium">🔒 Escrow Terverifikasi Etherscan</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">
-                ✓ Verified Contract
-              </Badge>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-slate-400">💳</span>
-              <span className="text-slate-400">DANA • GoPay • OVO Support</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">
-                🏆 Pioneer NFT Rewards
-              </Badge>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+      {/* Enhanced Trust Bar */}
+      <TrustBar />
 
       {/* Enhanced Hero Section with Pioneer NFT Integration */}
       <section className="relative py-20 md:py-32 overflow-hidden">
@@ -832,7 +894,15 @@ export default function LandingPage() {
                       className="w-80"
                     >
                       <ProfileCard
-                        avatarUrl="https://cdn.builder.io/o/assets%2Fe1c1ed8edce84b16b5c048c563eec914%2Fa6583448df0d4e7b9175452307243e11?alt=media&token=58823c53-5fd4-4a44-8922-03d6fe609378&apiKey=e1c1ed8edce84b16b5c048c563eec914"
+                        index={index}
+                        avatarUrl={index === 0
+                          ? "https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Ff68d04f7302e4504a1b068fc78cb436e"
+                          : "https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Fb5534d3c4897482fabbf004398457c71"
+                        }
+                        miniAvatarUrl={index === 0
+                          ? "https://cdn.builder.io/api/v1/image/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Fa4852b16ed014ea5a8905781db68c81d"
+                          : "https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2F5dbd5f803c744e3bbd6d99feb82ae97c"
+                        }
                         name={award.title}
                         title={`🏆 1/1 PIONEER • ${award.price}`}
                         handle={award.seller}
@@ -878,11 +948,17 @@ export default function LandingPage() {
 
       </section>
 
+      {/* Safe Transaction Steps Section */}
+      <SafeTransactionSteps />
 
+      {/* Gasless Section */}
+      <GaslessSection />
 
+      {/* Value Proposition Section */}
+      <ValuePropositionSection />
 
-
-
+      {/* Legend Section */}
+      <LegendSection />
 
       {/* Enhanced Trending Tokens Section */}
       <motion.section
@@ -952,13 +1028,13 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">BTC</p>
                       </div>
                     </div>
-                    <Badge className="bg-slate-700 text-white font-bold">���� #1 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">#1 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-2xl font-bold text-white">Rp 850.000.000</span>
+                      <span className="text-lg font-bold text-white">Rp 850.000.000</span>
                       <div className="flex items-center gap-1 bg-slate-700/50 border border-slate-600/50 rounded-full px-3 py-1">
                         <TrendingUp className="w-4 h-4 text-slate-300" />
                         <span className="text-slate-300 font-bold text-sm">+2.15%</span>
@@ -978,7 +1054,7 @@ export default function LandingPage() {
                     <div className="space-y-3">
                       <div className="flex justify-between">
                         <span className="text-gray-400 text-sm">Volume 24h</span>
-                        <span className="text-white font-bold">Rp 2.1M</span>
+                        <span className="text-white font-bold">Rp 2.1JT</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400 text-sm">Order Aktif</span>
@@ -1017,7 +1093,7 @@ export default function LandingPage() {
                           </div>
                         </div>
                       </div>
-                      <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">Verified Pro</Badge>
+                      <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">Verified</Badge>
                     </div>
                   </div>
 
@@ -1075,13 +1151,13 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">ETH</p>
                       </div>
                     </div>
-                    <Badge className="bg-slate-700 text-white font-bold">🔥 #2 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">#2 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-2xl font-bold text-white">Rp 45.000.000</span>
+                      <span className="text-lg font-bold text-white">Rp 45.000.000</span>
                       <div className="flex items-center gap-1 bg-slate-700/50 border border-slate-600/50 rounded-full px-3 py-1">
                         <TrendingDown className="w-4 h-4 text-slate-300" />
                         <span className="text-slate-300 font-bold text-sm">-1.8%</span>
@@ -1196,13 +1272,13 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">USDT</p>
                       </div>
                     </div>
-                    <Badge className="bg-slate-700 text-white font-bold">🔥 #3 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">#3 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-2xl font-bold text-white">Rp 15.750</span>
+                      <span className="text-lg font-bold text-white">Rp 15.750</span>
                       <div className="flex items-center gap-1 bg-slate-700/50 border border-slate-600/50 rounded-full px-3 py-1">
                         <TrendingUp className="w-4 h-4 text-slate-300" />
                         <span className="text-slate-300 font-bold text-sm">+0.1%</span>
@@ -1221,7 +1297,7 @@ export default function LandingPage() {
                     <div className="space-y-3">
                       <div className="flex justify-between">
                         <span className="text-gray-400 text-sm">Volume 24h</span>
-                        <span className="text-white font-bold">Rp 3.2M</span>
+                        <span className="text-white font-bold">Rp 3.2JT</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400 text-sm">Order Aktif</span>
@@ -1260,7 +1336,7 @@ export default function LandingPage() {
                           </div>
                         </div>
                       </div>
-                      <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">Verified Pro+</Badge>
+                      <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">Verified</Badge>
                     </div>
                   </div>
 
@@ -1314,19 +1390,19 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">Rp 7.1M</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatVolume(7100000)}</div>
               <div className="text-sm text-gray-400">Total Volume 24h</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">75</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(75)}</div>
               <div className="text-sm text-gray-400">Order Aktif</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">142</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(142)}</div>
               <div className="text-sm text-gray-400">Trader Online</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">98.5%</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">98,5%</div>
               <div className="text-sm text-gray-400">Success Rate</div>
             </div>
           </motion.div>
@@ -1379,18 +1455,22 @@ export default function LandingPage() {
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => setCurrentSlide(prev => Math.max(0, prev - 1))}
-              disabled={currentSlide === 0}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              onClick={() => setCurrentSlide(prev => {
+                const maxSlide = Math.max(0, featuredNFTs.length - visibleNFTs)
+                return prev === 0 ? maxSlide : prev - 1
+              })}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full transition-all"
             >
               <ChevronLeft className="w-6 h-6" />
             </Button>
             <Button
               size="sm"
               variant="ghost"
-              onClick={() => setCurrentSlide(prev => Math.min(featuredNFTs.length - 3, prev + 1))}
-              disabled={currentSlide >= featuredNFTs.length - 3}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              onClick={() => setCurrentSlide(prev => {
+                const maxSlide = Math.max(0, featuredNFTs.length - visibleNFTs)
+                return prev >= maxSlide ? 0 : prev + 1
+              })}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-background/80 hover:bg-background/90 text-white border border-border backdrop-blur-sm rounded-full transition-all"
             >
               <ChevronRight className="w-6 h-6" />
             </Button>
@@ -1400,100 +1480,17 @@ export default function LandingPage() {
               <div
                 className="flex gap-6 transition-transform duration-500 ease-out min-w-max md:min-w-0"
                 style={{
-                  transform: `translateX(-${currentSlide * 350}px)`,
+                  transform: `translateX(-${currentSlide * (visibleNFTs === 1 ? 350 : visibleNFTs === 2 ? 350 : 350)}px)`,
                 }}
               >
                 {/* Enhanced NFT Cards */}
-                {[
-                  {
-                    id: 1,
-                    name: "Mystical Dragon #001",
-                    collection: "Indonesian Mythology Collection",
-                    price: "Rp 25.000.000",
-                    floorPrice: "Rp 22.000.000",
-                    volume24h: "Rp 125.5M",
-                    rarity: "Legendary",
-                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F1234567890abcdef",
-                    creator: "@dragon_artist",
-                    verified: true,
-                    likes: 324,
-                    views: 1247,
-                    properties: ["Fire Element", "Golden Scales", "Ancient Runes"],
-                    rarityColor: "from-red-500 to-orange-500",
-                    bidCount: 12
-                  },
-                  {
-                    id: 2,
-                    name: "Batik Genesis #042",
-                    collection: "Traditional Art Digital",
-                    price: "Rp 15.000.000",
-                    floorPrice: "Rp 12.500.000",
-                    volume24h: "Rp 89.3M",
-                    rarity: "Rare",
-                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Fabcdef1234567890",
-                    creator: "@batik_creator",
-                    verified: true,
-                    likes: 198,
-                    views: 856,
-                    properties: ["Traditional Pattern", "Java Style", "Hand Drawn"],
-                    rarityColor: "from-orange-500 to-yellow-500",
-                    bidCount: 8
-                  },
-                  {
-                    id: 3,
-                    name: "Wayang Punk #117",
-                    collection: "Modern Traditional Fusion",
-                    price: "Rp 12.000.000",
-                    floorPrice: "Rp 10.200.000",
-                    volume24h: "Rp 67.8M",
-                    rarity: "Epic",
-                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F0987654321fedcba",
-                    creator: "@wayang_modern",
-                    verified: true,
-                    likes: 156,
-                    views: 634,
-                    properties: ["Cyber Enhancement", "Traditional Mask", "Neon Glow"],
-                    rarityColor: "from-blue-500 to-purple-500",
-                    bidCount: 5
-                  },
-                  {
-                    id: 4,
-                    name: "Cyberpunk Jakarta #055",
-                    collection: "Future City Collection",
-                    price: "Rp 8.500.000",
-                    floorPrice: "Rp 7.100.000",
-                    volume24h: "Rp 45.2M",
-                    rarity: "Common",
-                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2Ffedcba0987654321",
-                    creator: "@cyber_artist",
-                    verified: false,
-                    likes: 87,
-                    views: 312,
-                    properties: ["Neon Lights", "Urban Style", "Night Scene"],
-                    rarityColor: "from-green-500 to-emerald-500",
-                    bidCount: 3
-                  },
-                  {
-                    id: 5,
-                    name: "Garuda Phoenix #009",
-                    collection: "National Pride Series",
-                    price: "Rp 35.000.000",
-                    floorPrice: "Rp 32.500.000",
-                    volume24h: "Rp 156.7M",
-                    rarity: "Mythical",
-                    image: "https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F9876543210abcdef",
-                    creator: "@garuda_master",
-                    verified: true,
-                    likes: 567,
-                    views: 2134,
-                    properties: ["Divine Wings", "Sacred Fire", "National Symbol"],
-                    rarityColor: "from-purple-500 to-pink-500",
-                    bidCount: 18
-                  }
-                ].map((nft, index) => (
+                {featuredNFTs.map((nft, index) => (
                   <motion.div
                     key={nft.id}
-                    className="min-w-[320px] md:min-w-[350px] group"
+                    className="min-w-[320px] sm:min-w-[350px] md:min-w-[350px] lg:min-w-[350px] group"
+                    style={{
+                      width: visibleNFTs === 1 ? '320px' : visibleNFTs === 2 ? '350px' : '350px'
+                    }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -1580,7 +1577,7 @@ export default function LandingPage() {
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-2xl font-bold text-white">{nft.price}</div>
+                            <div className="text-lg font-bold text-white">{nft.price}</div>
                             <div className="text-xs text-gray-400">Floor: {nft.floorPrice}</div>
                           </div>
                         </div>
@@ -1657,7 +1654,7 @@ export default function LandingPage() {
 
             {/* Slide Indicators */}
             <div className="flex justify-center gap-2 mt-8">
-              {Array.from({ length: Math.max(1, featuredNFTs.length - 2) }).map((_, index) => (
+              {Array.from({ length: Math.max(1, featuredNFTs.length - visibleNFTs + 1) }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
@@ -1706,19 +1703,19 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">2,341</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(2341)}</div>
               <div className="text-sm text-gray-400">NFT Listed</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">89</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(89)}</div>
               <div className="text-sm text-gray-400">Live Auctions</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">1,247</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(1247)}</div>
               <div className="text-sm text-gray-400">Active Collectors</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">Rp 234M</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatVolume(234000000)}</div>
               <div className="text-sm text-gray-400">Total Volume</div>
             </div>
           </motion.div>
