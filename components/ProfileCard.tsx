@@ -333,7 +333,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               }}
             />
             {showUserInfo && (
-              <div className="pc-user-info" style={{ top: "4px" }}>
+              <div className="pc-user-info">
                 <div className="pc-user-details">
                   <div className="pc-mini-avatar">
                     <img
