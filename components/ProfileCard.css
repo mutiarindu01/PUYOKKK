@@ -266,7 +266,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 0px 120px 0px;
+  padding: 60px 0px 140px 0px;
   margin: 0px;
 }
 
@@ -534,10 +534,6 @@
     top: 6px !important;
     max-height: 110px;
     padding: 6px 10px;
-    background: rgba(0, 0, 0, 0.35) !important;
-    backdrop-filter: blur(10px) !important;
-    border-radius: 10px !important;
-    margin: 0 6px !important;
   }
   .pc-details h3 {
     font-size: clamp(12px, 3.2vw, 16px) !important;
