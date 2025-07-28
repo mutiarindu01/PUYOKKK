@@ -72,14 +72,10 @@
     top: 8px !important;
     padding: 8px 12px !important;
     max-height: 120px;
-    background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(8px) !important;
-    border-radius: 12px !important;
-    margin: 0 8px !important;
   }
 
   .pc-card-wrapper .pc-details h3 {
-    font-size: clamp(13px, 3.5vw, 18px) !important;
+    font-size: 17px !important;
     line-height: 1.15 !important;
     margin-bottom: 6px !important;
     white-space: normal !important;
@@ -493,7 +489,7 @@
     padding: 0 16px;
   }
   .pc-details h3 {
-    font-size: clamp(16px, 4vw, 20.6px) !important;
+    font-size: 19px !important;
     line-height: 1.15;
   }
   .pc-details p {
