@@ -344,7 +344,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                     <div className="pc-handle" style={{ fontSize: "14px" }}>
                       <p>@{handle}</p>
                     </div>
-                    <div className="pc-status">{status}</div>
+                    <div className="pc-status" style={{ fontSize: "12px" }}>{status}</div>
                   </div>
                 </div>
                 <button
