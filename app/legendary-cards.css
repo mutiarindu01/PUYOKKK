@@ -133,7 +133,7 @@
   }
 
   .legendary-card .pc-details h3 {
-    font-size: clamp(11px, min(3vh, 3.2vw), 1.2em) !important;
+    font-size: 17px !important;
     line-height: 1.1;
   }
 
