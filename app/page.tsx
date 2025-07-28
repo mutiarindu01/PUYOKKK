@@ -894,7 +894,7 @@ export default function LandingPage() {
                       className="w-80"
                     >
                       <ProfileCard
-                        avatarUrl="https://cdn.builder.io/o/assets%2Fe1c1ed8edce84b16b5c048c563eec914%2Fa6583448df0d4e7b9175452307243e11?alt=media&token=58823c53-5fd4-4a44-8922-03d6fe609378&apiKey=e1c1ed8edce84b16b5c048c563eec914"
+                        avatarUrl="https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Ff68d04f7302e4504a1b068fc78cb436e"
                         name={award.title}
                         title={`🏆 1/1 PIONEER • ${award.price}`}
                         handle={award.seller}
