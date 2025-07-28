@@ -341,7 +341,9 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                     />
                   </div>
                   <div className="pc-user-text">
-                    <div className="pc-handle">@{handle}</div>
+                    <div className="pc-handle" style={{ fontSize: "14px" }}>
+                      <p>@{handle}</p>
+                    </div>
                     <div className="pc-status">{status}</div>
                   </div>
                 </div>
