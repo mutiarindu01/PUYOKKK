@@ -937,11 +937,11 @@ export default function LandingPage() {
 
       </section>
 
+      {/* Safe Transaction Steps Section */}
+      <SafeTransactionSteps />
 
-
-
-
-
+      {/* Gasless Section */}
+      <GaslessSection />
 
       {/* Enhanced Trending Tokens Section */}
       <motion.section
