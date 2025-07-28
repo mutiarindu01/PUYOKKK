@@ -1143,7 +1143,7 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">ETH</p>
                       </div>
                     </div>
-                    <Badge className="bg-slate-700 text-white font-bold">🔥 #2 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">#2 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
