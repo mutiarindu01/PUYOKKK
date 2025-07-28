@@ -1569,7 +1569,7 @@ export default function LandingPage() {
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-2xl font-bold text-white">{nft.price}</div>
+                            <div className="text-lg font-bold text-white">{nft.price}</div>
                             <div className="text-xs text-gray-400">Floor: {nft.floorPrice}</div>
                           </div>
                         </div>
