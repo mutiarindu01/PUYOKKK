@@ -51,7 +51,7 @@
   .pc-card-wrapper .pc-avatar-content .avatar {
     top: 50% !important;
     left: 50% !important;
-    width: 100% !important;
+    width: 98% !important;
     height: auto !important;
     transform: translate(-50%, -50%) !important;
     object-fit: cover !important;
@@ -271,12 +271,12 @@
 }
 
 .pc-avatar-content .avatar {
-  width: 100%;
+  width: 98%;
   height: auto;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1.05);
   object-fit: cover;
   object-position: center;
   opacity: calc(1.75 - var(--pointer-from-center));
