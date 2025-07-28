@@ -1020,7 +1020,7 @@ export default function LandingPage() {
                         <p className="text-sm text-gray-400">BTC</p>
                       </div>
                     </div>
-                    <Badge className="bg-slate-700 text-white font-bold">���� #1 Trending</Badge>
+                    <Badge className="bg-slate-700 text-white font-bold">#1 Trending</Badge>
                   </div>
 
                   {/* Price with Live Change Indicator */}
