@@ -1382,19 +1382,19 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">Rp 7.1M</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatVolume(7100000)}</div>
               <div className="text-sm text-gray-400">Total Volume 24h</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">75</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(75)}</div>
               <div className="text-sm text-gray-400">Order Aktif</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">142</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(142)}</div>
               <div className="text-sm text-gray-400">Trader Online</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">98.5%</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">98,5%</div>
               <div className="text-sm text-gray-400">Success Rate</div>
             </div>
           </motion.div>
