@@ -894,6 +894,7 @@ export default function LandingPage() {
                       className="w-80"
                     >
                       <ProfileCard
+                        index={index}
                         avatarUrl={index === 0
                           ? "https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Ff68d04f7302e4504a1b068fc78cb436e"
                           : "https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Fb5534d3c4897482fabbf004398457c71"
