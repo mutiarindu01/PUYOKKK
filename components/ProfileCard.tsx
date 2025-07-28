@@ -367,7 +367,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                   </div>
                   <div className="pc-user-text">
                     <div className="pc-handle">
-                      <p>@{handle}</p>
+                      <p>@{truncatedHandle}</p>
                     </div>
                     <div className="pc-status">{status}</div>
                   </div>
