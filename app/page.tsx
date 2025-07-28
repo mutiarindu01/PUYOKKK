@@ -69,6 +69,8 @@ import CompactStats from "@/components/CompactStats"
 import TrustBar from "@/components/TrustBar"
 import SafeTransactionSteps from "@/components/SafeTransactionSteps"
 import GaslessSection from "@/components/GaslessSection"
+import ValuePropositionSection from "@/components/ValuePropositionSection"
+import LegendSection from "@/components/LegendSection"
 import { motion } from "framer-motion"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
