@@ -484,6 +484,9 @@
     height: 70svh;
     max-height: 450px;
   }
+  .pc-avatar-content {
+    padding: 60px 0px 160px 0px !important;
+  }
   .pc-details {
     top: 4px !important;
     max-height: 110px;
