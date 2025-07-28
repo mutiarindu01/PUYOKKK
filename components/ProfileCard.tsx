@@ -358,7 +358,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   return (
     <div
       ref={wrapRef}
-      className={`pc-card-wrapper ${className}`.trim()}
+      className={`pc-card-wrapper ${mobileOptimized ? 'mobile-optimized' : ''} ${className}`.trim()}
       style={cardStyle}
     >
       <section ref={cardRef} className="pc-card">
