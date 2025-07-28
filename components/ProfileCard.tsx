@@ -52,6 +52,7 @@ interface ProfileCardProps {
   contactText?: string;
   showUserInfo?: boolean;
   onContactClick?: () => void;
+  index?: number;
 }
 
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
@@ -73,6 +74,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   contactText = "Contact",
   showUserInfo = true,
   onContactClick,
+  index = 0,
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLElement>(null);
@@ -315,10 +317,15 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               src={avatarUrl}
               alt={`${name || "User"} avatar`}
               loading="lazy"
-              style={{
+              style={index === 0 ? {
                 left: "160px",
                 width: "400px",
                 top: "70px"
+              } : {
+                left: "50%",
+                width: "100%",
+                top: "70px",
+                transform: "translateX(-50%)"
               }}
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
