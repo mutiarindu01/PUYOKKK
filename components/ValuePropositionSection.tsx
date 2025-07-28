@@ -124,7 +124,7 @@ const FeatureComparison = () => {
     {
       feature: 'Biaya Gas',
       puyok: 'Gratis (Ditanggung Platform)',
-      others: 'Rp 50.000 - Rp 500.000 per transaksi'
+      others: `${formatRupiah(50000)} - ${formatRupiah(500000)} per transaksi`
     },
     {
       feature: 'Metode Pembayaran',
