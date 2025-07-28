@@ -44,9 +44,10 @@
   }
 
   .pc-avatar-content .avatar {
-    top: 50px !important;
-    width: 85% !important;
-    left: 50% !important;
+    top: 46px !important;
+    width: 100% !important;
+    left: 43% !important;
+    height: 67% !important;
     transform: translateX(-50%) !important;
   }
 
