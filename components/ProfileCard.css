@@ -43,35 +43,37 @@
     align-items: center;
   }
 
-  .pc-avatar-content .avatar {
-    top: 50px !important;
-    width: 85% !important;
-    left: 50% !important;
+  .pc-card-wrapper .pc-avatar-content .avatar {
+    top: 56px !important;
+    width: 100% !important;
+    left: 52% !important;
+    height: 67% !important;
     transform: translateX(-50%) !important;
   }
 
-  .pc-user-info {
+  .pc-card-wrapper .pc-user-info {
     bottom: 8px !important;
     left: 8px !important;
     right: 8px !important;
     padding: 6px 8px !important;
   }
 
-  .pc-details {
-    top: 8px !important;
+  .pc-card-wrapper .pc-details {
+    top: 4px !important;
     padding: 0 15px !important;
   }
 
-  .pc-details h3 {
-    font-size: 16px !important;
+  .pc-card-wrapper .pc-details h3 {
+    font-size: 15px !important;
     line-height: 20px !important;
     margin-bottom: 4px !important;
   }
 
-  .pc-details p {
-    font-size: 11px !important;
-    line-height: 14px !important;
+  .pc-card-wrapper .pc-details p {
+    font-size: 12px !important;
+    line-height: 17px !important;
     top: -4px !important;
+    color: rgba(226, 232, 240, 0.9) !important;
   }
 
   .pc-user-details {
@@ -356,7 +358,7 @@
 .pc-details {
   width: 100%;
   position: absolute;
-  top: 2em;
+  top: 4px !important;
   display: flex;
   flex-direction: column;
   padding: 0 20px;
@@ -366,7 +368,7 @@
 .pc-details h3 {
   font-weight: 600;
   margin: 0 0 8px 0;
-  font-size: min(4svh, 2.2em);
+  font-size: 20.6px !important;
   background-image: linear-gradient(to bottom, #FFD700, #FF6B35);
   background-size: 100% 100%;
   -webkit-text-fill-color: transparent;
@@ -383,8 +385,20 @@
   font-size: 14px;
   margin: 0 auto;
   width: min-content;
-  color: rgba(16, 185, 129, 0.95);
+  color: rgba(226, 232, 240, 0.9);
   line-height: 1.3;
+}
+
+/* Modern price styling */
+.pc-details p strong {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 215, 0, 0.6);
+}
+
+.pc-details p span {
+  color: rgba(226, 232, 240, 0.8);
 }
 
 @keyframes glow-bg {
@@ -411,10 +425,10 @@
     max-height: 450px;
   }
   .pc-details {
-    top: 2em;
+    top: 4px !important;
   }
   .pc-details h3 {
-    font-size: min(4svh, 2.5em);
+    font-size: 20.6px !important;
   }
   .pc-details p {
     font-size: 14px;
@@ -450,10 +464,10 @@
     max-height: 380px;
   }
   .pc-details {
-    top: 1.5em;
+    top: 4px !important;
   }
   .pc-details h3 {
-    font-size: min(3.5svh, 2em);
+    font-size: 20.6px !important;
   }
   .pc-details p {
     font-size: 12px;
@@ -492,7 +506,7 @@
     max-height: 320px;
   }
   .pc-details h3 {
-    font-size: min(3svh, 1.5em);
+    font-size: 20.6px;
   }
   .pc-details p {
     font-size: 11px;
@@ -529,11 +543,11 @@
 }
 
 .legendary-card .pc-details {
-  top: 2em;
+  top: 4px !important;
 }
 
 .legendary-card .pc-details h3 {
-  font-size: min(4vh, 1.8em);
+  font-size: 20.6px !important;
   background-image: linear-gradient(to bottom, #ffd700, #ff6b35);
 }
 
