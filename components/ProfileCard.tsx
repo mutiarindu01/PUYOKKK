@@ -318,7 +318,15 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     onContactClick?.();
   }, [onContactClick]);
 
-  const maxLengths = useMemo(() => getResponsiveMaxLength(), []);
+  // Update max lengths on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setMaxLengths(getResponsiveMaxLength());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const truncatedName = useMemo(() =>
     truncateText(name, maxLengths.name), [name, maxLengths.name]);
