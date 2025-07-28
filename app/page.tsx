@@ -1695,19 +1695,19 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">2,341</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(2341)}</div>
               <div className="text-sm text-gray-400">NFT Listed</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">89</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(89)}</div>
               <div className="text-sm text-gray-400">Live Auctions</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">1,247</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatNumber(1247)}</div>
               <div className="text-sm text-gray-400">Active Collectors</div>
             </div>
             <div className="text-center p-4 bg-card/20 border border-border/30 rounded-lg">
-              <div className="text-2xl font-bold text-slate-300 mb-1">Rp 234M</div>
+              <div className="text-2xl font-bold text-slate-300 mb-1">{formatVolume(234000000)}</div>
               <div className="text-sm text-gray-400">Total Volume</div>
             </div>
           </motion.div>
