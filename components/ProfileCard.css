@@ -411,10 +411,10 @@
     max-height: 450px;
   }
   .pc-details {
-    top: 4px;
+    top: 4px !important;
   }
   .pc-details h3 {
-    font-size: 20.6px;
+    font-size: 20.6px !important;
   }
   .pc-details p {
     font-size: 14px;
