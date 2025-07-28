@@ -83,6 +83,8 @@ interface ProfileCardProps {
   showUserInfo?: boolean;
   onContactClick?: () => void;
   index?: number;
+  mobileOptimized?: boolean;
+  preserveImportantText?: boolean;
 }
 
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
