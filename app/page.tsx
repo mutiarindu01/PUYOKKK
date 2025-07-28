@@ -83,6 +83,7 @@ export default function LandingPage() {
   const [backgroundType, setBackgroundType] = useState<"gradient" | "particles" | "spline" | "mesh">("spline")
   const [showScrollToTop, setShowScrollToTop] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentLegendarySlide, setCurrentLegendarySlide] = useState(0)
   const [transactionValue, setTransactionValue] = useState(10000000)
   const [visibleNFTs, setVisibleNFTs] = useState(3) // Default to desktop
   const lastScrollY = useRef(0)
@@ -435,6 +436,15 @@ export default function LandingPage() {
     }, 5000) // Change slide every 5 seconds
     return () => clearInterval(interval)
   }, [visibleNFTs])
+
+  // Auto-rotation for legendary awards on mobile every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentLegendarySlide((prev) => (prev + 1) % legendaryAwards.length)
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [legendaryAwards.length])
 
   // Simulate initial loading
   useEffect(() => {
@@ -866,12 +876,12 @@ export default function LandingPage() {
 
               {/* Slider Container */}
               <div className="relative">
-                {/* Navigation Buttons - Positioned at edges */}
+                {/* Navigation Buttons - Hidden on mobile since auto-rotation is active */}
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={prevSlide}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all hidden md:flex"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </Button>
@@ -879,12 +889,13 @@ export default function LandingPage() {
                   size="sm"
                   variant="ghost"
                   onClick={nextSlide}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all hidden md:flex"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </Button>
 
-                <div className="flex gap-6 justify-center">
+                {/* Desktop: Show both cards side by side */}
+                <div className="hidden md:flex gap-6 justify-center">
                   {legendaryAwards.slice(0, 2).map((award, index) => (
                     <motion.div
                       key={award.id}
@@ -916,6 +927,40 @@ export default function LandingPage() {
                       />
                     </motion.div>
                   ))}
+                </div>
+
+                {/* Mobile: Show single card with auto-rotation */}
+                <div className="md:hidden flex justify-center">
+                  <motion.div
+                    key={`mobile-${legendaryAwards[currentLegendarySlide]?.id}`}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-80 flex flex-col justify-start items-center"
+                  >
+                    <ProfileCard
+                      index={currentLegendarySlide}
+                      avatarUrl={currentLegendarySlide === 0
+                        ? "https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Ff68d04f7302e4504a1b068fc78cb436e"
+                        : "https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Fb5534d3c4897482fabbf004398457c71"
+                      }
+                      miniAvatarUrl={currentLegendarySlide === 0
+                        ? "https://cdn.builder.io/api/v1/image/assets%2F03926d6811f44e269a1540ca97bdfc0d%2Fa4852b16ed014ea5a8905781db68c81d"
+                        : "https://cdn.builder.io/api/v1/file/assets%2F03926d6811f44e269a1540ca97bdfc0d%2F5dbd5f803c744e3bbd6d99feb82ae97c"
+                      }
+                      name={legendaryAwards[currentLegendarySlide]?.title}
+                      title={`🏆 1/1 PIONEER • ${legendaryAwards[currentLegendarySlide]?.price}`}
+                      handle={legendaryAwards[currentLegendarySlide]?.seller}
+                      status="✅ Auto Mint"
+                      contactText="🏆 Lihat NFT"
+                      showUserInfo={true}
+                      enableTilt={true}
+                      enableMobileTilt={false}
+                      onContactClick={() => window.open(`/awards-marketplace/${legendaryAwards[currentLegendarySlide]?.id}`, '_blank')}
+                      className="legendary-card"
+                    />
+                  </motion.div>
                 </div>
               </div>
 
