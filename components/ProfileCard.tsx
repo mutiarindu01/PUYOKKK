@@ -94,6 +94,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLElement>(null);
+  const [maxLengths, setMaxLengths] = React.useState(() => getResponsiveMaxLength());
 
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
