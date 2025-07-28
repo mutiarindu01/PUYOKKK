@@ -1026,7 +1026,7 @@ export default function LandingPage() {
                   {/* Price with Live Change Indicator */}
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-2xl font-bold text-white">Rp 850.000.000</span>
+                      <span className="text-lg font-bold text-white">Rp 850.000.000</span>
                       <div className="flex items-center gap-1 bg-slate-700/50 border border-slate-600/50 rounded-full px-3 py-1">
                         <TrendingUp className="w-4 h-4 text-slate-300" />
                         <span className="text-slate-300 font-bold text-sm">+2.15%</span>
