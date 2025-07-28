@@ -58,7 +58,7 @@
   }
 
   .pc-details {
-    top: 8px !important;
+    top: 3px !important;
     padding: 0 15px !important;
   }
 
@@ -411,10 +411,10 @@
     max-height: 450px;
   }
   .pc-details {
-    top: 2em;
+    top: 3px;
   }
   .pc-details h3 {
-    font-size: min(4svh, 2.5em);
+    font-size: 20.6px;
   }
   .pc-details p {
     font-size: 14px;
@@ -450,10 +450,10 @@
     max-height: 380px;
   }
   .pc-details {
-    top: 1.5em;
+    top: 3px;
   }
   .pc-details h3 {
-    font-size: min(3.5svh, 2em);
+    font-size: 20.6px;
   }
   .pc-details p {
     font-size: 12px;
@@ -492,7 +492,7 @@
     max-height: 320px;
   }
   .pc-details h3 {
-    font-size: min(3svh, 1.5em);
+    font-size: 20.6px;
   }
   .pc-details p {
     font-size: 11px;
@@ -529,11 +529,11 @@
 }
 
 .legendary-card .pc-details {
-  top: 2em;
+  top: 3px;
 }
 
 .legendary-card .pc-details h3 {
-  font-size: min(4vh, 1.8em);
+  font-size: 20.6px;
   background-image: linear-gradient(to bottom, #ffd700, #ff6b35);
 }
 
