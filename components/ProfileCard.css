@@ -538,18 +538,27 @@
     max-height: 380px;
   }
   .pc-details {
-    top: 4px !important;
-    max-height: 90px;
-    padding: 0 12px;
+    top: 6px !important;
+    max-height: 110px;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 10px !important;
+    margin: 0 6px !important;
   }
   .pc-details h3 {
-    font-size: clamp(14px, 3.5vw, 18px) !important;
-    line-height: 1.1;
+    font-size: clamp(12px, 3.2vw, 16px) !important;
+    line-height: 1.15;
+    white-space: normal !important;
+    overflow: visible !important;
   }
   .pc-details p {
-    font-size: clamp(9px, 2.2vw, 12px);
-    top: -6px;
-    line-height: 1.1;
+    font-size: clamp(9px, 2.4vw, 12px);
+    top: -4px;
+    line-height: 1.2;
+    white-space: normal !important;
+    overflow: visible !important;
+    font-weight: 600 !important;
   }
   .pc-user-info {
     bottom: 10px;
@@ -588,17 +597,26 @@
     max-height: 320px;
   }
   .pc-details {
-    max-height: 80px;
-    padding: 0 10px;
+    max-height: 100px;
+    padding: 5px 8px;
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(12px) !important;
+    border-radius: 8px !important;
+    margin: 0 4px !important;
   }
   .pc-details h3 {
-    font-size: clamp(12px, 3.2vw, 16px);
-    line-height: 1.05;
+    font-size: clamp(11px, 3vw, 15px);
+    line-height: 1.1;
+    white-space: normal !important;
+    overflow: visible !important;
   }
   .pc-details p {
-    font-size: clamp(8px, 2vw, 11px);
-    line-height: 1.1;
-    top: -4px;
+    font-size: clamp(8px, 2.2vw, 11px);
+    line-height: 1.15;
+    top: -3px;
+    white-space: normal !important;
+    overflow: visible !important;
+    font-weight: 600 !important;
   }
   .pc-user-info {
     padding: 4px 6px;
