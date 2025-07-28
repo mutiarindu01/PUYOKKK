@@ -356,7 +356,7 @@
 .pc-details {
   width: 100%;
   position: absolute;
-  top: 3px;
+  top: 4px;
   display: flex;
   flex-direction: column;
   padding: 0 20px;
