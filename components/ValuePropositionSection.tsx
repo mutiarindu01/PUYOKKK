@@ -201,7 +201,7 @@ const SavingsCalculator = () => {
   return (
     <div>
       <h3 className="text-2xl font-bold text-white mb-8 text-center">
-        💰 Hitung Penghematan Anda
+        �� Hitung Penghematan Anda
       </h3>
       
       <div className="mb-8">
@@ -218,8 +218,8 @@ const SavingsCalculator = () => {
           className="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer slider"
         />
         <div className="flex justify-between text-gray-400 text-sm mt-2">
-          <span>Rp 50.000</span>
-          <span>Rp 100.000.000</span>
+          <span>{formatRupiah(50000)}</span>
+          <span>{formatRupiah(100000000)}</span>
         </div>
         <div className="mt-4">
           <input
