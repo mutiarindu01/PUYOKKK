@@ -740,36 +740,8 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Trust Bar - Positioned prominently */}
-      <motion.div
-        className="bg-gradient-to-r from-slate-900/30 to-gray-900/30 border-y border-slate-700/30 py-3"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="flex items-center justify-center gap-8 text-sm flex-wrap">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-slate-400" />
-              <span className="text-slate-300 font-medium">🔒 Escrow Terverifikasi Etherscan</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">
-                ✓ Verified Contract
-              </Badge>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-slate-400">💳</span>
-              <span className="text-slate-400">DANA • GoPay • OVO Support</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge className="bg-slate-800/50 text-slate-300 border-slate-600/30 text-xs">
-                🏆 Pioneer NFT Rewards
-              </Badge>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+      {/* Enhanced Trust Bar */}
+      <TrustBar />
 
       {/* Enhanced Hero Section with Pioneer NFT Integration */}
       <section className="relative py-20 md:py-32 overflow-hidden">
