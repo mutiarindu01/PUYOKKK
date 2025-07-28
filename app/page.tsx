@@ -72,6 +72,7 @@ import GaslessSection from "@/components/GaslessSection"
 import ValuePropositionSection from "@/components/ValuePropositionSection"
 import LegendSection from "@/components/LegendSection"
 import { motion } from "framer-motion"
+import { formatRupiah, formatVolume, formatActivity, formatNumber } from "@/lib/formatters"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
 
