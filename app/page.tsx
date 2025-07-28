@@ -1046,7 +1046,7 @@ export default function LandingPage() {
                     <div className="space-y-3">
                       <div className="flex justify-between">
                         <span className="text-gray-400 text-sm">Volume 24h</span>
-                        <span className="text-white font-bold">Rp 2.1M</span>
+                        <span className="text-white font-bold">Rp 2.1JT</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400 text-sm">Order Aktif</span>
