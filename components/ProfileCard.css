@@ -529,11 +529,11 @@
 }
 
 .legendary-card .pc-details {
-  top: 4px;
+  top: 4px !important;
 }
 
 .legendary-card .pc-details h3 {
-  font-size: 20.6px;
+  font-size: 20.6px !important;
   background-image: linear-gradient(to bottom, #ffd700, #ff6b35);
 }
 
