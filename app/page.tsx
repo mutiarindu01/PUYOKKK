@@ -937,7 +937,7 @@ export default function LandingPage() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
-                    className="w-80"
+                    className="w-80 flex flex-col justify-start items-center"
                   >
                     <ProfileCard
                       index={currentLegendarySlide}
