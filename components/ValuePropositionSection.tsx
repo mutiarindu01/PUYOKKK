@@ -201,7 +201,7 @@ const SavingsCalculator = () => {
   return (
     <div>
       <h3 className="text-2xl font-bold text-white mb-8 text-center">
-        �� Hitung Penghematan Anda
+        💰 Hitung Penghematan Anda
       </h3>
       
       <div className="mb-8">
@@ -222,12 +222,15 @@ const SavingsCalculator = () => {
           <span>{formatRupiah(100000000)}</span>
         </div>
         <div className="mt-4">
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(parseInt(e.target.value) || 0)}
-            className="w-full p-4 bg-slate-800/50 border border-slate-600/50 rounded-lg text-white text-center text-xl font-bold focus:border-green-500 transition-colors"
-          />
+          <div className="relative">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl font-bold">Rp</span>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(parseInt(e.target.value) || 0)}
+              className="w-full p-4 pl-12 bg-slate-800/50 border border-slate-600/50 rounded-lg text-white text-center text-xl font-bold focus:border-green-500 transition-colors"
+            />
+          </div>
         </div>
       </div>
       
