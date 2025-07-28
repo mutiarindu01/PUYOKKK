@@ -21,6 +21,22 @@ const clamp = (value: number, min = 0, max = 100) =>
 const round = (value: number, precision = 3) =>
   parseFloat(value.toFixed(precision));
 
+const truncateText = (text: string, maxLength: number) => {
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength - 3) + "...";
+};
+
+const getResponsiveMaxLength = () => {
+  if (typeof window === 'undefined') return { name: 20, title: 30, handle: 15 };
+
+  const width = window.innerWidth;
+  if (width <= 320) return { name: 12, title: 20, handle: 10 };
+  if (width <= 480) return { name: 15, title: 25, handle: 12 };
+  if (width <= 640) return { name: 18, title: 28, handle: 14 };
+  if (width <= 768) return { name: 20, title: 30, handle: 15 };
+  return { name: 25, title: 35, handle: 18 };
+};
+
 const adjust = (
   value: number,
   fromMin: number,
