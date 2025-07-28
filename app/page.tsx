@@ -93,9 +93,9 @@ export default function LandingPage() {
 
   // Live stats data
   const [liveStats, setLiveStats] = useState({
-    collections: "1,247",
-    partners: "89",
-    creators: "2,350"
+    collections: formatNumber(1247),
+    partners: formatNumber(89),
+    creators: formatNumber(2350)
   })
 
   // Featured NFTs Data - Extended for better infinite scroll
