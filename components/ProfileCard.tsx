@@ -348,20 +348,17 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                     />
                   </div>
                   <div className="pc-user-text">
-                    <div className="pc-handle" style={{ fontSize: "14px" }}>
+                    <div className="pc-handle">
                       <p>@{handle}</p>
                     </div>
-                    <div className="pc-status" style={{ fontSize: "12px" }}>{status}</div>
+                    <div className="pc-status">{status}</div>
                   </div>
                 </div>
                 <button
                   className="pc-contact-btn"
                   onClick={handleContactClick}
                   style={{
-                    pointerEvents: "auto",
-                    fontSize: "10px",
-                    lineHeight: "15px",
-                    padding: "14px 6px"
+                    pointerEvents: "auto"
                   }}
                   type="button"
                   aria-label={`Contact ${name || "user"}`}
@@ -373,8 +370,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
           </div>
           <div className="pc-content">
             <div className="pc-details">
-              <h3 style={{ fontSize: "19.6px", lineHeight: "45.4px" }}>{name}</h3>
-              <p style={{ fontSize: "12px" }}>{title}</p>
+              <h3>{name}</h3>
+              <p>{title}</p>
             </div>
           </div>
         </div>
