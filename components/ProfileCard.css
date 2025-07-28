@@ -44,16 +44,51 @@
   }
 
   .pc-avatar-content .avatar {
-    top: 64px !important;
+    top: 50px !important;
+    width: 85% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
   }
 
   .pc-user-info {
-    top: 302px !important;
-    bottom: auto !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
+    padding: 6px 8px !important;
   }
 
   .pc-details {
-    top: 3px !important;
+    top: 8px !important;
+    padding: 0 15px !important;
+  }
+
+  .pc-details h3 {
+    font-size: 16px !important;
+    line-height: 20px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .pc-details p {
+    font-size: 11px !important;
+    line-height: 14px !important;
+    top: -4px !important;
+  }
+
+  .pc-user-details {
+    gap: 6px !important;
+  }
+
+  .pc-handle {
+    font-size: 11px !important;
+  }
+
+  .pc-status {
+    font-size: 10px !important;
+  }
+
+  .pc-contact-btn {
+    font-size: 9px !important;
+    padding: 8px 4px !important;
   }
 }
 
