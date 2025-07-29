@@ -536,6 +536,311 @@ export default function MarketplacePage() {
         </div>
       </div>
 
+      {/* Order Book & Analytics Dashboard */}
+      <div className="border-b border-slate-700/50 bg-slate-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {/* Dashboard Controls */}
+          <div className="flex flex-wrap items-center gap-4 mb-6">
+            <Button
+              variant={showOrderBook ? "default" : "outline"}
+              onClick={() => setShowOrderBook(!showOrderBook)}
+              className={showOrderBook ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
+            >
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Order Book
+            </Button>
+            <Button
+              variant={showAnalytics ? "default" : "outline"}
+              onClick={() => setShowAnalytics(!showAnalytics)}
+              className={showAnalytics ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
+            >
+              <LineChart className="w-4 h-4 mr-2" />
+              Analytics
+            </Button>
+            <Button
+              variant={showLiveActivity ? "default" : "outline"}
+              onClick={() => setShowLiveActivity(!showLiveActivity)}
+              className={showLiveActivity ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
+            >
+              <Activity className="w-4 h-4 mr-2" />
+              Live Activity
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setIsPlayingLive(!isPlayingLive)}
+              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+            >
+              {isPlayingLive ? (
+                <>
+                  <Coffee className="w-4 h-4 mr-2" />
+                  Pause Live
+                </>
+              ) : (
+                <>
+                  <PlayCircle className="w-4 h-4 mr-2" />
+                  Play Live
+                </>
+              )}
+            </Button>
+          </div>
+
+          {/* Dashboard Content */}
+          <AnimatePresence>
+            {(showOrderBook || showAnalytics || showLiveActivity) && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6"
+              >
+                {/* Order Book */}
+                {showOrderBook && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="lg:col-span-4"
+                  >
+                    <Card className="bg-slate-800/50 border-slate-700 h-full">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-lg font-semibold text-white">Order Book</h3>
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline" className="border-green-500/50 text-green-400">
+                              Spread: {formatPrice(sampleOrderBook.spread)}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        <div className="space-y-4">
+                          {/* Asks (Sell Orders) */}
+                          <div>
+                            <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
+                              <span>Price (IDR)</span>
+                              <span>Quantity</span>
+                              <span>Total (IDR)</span>
+                            </div>
+                            <div className="space-y-1">
+                              {sampleOrderBook.asks.slice().reverse().map((ask, index) => (
+                                <div key={index} className="relative">
+                                  <div
+                                    className="absolute inset-0 bg-red-500/10 rounded"
+                                    style={{ width: `${ask.percentage}%` }}
+                                  />
+                                  <div className="relative flex items-center justify-between text-xs py-1 px-2">
+                                    <span className="text-red-400 font-mono">
+                                      {(ask.price / 1000000).toFixed(1)}M
+                                    </span>
+                                    <span className="text-slate-300">{ask.quantity}</span>
+                                    <span className="text-slate-400">
+                                      {(ask.total / 1000000).toFixed(1)}M
+                                    </span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Current Price */}
+                          <div className="text-center py-2 border-y border-slate-700">
+                            <div className="text-lg font-bold text-white">
+                              {formatPrice(sampleOrderBook.lastPrice)}
+                            </div>
+                            <div className="text-xs text-slate-400">Last Price</div>
+                          </div>
+
+                          {/* Bids (Buy Orders) */}
+                          <div>
+                            <div className="space-y-1">
+                              {sampleOrderBook.bids.map((bid, index) => (
+                                <div key={index} className="relative">
+                                  <div
+                                    className="absolute inset-0 bg-green-500/10 rounded"
+                                    style={{ width: `${bid.percentage}%` }}
+                                  />
+                                  <div className="relative flex items-center justify-between text-xs py-1 px-2">
+                                    <span className="text-green-400 font-mono">
+                                      {(bid.price / 1000000).toFixed(1)}M
+                                    </span>
+                                    <span className="text-slate-300">{bid.quantity}</span>
+                                    <span className="text-slate-400">
+                                      {(bid.total / 1000000).toFixed(1)}M
+                                    </span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                )}
+
+                {/* Analytics */}
+                {showAnalytics && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={showOrderBook && showLiveActivity ? "lg:col-span-4" : showOrderBook || showLiveActivity ? "lg:col-span-8" : "lg:col-span-12"}
+                  >
+                    <Card className="bg-slate-800/50 border-slate-700 h-full">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-lg font-semibold text-white">Market Analytics</h3>
+                          <Select value={selectedTimeframe} onValueChange={setSelectedTimeframe}>
+                            <SelectTrigger className="w-20 bg-slate-700 border-slate-600 text-white">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-slate-800 border-slate-700 text-white">
+                              <SelectItem value="1h">1H</SelectItem>
+                              <SelectItem value="24h">24H</SelectItem>
+                              <SelectItem value="7d">7D</SelectItem>
+                              <SelectItem value="30d">30D</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        {/* Key Metrics */}
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                          <div className="text-center p-3 bg-slate-700/30 rounded-lg">
+                            <div className="text-lg font-bold text-white">
+                              {formatPrice(sampleAnalytics.floorPrice)}
+                            </div>
+                            <div className="text-xs text-slate-400">Floor Price</div>
+                          </div>
+                          <div className="text-center p-3 bg-slate-700/30 rounded-lg">
+                            <div className="text-lg font-bold text-white">
+                              {formatPrice(sampleAnalytics.volume24h)}
+                            </div>
+                            <div className="text-xs text-slate-400">24h Volume</div>
+                          </div>
+                          <div className="text-center p-3 bg-slate-700/30 rounded-lg">
+                            <div className="text-lg font-bold text-green-400">
+                              +{sampleAnalytics.change24h}%
+                            </div>
+                            <div className="text-xs text-slate-400">24h Change</div>
+                          </div>
+                          <div className="text-center p-3 bg-slate-700/30 rounded-lg">
+                            <div className="text-lg font-bold text-white">
+                              {formatNumber(sampleAnalytics.holders)}
+                            </div>
+                            <div className="text-xs text-slate-400">Holders</div>
+                          </div>
+                        </div>
+
+                        {/* Price Chart Placeholder */}
+                        <div className="h-32 bg-slate-700/20 rounded-lg flex items-center justify-center border border-slate-700/50">
+                          <div className="text-center">
+                            <PieChart className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                            <div className="text-sm text-slate-400">Price Chart</div>
+                            <div className="text-xs text-slate-500">Real-time data visualization</div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                )}
+
+                {/* Live Activity */}
+                {showLiveActivity && (
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className={showOrderBook && showAnalytics ? "lg:col-span-4" : showOrderBook || showAnalytics ? "lg:col-span-8" : "lg:col-span-12"}
+                  >
+                    <Card className="bg-slate-800/50 border-slate-700 h-full">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-lg font-semibold text-white">Live Activity</h3>
+                          <div className="flex items-center gap-2">
+                            {isPlayingLive && (
+                              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                            )}
+                            <Badge variant="outline" className="border-blue-500/50 text-blue-400">
+                              Live
+                            </Badge>
+                          </div>
+                        </div>
+
+                        <div className="space-y-3 max-h-80 overflow-y-auto">
+                          {sampleActivities.map((activity) => (
+                            <div key={activity.id} className="flex items-center gap-3 p-3 bg-slate-700/20 rounded-lg">
+                              <div className="flex-shrink-0">
+                                {getActivityIcon(activity.type)}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="text-sm text-white truncate">
+                                  {activity.nft}
+                                </div>
+                                <div className="flex items-center gap-2 text-xs text-slate-400">
+                                  <span>{activity.user}</span>
+                                  <span>•</span>
+                                  <span>{formatTimeAgo(activity.timestamp)}</span>
+                                </div>
+                              </div>
+                              {activity.price && (
+                                <div className="text-right">
+                                  <div className="text-sm font-bold text-white">
+                                    {formatPrice(activity.price)}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Trust & Security Indicators */}
+                        <div className="mt-4 pt-4 border-t border-slate-700">
+                          <h4 className="text-sm font-medium text-white mb-3">Security Status</h4>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="flex items-center gap-2 text-xs">
+                              <Shield className="w-3 h-3 text-green-400" />
+                              <span className="text-slate-400">SSL Secure</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs">
+                              <Lock className="w-3 h-3 text-green-400" />
+                              <span className="text-slate-400">Encrypted</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs">
+                              <UserCheck className="w-3 h-3 text-green-400" />
+                              <span className="text-slate-400">KYC Verified</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs">
+                              <AlertTriangle className="w-3 h-3 text-yellow-400" />
+                              <span className="text-slate-400">Risk Monitored</span>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Interactive Features Bar */}
+          <div className="flex flex-wrap items-center gap-3 py-4 border-t border-slate-700/50">
+            <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+              <Bell className="w-4 h-4 mr-2" />
+              Price Alerts
+            </Button>
+            <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Community Chat
+            </Button>
+            <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+              <Rocket className="w-4 h-4 mr-2" />
+              Trending
+            </Button>
+            <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+              <Timer className="w-4 h-4 mr-2" />
+              Auctions Ending Soon
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Enhanced Filters Sidebar */}
