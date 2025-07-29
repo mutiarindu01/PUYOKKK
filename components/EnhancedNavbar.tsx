@@ -294,7 +294,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
           {/* Enhanced Right Side - Notifications, Wallet, User */}
           <nav className="flex items-center gap-3">
             {/* Language & Currency Switcher */}
-            <div className="hidden xl:flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-1.5 lg:gap-2">
               <Select value={language} onValueChange={setLanguage}>
                 <SelectTrigger className="w-16 lg:w-20 bg-slate-800/50 border-slate-700 text-white text-xs lg:text-sm">
                   <SelectValue />
