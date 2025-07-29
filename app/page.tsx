@@ -38,6 +38,20 @@ import {
   Calculator,
   Globe,
   Clock,
+  Bell,
+  Filter,
+  Wallet,
+  Settings,
+  LogOut,
+  Bookmark,
+  Award,
+  Target,
+  Flame,
+  Sparkles,
+  Languages,
+  ChevronUp,
+  X,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
