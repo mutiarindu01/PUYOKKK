@@ -232,8 +232,8 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               <Input
                 ref={searchInputRef}
                 type="text"
-                placeholder="Cari NFT, creator, koleksi... (tekan '/' untuk fokus)"
-                className="w-full pl-12 pr-12 py-3 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 rounded-xl backdrop-blur-sm"
+                placeholder="Cari NFT, creator... (tekan '/' untuk fokus)"
+                className="w-full pl-10 md:pl-12 pr-10 md:pr-12 py-2 md:py-3 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 rounded-lg md:rounded-xl backdrop-blur-sm text-sm md:text-base"
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
