@@ -522,15 +522,35 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
             </DropdownMenu>
 
             {/* Mobile Quick Actions */}
-            <div className="flex md:hidden items-center gap-2">
-              <Button size="icon" variant="ghost" className="text-white">
+            <div className="flex sm:hidden items-center gap-1">
+              <Button size="icon" variant="ghost" className="text-white w-9 h-9">
+                <Search className="w-4 h-4" />
+              </Button>
+              <Button size="icon" variant="ghost" className="text-white relative w-9 h-9">
+                <Bell className="w-4 h-4" />
+                {unreadNotifications > 0 && (
+                  <Badge className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center" />
+                )}
+              </Button>
+            </div>
+
+            {/* Tablet Quick Actions */}
+            <div className="hidden sm:flex md:hidden items-center gap-2">
+              <Button size="icon" variant="ghost" className="text-white w-10 h-10">
                 <Search className="w-5 h-5" />
               </Button>
-              <Button size="icon" variant="ghost" className="text-white relative">
+              <Button size="icon" variant="ghost" className="text-white relative w-10 h-10">
                 <Bell className="w-5 h-5" />
                 {unreadNotifications > 0 && (
                   <Badge className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full" />
                 )}
+              </Button>
+              <Button
+                variant="outline"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-none text-sm px-3 h-10"
+              >
+                <Wallet className="w-4 h-4 mr-1" />
+                Wallet
               </Button>
             </div>
 
