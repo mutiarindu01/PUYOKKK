@@ -619,24 +619,24 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                         </div>
                         <ChevronDown className="ml-auto h-4 w-4 transition-transform data-[state=open]:rotate-180" />
                       </CollapsibleTrigger>
-                      <CollapsibleContent className="ml-8 space-y-2 py-2">
+                      <CollapsibleContent className="ml-6 sm:ml-8 space-y-1 sm:space-y-2 py-2">
                         <SheetClose asChild>
-                          <Link href="/marketplace" className="block text-base font-normal text-slate-300 hover:text-blue-400 py-2">
+                          <Link href="/marketplace" className="block text-sm sm:text-base font-normal text-slate-300 hover:text-blue-400 py-2 sm:py-3 px-2 rounded-md hover:bg-slate-800/20 transition-all min-h-[40px] flex items-center">
                             🎨 Digital Art
                           </Link>
                         </SheetClose>
                         <SheetClose asChild>
-                          <Link href="/marketplace" className="block text-base font-normal text-slate-300 hover:text-blue-400 py-2">
-                            �� Legendary Awards
+                          <Link href="/marketplace" className="block text-sm sm:text-base font-normal text-slate-300 hover:text-blue-400 py-2 sm:py-3 px-2 rounded-md hover:bg-slate-800/20 transition-all min-h-[40px] flex items-center">
+                            🏆 Legendary Awards
                           </Link>
                         </SheetClose>
                         <SheetClose asChild>
-                          <Link href="/marketplace" className="block text-base font-normal text-slate-300 hover:text-blue-400 py-2">
+                          <Link href="/marketplace" className="block text-sm sm:text-base font-normal text-slate-300 hover:text-blue-400 py-2 sm:py-3 px-2 rounded-md hover:bg-slate-800/20 transition-all min-h-[40px] flex items-center">
                             🔥 Trending
                           </Link>
                         </SheetClose>
                         <SheetClose asChild>
-                          <Link href="/marketplace" className="block text-base font-normal text-slate-300 hover:text-blue-400 py-2">
+                          <Link href="/marketplace" className="block text-sm sm:text-base font-normal text-slate-300 hover:text-blue-400 py-2 sm:py-3 px-2 rounded-md hover:bg-slate-800/20 transition-all min-h-[40px] flex items-center">
                             🎮 Gaming
                           </Link>
                         </SheetClose>
