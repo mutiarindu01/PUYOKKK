@@ -582,15 +582,45 @@ AI Market Analysis:
             </div>
           </div>
 
-          {/* Mobile-Optimized Search Bar */}
+          {/* AI-Enhanced Search Bar */}
           <div className="relative w-full lg:max-w-2xl">
             <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
             <Input
-              placeholder="Search NFTs, collections..."
-              className="pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 rounded-xl text-sm sm:text-base"
+              placeholder="Search NFTs, collections... (AI-powered)"
+              className="pl-10 sm:pl-12 pr-12 sm:pr-16 py-2.5 sm:py-3 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 rounded-xl text-sm sm:text-base"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value)
+                generateSearchSuggestions(e.target.value)
+              }}
             />
+            <Button
+              size="sm"
+              variant="ghost"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
+              onClick={() => setShowAiFeatures(!showAiFeatures)}
+            >
+              <Sparkles className="w-4 h-4" />
+            </Button>
+
+            {/* AI Search Suggestions */}
+            {aiSearchSuggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-50">
+                {aiSearchSuggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSearchTerm(suggestion)
+                      setAiSearchSuggestions([])
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white first:rounded-t-lg last:rounded-b-lg"
+                  >
+                    <Sparkles className="w-3 h-3 inline mr-2 text-purple-400" />
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
