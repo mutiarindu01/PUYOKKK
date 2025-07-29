@@ -585,12 +585,12 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   </div>
 
                   {/* Mobile Search Bar */}
-                  <div className="p-4 border border-slate-700 rounded-xl">
+                  <div className="p-3 sm:p-4 border border-slate-700 rounded-lg sm:rounded-xl">
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                      <Input 
-                        placeholder="Cari NFT, koleksi..." 
-                        className="pl-10 bg-slate-800/50 border-slate-700 text-white"
+                      <Input
+                        placeholder="Cari NFT, koleksi..."
+                        className="pl-10 bg-slate-800/50 border-slate-700 text-white text-sm h-10 sm:h-11"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                       />
@@ -598,13 +598,13 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   </div>
 
                   {/* Mobile Quick Actions */}
-                  <div className="grid grid-cols-2 gap-3 px-4">
-                    <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                      <Plus className="w-4 h-4 mr-2" />
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3 px-3 sm:px-4">
+                    <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs sm:text-sm py-3 sm:py-3 h-10 sm:h-11">
+                      <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                       Buat NFT
                     </Button>
-                    <Button size="sm" variant="outline" className="border-slate-700 text-white hover:bg-slate-800/50">
-                      <Flame className="w-4 h-4 mr-2" />
+                    <Button size="sm" variant="outline" className="border-slate-700 text-white hover:bg-slate-800/50 text-xs sm:text-sm py-3 sm:py-3 h-10 sm:h-11">
+                      <Flame className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                       Trending
                     </Button>
                   </div>
