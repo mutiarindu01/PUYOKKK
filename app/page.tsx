@@ -108,6 +108,33 @@ export default function LandingPage() {
 
   const [isExploreDropdownOpen, setIsExploreDropdownOpen] = useState(false)
 
+  // Enhanced navbar state
+  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
+  const [unreadNotifications, setUnreadNotifications] = useState(3)
+  const [language, setLanguage] = useState("id")
+  const [currency, setCurrency] = useState("idr")
+  const [isWalletConnected, setIsWalletConnected] = useState(false)
+  const [walletAddress, setWalletAddress] = useState("")
+  const [user, setUser] = useState({
+    name: "Pioneer User",
+    avatar: "",
+    level: 7,
+    pioneerNumber: 1247,
+    xp: 2350,
+    maxXp: 3000
+  })
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  // Popular searches data
+  const popularSearches = [
+    "🎨 Digital Art",
+    "🏆 Legendary Cards",
+    "🔥 Trending NFT",
+    "💎 Premium Collection",
+    "🎮 Gaming Assets"
+  ]
+
   // Live stats data
   const [liveStats, setLiveStats] = useState({
     collections: formatNumber(1247),
