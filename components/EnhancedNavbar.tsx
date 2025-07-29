@@ -120,8 +120,8 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               </span>
             </div>
 
-            {/* Enhanced Desktop Mega Menu Navigation */}
-            <nav className="hidden lg:flex items-center gap-6 ml-6">
+            {/* Enhanced Desktop/Tablet Mega Menu Navigation */}
+            <nav className="hidden md:flex items-center gap-3 lg:gap-6 ml-3 lg:ml-6">
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-2 text-white hover:text-blue-400 transition-colors font-bold text-lg group">
                   MARKETPLACE
