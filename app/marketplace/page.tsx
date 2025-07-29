@@ -392,6 +392,10 @@ export default function MarketplacePage() {
   const [showLiveActivity, setShowLiveActivity] = useState(false)
   const [selectedTimeframe, setSelectedTimeframe] = useState("24h")
   const [isPlayingLive, setIsPlayingLive] = useState(false)
+  const [aiRecommendations, setAiRecommendations] = useState<NFT[]>([])
+  const [aiSearchSuggestions, setAiSearchSuggestions] = useState<string[]>([])
+  const [showAiFeatures, setShowAiFeatures] = useState(false)
+  const [aiAnalysisResults, setAiAnalysisResults] = useState<string>("")
 
   // Format currency
   const formatPrice = (price: number) => {
