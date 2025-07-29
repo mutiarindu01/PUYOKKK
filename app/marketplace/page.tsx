@@ -1075,8 +1075,96 @@ AI Market Analysis:
                 <span className="hidden sm:inline">Auctions Ending Soon</span>
                 <span className="sm:hidden">Ending</span>
               </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex-shrink-0 border-purple-500/50 text-purple-400 hover:bg-purple-500/10 text-xs sm:text-sm px-2 sm:px-3"
+                onClick={() => {
+                  setShowAiFeatures(!showAiFeatures)
+                  generateAiRecommendations()
+                  performAiAnalysis()
+                }}
+              >
+                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">AI Assistant</span>
+                <span className="sm:hidden">AI</span>
+              </Button>
             </div>
           </div>
+
+          {/* AI Features Panel */}
+          <AnimatePresence>
+            {showAiFeatures && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mt-6 p-6 bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-xl"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* AI Recommendations */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-purple-400" />
+                      AI Recommendations
+                    </h3>
+                    <div className="space-y-3">
+                      {aiRecommendations.length > 0 ? aiRecommendations.map((nft) => (
+                        <div key={nft.id} className="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg">
+                          <img src={nft.image} alt={nft.name} className="w-12 h-12 rounded-lg object-cover" />
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-medium text-white truncate">{nft.name}</div>
+                            <div className="text-xs text-slate-400">{formatPrice(nft.price)}</div>
+                          </div>
+                          <div className="text-xs text-purple-400">92% match</div>
+                        </div>
+                      )) : (
+                        <div className="text-center py-6 text-slate-400">
+                          <Sparkles className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                          <p className="text-sm">Like some NFTs to get personalized recommendations</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* AI Market Analysis */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <BarChart3 className="w-5 h-5 text-blue-400" />
+                      Market Analysis
+                    </h3>
+                    <div className="bg-slate-800/50 rounded-lg p-4">
+                      <pre className="text-xs text-slate-300 whitespace-pre-wrap leading-relaxed">
+                        {aiAnalysisResults || "Analyzing market trends..."}
+                      </pre>
+                    </div>
+                  </div>
+
+                  {/* AI Trading Assistant */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <Rocket className="w-5 h-5 text-green-400" />
+                      Trading Assistant
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="p-3 bg-slate-800/50 rounded-lg border-l-4 border-green-500">
+                        <div className="text-sm font-medium text-green-400">Buy Signal</div>
+                        <div className="text-xs text-slate-400">Gaming NFTs showing strong momentum</div>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg border-l-4 border-yellow-500">
+                        <div className="text-sm font-medium text-yellow-400">Hold Signal</div>
+                        <div className="text-xs text-slate-400">Art collections in consolidation phase</div>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg border-l-4 border-blue-500">
+                        <div className="text-sm font-medium text-blue-400">Watch Signal</div>
+                        <div className="text-xs text-slate-400">Music NFTs gaining popularity</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
