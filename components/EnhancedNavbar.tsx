@@ -563,20 +563,20 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="bg-slate-900/95 border-slate-700 text-white w-full sm:w-80 max-w-sm backdrop-blur-xl">
-                <div className="flex flex-col gap-6 py-6">
+                <div className="flex flex-col gap-4 sm:gap-6 py-4 sm:py-6 h-full overflow-y-auto">
                   {/* Mobile User Profile */}
-                  <div className="flex items-center gap-4 p-4 bg-slate-800/50 rounded-xl">
-                    <Avatar className="w-12 h-12 border-2 border-blue-500">
+                  <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-800/50 rounded-lg sm:rounded-xl">
+                    <Avatar className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-blue-500">
                       <AvatarImage src={user.avatar} />
                       <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600">
                         {user.name.slice(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <div className="font-semibold">{user.name}</div>
-                      <div className="text-sm text-slate-400">Level {user.level} Pioneer</div>
+                      <div className="font-semibold text-sm sm:text-base">{user.name}</div>
+                      <div className="text-xs sm:text-sm text-slate-400">Level {user.level} Pioneer</div>
                       <div className="w-full bg-slate-700 rounded-full h-1.5 mt-1">
-                        <div 
+                        <div
                           className="bg-gradient-to-r from-blue-500 to-purple-500 h-1.5 rounded-full"
                           style={{ width: `${(user.xp / user.maxXp) * 100}%` }}
                         />
