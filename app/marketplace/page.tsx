@@ -537,7 +537,7 @@ export default function MarketplacePage() {
       </div>
 
       {/* Order Book & Analytics Dashboard */}
-      <div className="border-b border-slate-700/50 bg-slate-900/50">
+      <div className="border-b border-slate-700/50 bg-slate-900/50 pt-32 md:pt-36">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Dashboard Controls */}
           <div className="flex flex-wrap items-center gap-4 mb-6">
