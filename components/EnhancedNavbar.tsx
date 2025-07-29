@@ -96,7 +96,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
         }
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-10 h-full flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 h-full flex items-center justify-between">
         <div
           className={`flex items-center justify-between w-full transition-all duration-500 ease-out ${
             isNavOpen
