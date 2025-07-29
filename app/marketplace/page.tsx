@@ -371,6 +371,11 @@ export default function MarketplacePage() {
   const [filteredNFTs, setFilteredNFTs] = useState(sampleNFTs)
   const [favorites, setFavorites] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
+  const [showOrderBook, setShowOrderBook] = useState(false)
+  const [showAnalytics, setShowAnalytics] = useState(false)
+  const [showLiveActivity, setShowLiveActivity] = useState(false)
+  const [selectedTimeframe, setSelectedTimeframe] = useState("24h")
+  const [isPlayingLive, setIsPlayingLive] = useState(false)
 
   // Format currency
   const formatPrice = (price: number) => {
