@@ -226,7 +226,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
           </div>
 
           {/* Enhanced Center Search with Auto-suggestions */}
-          <div className="relative flex-1 mx-6 hidden lg:block max-w-lg">
+          <div className="relative flex-1 mx-3 md:mx-4 lg:mx-6 hidden md:block max-w-sm lg:max-w-lg">
             <div className="relative group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-400 transition-colors" />
               <Input
