@@ -540,49 +540,69 @@ export default function MarketplacePage() {
       {/* Order Book & Analytics Dashboard */}
       <div className="border-b border-slate-700/50 bg-slate-900/50 pt-32 md:pt-36">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          {/* Dashboard Controls */}
-          <div className="flex flex-wrap items-center gap-4 mb-6">
-            <Button
-              variant={showOrderBook ? "default" : "outline"}
-              onClick={() => setShowOrderBook(!showOrderBook)}
-              className={showOrderBook ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
-            >
-              <BarChart3 className="w-4 h-4 mr-2" />
-              Order Book
-            </Button>
-            <Button
-              variant={showAnalytics ? "default" : "outline"}
-              onClick={() => setShowAnalytics(!showAnalytics)}
-              className={showAnalytics ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
-            >
-              <LineChart className="w-4 h-4 mr-2" />
-              Analytics
-            </Button>
-            <Button
-              variant={showLiveActivity ? "default" : "outline"}
-              onClick={() => setShowLiveActivity(!showLiveActivity)}
-              className={showLiveActivity ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
-            >
-              <Activity className="w-4 h-4 mr-2" />
-              Live Activity
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setIsPlayingLive(!isPlayingLive)}
-              className="border-slate-700 text-slate-300 hover:bg-slate-800"
-            >
-              {isPlayingLive ? (
-                <>
-                  <Coffee className="w-4 h-4 mr-2" />
-                  Pause Live
-                </>
-              ) : (
-                <>
-                  <PlayCircle className="w-4 h-4 mr-2" />
-                  Play Live
-                </>
-              )}
-            </Button>
+          {/* Mobile-First Dashboard Controls */}
+          <div className="mb-6">
+            {/* Mobile: Horizontal scroll with indicators */}
+            <div className="flex gap-2 sm:gap-4 overflow-x-auto pb-2 scrollbar-hide md:flex-wrap">
+              <Button
+                variant={showOrderBook ? "default" : "outline"}
+                onClick={() => setShowOrderBook(!showOrderBook)}
+                className={`flex-shrink-0 text-xs sm:text-sm ${showOrderBook ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+                size="sm"
+              >
+                <BarChart3 className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Order Book</span>
+                <span className="sm:hidden">Orders</span>
+              </Button>
+              <Button
+                variant={showAnalytics ? "default" : "outline"}
+                onClick={() => setShowAnalytics(!showAnalytics)}
+                className={`flex-shrink-0 text-xs sm:text-sm ${showAnalytics ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+                size="sm"
+              >
+                <LineChart className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Analytics</span>
+                <span className="sm:hidden">Stats</span>
+              </Button>
+              <Button
+                variant={showLiveActivity ? "default" : "outline"}
+                onClick={() => setShowLiveActivity(!showLiveActivity)}
+                className={`flex-shrink-0 text-xs sm:text-sm ${showLiveActivity ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}`}
+                size="sm"
+              >
+                <Activity className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Live Activity</span>
+                <span className="sm:hidden">Live</span>
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setIsPlayingLive(!isPlayingLive)}
+                className="flex-shrink-0 border-slate-700 text-slate-300 hover:bg-slate-800 text-xs sm:text-sm"
+                size="sm"
+              >
+                {isPlayingLive ? (
+                  <>
+                    <Coffee className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Pause Live</span>
+                    <span className="sm:hidden">Pause</span>
+                  </>
+                ) : (
+                  <>
+                    <PlayCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Play Live</span>
+                    <span className="sm:hidden">Play</span>
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {/* Mobile indicators */}
+            <div className="flex justify-center gap-1 mt-2 md:hidden">
+              <div className={`w-2 h-1 rounded-full ${showOrderBook ? 'bg-blue-500' : 'bg-slate-600'}`}></div>
+              <div className={`w-2 h-1 rounded-full ${showAnalytics ? 'bg-blue-500' : 'bg-slate-600'}`}></div>
+              <div className={`w-2 h-1 rounded-full ${showLiveActivity ? 'bg-blue-500' : 'bg-slate-600'}`}></div>
+              <div className={`w-2 h-1 rounded-full ${isPlayingLive ? 'bg-green-500' : 'bg-slate-600'}`}></div>
+            </div>
           </div>
 
           {/* Dashboard Content */}
