@@ -612,7 +612,7 @@ export default function MarketplacePage() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 mb-6"
               >
                 {/* Order Book */}
                 {showOrderBook && (
