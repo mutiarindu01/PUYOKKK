@@ -438,6 +438,45 @@ export default function MarketplacePage() {
     }
   }
 
+  // AI-Powered Features
+  const generateAiRecommendations = () => {
+    // Simulate AI recommendation algorithm
+    const userInterests = favorites.length > 0 ? sampleNFTs.filter(nft => favorites.includes(nft.id)) : []
+    const recommended = sampleNFTs
+      .filter(nft => !favorites.includes(nft.id))
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+    setAiRecommendations(recommended)
+  }
+
+  const generateSearchSuggestions = (query: string) => {
+    if (query.length < 2) {
+      setAiSearchSuggestions([])
+      return
+    }
+
+    const suggestions = [
+      `${query} - trending`,
+      `${query} - by verified artists`,
+      `${query} - under 50M IDR`,
+      `${query} - rare items`,
+      `similar to ${query}`
+    ]
+    setAiSearchSuggestions(suggestions)
+  }
+
+  const performAiAnalysis = () => {
+    const analysis = `
+AI Market Analysis:
+• Current trend: Gaming NFTs showing 23% growth
+• Optimal price range: 45M-125M IDR
+• Best selling time: Weekends 7-9 PM
+• Similar collections performing 15% above average
+• Recommendation: Consider listing during peak hours
+    `.trim()
+    setAiAnalysisResults(analysis)
+  }
+
   // Toggle favorite
   const toggleFavorite = (nftId: string) => {
     setFavorites(prev => 
