@@ -876,24 +876,6 @@ export default function LandingPage() {
 
               {/* Slider Container */}
               <div className="relative">
-                {/* Navigation Buttons - Hidden on mobile since auto-rotation is active */}
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={prevSlide}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all hidden md:flex"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={nextSlide}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all hidden md:flex"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </Button>
-
                 {/* Desktop: Show both cards side by side */}
                 <div className="hidden md:flex gap-6 justify-center">
                   {legendaryAwards.slice(0, 2).map((award, index) => (
