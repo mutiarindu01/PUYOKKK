@@ -281,6 +281,60 @@ const sampleNFTs: NFT[] = [
   }
 ]
 
+// Sample Order Book Data
+const sampleOrderBook: OrderBook = {
+  bids: [
+    { price: 125000000, quantity: 3, total: 375000000, percentage: 100 },
+    { price: 124000000, quantity: 5, total: 620000000, percentage: 85 },
+    { price: 123000000, quantity: 2, total: 246000000, percentage: 70 },
+    { price: 122000000, quantity: 8, total: 976000000, percentage: 55 },
+    { price: 121000000, quantity: 4, total: 484000000, percentage: 40 },
+    { price: 120000000, quantity: 6, total: 720000000, percentage: 25 },
+    { price: 119000000, quantity: 3, total: 357000000, percentage: 15 },
+  ],
+  asks: [
+    { price: 126000000, quantity: 2, total: 252000000, percentage: 20 },
+    { price: 127000000, quantity: 4, total: 508000000, percentage: 35 },
+    { price: 128000000, quantity: 3, total: 384000000, percentage: 50 },
+    { price: 129000000, quantity: 6, total: 774000000, percentage: 65 },
+    { price: 130000000, quantity: 5, total: 650000000, percentage: 80 },
+    { price: 131000000, quantity: 7, total: 917000000, percentage: 95 },
+    { price: 132000000, quantity: 2, total: 264000000, percentage: 100 },
+  ],
+  spread: 1000000,
+  lastPrice: 125500000
+}
+
+// Sample Analytics Data
+const sampleAnalytics: AnalyticsData = {
+  priceHistory: Array.from({ length: 30 }, (_, i) => ({
+    timestamp: Date.now() - (29 - i) * 24 * 60 * 60 * 1000,
+    price: 125000000 + Math.random() * 20000000 - 10000000,
+    volume: Math.random() * 1000000000
+  })),
+  volumeHistory: Array.from({ length: 7 }, (_, i) => ({
+    timestamp: Date.now() - (6 - i) * 24 * 60 * 60 * 1000,
+    price: 0,
+    volume: Math.random() * 5000000000
+  })),
+  marketCap: 15600000000,
+  totalSupply: 10000,
+  holders: 2847,
+  floorPrice: 115000000,
+  avgPrice: 125000000,
+  change24h: 5.7,
+  volume24h: 2300000000
+}
+
+// Sample Live Activities
+const sampleActivities: LiveActivity[] = [
+  { id: "1", type: "sale", nft: "Golden Dragon #1", user: "@crypto_whale", price: 125000000, timestamp: Date.now() - 2 * 60 * 1000, avatar: "" },
+  { id: "2", type: "bid", nft: "Epic Phoenix #23", user: "@nft_collector", price: 89000000, timestamp: Date.now() - 5 * 60 * 1000, avatar: "" },
+  { id: "3", type: "listing", nft: "Cyber Warrior #456", user: "@gaming_pro", price: 45000000, timestamp: Date.now() - 8 * 60 * 1000, avatar: "" },
+  { id: "4", type: "transfer", nft: "Mystic Spirit #789", user: "@forest_lover", timestamp: Date.now() - 12 * 60 * 1000, avatar: "" },
+  { id: "5", type: "sale", nft: "Digital Dream #12", user: "@art_enthusiast", price: 75000000, timestamp: Date.now() - 15 * 60 * 1000, avatar: "" },
+]
+
 // Categories with icons
 const categories = [
   { id: "all", name: "Semua", icon: Globe, count: 1247 },
