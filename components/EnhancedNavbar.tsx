@@ -317,6 +317,223 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               </Select>
             </div>
 
+            {/* Notifications */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="ghost" className="relative hover:bg-slate-800/50 text-white">
+                  <Bell className="w-5 h-5" />
+                  {unreadNotifications > 0 && (
+                    <Badge className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full animate-pulse flex items-center justify-center">
+                      {unreadNotifications}
+                    </Badge>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-80 bg-slate-800/95 border-slate-700 text-white backdrop-blur-xl">
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold">Notifikasi</h3>
+                    <Badge className="bg-blue-600">{unreadNotifications} Baru</Badge>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-slate-700/30 rounded-lg border-l-4 border-blue-500">
+                      <div className="flex items-start gap-3">
+                        <Trophy className="w-5 h-5 text-yellow-400 mt-0.5" />
+                        <div>
+                          <div className="font-medium text-sm">NFT Terjual!</div>
+                          <div className="text-xs text-slate-400">Golden Dragon Legendary berhasil dijual</div>
+                          <div className="text-xs text-slate-500 mt-1">2 menit lalu</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-3 hover:bg-slate-700/30 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <Heart className="w-5 h-5 text-red-400 mt-0.5" />
+                        <div>
+                          <div className="font-medium text-sm">Bid Baru</div>
+                          <div className="text-xs text-slate-400">Seseorang menawar koleksi Anda</div>
+                          <div className="text-xs text-slate-500 mt-1">1 jam lalu</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <DropdownMenuSeparator className="my-3 bg-slate-700" />
+                  <Button variant="ghost" className="w-full justify-center text-blue-400 hover:text-blue-300">
+                    Lihat Semua Notifikasi
+                  </Button>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Wallet Connection */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={`border-slate-700 hover:bg-slate-800/50 ${
+                    isWalletConnected
+                      ? "bg-gradient-to-r from-green-600/20 to-blue-600/20 border-green-500/50 text-green-400"
+                      : "bg-gradient-to-r from-blue-600 to-purple-600 text-white border-none"
+                  }`}
+                >
+                  <Wallet className="w-4 h-4 mr-2" />
+                  {isWalletConnected ? `${walletAddress.slice(0,6)}...${walletAddress.slice(-4)}` : "Connect Wallet"}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-64 bg-slate-800/95 border-slate-700 text-white backdrop-blur-xl">
+                {!isWalletConnected ? (
+                  <div className="p-4">
+                    <div className="text-sm text-slate-400 mb-3">Pilih Wallet</div>
+                    <div className="space-y-2">
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer" onClick={() => {
+                        setIsWalletConnected(true);
+                        setWalletAddress("0x1234...5678");
+                      }}>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                            🦊
+                          </div>
+                          <div>
+                            <div className="font-medium">MetaMask</div>
+                            <div className="text-xs text-slate-400">Browser wallet</div>
+                          </div>
+                        </div>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                            🔗
+                          </div>
+                          <div>
+                            <div className="font-medium">WalletConnect</div>
+                            <div className="text-xs text-slate-400">Mobile wallet</div>
+                          </div>
+                        </div>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                            🏦
+                          </div>
+                          <div>
+                            <div className="font-medium">Coinbase Wallet</div>
+                            <div className="text-xs text-slate-400">Coinbase wallet</div>
+                          </div>
+                        </div>
+                      </DropdownMenuItem>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-4">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                        ✓
+                      </div>
+                      <div>
+                        <div className="font-medium">Wallet Connected</div>
+                        <div className="text-xs text-slate-400">{walletAddress}</div>
+                      </div>
+                    </div>
+                    <DropdownMenuSeparator className="my-3 bg-slate-700" />
+                    <DropdownMenuItem className="hover:bg-slate-700/50 p-2 cursor-pointer">
+                      <Eye className="w-4 h-4 mr-2" />
+                      View on Explorer
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="hover:bg-slate-700/50 p-2 cursor-pointer text-red-400" onClick={() => {
+                      setIsWalletConnected(false);
+                      setWalletAddress("");
+                    }}>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Disconnect
+                    </DropdownMenuItem>
+                  </div>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* User Profile with Gamification */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="hidden md:flex items-center gap-3 hover:bg-slate-800/50 p-2">
+                  <div className="relative">
+                    <Avatar className="w-8 h-8 border-2 border-gradient-to-r from-yellow-500 to-orange-500">
+                      <AvatarImage src={user.avatar} />
+                      <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                        {user.name.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <Badge className="absolute -bottom-1 -right-1 bg-blue-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                      {user.level}
+                    </Badge>
+                  </div>
+                  <div className="hidden lg:block text-left">
+                    <div className="text-sm font-medium text-white">{user.name}</div>
+                    <div className="text-xs text-slate-400">Pioneer #{user.pioneerNumber}</div>
+                  </div>
+                  <ChevronDown className="w-4 h-4 text-slate-400" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-72 bg-slate-800/95 border-slate-700 text-white backdrop-blur-xl">
+                <div className="p-4">
+                  {/* User Progress */}
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium">Level {user.level} Pioneer</span>
+                      <Sparkles className="w-4 h-4 text-yellow-400" />
+                    </div>
+                    <div className="w-full bg-slate-700 rounded-full h-2 mb-2">
+                      <div
+                        className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${(user.xp / user.maxXp) * 100}%` }}
+                      />
+                    </div>
+                    <div className="text-xs text-slate-400">
+                      {user.xp} / {user.maxXp} XP ke Level {user.level + 1}
+                    </div>
+                  </div>
+
+                  <DropdownMenuSeparator className="my-3 bg-slate-700" />
+
+                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer">
+                    <User className="w-4 h-4 mr-3 text-blue-400" />
+                    <span>Profile Saya</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer">
+                    <Bookmark className="w-4 h-4 mr-3 text-green-400" />
+                    <span>NFT Favorit</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer">
+                    <TrendingUp className="w-4 h-4 mr-3 text-purple-400" />
+                    <span>Portofolio</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer">
+                    <Settings className="w-4 h-4 mr-3 text-slate-400" />
+                    <span>Pengaturan</span>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuSeparator className="my-3 bg-slate-700" />
+
+                  <DropdownMenuItem className="hover:bg-red-500/20 p-3 cursor-pointer text-red-400">
+                    <LogOut className="w-4 h-4 mr-3" />
+                    <span>Keluar</span>
+                  </DropdownMenuItem>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Mobile Quick Actions */}
+            <div className="flex md:hidden items-center gap-2">
+              <Button size="icon" variant="ghost" className="text-white">
+                <Search className="w-5 h-5" />
+              </Button>
+              <Button size="icon" variant="ghost" className="text-white relative">
+                <Bell className="w-5 h-5" />
+                {unreadNotifications > 0 && (
+                  <Badge className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full" />
+                )}
+              </Button>
+            </div>
+
             {/* Enhanced Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild>
