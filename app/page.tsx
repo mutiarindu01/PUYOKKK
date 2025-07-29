@@ -624,13 +624,22 @@ export default function LandingPage() {
         setBackgroundType={setBackgroundType}
       />
 
-      {/* Navigation Bar - Enhanced Design */}
+      {/* Enhanced Navigation Bar with All Features */}
       <header
         className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
           isNavOpen
-            ? "h-16 backdrop-blur-md bg-background/80 border-b border-border/50 shadow-lg shadow-background/20"
+            ? "h-20 backdrop-blur-xl bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 border-b border-slate-700/50 shadow-2xl shadow-slate-900/40"
             : "h-12 bg-transparent border-transparent transform -translate-y-1"
         }`}
+        onKeyDown={(e) => {
+          if (e.key === '/') {
+            e.preventDefault();
+            searchInputRef.current?.focus();
+          }
+          if (e.key === 'Escape') {
+            setShowSearchSuggestions(false);
+          }
+        }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 h-full flex items-center justify-between">
           <div
