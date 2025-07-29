@@ -644,7 +644,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                     </Collapsible>
 
                     <SheetClose asChild>
-                      <Link href="/rewards" className="flex items-center gap-3 text-lg font-medium hover:text-orange-400 p-3 hover:bg-slate-800/30 rounded-lg">
+                      <Link href="/rewards" className="flex items-center gap-3 text-base sm:text-lg font-medium hover:text-orange-400 p-3 sm:p-4 hover:bg-slate-800/30 rounded-lg transition-all duration-200 min-h-[44px] sm:min-h-[48px]">
                         <Trophy className="w-5 h-5" />
                         <span>Hadiah</span>
                         <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs ml-auto">
@@ -654,7 +654,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                     </SheetClose>
 
                     <SheetClose asChild>
-                      <Link href="/voting" className="flex items-center gap-3 text-lg font-medium hover:text-green-400 p-3 hover:bg-slate-800/30 rounded-lg">
+                      <Link href="/voting" className="flex items-center gap-3 text-base sm:text-lg font-medium hover:text-green-400 p-3 sm:p-4 hover:bg-slate-800/30 rounded-lg transition-all duration-200 min-h-[44px] sm:min-h-[48px]">
                         <Target className="w-5 h-5" />
                         Voting
                       </Link>
