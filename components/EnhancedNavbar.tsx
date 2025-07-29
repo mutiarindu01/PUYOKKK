@@ -296,7 +296,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
             {/* Language & Currency Switcher */}
             <div className="hidden xl:flex items-center gap-2">
               <Select value={language} onValueChange={setLanguage}>
-                <SelectTrigger className="w-20 bg-slate-800/50 border-slate-700 text-white">
+                <SelectTrigger className="w-16 lg:w-20 bg-slate-800/50 border-slate-700 text-white text-xs lg:text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-slate-800 border-slate-700 text-white">
