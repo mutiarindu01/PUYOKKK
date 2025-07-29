@@ -610,9 +610,9 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   </div>
 
                   {/* Enhanced Mobile Navigation */}
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1 sm:gap-2">
                     <Collapsible>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full text-lg font-medium hover:text-blue-400 p-3 hover:bg-slate-800/30 rounded-lg">
+                      <CollapsibleTrigger className="flex items-center justify-between w-full text-base sm:text-lg font-medium hover:text-blue-400 p-3 sm:p-4 hover:bg-slate-800/30 rounded-lg transition-all duration-200 min-h-[44px] sm:min-h-[48px]">
                         <div className="flex items-center gap-3">
                           <Palette className="w-5 h-5" />
                           Marketplace
@@ -627,7 +627,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                         </SheetClose>
                         <SheetClose asChild>
                           <Link href="/marketplace" className="block text-base font-normal text-slate-300 hover:text-blue-400 py-2">
-                            🏆 Legendary Awards
+                            �� Legendary Awards
                           </Link>
                         </SheetClose>
                         <SheetClose asChild>
