@@ -562,7 +562,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-slate-900/95 border-slate-700 text-white w-full sm:w-80 max-w-sm backdrop-blur-xl">
+              <SheetContent side="right" className="bg-slate-900/95 border-slate-700 text-white w-full sm:w-80 max-w-sm backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right">
                 <div className="flex flex-col gap-4 sm:gap-6 py-4 sm:py-6 h-full overflow-y-auto">
                   {/* Mobile User Profile */}
                   <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-800/50 rounded-lg sm:rounded-xl">
