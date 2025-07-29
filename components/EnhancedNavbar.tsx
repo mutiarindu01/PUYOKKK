@@ -557,12 +557,12 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
             {/* Enhanced Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-slate-800/50">
-                  <Menu className="w-6 h-6" />
+                <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-slate-800/50 w-10 h-10 sm:w-11 sm:h-11">
+                  <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-slate-900/95 border-slate-700 text-white w-80 backdrop-blur-xl">
+              <SheetContent side="right" className="bg-slate-900/95 border-slate-700 text-white w-full sm:w-80 max-w-sm backdrop-blur-xl">
                 <div className="flex flex-col gap-6 py-6">
                   {/* Mobile User Profile */}
                   <div className="flex items-center gap-4 p-4 bg-slate-800/50 rounded-xl">
