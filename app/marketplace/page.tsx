@@ -37,6 +37,23 @@ import {
   Video,
   Code,
   Globe,
+  BarChart3,
+  LineChart,
+  TrendingDown,
+  Activity,
+  Shield,
+  Lock,
+  UserCheck,
+  AlertTriangle,
+  MessageCircle,
+  Bell,
+  PlayCircle,
+  Coffee,
+  Rocket,
+  Gavel,
+  Timer,
+  Layers,
+  PieChart,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
