@@ -552,8 +552,132 @@ export default function MarketplacePage() {
         </div>
       </div>
 
+      {/* Hero Section */}
+      <div className="relative pt-32 md:pt-36 pb-12 bg-gradient-to-br from-slate-900 via-blue-950/30 to-purple-950/30 overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 bg-purple-500/10 rounded-full blur-lg animate-pulse delay-300"></div>
+          <div className="absolute bottom-20 left-1/3 w-40 h-40 bg-cyan-500/5 rounded-full blur-2xl animate-pulse delay-700"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-4xl mx-auto">
+            {/* Hero Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 mb-6"
+            >
+              <Sparkles className="w-4 h-4 text-blue-400" />
+              <span className="text-sm text-blue-400 font-medium">Indonesia's Premier NFT Marketplace</span>
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            </motion.div>
+
+            {/* Hero Title */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+            >
+              Discover, Collect, & Trade
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                Digital Masterpieces
+              </span>
+            </motion.h1>
+
+            {/* Hero Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-lg sm:text-xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+            >
+              Experience the future of digital ownership with our secure, user-friendly platform.
+              Buy, sell, and discover unique NFTs with rupiah payments via e-wallet.
+            </motion.p>
+
+            {/* Hero Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10"
+            >
+              <div className="text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-1">156K+</div>
+                <div className="text-sm text-slate-400">NFTs Created</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-1">78K+</div>
+                <div className="text-sm text-slate-400">Artists</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-1">2.1B</div>
+                <div className="text-sm text-slate-400">Volume (IDR)</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-1">45K+</div>
+                <div className="text-sm text-slate-400">Collectors</div>
+              </div>
+            </motion.div>
+
+            {/* Hero CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            >
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              >
+                <Rocket className="w-5 h-5 mr-2" />
+                Start Exploring
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300"
+              >
+                <Users className="w-5 h-5 mr-2" />
+                Join Community
+              </Button>
+            </motion.div>
+
+            {/* Hero Features */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.0 }}
+              className="flex flex-wrap items-center justify-center gap-6 mt-12 pt-8 border-t border-slate-700/50"
+            >
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <Shield className="w-4 h-4 text-green-400" />
+                <span>Secure Transactions</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <Zap className="w-4 h-4 text-yellow-400" />
+                <span>Instant E-Wallet</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <Trophy className="w-4 h-4 text-purple-400" />
+                <span>Verified Artists</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <Globe className="w-4 h-4 text-blue-400" />
+                <span>Global Community</span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
       {/* Order Book & Analytics Dashboard */}
-      <div className="border-b border-slate-700/50 bg-slate-900/50 pt-32 md:pt-36">
+      <div className="border-b border-slate-700/50 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Mobile-First Dashboard Controls */}
           <div className="mb-6">
