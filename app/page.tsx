@@ -38,6 +38,20 @@ import {
   Calculator,
   Globe,
   Clock,
+  Bell,
+  Filter,
+  Wallet,
+  Settings,
+  LogOut,
+  Bookmark,
+  Award,
+  Target,
+  Flame,
+  Sparkles,
+  Languages,
+  ChevronUp,
+  X,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -56,6 +70,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
 import { useRouter } from "next/navigation"
 import Footer from "@/components/Footer"
 import MarketplaceLoading from "@/components/MarketplaceLoading"
@@ -64,6 +80,7 @@ import SplineBackground, { SplineBackgroundDemo } from "@/components/SplineBackg
 import FloatingBackgroundSwitcher from "@/components/FloatingBackgroundSwitcher"
 import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
 import ProfileCard from "@/components/ProfileCard"
+import EnhancedNavbar from "@/components/EnhancedNavbar"
 import ScrollFloat from "@/components/ScrollFloat"
 import CompactStats from "@/components/CompactStats"
 import TrustBar from "@/components/TrustBar"
@@ -91,6 +108,33 @@ export default function LandingPage() {
   const router = useRouter()
 
   const [isExploreDropdownOpen, setIsExploreDropdownOpen] = useState(false)
+
+  // Enhanced navbar state
+  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
+  const [unreadNotifications, setUnreadNotifications] = useState(3)
+  const [language, setLanguage] = useState("id")
+  const [currency, setCurrency] = useState("idr")
+  const [isWalletConnected, setIsWalletConnected] = useState(false)
+  const [walletAddress, setWalletAddress] = useState("")
+  const [user, setUser] = useState({
+    name: "Pioneer User",
+    avatar: "",
+    level: 7,
+    pioneerNumber: 1247,
+    xp: 2350,
+    maxXp: 3000
+  })
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  // Popular searches data
+  const popularSearches = [
+    "🎨 Digital Art",
+    "🏆 Legendary Cards",
+    "🔥 Trending NFT",
+    "💎 Premium Collection",
+    "🎮 Gaming Assets"
+  ]
 
   // Live stats data
   const [liveStats, setLiveStats] = useState({
@@ -581,177 +625,12 @@ export default function LandingPage() {
         setBackgroundType={setBackgroundType}
       />
 
-      {/* Navigation Bar - Enhanced Design */}
-      <header
-        className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
-          isNavOpen
-            ? "h-16 backdrop-blur-md bg-background/80 border-b border-border/50 shadow-lg shadow-background/20"
-            : "h-12 bg-transparent border-transparent transform -translate-y-1"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 md:px-10 h-full flex items-center justify-between">
-          <div
-            className={`flex items-center justify-between w-full transition-all duration-500 ease-out ${
-              isNavOpen
-                ? "opacity-100 transform translate-y-0"
-                : "opacity-0 pointer-events-none transform -translate-y-2"
-            }`}
-          >
-            {/* Left Side - Logo and Title */}
-            <div className="flex items-center gap-3">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
-                alt="PUYOK Logo"
-                className="w-8 h-8 object-contain"
-              />
-              <span className="text-xl font-bold text-foreground">PUYOK</span>
-
-              {/* Enhanced Desktop Navigation Menu */}
-              <nav className="hidden md:flex items-center gap-6 ml-8">
-                <Link href="/marketplace" className="text-foreground hover:text-primary transition-colors font-bold text-lg">
-                  MARKETPLACE
-                </Link>
-                <Link href="/nft" className="text-foreground hover:text-primary transition-colors font-medium">
-                  NFT
-                </Link>
-                <Link href="/rewards" className="text-foreground hover:text-primary transition-colors font-medium relative">
-                  HADIAH
-                  <Badge className="absolute -top-2 -right-6 bg-red-500 text-white text-xs animate-pulse">
-                    NEW
-                  </Badge>
-                </Link>
-                <Link href="/voting" className="text-foreground hover:text-primary transition-colors font-medium">
-                  VOTING
-                </Link>
-              </nav>
-            </div>
-
-            {/* Center: Search Bar (Desktop Only) */}
-            <div className="relative flex-1 mx-4 hidden md:block max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Cari aset, koleksi, atau kreator..."
-                className="w-full pl-10 pr-4 py-2 bg-input border-border text-foreground placeholder-muted-foreground focus:ring-ring focus:border-primary rounded-lg"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-
-            {/* Right Side - Buttons */}
-            <nav className="flex items-center gap-3">
-              <div className="hidden md:flex items-center gap-3">
-                <Button variant="outline" className="border-border text-foreground hover:bg-accent bg-transparent" asChild>
-                  <Link href="/dashboard">Masuk</Link>
-                </Button>
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Jual Aset
-                </Button>
-              </div>
-
-              {/* Mobile Menu Trigger */}
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden text-foreground">
-                    <Menu className="w-6 h-6" />
-                    <span className="sr-only">Toggle menu</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="bg-card border-border text-foreground w-64">
-                  <div className="flex flex-col gap-4 py-6">
-                    <SheetClose asChild>
-                      <Link href="/dashboard" className="text-lg font-medium hover:text-primary">
-                        Masuk
-                      </Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Link href="#" className="text-lg font-medium hover:text-primary">
-                        Jual Aset
-                      </Link>
-                    </SheetClose>
-                    <div className="border-t border-border my-2" />
-
-                    <Collapsible>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full text-lg font-medium hover:text-primary">
-                        Aset{" "}
-                        <ChevronDown className="ml-auto h-4 w-4 transition-transform data-[state=open]:rotate-180" />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="ml-4 space-y-2 py-2">
-                        <SheetClose asChild>
-                          <Link
-                            href="#marketplace"
-                            className="block text-base font-normal text-muted-foreground hover:text-primary"
-                          >
-                            NFT
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            href="#marketplace"
-                            className="block text-base font-normal text-muted-foreground hover:text-primary"
-                          >
-                            Token
-                          </Link>
-                        </SheetClose>
-                      </CollapsibleContent>
-                    </Collapsible>
-
-                    <Collapsible>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full text-lg font-medium hover:text-primary">
-                        Tentang PUYOK{" "}
-                        <ChevronDown className="ml-auto h-4 w-4 transition-transform data-[state=open]:rotate-180" />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="ml-4 space-y-2 py-2">
-                        <SheetClose asChild>
-                          <Link
-                            href="#how-it-works"
-                            className="block text-base font-normal text-muted-foreground hover:text-primary"
-                          >
-                            Bagaimana Kami Bekerja
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            href="#why-different"
-                            className="block text-base font-normal text-muted-foreground hover:text-primary"
-                          >
-                            Mengapa PUYOK
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            href="#testimonials"
-                            className="block text-base font-normal text-muted-foreground hover:text-primary"
-                          >
-                            Testimoni
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            href="/help"
-                            className="block text-base font-normal text-muted-foreground hover:text-primary"
-                          >
-                            Pusat Bantuan
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            href="/whitepaper"
-                            className="block text-base font-normal text-muted-foreground hover:text-primary"
-                          >
-                            Whitepaper
-                          </Link>
-                        </SheetClose>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </nav>
-          </div>
-        </div>
-      </header>
+      {/* Enhanced Navigation Bar with All Features */}
+      <EnhancedNavbar
+        isNavOpen={isNavOpen}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
 
       {/* Enhanced Trust Bar */}
       <TrustBar />
@@ -876,24 +755,6 @@ export default function LandingPage() {
 
               {/* Slider Container */}
               <div className="relative">
-                {/* Navigation Buttons - Hidden on mobile since auto-rotation is active */}
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={prevSlide}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all hidden md:flex"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={nextSlide}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white border-none backdrop-blur-sm rounded-full opacity-60 hover:opacity-100 transition-all hidden md:flex"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </Button>
-
                 {/* Desktop: Show both cards side by side */}
                 <div className="hidden md:flex gap-6 justify-center">
                   {legendaryAwards.slice(0, 2).map((award, index) => (

@@ -21,6 +21,36 @@ const clamp = (value: number, min = 0, max = 100) =>
 const round = (value: number, precision = 3) =>
   parseFloat(value.toFixed(precision));
 
+const truncateText = (text: string, maxLength: number, preserveImportant = false) => {
+  if (text.length <= maxLength) return text;
+
+  // Special handling for price information
+  if (preserveImportant && text.includes('Rp ')) {
+    const priceMatch = text.match(/Rp\s?[\d.,]+/);
+    if (priceMatch) {
+      const price = priceMatch[0];
+      const beforePrice = text.substring(0, text.indexOf(price)).trim();
+      if (beforePrice.length + price.length + 3 <= maxLength) {
+        return beforePrice.substring(0, maxLength - price.length - 3) + "..." + price;
+      }
+      return price; // Show only price if no space
+    }
+  }
+
+  return text.substring(0, maxLength - 3) + "...";
+};
+
+const getResponsiveMaxLength = () => {
+  if (typeof window === 'undefined') return { name: 25, title: 40, handle: 18 };
+
+  const width = window.innerWidth;
+  if (width <= 320) return { name: 18, title: 35, handle: 12 };
+  if (width <= 480) return { name: 22, title: 38, handle: 15 };
+  if (width <= 640) return { name: 25, title: 40, handle: 16 };
+  if (width <= 768) return { name: 28, title: 45, handle: 18 };
+  return { name: 35, title: 50, handle: 20 };
+};
+
 const adjust = (
   value: number,
   fromMin: number,
@@ -53,6 +83,8 @@ interface ProfileCardProps {
   showUserInfo?: boolean;
   onContactClick?: () => void;
   index?: number;
+  mobileOptimized?: boolean;
+  preserveImportantText?: boolean;
 }
 
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
@@ -75,9 +107,12 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   showUserInfo = true,
   onContactClick,
   index = 0,
+  mobileOptimized = false,
+  preserveImportantText = false,
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLElement>(null);
+  const [maxLengths, setMaxLengths] = React.useState(() => getResponsiveMaxLength());
 
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
@@ -301,10 +336,29 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     onContactClick?.();
   }, [onContactClick]);
 
+  // Update max lengths on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setMaxLengths(getResponsiveMaxLength());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const truncatedName = useMemo(() =>
+    truncateText(name, maxLengths.name), [name, maxLengths.name]);
+
+  const truncatedTitle = useMemo(() =>
+    truncateText(title, maxLengths.title, preserveImportantText), [title, maxLengths.title, preserveImportantText]);
+
+  const truncatedHandle = useMemo(() =>
+    truncateText(handle, maxLengths.handle), [handle, maxLengths.handle]);
+
   return (
     <div
       ref={wrapRef}
-      className={`pc-card-wrapper ${className}`.trim()}
+      className={`pc-card-wrapper ${mobileOptimized ? 'mobile-optimized' : ''} ${className}`.trim()}
       style={cardStyle}
     >
       <section ref={cardRef} className="pc-card">
@@ -340,7 +394,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                   </div>
                   <div className="pc-user-text">
                     <div className="pc-handle">
-                      <p>@{handle}</p>
+                      <p>@{truncatedHandle}</p>
                     </div>
                     <div className="pc-status">{status}</div>
                   </div>
@@ -361,8 +415,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
           </div>
           <div className="pc-content">
             <div className="pc-details">
-              <h3>{name}</h3>
-              <p>{title}</p>
+              <h3>{truncatedName}</h3>
+              <p>{truncatedTitle}</p>
             </div>
           </div>
         </div>

@@ -43,12 +43,22 @@
     align-items: center;
   }
 
+  .pc-card {
+    height: 75svh;
+    max-height: 480px;
+  }
+
   .pc-card-wrapper .pc-avatar-content .avatar {
-    top: 56px !important;
-    width: 100% !important;
-    left: 52% !important;
-    height: 67% !important;
-    transform: translateX(-50%) !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 98% !important;
+    height: auto !important;
+    transform: translate(-50%, -50%) !important;
+    object-fit: cover !important;
+  }
+
+  .pc-card-wrapper .pc-avatar-content {
+    padding: 40px 0px 120px 0px !important;
   }
 
   .pc-card-wrapper .pc-user-info {
@@ -59,21 +69,27 @@
   }
 
   .pc-card-wrapper .pc-details {
-    top: 4px !important;
-    padding: 0 15px !important;
+    top: 8px !important;
+    padding: 8px 12px !important;
+    max-height: 120px;
   }
 
   .pc-card-wrapper .pc-details h3 {
-    font-size: 15px !important;
-    line-height: 20px !important;
-    margin-bottom: 4px !important;
+    font-size: 17px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 6px !important;
+    white-space: normal !important;
+    overflow: visible !important;
   }
 
   .pc-card-wrapper .pc-details p {
-    font-size: 12px !important;
-    line-height: 17px !important;
-    top: -4px !important;
-    color: rgba(226, 232, 240, 0.9) !important;
+    font-size: clamp(10px, 2.5vw, 13px) !important;
+    line-height: 1.25 !important;
+    top: -2px !important;
+    color: rgba(226, 232, 240, 0.95) !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    font-weight: 600 !important;
   }
 
   .pc-user-details {
@@ -81,16 +97,24 @@
   }
 
   .pc-handle {
-    font-size: 11px !important;
+    font-size: clamp(9px, 2vw, 11px) !important;
+    max-width: 100px;
   }
 
   .pc-status {
-    font-size: 10px !important;
+    font-size: clamp(8px, 1.8vw, 10px) !important;
+    max-width: 80px;
   }
 
   .pc-contact-btn {
-    font-size: 9px !important;
-    padding: 8px 4px !important;
+    font-size: clamp(7px, 1.5vw, 9px) !important;
+    padding: 6px 8px !important;
+    max-width: 60px;
+  }
+
+  .pc-mini-avatar {
+    width: clamp(32px, 8vw, 40px);
+    height: clamp(32px, 8vw, 40px);
   }
 }
 
@@ -238,15 +262,25 @@
 .pc-avatar-content {
   mix-blend-mode: screen;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0px 140px 0px;
+  margin: 0px;
 }
 
 .pc-avatar-content .avatar {
-  width: 100%;
+  width: 98%;
+  height: auto;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%) scale(1);
-  bottom: 2px;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1.05);
+  object-fit: cover;
+  object-position: center;
   opacity: calc(1.75 - var(--pointer-from-center));
+  z-index: 1;
 }
 
 .pc-avatar-content::before {
@@ -310,10 +344,14 @@
 }
 
 .pc-handle {
-  font-size: 14px;
+  font-size: clamp(10px, 2.5vw, 14px);
   font-weight: 600;
   color: rgba(255, 215, 0, 0.9);
   line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 120px;
 }
 
 .pc-handle p {
@@ -321,22 +359,31 @@
 }
 
 .pc-status {
-  font-size: 12px;
+  font-size: clamp(8px, 2vw, 12px);
   color: rgba(16, 185, 129, 0.9);
   line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100px;
 }
 
 .pc-contact-btn {
   border: 1px solid rgba(255, 215, 0, 0.4);
   border-radius: 50px;
-  padding: 8px 12px;
-  font-size: 10px;
+  padding: clamp(4px, 1vw, 8px) clamp(6px, 2vw, 12px);
+  font-size: clamp(8px, 1.5vw, 10px);
   font-weight: 600;
   color: rgb(255, 215, 0);
   cursor: pointer;
   transition: all 0.2s ease;
   backdrop-filter: blur(10px);
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 107, 53, 0.2));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+  min-width: 50px;
 }
 
 .pc-contact-btn:hover {
@@ -347,11 +394,12 @@
 
 .pc-content {
   max-height: 100%;
-  overflow: hidden;
+  overflow: visible;
   text-align: center;
   position: relative;
   transform: translate3d(calc(var(--pointer-from-left) * -6px + 3px), calc(var(--pointer-from-top) * -6px + 3px), 0.1px) !important;
   z-index: 5;
+  pointer-events: none;
   /* Removed mix-blend-mode: luminosity to show original colors */
 }
 
@@ -361,32 +409,44 @@
   top: 4px !important;
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 0 15px;
   text-align: center;
+  max-height: 140px;
+  overflow: visible;
+  z-index: 10;
 }
 
 .pc-details h3 {
   font-weight: 600;
   margin: 0 0 8px 0;
-  font-size: 20.6px !important;
+  font-size: clamp(14px, 4vw, 17px) !important;
   background-image: linear-gradient(to bottom, #FFD700, #FF6B35);
   background-size: 100% 100%;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
   line-height: 1.2;
+  overflow: visible;
+  white-space: normal;
+  max-width: 100%;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .pc-details p {
   font-weight: 500;
   position: relative;
   top: -8px;
-  white-space: nowrap;
-  font-size: 14px;
+  font-size: clamp(10px, 2.5vw, 14px);
   margin: 0 auto;
-  width: min-content;
   color: rgba(226, 232, 240, 0.9);
   line-height: 1.3;
+  overflow: visible;
+  white-space: normal;
+  max-width: 100%;
+  padding: 0 5px;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 /* Modern price styling */
@@ -424,37 +484,47 @@
     height: 70svh;
     max-height: 450px;
   }
+  .pc-avatar-content {
+    padding: 60px 0px 160px 0px !important;
+  }
   .pc-details {
     top: 4px !important;
+    max-height: 110px;
+    padding: 0 16px;
   }
   .pc-details h3 {
-    font-size: 20.6px !important;
+    font-size: 19px !important;
+    line-height: 1.15;
   }
   .pc-details p {
-    font-size: 14px;
+    font-size: clamp(11px, 2.5vw, 14px);
+    line-height: 1.2;
   }
   .pc-user-info {
     bottom: 15px;
     left: 15px;
     right: 15px;
-    padding: 10px 12px;
+    padding: 8px 10px;
   }
   .pc-mini-avatar {
-    width: 28px;
-    height: 28px;
+    width: clamp(36px, 7vw, 44px);
+    height: clamp(36px, 7vw, 44px);
   }
   .pc-user-details {
-    gap: 10px;
+    gap: 8px;
   }
   .pc-handle {
-    font-size: 13px;
+    font-size: clamp(10px, 2.2vw, 13px);
+    max-width: 110px;
   }
   .pc-status {
-    font-size: 10px;
+    font-size: clamp(8px, 1.8vw, 10px);
+    max-width: 90px;
   }
   .pc-contact-btn {
-    padding: 6px 12px;
-    font-size: 11px;
+    padding: 6px 10px;
+    font-size: clamp(8px, 1.8vw, 11px);
+    max-width: 70px;
   }
 }
 
@@ -463,40 +533,56 @@
     height: 60svh;
     max-height: 380px;
   }
+  .pc-avatar-content {
+    padding: 50px 0px 140px 0px !important;
+  }
   .pc-details {
-    top: 4px !important;
+    top: 6px !important;
+    max-height: 110px;
+    padding: 6px 10px;
   }
   .pc-details h3 {
-    font-size: 20.6px !important;
+    font-size: clamp(12px, 3.2vw, 16px) !important;
+    line-height: 1.15;
+    white-space: normal !important;
+    overflow: visible !important;
   }
   .pc-details p {
-    font-size: 12px;
-    top: -8px;
+    font-size: clamp(9px, 2.4vw, 12px);
+    top: -4px;
+    line-height: 1.2;
+    white-space: normal !important;
+    overflow: visible !important;
+    font-weight: 600 !important;
   }
   .pc-user-info {
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
-    padding: 8px 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 6px 8px;
     border-radius: 50px;
   }
   .pc-mini-avatar {
-    width: 24px;
-    height: 24px;
+    width: clamp(28px, 6vw, 32px);
+    height: clamp(28px, 6vw, 32px);
   }
   .pc-user-details {
-    gap: 8px;
+    gap: 6px;
   }
   .pc-handle {
-    font-size: 12px;
+    font-size: clamp(9px, 2vw, 12px);
+    max-width: 90px;
   }
   .pc-status {
-    font-size: 9px;
+    font-size: clamp(7px, 1.6vw, 9px);
+    max-width: 70px;
   }
   .pc-contact-btn {
-    padding: 5px 10px;
-    font-size: 10px;
+    padding: 4px 8px;
+    font-size: clamp(7px, 1.5vw, 10px);
     border-radius: 50px;
+    max-width: 55px;
+    min-width: 45px;
   }
 }
 
@@ -505,33 +591,99 @@
     height: 55svh;
     max-height: 320px;
   }
+  .pc-details {
+    max-height: 100px;
+    padding: 5px 8px;
+  }
   .pc-details h3 {
-    font-size: 20.6px;
+    font-size: 15px !important;
+    line-height: 1.1;
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+  .legendary-card .pc-details h3 {
+    font-size: 15px !important;
   }
   .pc-details p {
-    font-size: 11px;
+    font-size: clamp(8px, 2.2vw, 11px);
+    line-height: 1.15;
+    top: -3px;
+    white-space: normal !important;
+    overflow: visible !important;
+    font-weight: 600 !important;
   }
   .pc-user-info {
-    padding: 6px 8px;
+    padding: 4px 6px;
     border-radius: 50px;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
   }
   .pc-mini-avatar {
-    width: 20px;
-    height: 20px;
+    width: clamp(24px, 5vw, 28px);
+    height: clamp(24px, 5vw, 28px);
   }
   .pc-user-details {
-    gap: 6px;
+    gap: 4px;
   }
   .pc-handle {
-    font-size: 11px;
+    font-size: clamp(8px, 1.8vw, 11px);
+    max-width: 80px;
   }
   .pc-status {
-    font-size: 8px;
+    font-size: clamp(6px, 1.4vw, 8px);
+    max-width: 60px;
   }
   .pc-contact-btn {
-    padding: 4px 8px;
-    font-size: 9px;
+    padding: 3px 6px;
+    font-size: clamp(6px, 1.3vw, 9px);
     border-radius: 50px;
+    max-width: 50px;
+    min-width: 40px;
+  }
+}
+
+/* Mobile optimized styles */
+.mobile-optimized .pc-details {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  background: transparent !important;
+  padding: 15px 20px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  z-index: 1000 !important;
+  text-align: center !important;
+}
+
+.mobile-optimized .pc-details h3 {
+  font-size: 18px !important;
+  line-height: 1.3 !important;
+  margin-bottom: 8px !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+}
+
+.mobile-optimized .pc-details p {
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  font-weight: 700 !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-optimized .pc-card {
+    height: 100vh !important;
+    max-height: 100vh !important;
+  }
+
+  .mobile-optimized .pc-avatar-content {
+    padding: 20px 20px 180px 20px !important;
   }
 }
 
@@ -547,7 +699,6 @@
 }
 
 .legendary-card .pc-details h3 {
-  font-size: 20.6px !important;
   background-image: linear-gradient(to bottom, #ffd700, #ff6b35);
 }
 
