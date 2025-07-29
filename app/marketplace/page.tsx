@@ -394,6 +394,30 @@ export default function MarketplacePage() {
     return num.toString()
   }
 
+  // Format time ago
+  const formatTimeAgo = (timestamp: number) => {
+    const diff = Date.now() - timestamp
+    const minutes = Math.floor(diff / (1000 * 60))
+    const hours = Math.floor(diff / (1000 * 60 * 60))
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+
+    if (minutes < 1) return "Just now"
+    if (minutes < 60) return `${minutes}m ago`
+    if (hours < 24) return `${hours}h ago`
+    return `${days}d ago`
+  }
+
+  // Get activity icon
+  const getActivityIcon = (type: string) => {
+    switch (type) {
+      case "sale": return <ShoppingCart className="w-4 h-4 text-green-400" />
+      case "bid": return <Gavel className="w-4 h-4 text-blue-400" />
+      case "listing": return <Tag className="w-4 h-4 text-yellow-400" />
+      case "transfer": return <ArrowUpDown className="w-4 h-4 text-purple-400" />
+      default: return <Activity className="w-4 h-4 text-slate-400" />
+    }
+  }
+
   // Toggle favorite
   const toggleFavorite = (nftId: string) => {
     setFavorites(prev => 
