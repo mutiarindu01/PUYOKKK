@@ -524,12 +524,12 @@ export default function MarketplacePage() {
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative max-w-2xl">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+          {/* Mobile-Optimized Search Bar */}
+          <div className="relative w-full lg:max-w-2xl">
+            <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
             <Input
-              placeholder="Search NFTs, collections, or creators..."
-              className="pl-12 pr-4 py-3 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 rounded-xl"
+              placeholder="Search NFTs, collections..."
+              className="pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 rounded-xl text-sm sm:text-base"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
