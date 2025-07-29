@@ -497,27 +497,28 @@ export default function MarketplacePage() {
           </div>
 
           {/* Title & Stats */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
-            <div>
-              <h1 className="text-2xl lg:text-3xl font-bold text-white mb-2">
+          <div className="flex flex-col gap-4 mb-6">
+            <div className="text-center md:text-left">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">
                 NFT Marketplace
               </h1>
-              <p className="text-slate-400">
+              <p className="text-sm sm:text-base text-slate-400">
                 Discover, collect, and trade extraordinary NFTs
               </p>
             </div>
-            
-            <div className="flex items-center gap-6">
-              <div className="text-center">
-                <div className="text-xl font-bold text-white">1,247</div>
-                <div className="text-xs text-slate-400">Total Items</div>
+
+            {/* Mobile-Optimized Stats */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 lg:flex lg:items-center lg:justify-end">
+              <div className="text-center bg-slate-800/30 rounded-lg p-3 lg:bg-transparent lg:p-0">
+                <div className="text-lg sm:text-xl font-bold text-white">1.2K</div>
+                <div className="text-xs text-slate-400">Items</div>
               </div>
-              <div className="text-center">
-                <div className="text-xl font-bold text-white">89</div>
+              <div className="text-center bg-slate-800/30 rounded-lg p-3 lg:bg-transparent lg:p-0">
+                <div className="text-lg sm:text-xl font-bold text-white">89</div>
                 <div className="text-xs text-slate-400">Collections</div>
               </div>
-              <div className="text-center">
-                <div className="text-xl font-bold text-white">2,350</div>
+              <div className="text-center bg-slate-800/30 rounded-lg p-3 lg:bg-transparent lg:p-0">
+                <div className="text-lg sm:text-xl font-bold text-white">2.3K</div>
                 <div className="text-xs text-slate-400">Owners</div>
               </div>
             </div>
