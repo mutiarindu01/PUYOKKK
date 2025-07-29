@@ -626,7 +626,7 @@ AI Market Analysis:
       </div>
 
       {/* Hero Section */}
-      <div className="relative pt-32 md:pt-36 pb-12 bg-gradient-to-br from-slate-900 via-blue-950/30 to-purple-950/30 overflow-hidden">
+      <div className="relative pt-48 md:pt-52 pb-12 bg-gradient-to-br from-slate-900 via-blue-950/30 to-purple-950/30 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-xl animate-pulse"></div>
