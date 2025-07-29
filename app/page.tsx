@@ -626,28 +626,11 @@ export default function LandingPage() {
       />
 
       {/* Enhanced Navigation Bar with All Features */}
-      <header
-        className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
-          isNavOpen
-            ? "h-20 backdrop-blur-xl bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 border-b border-slate-700/50 shadow-2xl shadow-slate-900/40"
-            : "h-12 bg-transparent border-transparent transform -translate-y-1"
-        }`}
-        onKeyDown={(e) => {
-          if (e.key === '/') {
-            e.preventDefault();
-            searchInputRef.current?.focus();
-          }
-          if (e.key === 'Escape') {
-            setShowSearchSuggestions(false);
-          }
-        }}
-      >
-        <EnhancedNavbar
-          isNavOpen={isNavOpen}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
-      </header>
+      <EnhancedNavbar
+        isNavOpen={isNavOpen}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
 
       {/* Enhanced Trust Bar */}
       <TrustBar />
