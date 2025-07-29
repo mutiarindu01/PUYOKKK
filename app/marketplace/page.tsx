@@ -105,6 +105,51 @@ interface NFT {
   traits?: { trait_type: string; value: string }[]
 }
 
+// Order Book Types
+interface OrderBookEntry {
+  price: number
+  quantity: number
+  total: number
+  percentage: number
+}
+
+interface OrderBook {
+  bids: OrderBookEntry[]
+  asks: OrderBookEntry[]
+  spread: number
+  lastPrice: number
+}
+
+// Analytics Types
+interface PricePoint {
+  timestamp: number
+  price: number
+  volume: number
+}
+
+interface AnalyticsData {
+  priceHistory: PricePoint[]
+  volumeHistory: PricePoint[]
+  marketCap: number
+  totalSupply: number
+  holders: number
+  floorPrice: number
+  avgPrice: number
+  change24h: number
+  volume24h: number
+}
+
+// Live Activity Types
+interface LiveActivity {
+  id: string
+  type: "sale" | "bid" | "listing" | "transfer"
+  nft: string
+  user: string
+  price?: number
+  timestamp: number
+  avatar?: string
+}
+
 // Sample NFT Data
 const sampleNFTs: NFT[] = [
   {
