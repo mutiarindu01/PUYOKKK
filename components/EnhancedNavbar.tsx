@@ -306,7 +306,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               </Select>
               
               <Select value={currency} onValueChange={setCurrency}>
-                <SelectTrigger className="w-20 bg-slate-800/50 border-slate-700 text-white">
+                <SelectTrigger className="w-16 lg:w-20 bg-slate-800/50 border-slate-700 text-white text-xs lg:text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-slate-800 border-slate-700 text-white">
