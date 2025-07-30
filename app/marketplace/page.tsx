@@ -2407,7 +2407,7 @@ AI Market Analysis:
                       setSelectedAsset(null)
                     }}
                     className="bg-green-600 hover:bg-green-700 text-white"
-                    disabled={!selectedAsset || !desiredAsset || !exchangeRate}
+                    disabled={!selectedAsset || !exchangeRate || !selectedPaymentAccount}
                   >
                     <Send className="w-4 h-4 mr-2" />
                     Buat Order
