@@ -1362,17 +1362,42 @@ export default function OrderDetailPage() {
       {/* Sticky Header */}
       <StickyHeader />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Asset Visual */}
-          <div className="lg:col-span-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+        {/* Mobile-First Layout */}
+        <div className="space-y-6 lg:space-y-0">
+          {/* Mobile: Asset Visual First */}
+          <div className="lg:hidden">
             <AssetVisualSection order={order} />
           </div>
 
-          {/* Right Column - Purchase & Details */}
-          <div className="space-y-6">
+          {/* Mobile: Buy Action (Prominent) */}
+          <div className="lg:hidden">
             <BuyActionSection order={order} currentUser={currentUser} />
+          </div>
+
+          {/* Desktop: Grid Layout */}
+          <div className="hidden lg:grid lg:grid-cols-12 lg:gap-8">
+            {/* Left Column - Asset Visual (8 columns) */}
+            <div className="lg:col-span-8">
+              <AssetVisualSection order={order} />
+            </div>
+
+            {/* Right Column - Purchase & Details (4 columns) */}
+            <div className="lg:col-span-4 space-y-6">
+              <div className="sticky top-24 space-y-6">
+                <BuyActionSection order={order} currentUser={currentUser} />
+                <SellerTrustSection seller={order.seller} onShowReviews={() => setShowReviews(true)} />
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile & Tablet: Additional Details Below */}
+          <div className="lg:hidden space-y-6">
             <SellerTrustSection seller={order.seller} onShowReviews={() => setShowReviews(true)} />
+          </div>
+
+          {/* All Devices: Secondary Information */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             <PaymentBreakdownSection order={order} />
             <SmartContractInfo order={order} />
           </div>
