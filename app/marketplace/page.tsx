@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
+import UnifiedMarketplace from "@/components/UnifiedMarketplace"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Search,
