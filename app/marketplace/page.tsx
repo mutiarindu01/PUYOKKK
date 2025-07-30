@@ -1681,6 +1681,444 @@ AI Market Analysis:
 
       {/* Unified Marketplace Actions */}
       <UnifiedMarketplace />
+
+      {/* Create Order Modal */}
+      <Dialog open={showCreateOrder} onOpenChange={setShowCreateOrder}>
+        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              🔄 Buat Swap Baru
+            </DialogTitle>
+            <DialogDescription className="text-slate-400 text-center">
+              Tukar NFT, Token, atau aset digital Anda dengan mudah dan aman
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="mt-6">
+            {/* Step Indicator */}
+            <div className="flex items-center justify-center mb-8">
+              <div className="flex items-center gap-4">
+                {[1, 2, 3, 4].map((step) => (
+                  <div key={step} className="flex items-center">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 font-semibold ${
+                      step === createOrderStep ? "bg-blue-600 border-blue-600 text-white" :
+                      step < createOrderStep ? "bg-green-600 border-green-600 text-white" :
+                      "bg-slate-800 border-slate-600 text-slate-400"
+                    }`}>
+                      {step < createOrderStep ? <Check className="w-5 h-5" /> : step}
+                    </div>
+                    {step < 4 && (
+                      <div className={`w-12 h-0.5 mx-2 ${
+                        step < createOrderStep ? "bg-green-600" : "bg-slate-600"
+                      }`} />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Step Content */}
+            <AnimatePresence mode="wait">
+              {/* Step 1: Asset Type Selection */}
+              {createOrderStep === 1 && (
+                <motion.div
+                  key="step1"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6"
+                >
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      Pilih Jenis Aset
+                    </h3>
+                    <p className="text-slate-400">
+                      Apa yang ingin Anda tukar hari ini?
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {[
+                      {
+                        type: "ERC20" as const,
+                        title: "Token (ERC20)",
+                        desc: "Token fungible seperti PUYOK, ETH, USDT",
+                        icon: <Coins className="w-8 h-8" />,
+                        gradient: "from-green-500 to-emerald-500"
+                      },
+                      {
+                        type: "ERC721" as const,
+                        title: "NFT 1/1 (ERC721)",
+                        desc: "NFT unik satu-satunya",
+                        icon: <ImageIcon className="w-8 h-8" />,
+                        gradient: "from-blue-500 to-cyan-500"
+                      },
+                      {
+                        type: "ERC1155" as const,
+                        title: "NFT Multi-Edisi (ERC1155)",
+                        desc: "NFT dengan beberapa copy",
+                        icon: <Layers className="w-8 h-8" />,
+                        gradient: "from-purple-500 to-pink-500"
+                      },
+                    ].map((option) => (
+                      <button
+                        key={option.type}
+                        onClick={() => {
+                          setSelectedAssetType(option.type)
+                          setWalletAssets(sampleWalletAssets[option.type])
+                        }}
+                        className={`p-6 rounded-xl border-2 transition-all duration-300 ${
+                          selectedAssetType === option.type
+                            ? "border-blue-500 bg-blue-500/10"
+                            : "border-slate-700 bg-slate-800/50 hover:border-slate-600 hover:bg-slate-800"
+                        }`}
+                      >
+                        <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${option.gradient} text-white mb-4`}>
+                          {option.icon}
+                        </div>
+                        <h4 className="font-semibold text-white mb-2">{option.title}</h4>
+                        <p className="text-sm text-slate-400">{option.desc}</p>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Step 2: Asset Selection */}
+              {createOrderStep === 2 && selectedAssetType && (
+                <motion.div
+                  key="step2"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6"
+                >
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      Pilih Aset dari Wallet
+                    </h3>
+                    <p className="text-slate-400">
+                      Pilih {selectedAssetType === "ERC20" ? "token" : "NFT"} yang ingin Anda tukar
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+                    {walletAssets.map((asset) => (
+                      <button
+                        key={asset.id}
+                        onClick={() => setSelectedAsset(asset)}
+                        className={`p-4 rounded-lg border transition-all duration-300 ${
+                          selectedAsset?.id === asset.id
+                            ? "border-blue-500 bg-blue-500/10"
+                            : "border-slate-700 bg-slate-800/50 hover:border-slate-600"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={asset.image}
+                            alt={asset.name}
+                            className="w-12 h-12 rounded-lg object-cover"
+                          />
+                          <div className="flex-1 text-left">
+                            <h4 className="font-medium text-white truncate">{asset.name}</h4>
+                            {asset.symbol && (
+                              <p className="text-sm text-slate-400">{asset.symbol}</p>
+                            )}
+                            {asset.collection && (
+                              <p className="text-sm text-slate-400">{asset.collection}</p>
+                            )}
+                            {asset.balance && (
+                              <p className="text-xs text-green-400">Balance: {asset.balance}</p>
+                            )}
+                            <p className="text-xs text-blue-400">
+                              ~{formatPrice(asset.value)}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  {selectedAsset && (selectedAssetType === "ERC20" || selectedAssetType === "ERC1155") && (
+                    <div className="mt-6 p-4 bg-slate-800/50 rounded-lg">
+                      <Label className="text-white mb-2 block">Jumlah</Label>
+                      <div className="flex items-center gap-3">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setOrderQuantity(Math.max(1, orderQuantity - 1))}
+                          className="border-slate-600"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </Button>
+                        <Input
+                          type="number"
+                          value={orderQuantity}
+                          onChange={(e) => setOrderQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                          className="w-24 text-center bg-slate-800 border-slate-600 text-white"
+                        />
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setOrderQuantity(orderQuantity + 1)}
+                          className="border-slate-600"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </Button>
+                        <span className="text-slate-400 text-sm">
+                          dari {selectedAsset.balance || "∞"} tersedia
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+
+              {/* Step 3: Exchange Details */}
+              {createOrderStep === 3 && selectedAsset && (
+                <motion.div
+                  key="step3"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6"
+                >
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      Detail Pertukaran
+                    </h3>
+                    <p className="text-slate-400">
+                      Tentukan apa yang Anda inginkan sebagai balasan
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* What You Give */}
+                    <div className="p-4 bg-slate-800/50 rounded-lg">
+                      <h4 className="font-medium text-white mb-3">Yang Anda Berikan</h4>
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={selectedAsset.image}
+                          alt={selectedAsset.name}
+                          className="w-12 h-12 rounded-lg object-cover"
+                        />
+                        <div>
+                          <p className="font-medium text-white">{selectedAsset.name}</p>
+                          <p className="text-sm text-slate-400">
+                            {orderQuantity > 1 ? `${orderQuantity}x ` : ""}
+                            {selectedAsset.collection || selectedAsset.symbol}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* What You Want */}
+                    <div className="p-4 bg-slate-800/50 rounded-lg">
+                      <h4 className="font-medium text-white mb-3">Yang Anda Inginkan</h4>
+                      <div className="space-y-3">
+                        <div>
+                          <Label className="text-white mb-2 block">Aset yang Diinginkan</Label>
+                          <Input
+                            placeholder="e.g., 1000 USDT, 0.5 ETH, atau nama NFT"
+                            value={desiredAsset}
+                            onChange={(e) => setDesiredAsset(e.target.value)}
+                            className="bg-slate-800 border-slate-600 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-white mb-2 block">Nilai Tukar (IDR)</Label>
+                          <Input
+                            type="number"
+                            placeholder="Masukkan nilai dalam Rupiah"
+                            value={exchangeRate}
+                            onChange={(e) => setExchangeRate(e.target.value)}
+                            className="bg-slate-800 border-slate-600 text-white"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Payment Method */}
+                  <div className="p-4 bg-slate-800/50 rounded-lg">
+                    <h4 className="font-medium text-white mb-4">Metode Pembayaran</h4>
+                    <RadioGroup
+                      value={paymentMethod}
+                      onValueChange={(value: "onchain" | "hybrid") => setPaymentMethod(value)}
+                      className="space-y-3"
+                    >
+                      <div className="flex items-center space-x-3 p-3 border border-slate-700 rounded-lg">
+                        <RadioGroupItem value="onchain" id="onchain" />
+                        <Label htmlFor="onchain" className="flex-1 cursor-pointer">
+                          <div className="flex items-center gap-3">
+                            <Shield className="w-5 h-5 text-purple-400" />
+                            <div>
+                              <p className="font-medium text-white">On-Chain Only</p>
+                              <p className="text-sm text-slate-400">Transfer langsung melalui blockchain (100% otomatis)</p>
+                            </div>
+                          </div>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 border border-slate-700 rounded-lg">
+                        <RadioGroupItem value="hybrid" id="hybrid" />
+                        <Label htmlFor="hybrid" className="flex-1 cursor-pointer">
+                          <div className="flex items-center gap-3">
+                            <CreditCard className="w-5 h-5 text-blue-400" />
+                            <div>
+                              <p className="font-medium text-white">Hybrid Payment</p>
+                              <p className="text-sm text-slate-400">Kombinasi blockchain + transfer bank/e-wallet</p>
+                            </div>
+                          </div>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Step 4: Review & Create */}
+              {createOrderStep === 4 && selectedAsset && (
+                <motion.div
+                  key="step4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6"
+                >
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      Review Order
+                    </h3>
+                    <p className="text-slate-400">
+                      Pastikan semua detail sudah benar sebelum membuat order
+                    </p>
+                  </div>
+
+                  <div className="bg-slate-800/50 rounded-lg p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Summary */}
+                      <div>
+                        <h4 className="font-medium text-white mb-4">Ringkasan Order</h4>
+                        <div className="space-y-3 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Jenis Aset:</span>
+                            <span className="text-white">{selectedAssetType}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Aset:</span>
+                            <span className="text-white">{selectedAsset.name}</span>
+                          </div>
+                          {orderQuantity > 1 && (
+                            <div className="flex justify-between">
+                              <span className="text-slate-400">Jumlah:</span>
+                              <span className="text-white">{orderQuantity}</span>
+                            </div>
+                          )}
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Diinginkan:</span>
+                            <span className="text-white">{desiredAsset || "Belum diisi"}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Nilai Tukar:</span>
+                            <span className="text-white">{exchangeRate ? formatPrice(parseInt(exchangeRate)) : "Belum diisi"}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Metode:</span>
+                            <span className="text-white">{paymentMethod === "onchain" ? "On-Chain" : "Hybrid"}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Asset Preview */}
+                      <div>
+                        <h4 className="font-medium text-white mb-4">Preview Aset</h4>
+                        <div className="border border-slate-700 rounded-lg p-4">
+                          <img
+                            src={selectedAsset.image}
+                            alt={selectedAsset.name}
+                            className="w-full h-32 object-cover rounded-lg mb-3"
+                          />
+                          <h5 className="font-medium text-white">{selectedAsset.name}</h5>
+                          <p className="text-sm text-slate-400">
+                            {selectedAsset.collection || selectedAsset.symbol}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Terms */}
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <Info className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                      <div className="text-sm">
+                        <p className="text-blue-400 font-medium mb-1">Informasi Penting</p>
+                        <ul className="text-slate-300 space-y-1">
+                          <li>• Order akan masuk ke marketplace public</li>
+                          <li>• {paymentMethod === "onchain" ? "Aset akan di-lock di smart contract escrow" : "Order akan pending hingga pembayaran selesai"}</li>
+                          <li>• Anda akan menerima notifikasi real-time untuk setiap update</li>
+                          <li>• PUYOK Escrow Protection melindungi kedua belah pihak</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-slate-700">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  if (createOrderStep > 1) {
+                    setCreateOrderStep(createOrderStep - 1)
+                  } else {
+                    setShowCreateOrder(false)
+                  }
+                }}
+                className="border-slate-600 text-slate-400 hover:bg-slate-800"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                {createOrderStep === 1 ? "Batal" : "Sebelumnya"}
+              </Button>
+
+              <div className="flex items-center gap-3">
+                {createOrderStep === 4 ? (
+                  <Button
+                    onClick={() => {
+                      // Handle order creation
+                      alert("Order berhasil dibuat! 🎉")
+                      setShowCreateOrder(false)
+                      setCreateOrderStep(1)
+                      setSelectedAssetType(null)
+                      setSelectedAsset(null)
+                    }}
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                    disabled={!selectedAsset || !desiredAsset || !exchangeRate}
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    Buat Order
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => setCreateOrderStep(createOrderStep + 1)}
+                    disabled={
+                      (createOrderStep === 1 && !selectedAssetType) ||
+                      (createOrderStep === 2 && !selectedAsset) ||
+                      (createOrderStep === 3 && (!desiredAsset || !exchangeRate))
+                    }
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    Lanjutkan
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
