@@ -760,15 +760,78 @@ function PaymentBreakdownSection({ order }: { order: OrderDetail }) {
 }
 
 function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentUser?: { address: string } }) {
-  const [paymentStep, setPaymentStep] = useState(1)
+  const [paymentStep, setPaymentStep] = useState(1) // 1: Buy, 2: Payment Method, 3: Payment Instructions
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>()
   const [isBuying, setIsBuying] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(15 * 60) // 15 minutes in seconds
+  const [canUploadProof, setCanUploadProof] = useState(false)
+  const [paymentProof, setPaymentProof] = useState<File | null>(null)
+  const [copiedField, setCopiedField] = useState<string>('')
+  const [uniqueAmount, setUniqueAmount] = useState(0)
+  const [transferCode, setTransferCode] = useState('')
 
   const isSeller = currentUser?.address === order.seller.address
   const isSold = order.status === "sold"
 
+  // Generate unique payment details
+  useEffect(() => {
+    if (paymentStep === 3) {
+      // Generate unique amount (add random cents)
+      const randomCents = Math.floor(Math.random() * 900) + 100 // 100-999
+      setUniqueAmount(order.total + randomCents)
+
+      // Generate transfer code
+      setTransferCode(`PUYOK-${Math.random().toString(36).substring(2, 8).toUpperCase()}`)
+
+      // Start countdown timer
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer)
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
+
+      // Enable upload button after 2 minutes
+      const uploadTimer = setTimeout(() => {
+        setCanUploadProof(true)
+      }, 120000) // 2 minutes
+
+      return () => {
+        clearInterval(timer)
+        clearTimeout(uploadTimer)
+      }
+    }
+  }, [paymentStep, order.total])
+
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const remainingSeconds = seconds % 60
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+  }
+
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text)
+    setCopiedField(field)
+    setTimeout(() => setCopiedField(''), 2000)
+  }
+
   const handleStartPurchase = () => {
     setPaymentStep(2)
+  }
+
+  const handlePaymentMethodSelect = (method: string) => {
+    setSelectedPaymentMethod(method)
+    setPaymentStep(3)
+  }
+
+  const handleUploadProof = () => {
+    // Handle proof upload logic here
+    console.log('Uploading proof:', paymentProof)
+    // Show success state or next step
   }
 
   if (isSeller) {
@@ -792,39 +855,294 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
   return (
     <Card className="bg-slate-800/50 border-slate-700">
       <CardContent className="p-6">
-        <div className="text-center mb-6">
-          <p className="text-3xl font-bold text-green-400 mb-2">{formatCurrency(order.total)}</p>
-          <p className="text-slate-400">Total yang harus dibayar</p>
-          <Badge className="bg-green-500/20 text-green-400 mt-2">
-            🟢 Tersedia - Beli Instant
-          </Badge>
-        </div>
+        {/* Step 1: Initial Buy Button */}
+        {paymentStep === 1 && (
+          <>
+            <div className="text-center mb-6">
+              <p className="text-3xl font-bold text-green-400 mb-2">{formatCurrency(order.total)}</p>
+              <p className="text-slate-400">Total yang harus dibayar</p>
+              <Badge className="bg-green-500/20 text-green-400 mt-2">
+                🟢 Tersedia - Beli Instant
+              </Badge>
+            </div>
 
-        {isSold ? (
-          <Button disabled className="w-full h-14 text-lg">
-            <CheckCircle className="w-5 h-5 mr-2" />
-            Sudah Terjual
-          </Button>
-        ) : (
-          <Button
-            onClick={handleStartPurchase}
-            className="w-full h-14 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold text-lg"
-          >
-            <Zap className="w-5 h-5 mr-2" />
-            Beli Sekarang
-          </Button>
+            {isSold ? (
+              <Button disabled className="w-full h-14 text-lg">
+                <CheckCircle className="w-5 h-5 mr-2" />
+                Sudah Terjual
+              </Button>
+            ) : (
+              <Button
+                onClick={handleStartPurchase}
+                className="w-full h-14 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold text-lg"
+              >
+                <Zap className="w-5 h-5 mr-2" />
+                Beli Sekarang
+              </Button>
+            )}
+
+            <div className="grid grid-cols-2 gap-3 mt-4">
+              <Button variant="outline" className="border-slate-600 text-slate-300" size="sm">
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Ajukan Penawaran
+              </Button>
+              <Button variant="outline" className="border-slate-600 text-slate-300" size="sm">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View on Chain
+              </Button>
+            </div>
+          </>
         )}
 
-        <div className="grid grid-cols-2 gap-3 mt-4">
-          <Button variant="outline" className="border-slate-600 text-slate-300" size="sm">
-            <MessageCircle className="w-4 h-4 mr-2" />
-            Ajukan Penawaran
-          </Button>
-          <Button variant="outline" className="border-slate-600 text-slate-300" size="sm">
-            <ExternalLink className="w-4 h-4 mr-2" />
-            View on Chain
-          </Button>
-        </div>
+        {/* Step 2: Payment Method Selection */}
+        {paymentStep === 2 && (
+          <>
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold text-white mb-2">Pilih Metode Pembayaran</h3>
+              <p className="text-slate-400">Pilih cara pembayaran yang paling mudah untuk Anda</p>
+            </div>
+
+            <div className="space-y-3">
+              {order.paymentMethods.map((method, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePaymentMethodSelect(method)}
+                  className="w-full p-4 border-2 border-slate-700 hover:border-blue-500 rounded-lg transition-all bg-slate-700/30 hover:bg-blue-500/10 text-left"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
+                      {method === "DANA" && <span className="text-blue-400 text-lg">💳</span>}
+                      {method === "OVO" && <span className="text-purple-400 text-lg">💳</span>}
+                      {method === "GoPay" && <span className="text-green-400 text-lg">💳</span>}
+                      {method === "Bank Transfer" && <Building2 className="w-6 h-6 text-yellow-400" />}
+                    </div>
+                    <div>
+                      <p className="font-medium text-white text-lg">{method}</p>
+                      <p className="text-sm text-slate-400">
+                        {method === "Bank Transfer" ? "Transfer bank konvensional" : "E-wallet digital"}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <Button
+              variant="outline"
+              onClick={() => setPaymentStep(1)}
+              className="w-full mt-4 border-slate-600 text-slate-400"
+            >
+              Kembali
+            </Button>
+          </>
+        )}
+
+        {/* Step 3: Payment Instructions */}
+        {paymentStep === 3 && selectedPaymentMethod && (
+          <>
+            {/* Timer Countdown */}
+            <div className="mb-6 p-4 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-xl text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Timer className="w-5 h-5 text-red-400" />
+                <span className="text-red-400 font-medium">Selesaikan pembayaran dalam</span>
+              </div>
+              <div className="text-3xl font-bold text-white font-mono">
+                {formatTime(timeLeft)}
+              </div>
+              <p className="text-slate-400 text-sm mt-1">
+                Timer ini memastikan harga tidak berubah selama proses pembayaran
+              </p>
+            </div>
+
+            {/* Order Summary */}
+            <div className="mb-6 p-4 bg-slate-700/30 border border-slate-600 rounded-lg">
+              <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-400" />
+                Ringkasan Order
+              </h4>
+              <div className="flex items-center gap-3">
+                <img
+                  src={order.asset.image}
+                  alt={order.asset.name}
+                  className="w-16 h-16 rounded-lg object-cover"
+                />
+                <div className="flex-1">
+                  <p className="text-white font-medium">{order.asset.name}</p>
+                  <p className="text-slate-400 text-sm">{order.asset.collection}</p>
+                  <p className="text-green-400 font-bold">{formatCurrency(uniqueAmount)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment Details Box */}
+            <div className="mb-6 p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2 border-blue-500/30 rounded-xl">
+              <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                <Shield className="w-6 h-6 text-blue-400" />
+                Detail Pembayaran - PENTING!
+              </h4>
+
+              {/* Unique Amount */}
+              <div className="mb-6 p-4 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
+                <h5 className="text-yellow-400 font-bold mb-2">💰 Nominal Unik untuk Transfer</h5>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-2xl font-bold text-white font-mono">{formatCurrency(uniqueAmount)}</span>
+                  <Button
+                    size="sm"
+                    onClick={() => copyToClipboard(uniqueAmount.toString(), 'amount')}
+                    className="bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400"
+                  >
+                    {copiedField === 'amount' ? (
+                      <>
+                        <CheckCircle className="w-4 h-4 mr-1" />
+                        Tersalin!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4 mr-1" />
+                        Salin
+                      </>
+                    )}
+                  </Button>
+                </div>
+                <p className="text-slate-300 text-sm">
+                  ⚠️ Transfer sesuai nominal unik ini agar pembayaranmu bisa diverifikasi lebih cepat dan akurat.
+                </p>
+              </div>
+
+              {/* Transfer Code */}
+              <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
+                <h5 className="text-red-400 font-bold text-lg mb-2">📝 PENTING: Kode Berita Transfer</h5>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xl font-bold text-white font-mono bg-slate-900/50 px-3 py-2 rounded">
+                    {transferCode}
+                  </span>
+                  <Button
+                    size="sm"
+                    onClick={() => copyToClipboard(transferCode, 'code')}
+                    className="bg-red-500/20 hover:bg-red-500/30 text-red-400"
+                  >
+                    {copiedField === 'code' ? (
+                      <>
+                        <CheckCircle className="w-4 h-4 mr-1" />
+                        Tersalin!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4 mr-1" />
+                        Salin
+                      </>
+                    )}
+                  </Button>
+                </div>
+                <p className="text-slate-300 text-sm font-medium">
+                  <strong>WAJIB:</strong> Masukkan kode <strong>{transferCode}</strong> di kolom Berita/Catatan/Keterangan saat transfer.
+                </p>
+              </div>
+
+              {/* Account Details */}
+              <div className="mb-4 p-4 bg-slate-800/50 border border-slate-600 rounded-lg">
+                <h5 className="text-white font-medium mb-3">🏦 Detail Rekening Tujuan</h5>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Metode:</span>
+                    <span className="text-white font-medium">{selectedPaymentMethod}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Nama Penerima:</span>
+                    <span className="text-white">{order.seller.name || "PUYOK Escrow"}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Nomor {selectedPaymentMethod}:</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-mono">0812-3456-7890</span>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => copyToClipboard("081234567890", 'account')}
+                        className="h-6 w-6 p-0"
+                      >
+                        {copiedField === 'account' ? (
+                          <CheckCircle className="w-3 h-3 text-green-400" />
+                        ) : (
+                          <Copy className="w-3 h-3" />
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Security Notice */}
+              <div className="p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+                <div className="flex items-center gap-2 mb-1">
+                  <ShieldCheck className="w-4 h-4 text-green-400" />
+                  <span className="text-green-400 font-medium text-sm">Keamanan Escrow</span>
+                </div>
+                <p className="text-slate-300 text-xs">
+                  Dana Anda diamankan oleh smart contract escrow. NFT akan otomatis dikirim setelah pembayaran terverifikasi.
+                </p>
+              </div>
+            </div>
+
+            {/* Upload Proof Section */}
+            <div className="mb-6 p-4 bg-slate-700/30 border border-slate-600 rounded-lg">
+              <h5 className="text-white font-medium mb-3">📎 Upload Bukti Transfer (Opsional)</h5>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setPaymentProof(e.target.files?.[0] || null)}
+                className="w-full p-3 bg-slate-800 border border-slate-600 rounded text-white text-sm mb-3"
+                disabled={!canUploadProof}
+              />
+              <p className="text-slate-400 text-xs">
+                {!canUploadProof ?
+                  "⏳ Upload akan tersedia dalam 2 menit setelah instruksi ditampilkan" :
+                  "✅ Upload bukti transfer untuk mempercepat verifikasi"
+                }
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <Button
+                onClick={handleUploadProof}
+                disabled={!canUploadProof}
+                className={`w-full h-12 font-bold ${
+                  canUploadProof
+                    ? "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
+                    : "bg-slate-600 cursor-not-allowed"
+                }`}
+              >
+                {canUploadProof ? (
+                  <>
+                    <CheckCircle className="w-5 h-5 mr-2" />
+                    Saya Sudah Bayar, Lanjut Upload Bukti
+                  </>
+                ) : (
+                  <>
+                    <Timer className="w-5 h-5 mr-2" />
+                    Menunggu Konfirmasi Transfer... ({Math.max(0, 120 - (900 - timeLeft))}s)
+                  </>
+                )}
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={() => setPaymentStep(2)}
+                className="w-full border-slate-600 text-slate-400"
+              >
+                Ganti Metode Pembayaran
+              </Button>
+
+              <div className="text-center">
+                <Link href="/bantuan/pembayaran" className="text-blue-400 hover:text-blue-300 text-sm">
+                  <HelpCircle className="w-4 h-4 inline mr-1" />
+                  Butuh bantuan pembayaran?
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
       </CardContent>
     </Card>
   )
