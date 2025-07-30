@@ -60,6 +60,10 @@ interface Asset {
   rarity?: "Common" | "Rare" | "Epic" | "Legendary"
   isHot?: boolean
   category: string
+  bestSeller?: boolean
+  recommendationTooltip?: string
+  avgSaleDays?: number
+  conversionRate?: number
 }
 
 // Sample asset data
@@ -77,7 +81,11 @@ const sampleAssets: Asset[] = [
     marketTrend: "up",
     rarity: "Rare",
     isHot: true,
-    category: "Art"
+    category: "Art",
+    bestSeller: true,
+    recommendationTooltip: "NFT ini terjual 3x dalam seminggu",
+    avgSaleDays: 2,
+    conversionRate: 85
   },
   {
     id: "2",
@@ -90,7 +98,11 @@ const sampleAssets: Asset[] = [
     salesLastWeek: 15,
     marketTrend: "up",
     isHot: true,
-    category: "Token"
+    category: "Token",
+    bestSeller: true,
+    recommendationTooltip: "Token dengan volume tinggi, 15 transaksi minggu ini",
+    avgSaleDays: 1,
+    conversionRate: 92
   },
   {
     id: "3",
@@ -104,7 +116,10 @@ const sampleAssets: Asset[] = [
     salesLastWeek: 1,
     marketTrend: "stable",
     rarity: "Epic",
-    category: "Collectibles"
+    category: "Collectibles",
+    recommendationTooltip: "Harga stabil, koleksi prestisius",
+    avgSaleDays: 5,
+    conversionRate: 75
   },
   {
     id: "4",
@@ -118,7 +133,10 @@ const sampleAssets: Asset[] = [
     salesLastWeek: 2,
     marketTrend: "up",
     rarity: "Rare",
-    category: "Generative"
+    category: "Generative",
+    recommendationTooltip: "Seni generatif populer, 2 terjual minggu ini",
+    avgSaleDays: 3,
+    conversionRate: 80
   },
   {
     id: "5",
@@ -131,8 +149,12 @@ const sampleAssets: Asset[] = [
     salesLastWeek: 8,
     marketTrend: "up",
     isHot: true,
-    category: "Gaming"
-  }
+    category: "Gaming",
+    bestSeller: true,
+    recommendationTooltip: "Gaming NFT sedang naik daun, 8 terjual minggu ini",
+    avgSaleDays: 1.5,
+    conversionRate: 90
+  },
 ]
 
 export default function AssetsPage() {
@@ -143,6 +165,7 @@ export default function AssetsPage() {
   const [sortBy, setSortBy] = useState("value-high")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
+  const [showSkeletonLoader, setShowSkeletonLoader] = useState(false)
 
   // Filter and sort assets
   useEffect(() => {
@@ -202,6 +225,13 @@ export default function AssetsPage() {
   }
 
   const getSmartBadge = (asset: Asset) => {
+    if (asset.bestSeller) {
+      return (
+        <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white animate-pulse">
+          ⭐ Best Seller
+        </Badge>
+      )
+    }
     if (asset.salesLastWeek >= 5) {
       return (
         <Badge className="bg-red-500/90 text-white animate-pulse">
@@ -228,21 +258,40 @@ export default function AssetsPage() {
 
   const getSmartTooltip = (asset: Asset) => {
     const messages = []
-    
-    if (asset.salesLastWeek > 0) {
-      messages.push(`💸 ${asset.salesLastWeek} terjual minggu ini`)
+
+    if (asset.recommendationTooltip) {
+      messages.push(asset.recommendationTooltip)
     }
-    
-    if (asset.lastSalePrice) {
-      const trend = asset.lastSalePrice > asset.value ? "di atas" : "di bawah"
-      messages.push(`⏱️ Terakhir terjual ${trend} harga saat ini`)
+
+    if (asset.avgSaleDays) {
+      messages.push(`⏱️ Rata-rata terjual dalam ${asset.avgSaleDays} hari`)
     }
-    
-    if (asset.isHot) {
-      messages.push(`🎯 Tingkat konversi tinggi pada kategori ini`)
+
+    if (asset.conversionRate) {
+      messages.push(`📊 ${asset.conversionRate}% tingkat konversi`)
     }
 
     return messages.join(" • ")
+  }
+
+  // Skeleton loader component
+  const SkeletonCard = () => (
+    <Card className="bg-slate-800/50 border-slate-700 overflow-hidden animate-pulse">
+      <div className="aspect-square bg-slate-700" />
+      <CardContent className="p-4 space-y-2">
+        <div className="h-4 bg-slate-700 rounded" />
+        <div className="h-3 bg-slate-700 rounded w-2/3" />
+        <div className="h-4 bg-slate-700 rounded w-1/2" />
+      </CardContent>
+    </Card>
+  )
+
+  // Simulate loading
+  const handleRefresh = () => {
+    setShowSkeletonLoader(true)
+    setTimeout(() => {
+      setShowSkeletonLoader(false)
+    }, 1500)
   }
 
   return (
