@@ -24,7 +24,8 @@ import {
   Award,
   ThumbsUp,
   Activity,
-  DollarSign
+  DollarSign,
+  Copy
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
