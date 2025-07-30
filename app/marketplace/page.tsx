@@ -377,7 +377,7 @@ const sampleWalletAssets = {
 // Sample Payment Accounts
 const samplePaymentAccounts = [
   { id: "1", type: "bank", name: "Bank BCA", accountName: "Rafly Rizky", accountNumber: "1234567890", alias: "BCA Utama", logo: "🏦" },
-  { id: "2", type: "ewallet", name: "DANA", accountName: "0812-3456-7890", accountNumber: "0812-3456-7890", alias: "DANA Pribadi", logo: "💳" },
+  { id: "2", type: "ewallet", name: "DANA", accountName: "0812-3456-7890", accountNumber: "0812-3456-7890", alias: "DANA Pribadi", logo: "��" },
   { id: "3", type: "ewallet", name: "OVO", accountName: "0856-7890-1234", accountNumber: "0856-7890-1234", alias: "OVO Business", logo: "💰" },
   { id: "4", type: "bank", name: "Bank Mandiri", accountName: "Rafly Rizky", accountNumber: "9876543210", alias: "Mandiri Saving", logo: "🏛️" },
 ]
@@ -1918,7 +1918,7 @@ AI Market Analysis:
                 </motion.div>
               )}
 
-              {/* Step 3: Exchange Details */}
+              {/* Step 3: Smart Pricing & Exchange Details */}
               {createOrderStep === 3 && selectedAsset && (
                 <motion.div
                   key="step3"
@@ -1926,15 +1926,72 @@ AI Market Analysis:
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   className="space-y-6"
+                  onFocus={() => {
+                    // Generate price recommendation when step is focused
+                    const recommendation = generatePriceRecommendation(selectedAsset)
+                    setPriceRecommendation(recommendation)
+                  }}
                 >
                   <div className="text-center mb-6">
                     <h3 className="text-xl font-semibold text-white mb-2">
-                      Detail Pertukaran
+                      💰 Tentukan Harga & Detail
                     </h3>
                     <p className="text-slate-400">
-                      Tentukan apa yang Anda inginkan sebagai balasan
+                      Dapatkan rekomendasi harga cerdas berdasarkan data pasar
                     </p>
                   </div>
+
+                  {/* Smart Price Recommendations */}
+                  {priceRecommendation && (
+                    <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-lg p-4">
+                      <h4 className="text-blue-400 font-medium mb-3 flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4" />
+                        Rekomendasi Harga Cerdas
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                        <div className="text-center p-3 bg-slate-800/30 rounded">
+                          <div className="text-xs text-slate-400 mb-1">Floor Price</div>
+                          <div className="text-white font-semibold">{formatPrice(priceRecommendation.floorPrice)}</div>
+                        </div>
+                        <div className="text-center p-3 bg-green-500/10 border border-green-500/20 rounded">
+                          <div className="text-xs text-green-400 mb-1">💸 Harga Pasar</div>
+                          <div className="text-white font-bold">{formatPrice(priceRecommendation.averagePrice)}</div>
+                        </div>
+                        <div className="text-center p-3 bg-slate-800/30 rounded">
+                          <div className="text-xs text-slate-400 mb-1">Ceiling Price</div>
+                          <div className="text-white font-semibold">{formatPrice(priceRecommendation.ceilingPrice)}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4 text-xs text-slate-300">
+                        <span>📊 Volume 24h: {priceRecommendation.salesVolume24h}</span>
+                        <span>⏱️ Avg Sale: {priceRecommendation.avgSaleDays} hari</span>
+                        <span>✅ Success Rate: {priceRecommendation.successRate}%</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Smart Tips */}
+                  {showSmartTips && priceRecommendation && (
+                    <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <Sparkles className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="text-yellow-400 font-medium mb-2">Tips Cerdas Berbasis Data</h4>
+                          <div className="space-y-1 text-xs text-slate-300">
+                            {priceRecommendation.tips.slice(0, 2).map((tip: string, index: number) => (
+                              <p key={index}>{tip}</p>
+                            ))}
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => setShowSmartTips(false)}
+                          className="text-slate-400 hover:text-white"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* What You Give */}
