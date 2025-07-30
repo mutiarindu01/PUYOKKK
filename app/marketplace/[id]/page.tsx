@@ -543,8 +543,8 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
   const handleBuy = async () => {
     setIsBuying(true)
     try {
-      // Redirect to payment instructions page
-      window.location.href = `/payment/${order.id}`
+      // Redirect to unified payment flow
+      window.location.href = `/marketplace/${order.id}/payment`
     } catch (error) {
       console.error("Purchase failed:", error)
     } finally {
