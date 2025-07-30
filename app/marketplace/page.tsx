@@ -626,6 +626,56 @@ AI Market Analysis:
         </div>
       </div>
 
+      {/* Main Marketplace Tabs */}
+      <div className="border-b border-slate-700/30 bg-slate-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex gap-0 overflow-x-auto scrollbar-hide">
+            <button
+              onClick={() => setActiveTab("nfts")}
+              className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
+                activeTab === "nfts"
+                  ? "border-blue-500 text-blue-400 bg-blue-500/5"
+                  : "border-transparent text-slate-400 hover:text-white hover:border-slate-600"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <ImageIcon className="w-4 h-4" />
+                <span>NFTs</span>
+                <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">1.2K</span>
+              </div>
+            </button>
+            <button
+              onClick={() => setActiveTab("tokens")}
+              className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
+                activeTab === "tokens"
+                  ? "border-green-500 text-green-400 bg-green-500/5"
+                  : "border-transparent text-slate-400 hover:text-white hover:border-slate-600"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <DollarSign className="w-4 h-4" />
+                <span>Tokens</span>
+                <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">89</span>
+              </div>
+            </button>
+            <button
+              onClick={() => setActiveTab("collections")}
+              className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
+                activeTab === "collections"
+                  ? "border-purple-500 text-purple-400 bg-purple-500/5"
+                  : "border-transparent text-slate-400 hover:text-white hover:border-slate-600"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <Globe className="w-4 h-4" />
+                <span>Collections</span>
+                <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">156</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Order Book & Analytics Dashboard */}
       <div className="border-b border-slate-700/50 bg-slate-900/50 pt-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
