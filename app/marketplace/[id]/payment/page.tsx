@@ -95,7 +95,7 @@ const sampleOrder: PaymentOrder = {
     number: "0812-3456-7890",
     type: "ewallet"
   },
-  expiresAt: "2024-02-01T10:30:00Z",
+  expiresAt: "2025-02-01T10:30:00Z",
   referenceCode: "PUYOK-123456",
   seller: {
     name: "CryptoArt_Master",
