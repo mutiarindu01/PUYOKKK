@@ -940,7 +940,7 @@ export default function OrderDetailPage() {
 
           {/* Right Column - Order Details */}
           <div className="space-y-6">
-            <BuyActionSection order={order} currentUser={currentUser} />
+            <IntegratedPaymentSection order={order} currentUser={currentUser} />
             <SellerTrustSection seller={order.seller} onShowReviews={() => setShowReviews(true)} />
             <TransactionDetails order={order} />
             <EscrowGuaranteeSection />
