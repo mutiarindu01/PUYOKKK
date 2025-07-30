@@ -59,8 +59,6 @@ import {
   Plus,
   Check,
   Coins,
-  ImageIcon,
-  Layers,
   Minus,
   ArrowLeft,
   ArrowRight,
