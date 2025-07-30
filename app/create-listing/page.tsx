@@ -184,6 +184,8 @@ export default function CreateListingPage() {
   const [priceConfidence, setPriceConfidence] = useState(0)
   const [showPriceAssistant, setShowPriceAssistant] = useState(false)
   const [isDraft, setIsDraft] = useState(false)
+  const [saleSpeedLevel, setSaleSpeedLevel] = useState<"low" | "medium" | "high">("medium")
+  const [showHighValueWarning, setShowHighValueWarning] = useState(false)
 
   // Generate price recommendation
   const generatePriceRecommendation = useCallback((asset: Asset) => {
