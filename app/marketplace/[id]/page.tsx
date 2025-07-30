@@ -503,34 +503,46 @@ function TransactionDetails({ order }: { order: OrderDetail }) {
 
 
 
-function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentUser?: { address: string } }) {
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+function IntegratedPaymentSection({ order, currentUser }: { order: OrderDetail; currentUser?: { address: string } }) {
+  const [paymentStep, setPaymentStep] = useState(1) // 1: Buy, 2: Payment Method, 3: Payment, 4: Success
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<"onchain" | "bank" | "ewallet">()
   const [isBuying, setIsBuying] = useState(false)
-  
+  const [paymentProof, setPaymentProof] = useState<File | null>(null)
+
   const isSeller = currentUser?.address === order.seller.address
-  const isExpired = new Date(order.expiresAt) < new Date()
   const isSold = order.status === "sold"
 
-  const handleBuy = async () => {
+  const handleStartPurchase = () => {
+    setPaymentStep(2)
+  }
+
+  const handlePaymentMethodSelect = (method: "onchain" | "bank" | "ewallet") => {
+    setSelectedPaymentMethod(method)
+    setPaymentStep(3)
+  }
+
+  const handlePaymentComplete = async () => {
     setIsBuying(true)
     try {
-      // Redirect to unified payment flow
-      window.location.href = `/marketplace/${order.id}/payment`
+      // Simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      setPaymentStep(4)
     } catch (error) {
-      console.error("Purchase failed:", error)
+      console.error("Payment failed:", error)
     } finally {
       setIsBuying(false)
-      setIsConfirmOpen(false)
     }
+  }
+
+  const resetPaymentFlow = () => {
+    setPaymentStep(1)
+    setSelectedPaymentMethod(undefined)
+    setPaymentProof(null)
   }
 
   return (
     <Card className="bg-slate-800/50 border-slate-700">
       <CardContent className="p-6">
-        {!isExpired && !isSold && (
-          <CountdownTimer expiresAt={order.expiresAt} />
-        )}
-        
         {isSeller ? (
           <div className="text-center py-4">
             <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -544,106 +556,230 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
             </Button>
           </div>
         ) : (
-          <>
-            <div className="space-y-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-green-400 mb-1">{formatCurrency(order.total)}</p>
-                <p className="text-slate-400 text-sm">Total yang harus dibayar</p>
-              </div>
+          <div className="space-y-4">
+            {/* Step 1: Buy Button */}
+            {paymentStep === 1 && (
+              <>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-green-400 mb-1">{formatCurrency(order.total)}</p>
+                  <p className="text-slate-400 text-sm">Total yang harus dibayar</p>
+                  <div className="mt-2">
+                    <Badge className="bg-green-500/20 text-green-400">
+                      🟢 Tersedia - Beli Instant
+                    </Badge>
+                  </div>
+                </div>
 
-              {isExpired ? (
-                <Button disabled className="w-full h-12">
-                  <AlertTriangle className="w-4 h-4 mr-2" />
-                  Listing Telah Berakhir
-                </Button>
-              ) : isSold ? (
-                <Button disabled className="w-full h-12">
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Sudah Terjual
-                </Button>
-              ) : (
-                <Dialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
-                  <DialogTrigger asChild>
-                    <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-semibold">
-                      <Zap className="w-4 h-4 mr-2" />
-                      Beli Sekarang
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="bg-slate-800 border-slate-700 text-white">
-                    <DialogHeader>
-                      <DialogTitle>Konfirmasi Pembelian</DialogTitle>
-                      <DialogDescription className="text-slate-300">
-                        Pastikan detail pembelian Anda sudah benar
-                      </DialogDescription>
-                    </DialogHeader>
-                    
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-4 p-4 bg-slate-700/50 rounded-lg">
-                        <img
-                          src={order.asset.image}
-                          alt={order.asset.name}
-                          className="w-16 h-16 rounded-lg object-cover"
-                        />
-                        <div>
-                          <h3 className="font-semibold text-white">{order.asset.name}</h3>
-                          <p className="text-slate-400">{order.asset.collection}</p>
-                          <p className="text-green-400 font-bold">{formatCurrency(order.total)}</p>
-                        </div>
+                {isSold ? (
+                  <Button disabled className="w-full h-12">
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Sudah Terjual
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleStartPurchase}
+                    className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-semibold"
+                  >
+                    <Zap className="w-4 h-4 mr-2" />
+                    Beli Sekarang
+                  </Button>
+                )}
+
+                <div className="flex gap-2">
+                  <Button variant="outline" className="flex-1 border-slate-600 text-slate-300" size="sm">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Chat Penjual
+                  </Button>
+                  <Button variant="outline" className="flex-1 border-slate-600 text-slate-300" size="sm">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View on Chain
+                  </Button>
+                </div>
+              </>
+            )}
+
+            {/* Step 2: Payment Method Selection */}
+            {paymentStep === 2 && (
+              <>
+                <div className="text-center mb-4">
+                  <h3 className="text-lg font-semibold text-white mb-2">Pilih Metode Pembayaran</h3>
+                  <p className="text-slate-400 text-sm">Semua metode aman dengan PUYOK Escrow</p>
+                </div>
+
+                <div className="space-y-3">
+                  <button
+                    onClick={() => handlePaymentMethodSelect("onchain")}
+                    className="w-full p-4 border-2 border-slate-700 hover:border-purple-500 rounded-lg transition-all bg-slate-700/30 hover:bg-purple-500/10"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center">
+                        <Zap className="w-5 h-5 text-purple-400" />
                       </div>
-
-                      <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                        <div className="flex items-start gap-3">
-                          <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
-                          <div>
-                            <h4 className="text-blue-400 font-medium">Escrow Protection</h4>
-                            <p className="text-slate-300 text-sm">
-                              Dana Anda akan diamankan sampai aset diterima
-                            </p>
-                          </div>
-                        </div>
+                      <div className="text-left">
+                        <p className="font-medium text-white">Crypto/On-Chain</p>
+                        <p className="text-sm text-slate-400">Transfer langsung dari wallet</p>
                       </div>
+                    </div>
+                  </button>
 
-                      <div className="flex gap-3">
-                        <Button
-                          variant="outline"
-                          onClick={() => setIsConfirmOpen(false)}
-                          className="flex-1 border-slate-600"
-                          disabled={isBuying}
-                        >
-                          Batal
-                        </Button>
-                        <Button
-                          onClick={handleBuy}
-                          className="flex-1 bg-green-600 hover:bg-green-700"
-                          disabled={isBuying}
-                        >
-                          {isBuying ? (
-                            <>
-                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                              Memproses...
-                            </>
-                          ) : (
-                            "Konfirmasi Beli"
-                          )}
+                  <button
+                    onClick={() => handlePaymentMethodSelect("bank")}
+                    className="w-full p-4 border-2 border-slate-700 hover:border-blue-500 rounded-lg transition-all bg-slate-700/30 hover:bg-blue-500/10"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
+                        <span className="text-blue-400">🏦</span>
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-white">Transfer Bank</p>
+                        <p className="text-sm text-slate-400">Transfer ke {order.paymentMethod} - {order.paymentAccountNumber}</p>
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => handlePaymentMethodSelect("ewallet")}
+                    className="w-full p-4 border-2 border-slate-700 hover:border-green-500 rounded-lg transition-all bg-slate-700/30 hover:bg-green-500/10"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+                        <span className="text-green-400">💳</span>
+                      </div>
+                      <div className="text-left">
+                        <p className="font-medium text-white">E-Wallet</p>
+                        <p className="text-sm text-slate-400">DANA, OVO, GoPay</p>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+
+                <Button
+                  variant="outline"
+                  onClick={resetPaymentFlow}
+                  className="w-full border-slate-600 text-slate-400"
+                >
+                  Kembali
+                </Button>
+              </>
+            )}
+
+            {/* Step 3: Payment Process */}
+            {paymentStep === 3 && selectedPaymentMethod && (
+              <>
+                <div className="text-center mb-4">
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {selectedPaymentMethod === "onchain" ? "Transfer Crypto" :
+                     selectedPaymentMethod === "bank" ? "Transfer Bank" : "E-Wallet Payment"}
+                  </h3>
+                  <p className="text-green-400 font-bold text-xl">{formatCurrency(order.total)}</p>
+                </div>
+
+                {selectedPaymentMethod === "onchain" ? (
+                  <div className="space-y-4">
+                    <div className="p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                      <h4 className="text-purple-400 font-medium mb-2">Smart Contract Address</h4>
+                      <div className="bg-slate-900/50 p-3 rounded font-mono text-sm text-white">
+                        0x1234...5678
+                        <Button size="sm" variant="ghost" className="ml-2">
+                          <Copy className="w-3 h-3" />
                         </Button>
                       </div>
                     </div>
-                  </DialogContent>
-                </Dialog>
-              )}
 
-              <div className="flex gap-2">
-                <Button variant="outline" className="flex-1 border-slate-600 text-slate-300" size="sm">
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Chat Penjual
+                    <Button
+                      onClick={handlePaymentComplete}
+                      disabled={isBuying}
+                      className="w-full bg-purple-600 hover:bg-purple-700"
+                    >
+                      {isBuying ? "Memproses..." : "Konfirmasi Transfer"}
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                      <h4 className="text-blue-400 font-medium mb-2">Detail Transfer</h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">Metode:</span>
+                          <span className="text-white">{order.paymentMethod}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">Nama:</span>
+                          <span className="text-white">{order.paymentAccountName}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">Nomor:</span>
+                          <span className="text-white font-mono">{order.paymentAccountNumber}</span>
+                        </div>
+                        <div className="flex justify-between font-bold">
+                          <span className="text-slate-400">Jumlah:</span>
+                          <span className="text-green-400">{formatCurrency(order.total)}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                      <p className="text-yellow-400 text-sm">
+                        💡 Transfer dengan nominal PERSIS untuk verifikasi otomatis
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-white text-sm font-medium mb-2">
+                        Upload Bukti Transfer (Opsional)
+                      </label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setPaymentProof(e.target.files?.[0] || null)}
+                        className="w-full p-2 bg-slate-700 border border-slate-600 rounded text-white text-sm"
+                      />
+                    </div>
+
+                    <Button
+                      onClick={handlePaymentComplete}
+                      disabled={isBuying}
+                      className="w-full bg-green-600 hover:bg-green-700"
+                    >
+                      {isBuying ? "Memverifikasi..." : "Konfirmasi Pembayaran"}
+                    </Button>
+                  </div>
+                )}
+
+                <Button
+                  variant="outline"
+                  onClick={() => setPaymentStep(2)}
+                  className="w-full border-slate-600 text-slate-400"
+                >
+                  Ganti Metode
                 </Button>
-                <Button variant="outline" className="flex-1 border-slate-600 text-slate-300" size="sm">
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  View on Chain
-                </Button>
+              </>
+            )}
+
+            {/* Step 4: Success */}
+            {paymentStep === 4 && (
+              <div className="text-center py-6">
+                <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-green-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">Pembayaran Berhasil!</h3>
+                <p className="text-slate-400 mb-4">
+                  {selectedPaymentMethod === "onchain"
+                    ? "NFT sedang ditransfer ke wallet Anda"
+                    : "Pembayaran sedang diverifikasi. NFT akan dikirim dalam 5-15 menit."
+                  }
+                </p>
+                <div className="space-y-2">
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                    Lihat Status Transaksi
+                  </Button>
+                  <Button variant="outline" className="w-full border-slate-600 text-slate-400">
+                    Kembali ke Marketplace
+                  </Button>
+                </div>
               </div>
-            </div>
-          </>
+            )}
+          </div>
         )}
       </CardContent>
     </Card>
