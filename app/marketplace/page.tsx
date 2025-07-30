@@ -1661,6 +1661,9 @@ AI Market Analysis:
           </div>
         )}
       </div>
+
+      {/* Unified Marketplace Actions */}
+      <UnifiedMarketplace />
     </div>
   )
 }
