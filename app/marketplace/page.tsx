@@ -545,7 +545,7 @@ AI Market Analysis:
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Marketplace Header */}
-      <div className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-xl sticky top-16 md:top-20 z-40">
+      <div className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm text-slate-400 mb-4">
