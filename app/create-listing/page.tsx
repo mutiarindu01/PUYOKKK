@@ -351,7 +351,7 @@ export default function CreateListingPage() {
     } else if (priceRatio < 1.2) {
       return "📈 Harga di atas rata-rata. Cocok untuk memaksimalkan profit, tapi mungkin butuh waktu lebih lama."
     } else {
-      return "⚠��� Harga premium. Pastikan deskripsi menarik untuk menjustifikasi harga tinggi."
+      return "⚠️ Harga premium. Pastikan deskripsi menarik untuk menjustifikasi harga tinggi."
     }
   }
 
@@ -1173,6 +1173,9 @@ export default function CreateListingPage() {
           </div>
         </div>
       </div>
+
+      {/* Help Panel */}
+      <HelpPanel currentStep={currentStep} />
     </div>
   )
 }
