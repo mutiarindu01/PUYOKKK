@@ -1,320 +1,243 @@
 "use client"
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import React, { useState } from "react"
+import { motion } from "framer-motion"
 import {
   User,
-  Camera,
   CreditCard,
   Shield,
   Bell,
-  Save,
+  Palette,
+  Globe,
   Plus,
+  Edit,
   Trash2,
+  Building2,
+  Smartphone,
+  Check,
+  AlertTriangle,
   Eye,
   EyeOff,
-  CheckCircle,
-  AlertCircle,
-  Settings,
-  Lock,
-  Smartphone,
-  ArrowLeft,
+  Save
 } from "lucide-react"
-import Link from "next/link"
-import NotificationCenter from "@/components/NotificationCenter"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Switch } from "@/components/ui/switch"
+import { useSearchParams } from "next/navigation"
+
+interface PaymentAccount {
+  id: string
+  type: "bank" | "ewallet"
+  name: string
+  accountName: string
+  accountNumber: string
+  logo: string
+  isVerified: boolean
+  isDefault: boolean
+}
 
 export default function SettingsPage() {
-  const [activeTab, setActiveTab] = useState("profile")
-  const [showPassword, setShowPassword] = useState(false)
-  const [profileData, setProfileData] = useState({
-    displayName: "John Doe",
-    username: "johndoe",
-    bio: "Digital art collector and NFT enthusiast",
-    email: "john@example.com",
-    avatar: "/placeholder.svg?height=100&width=100",
-    socialLinks: {
-      twitter: "@johndoe",
-      instagram: "@johndoe_art",
-      website: "johndoe.art",
-    },
-  })
-  const [paymentMethods, setPaymentMethods] = useState([
+  const searchParams = useSearchParams()
+  const activeTab = searchParams?.get("tab") || "profile"
+
+  const [paymentAccounts, setPaymentAccounts] = useState<PaymentAccount[]>([
     {
       id: "1",
-      type: "DANA",
-      name: "John Doe",
-      account: "081234567890",
-      verified: true,
-      isPrimary: true,
+      type: "bank",
+      name: "BCA",
+      accountName: "Rafly Rizky",
+      accountNumber: "1234567890",
+      logo: "🏦",
+      isVerified: true,
+      isDefault: true
     },
     {
       id: "2",
-      type: "GoPay",
-      name: "John Doe",
-      account: "081234567890",
-      verified: true,
-      isPrimary: false,
-    },
-    {
-      id: "3",
-      type: "Bank BCA",
-      name: "John Doe",
-      account: "1234567890",
-      verified: false,
-      isPrimary: false,
-    },
+      type: "ewallet",
+      name: "DANA",
+      accountName: "0812-3456-7890",
+      accountNumber: "0812-3456-7890",
+      logo: "💳",
+      isVerified: true,
+      isDefault: false
+    }
   ])
-  const [notifications, setNotifications] = useState({
-    newOffers: true,
-    priceAlerts: true,
-    transactionUpdates: true,
-    marketingEmails: false,
-    smsNotifications: true,
-    pushNotifications: true,
-  })
-  const [security, setSecurity] = useState({
-    twoFactorEnabled: false,
-    loginAlerts: true,
-    passwordLastChanged: "2024-01-15",
+
+  const [showAddPayment, setShowAddPayment] = useState(false)
+  const [newAccount, setNewAccount] = useState({
+    type: "bank" as "bank" | "ewallet",
+    name: "",
+    accountName: "",
+    accountNumber: ""
   })
 
-  const paymentIcons = {
-    DANA: "💳",
-    GoPay: "🟢",
-    OVO: "🟣",
-    "Bank BCA": "🏦",
-    "Bank BRI": "🏦",
-    "Bank Mandiri": "🏦",
+  const bankOptions = [
+    { value: "BCA", label: "BCA", logo: "🏦" },
+    { value: "BRI", label: "BRI", logo: "🏛️" },
+    { value: "BNI", label: "BNI", logo: "🏛️" },
+    { value: "Mandiri", label: "Mandiri", logo: "🏦" },
+    { value: "CIMB", label: "CIMB Niaga", logo: "🏛️" }
+  ]
+
+  const ewalletOptions = [
+    { value: "DANA", label: "DANA", logo: "💳" },
+    { value: "OVO", label: "OVO", logo: "💰" },
+    { value: "GoPay", label: "GoPay", logo: "📱" },
+    { value: "ShopeePay", label: "ShopeePay", logo: "🛒" }
+  ]
+
+  const addPaymentAccount = () => {
+    if (!newAccount.name || !newAccount.accountName || !newAccount.accountNumber) return
+
+    const selectedOption = newAccount.type === "bank" 
+      ? bankOptions.find(b => b.value === newAccount.name)
+      : ewalletOptions.find(e => e.value === newAccount.name)
+
+    const account: PaymentAccount = {
+      id: Date.now().toString(),
+      type: newAccount.type,
+      name: newAccount.name,
+      accountName: newAccount.accountName,
+      accountNumber: newAccount.accountNumber,
+      logo: selectedOption?.logo || "💳",
+      isVerified: false,
+      isDefault: paymentAccounts.length === 0
+    }
+
+    setPaymentAccounts([...paymentAccounts, account])
+    setNewAccount({ type: "bank", name: "", accountName: "", accountNumber: "" })
+    setShowAddPayment(false)
   }
 
-  const handleSaveProfile = () => {
-    // Save profile logic
-    console.log("Saving profile:", profileData)
-  }
-
-  const handleAddPaymentMethod = () => {
-    // Add payment method logic
-    console.log("Adding payment method")
-  }
-
-  const handleRemovePaymentMethod = (id: string) => {
-    setPaymentMethods(paymentMethods.filter((method) => method.id !== id))
-  }
-
-  const handleSetPrimary = (id: string) => {
-    setPaymentMethods(
-      paymentMethods.map((method) => ({
-        ...method,
-        isPrimary: method.id === id,
-      })),
+  const setDefaultAccount = (id: string) => {
+    setPaymentAccounts(accounts =>
+      accounts.map(account => ({
+        ...account,
+        isDefault: account.id === id
+      }))
     )
   }
 
-  const handleNotificationChange = (key: string, value: boolean) => {
-    setNotifications({ ...notifications, [key]: value })
-  }
-
-  const handleEnable2FA = () => {
-    setSecurity({ ...security, twoFactorEnabled: !security.twoFactorEnabled })
+  const removeAccount = (id: string) => {
+    setPaymentAccounts(accounts => accounts.filter(account => account.id !== id))
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/dashboard">
-                <ArrowLeft className="w-5 h-5" />
-              </Link>
-            </Button>
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                <Settings className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-foreground">Pengaturan</h1>
-                <p className="text-sm text-muted-foreground">Kelola profil dan preferensi Anda</p>
-              </div>
-            </div>
+      <div className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div>
+            <h1 className="text-2xl lg:text-3xl font-bold text-white mb-2">
+              Pengaturan
+            </h1>
+            <p className="text-slate-400">
+              Kelola profil, pembayaran, dan preferensi akun Anda
+            </p>
           </div>
-          <NotificationCenter />
         </div>
-      </header>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-10 py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full grid-cols-3 lg:w-fit lg:grid-cols-3">
-            <TabsTrigger value="profile" className="flex items-center gap-2">
-              <User className="w-4 h-4" />
-              <span className="hidden sm:inline">Profil Publik</span>
-              <span className="sm:hidden">Profil</span>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Tabs value={activeTab} className="space-y-6">
+          <TabsList className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 bg-slate-800/50 border border-slate-700">
+            <TabsTrigger value="profile" className="data-[state=active]:bg-blue-600">
+              <User className="w-4 h-4 mr-2" />
+              <span className="hidden sm:inline">Profil</span>
             </TabsTrigger>
-            <TabsTrigger value="payment" className="flex items-center gap-2">
-              <CreditCard className="w-4 h-4" />
-              <span className="hidden sm:inline">Akun Pembayaran</span>
-              <span className="sm:hidden">Pembayaran</span>
+            <TabsTrigger value="payment" className="data-[state=active]:bg-blue-600">
+              <CreditCard className="w-4 h-4 mr-2" />
+              <span className="hidden sm:inline">Pembayaran</span>
             </TabsTrigger>
-            <TabsTrigger value="security" className="flex items-center gap-2">
-              <Shield className="w-4 h-4" />
-              <span className="hidden sm:inline">Keamanan & Notifikasi</span>
-              <span className="sm:hidden">Keamanan</span>
+            <TabsTrigger value="security" className="data-[state=active]:bg-blue-600">
+              <Shield className="w-4 h-4 mr-2" />
+              <span className="hidden sm:inline">Keamanan</span>
+            </TabsTrigger>
+            <TabsTrigger value="notifications" className="data-[state=active]:bg-blue-600">
+              <Bell className="w-4 h-4 mr-2" />
+              <span className="hidden sm:inline">Notifikasi</span>
+            </TabsTrigger>
+            <TabsTrigger value="appearance" className="data-[state=active]:bg-blue-600">
+              <Palette className="w-4 h-4 mr-2" />
+              <span className="hidden sm:inline">Tampilan</span>
+            </TabsTrigger>
+            <TabsTrigger value="privacy" className="data-[state=active]:bg-blue-600">
+              <Globe className="w-4 h-4 mr-2" />
+              <span className="hidden sm:inline">Privasi</span>
             </TabsTrigger>
           </TabsList>
 
-          {/* Profil Publik Tab */}
-          <TabsContent value="profile" className="space-y-6">
-            <Card>
+          {/* Profile Tab */}
+          <TabsContent value="profile">
+            <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5" />
-                  Informasi Profil
-                </CardTitle>
-                <CardDescription>
-                  Informasi ini akan ditampilkan secara publik di profil Anda dan membantu membangun kepercayaan dengan
-                  pengguna lain.
-                </CardDescription>
+                <CardTitle className="text-white">Informasi Profil</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                {/* Avatar Section */}
                 <div className="flex items-center gap-6">
-                  <Avatar className="w-24 h-24">
-                    <AvatarImage src={profileData.avatar} alt="Profile picture" />
-                    <AvatarFallback className="text-2xl">
-                      <User className="w-12 h-12" />
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-2">
-                    <Button variant="outline" className="flex items-center gap-2">
-                      <Camera className="w-4 h-4" />
-                      Ubah Foto
-                    </Button>
-                    <p className="text-sm text-muted-foreground">
-                      Disarankan ukuran 400x400px. Maksimal 2MB dalam format JPG atau PNG.
-                    </p>
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                    <span className="text-white text-2xl font-bold">MR</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">Memet Toping</h3>
+                    <p className="text-slate-400">@memet_toping</p>
+                    <Badge className="bg-green-500/20 text-green-400 mt-2">Verified Creator</Badge>
                   </div>
                 </div>
 
-                <Separator />
-
-                {/* Basic Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="displayName">Nama Lengkap</Label>
-                    <Input
-                      id="displayName"
-                      value={profileData.displayName}
-                      onChange={(e) => setProfileData({ ...profileData, displayName: e.target.value })}
-                      placeholder="Masukkan nama lengkap"
+                  <div>
+                    <Label className="text-white">Nama Lengkap</Label>
+                    <Input 
+                      defaultValue="Memet Toping"
+                      className="mt-1 bg-slate-800 border-slate-600 text-white"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="username">Username</Label>
-                    <Input
-                      id="username"
-                      value={profileData.username}
-                      onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
-                      placeholder="username_unik"
+                  <div>
+                    <Label className="text-white">Email</Label>
+                    <Input 
+                      defaultValue="memet@example.com"
+                      className="mt-1 bg-slate-800 border-slate-600 text-white"
                     />
-                    <p className="text-xs text-muted-foreground">
-                      Username akan menjadi URL profil publik Anda: puyok.id/@{profileData.username}
-                    </p>
                   </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={profileData.email}
-                    onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                    placeholder="email@example.com"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="bio">Bio</Label>
-                  <Textarea
-                    id="bio"
-                    value={profileData.bio}
-                    onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
-                    placeholder="Ceritakan tentang diri Anda dan karya yang Anda jual..."
-                    rows={3}
-                    className="resize-none"
-                  />
-                  <p className="text-xs text-muted-foreground">Maksimal 160 karakter</p>
-                </div>
-
-                <Separator />
-
-                {/* Social Links */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium text-foreground">Link Media Sosial</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Tambahkan link media sosial untuk meningkatkan kredibilitas profil Anda.
-                  </p>
-
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="twitter">Twitter</Label>
-                      <Input
-                        id="twitter"
-                        value={profileData.socialLinks.twitter}
-                        onChange={(e) =>
-                          setProfileData({
-                            ...profileData,
-                            socialLinks: { ...profileData.socialLinks, twitter: e.target.value },
-                          })
-                        }
-                        placeholder="@username"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="instagram">Instagram</Label>
-                      <Input
-                        id="instagram"
-                        value={profileData.socialLinks.instagram}
-                        onChange={(e) =>
-                          setProfileData({
-                            ...profileData,
-                            socialLinks: { ...profileData.socialLinks, instagram: e.target.value },
-                          })
-                        }
-                        placeholder="@username"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="website">Website/Portfolio</Label>
-                      <Input
-                        id="website"
-                        value={profileData.socialLinks.website}
-                        onChange={(e) =>
-                          setProfileData({
-                            ...profileData,
-                            socialLinks: { ...profileData.socialLinks, website: e.target.value },
-                          })
-                        }
-                        placeholder="https://yourwebsite.com"
-                      />
-                    </div>
+                  <div>
+                    <Label className="text-white">Username</Label>
+                    <Input 
+                      defaultValue="memet_toping"
+                      className="mt-1 bg-slate-800 border-slate-600 text-white"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-white">No. Telepon</Label>
+                    <Input 
+                      defaultValue="+62 812-3456-7890"
+                      className="mt-1 bg-slate-800 border-slate-600 text-white"
+                    />
                   </div>
                 </div>
 
                 <div className="flex justify-end">
-                  <Button onClick={handleSaveProfile} className="flex items-center gap-2">
-                    <Save className="w-4 h-4" />
+                  <Button className="bg-blue-600 hover:bg-blue-700">
+                    <Save className="w-4 h-4 mr-2" />
                     Simpan Perubahan
                   </Button>
                 </div>
@@ -322,296 +245,371 @@ export default function SettingsPage() {
             </Card>
           </TabsContent>
 
-          {/* Akun Pembayaran Tab */}
-          <TabsContent value="payment" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="flex items-center gap-2">
-                      <CreditCard className="w-5 h-5" />
-                      Metode Pembayaran
-                    </CardTitle>
-                    <CardDescription>
-                      Kelola rekening e-wallet dan bank untuk menerima pembayaran dengan aman.
-                    </CardDescription>
-                  </div>
-                  <Button onClick={handleAddPaymentMethod} className="flex items-center gap-2">
-                    <Plus className="w-4 h-4" />
-                    Tambah Akun
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Alert>
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    <strong>Penting:</strong> Pastikan nama pemilik akun sesuai dengan nama profil Anda untuk
-                    mempermudah verifikasi pembayaran.
-                  </AlertDescription>
-                </Alert>
-
-                <div className="space-y-4">
-                  {paymentMethods.map((method) => (
-                    <Card key={method.id} className="relative">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center text-2xl">
-                              {paymentIcons[method.type as keyof typeof paymentIcons]}
-                            </div>
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <h3 className="font-medium text-foreground">{method.type}</h3>
-                                {method.verified && <CheckCircle className="w-4 h-4 text-green-500" />}
-                                {method.isPrimary && (
-                                  <Badge variant="default" className="text-xs">
-                                    Utama
-                                  </Badge>
-                                )}
-                              </div>
-                              <p className="text-sm text-muted-foreground">{method.name}</p>
-                              <p className="text-sm text-muted-foreground font-mono">{method.account}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            {!method.isPrimary && (
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleSetPrimary(method.id)}
-                                className="text-xs"
-                              >
-                                Jadikan Utama
-                              </Button>
-                            )}
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleRemovePaymentMethod(method.id)}
-                              className="text-red-500 hover:bg-red-50"
+          {/* Payment Tab */}
+          <TabsContent value="payment">
+            <div className="space-y-6">
+              <Card className="bg-slate-800/50 border-slate-700">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-white">Akun Pembayaran</CardTitle>
+                    <Dialog open={showAddPayment} onOpenChange={setShowAddPayment}>
+                      <DialogTrigger asChild>
+                        <Button className="bg-blue-600 hover:bg-blue-700">
+                          <Plus className="w-4 h-4 mr-2" />
+                          Tambah Akun
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                        <DialogHeader>
+                          <DialogTitle>Tambah Akun Pembayaran</DialogTitle>
+                          <DialogDescription className="text-slate-300">
+                            Tambahkan akun bank atau e-wallet untuk menerima pembayaran
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <Label className="text-white">Tipe Akun</Label>
+                            <Select 
+                              value={newAccount.type} 
+                              onValueChange={(value: "bank" | "ewallet") => 
+                                setNewAccount({...newAccount, type: value, name: ""})
+                              }
                             >
-                              <Trash2 className="w-4 h-4" />
+                              <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent className="bg-slate-800 border-slate-700">
+                                <SelectItem value="bank">
+                                  <div className="flex items-center gap-2">
+                                    <Building2 className="w-4 h-4" />
+                                    Bank
+                                  </div>
+                                </SelectItem>
+                                <SelectItem value="ewallet">
+                                  <div className="flex items-center gap-2">
+                                    <Smartphone className="w-4 h-4" />
+                                    E-Wallet
+                                  </div>
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+
+                          <div>
+                            <Label className="text-white">
+                              {newAccount.type === "bank" ? "Bank" : "E-Wallet"}
+                            </Label>
+                            <Select 
+                              value={newAccount.name} 
+                              onValueChange={(value) => setNewAccount({...newAccount, name: value})}
+                            >
+                              <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+                                <SelectValue placeholder={`Pilih ${newAccount.type === "bank" ? "bank" : "e-wallet"}`} />
+                              </SelectTrigger>
+                              <SelectContent className="bg-slate-800 border-slate-700">
+                                {(newAccount.type === "bank" ? bankOptions : ewalletOptions).map((option) => (
+                                  <SelectItem key={option.value} value={option.value}>
+                                    <div className="flex items-center gap-2">
+                                      <span>{option.logo}</span>
+                                      {option.label}
+                                    </div>
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+
+                          <div>
+                            <Label className="text-white">Nama Pemilik</Label>
+                            <Input
+                              placeholder="Nama sesuai rekening/akun"
+                              value={newAccount.accountName}
+                              onChange={(e) => setNewAccount({...newAccount, accountName: e.target.value})}
+                              className="bg-slate-700 border-slate-600 text-white"
+                            />
+                          </div>
+
+                          <div>
+                            <Label className="text-white">
+                              {newAccount.type === "bank" ? "Nomor Rekening" : "Nomor HP/ID"}
+                            </Label>
+                            <Input
+                              placeholder={newAccount.type === "bank" ? "1234567890" : "0812-3456-7890"}
+                              value={newAccount.accountNumber}
+                              onChange={(e) => setNewAccount({...newAccount, accountNumber: e.target.value})}
+                              className="bg-slate-700 border-slate-600 text-white"
+                            />
+                          </div>
+
+                          <div className="flex gap-3 pt-4">
+                            <Button
+                              variant="outline"
+                              onClick={() => setShowAddPayment(false)}
+                              className="flex-1 border-slate-600"
+                            >
+                              Batal
+                            </Button>
+                            <Button
+                              onClick={addPaymentAccount}
+                              className="flex-1 bg-blue-600 hover:bg-blue-700"
+                              disabled={!newAccount.name || !newAccount.accountName || !newAccount.accountNumber}
+                            >
+                              Tambah Akun
                             </Button>
                           </div>
                         </div>
-                        {!method.verified && (
-                          <Alert className="mt-4 border-orange-200 bg-orange-50">
-                            <AlertCircle className="h-4 w-4 text-orange-600" />
-                            <AlertDescription className="text-orange-700">
-                              Akun belum diverifikasi. Klik{" "}
-                              <Button variant="link" className="p-0 h-auto text-orange-600 font-medium">
-                                di sini
-                              </Button>{" "}
-                              untuk memulai verifikasi.
-                            </AlertDescription>
-                          </Alert>
-                        )}
-                      </CardContent>
-                    </Card>
-                  ))}
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {paymentAccounts.length === 0 ? (
+                    <div className="text-center py-8">
+                      <CreditCard className="w-16 h-16 mx-auto text-slate-600 mb-4" />
+                      <h3 className="text-xl font-semibold text-white mb-2">
+                        Belum ada akun pembayaran
+                      </h3>
+                      <p className="text-slate-400 mb-6">
+                        Tambahkan akun bank atau e-wallet untuk menerima pembayaran
+                      </p>
+                      <Button onClick={() => setShowAddPayment(true)}>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Tambah Akun Pertama
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {paymentAccounts.map((account) => (
+                        <div
+                          key={account.id}
+                          className="p-4 bg-slate-700/30 rounded-lg border border-slate-600"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                              <div className="text-2xl">{account.logo}</div>
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <h4 className="font-medium text-white">
+                                    {account.name} - {account.accountName}
+                                  </h4>
+                                  {account.isDefault && (
+                                    <Badge className="bg-blue-500/20 text-blue-400">
+                                      Default
+                                    </Badge>
+                                  )}
+                                  {account.isVerified ? (
+                                    <Badge className="bg-green-500/20 text-green-400">
+                                      <Check className="w-3 h-3 mr-1" />
+                                      Verified
+                                    </Badge>
+                                  ) : (
+                                    <Badge className="bg-yellow-500/20 text-yellow-400">
+                                      <AlertTriangle className="w-3 h-3 mr-1" />
+                                      Pending
+                                    </Badge>
+                                  )}
+                                </div>
+                                <p className="text-slate-400 text-sm">
+                                  •••• {account.accountNumber.slice(-4)}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              {!account.isDefault && (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => setDefaultAccount(account.id)}
+                                  className="border-slate-600 text-slate-400 hover:bg-slate-700"
+                                >
+                                  Set Default
+                                </Button>
+                              )}
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="border-slate-600 text-slate-400 hover:bg-slate-700"
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => removeAccount(account.id)}
+                                className="border-red-600 text-red-400 hover:bg-red-600/10"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Payment Insights */}
+              <Card className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border-green-500/20">
+                <CardContent className="p-6">
+                  <h3 className="text-white font-medium mb-3">💡 Tips Pembayaran</h3>
+                  <div className="space-y-2 text-sm text-slate-300">
+                    <p>• Listings dengan DANA memiliki 15% lebih banyak penyelesaian</p>
+                    <p>• Akun terverifikasi mendapat prioritas di search results</p>
+                    <p>• Multiple payment options meningkatkan conversion rate hingga 23%</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Security Tab */}
+          <TabsContent value="security">
+            <Card className="bg-slate-800/50 border-slate-700">
+              <CardHeader>
+                <CardTitle className="text-white">Keamanan Akun</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Label className="text-white">Password Saat Ini</Label>
+                    <Input 
+                      type="password"
+                      placeholder="••••••••"
+                      className="mt-1 bg-slate-800 border-slate-600 text-white"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-white">Password Baru</Label>
+                    <Input 
+                      type="password"
+                      placeholder="••••••••"
+                      className="mt-1 bg-slate-800 border-slate-600 text-white"
+                    />
+                  </div>
                 </div>
 
-                {paymentMethods.length === 0 && (
-                  <div className="text-center py-8 text-muted-foreground">
-                    <CreditCard className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p>Belum ada metode pembayaran</p>
-                    <p className="text-sm">Tambahkan akun e-wallet atau bank untuk menerima pembayaran</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Verifikasi Identitas */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Shield className="w-5 h-5" />
-                  Verifikasi Identitas
-                </CardTitle>
-                <CardDescription>
-                  Tingkatkan kepercayaan dengan verifikasi identitas untuk transaksi yang lebih aman.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between p-4 border border-border rounded-lg">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <User className="w-6 h-6 text-blue-600" />
-                    </div>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
                     <div>
-                      <h3 className="font-medium text-foreground">Verifikasi KTP</h3>
-                      <p className="text-sm text-muted-foreground">Status: Belum Diverifikasi</p>
+                      <h4 className="font-medium text-white">Two-Factor Authentication</h4>
+                      <p className="text-sm text-slate-400">Tambah lapisan keamanan ekstra</p>
                     </div>
+                    <Switch />
                   </div>
-                  <Button variant="outline">Mulai Verifikasi</Button>
+
+                  <div className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-white">Email Notifications</h4>
+                      <p className="text-sm text-slate-400">Dapatkan notifikasi aktivitas mencurigakan</p>
+                    </div>
+                    <Switch defaultChecked />
+                  </div>
+                </div>
+
+                <div className="flex justify-end">
+                  <Button className="bg-blue-600 hover:bg-blue-700">
+                    <Save className="w-4 h-4 mr-2" />
+                    Simpan Perubahan
+                  </Button>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Keamanan & Notifikasi Tab */}
-          <TabsContent value="security" className="space-y-6">
-            {/* Keamanan Akun */}
-            <Card>
+          {/* Notifications Tab */}
+          <TabsContent value="notifications">
+            <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Lock className="w-5 h-5" />
-                  Keamanan Akun
-                </CardTitle>
-                <CardDescription>Lindungi akun Anda dengan fitur keamanan tambahan.</CardDescription>
+                <CardTitle className="text-white">Pengaturan Notifikasi</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {[
+                  { title: "Order Baru", desc: "Notifikasi saat ada yang beli aset Anda", defaultChecked: true },
+                  { title: "Offer Diterima", desc: "Notifikasi saat offer Anda diterima", defaultChecked: true },
+                  { title: "Price Alerts", desc: "Notifikasi perubahan harga aset favorit", defaultChecked: false },
+                  { title: "Weekly Summary", desc: "Ringkasan aktivitas mingguan", defaultChecked: true },
+                  { title: "Marketing Updates", desc: "Info promo dan fitur baru", defaultChecked: false }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-white">{item.title}</h4>
+                      <p className="text-sm text-slate-400">{item.desc}</p>
+                    </div>
+                    <Switch defaultChecked={item.defaultChecked} />
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Appearance Tab */}
+          <TabsContent value="appearance">
+            <Card className="bg-slate-800/50 border-slate-700">
+              <CardHeader>
+                <CardTitle className="text-white">Pengaturan Tampilan</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                {/* Two Factor Authentication */}
-                <div className="flex items-center justify-between p-4 border border-border rounded-lg">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <Smartphone className="w-6 h-6 text-green-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-foreground">Two-Factor Authentication (2FA)</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {security.twoFactorEnabled
-                          ? "Aktif - Akun Anda dilindungi dengan 2FA"
-                          : "Tambahkan lapisan keamanan ekstra dengan aplikasi authenticator"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Switch checked={security.twoFactorEnabled} onCheckedChange={handleEnable2FA} />
-                    {security.twoFactorEnabled && (
-                      <Badge variant="default" className="bg-green-100 text-green-700">
-                        Aktif
-                      </Badge>
-                    )}
+                <div>
+                  <Label className="text-white mb-3 block">Theme</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {[
+                      { value: "dark", label: "Dark", active: true },
+                      { value: "light", label: "Light", active: false },
+                      { value: "auto", label: "Auto", active: false }
+                    ].map((theme) => (
+                      <div
+                        key={theme.value}
+                        className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                          theme.active 
+                            ? "border-blue-500 bg-blue-500/10" 
+                            : "border-slate-600 bg-slate-800/30 hover:border-slate-500"
+                        }`}
+                      >
+                        <div className="font-medium text-white">{theme.label}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Login Alerts */}
-                <div className="flex items-center justify-between p-4 border border-border rounded-lg">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <Bell className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-foreground">Notifikasi Login</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Dapatkan notifikasi saat ada login dari perangkat baru
-                      </p>
-                    </div>
-                  </div>
-                  <Switch
-                    checked={security.loginAlerts}
-                    onCheckedChange={(checked) => setSecurity({ ...security, loginAlerts: checked })}
-                  />
-                </div>
-
-                {/* Password */}
-                <div className="flex items-center justify-between p-4 border border-border rounded-lg">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                      <Lock className="w-6 h-6 text-orange-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-foreground">Password</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Terakhir diubah: {new Date(security.passwordLastChanged).toLocaleDateString("id-ID")}
-                      </p>
-                    </div>
-                  </div>
-                  <Button variant="outline">Ubah Password</Button>
+                <div>
+                  <Label className="text-white mb-3 block">Language</Label>
+                  <Select defaultValue="id">
+                    <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-slate-800 border-slate-700">
+                      <SelectItem value="id">Bahasa Indonesia</SelectItem>
+                      <SelectItem value="en">English</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
 
-            {/* Notifikasi */}
-            <Card>
+          {/* Privacy Tab */}
+          <TabsContent value="privacy">
+            <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Bell className="w-5 h-5" />
-                  Preferensi Notifikasi
-                </CardTitle>
-                <CardDescription>Kelola notifikasi yang ingin Anda terima dari platform kami.</CardDescription>
+                <CardTitle className="text-white">Pengaturan Privasi</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                {[
+                  { title: "Profile Visibility", desc: "Profil Anda dapat dilihat publik", defaultChecked: true },
+                  { title: "Show Holdings", desc: "Tampilkan koleksi NFT di profil", defaultChecked: true },
+                  { title: "Activity History", desc: "Riwayat transaksi dapat dilihat publik", defaultChecked: false },
+                  { title: "Analytics Tracking", desc: "Izinkan pengumpulan data untuk insights", defaultChecked: true }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
                     <div>
-                      <h3 className="font-medium text-foreground">Penawaran Baru</h3>
-                      <p className="text-sm text-muted-foreground">Notifikasi saat ada penawaran untuk aset Anda</p>
+                      <h4 className="font-medium text-white">{item.title}</h4>
+                      <p className="text-sm text-slate-400">{item.desc}</p>
                     </div>
-                    <Switch
-                      checked={notifications.newOffers}
-                      onCheckedChange={(checked) => handleNotificationChange("newOffers", checked)}
-                    />
+                    <Switch defaultChecked={item.defaultChecked} />
                   </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-medium text-foreground">Alert Harga</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Pemberitahuan perubahan harga aset yang Anda ikuti
-                      </p>
-                    </div>
-                    <Switch
-                      checked={notifications.priceAlerts}
-                      onCheckedChange={(checked) => handleNotificationChange("priceAlerts", checked)}
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-medium text-foreground">Update Transaksi</h3>
-                      <p className="text-sm text-muted-foreground">Status pembayaran dan transfer aset</p>
-                    </div>
-                    <Switch
-                      checked={notifications.transactionUpdates}
-                      onCheckedChange={(checked) => handleNotificationChange("transactionUpdates", checked)}
-                    />
-                  </div>
-
-                  <Separator />
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-medium text-foreground">Push Notifications</h3>
-                      <p className="text-sm text-muted-foreground">Notifikasi push di browser</p>
-                    </div>
-                    <Switch
-                      checked={notifications.pushNotifications}
-                      onCheckedChange={(checked) => handleNotificationChange("pushNotifications", checked)}
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-medium text-foreground">SMS Notifications</h3>
-                      <p className="text-sm text-muted-foreground">Notifikasi penting via SMS</p>
-                    </div>
-                    <Switch
-                      checked={notifications.smsNotifications}
-                      onCheckedChange={(checked) => handleNotificationChange("smsNotifications", checked)}
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-medium text-foreground">Email Marketing</h3>
-                      <p className="text-sm text-muted-foreground">Tips, berita, dan update produk</p>
-                    </div>
-                    <Switch
-                      checked={notifications.marketingEmails}
-                      onCheckedChange={(checked) => handleNotificationChange("marketingEmails", checked)}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex justify-end pt-4">
-                  <Button className="flex items-center gap-2">
-                    <Save className="w-4 h-4" />
-                    Simpan Preferensi
-                  </Button>
-                </div>
+                ))}
               </CardContent>
             </Card>
           </TabsContent>

@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
+import UnifiedMarketplace from "@/components/UnifiedMarketplace"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Search,
@@ -374,6 +375,7 @@ export default function MarketplacePage() {
     return () => document.head.removeChild(style);
   }, []);
   // State Management
+  const [activeTab, setActiveTab] = useState<"nfts" | "tokens" | "collections">("nfts")
   const [searchTerm, setSearchTerm] = useState("")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [gridSize, setGridSize] = useState<"compact" | "comfortable" | "spacious">("comfortable")
@@ -545,7 +547,7 @@ AI Market Analysis:
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Marketplace Header */}
-      <div className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-xl fixed top-16 md:top-20 left-0 right-0 z-40">
+      <div className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm text-slate-400 mb-4">
@@ -625,8 +627,58 @@ AI Market Analysis:
         </div>
       </div>
 
+      {/* Main Marketplace Tabs */}
+      <div className="border-b border-slate-700/30 bg-slate-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex gap-0 overflow-x-auto scrollbar-hide">
+            <button
+              onClick={() => setActiveTab("nfts")}
+              className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
+                activeTab === "nfts"
+                  ? "border-blue-500 text-blue-400 bg-blue-500/5"
+                  : "border-transparent text-slate-400 hover:text-white hover:border-slate-600"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <ImageIcon className="w-4 h-4" />
+                <span>NFTs</span>
+                <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">1.2K</span>
+              </div>
+            </button>
+            <button
+              onClick={() => setActiveTab("tokens")}
+              className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
+                activeTab === "tokens"
+                  ? "border-green-500 text-green-400 bg-green-500/5"
+                  : "border-transparent text-slate-400 hover:text-white hover:border-slate-600"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <DollarSign className="w-4 h-4" />
+                <span>Tokens</span>
+                <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">89</span>
+              </div>
+            </button>
+            <button
+              onClick={() => setActiveTab("collections")}
+              className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
+                activeTab === "collections"
+                  ? "border-purple-500 text-purple-400 bg-purple-500/5"
+                  : "border-transparent text-slate-400 hover:text-white hover:border-slate-600"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <Globe className="w-4 h-4" />
+                <span>Collections</span>
+                <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">156</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Order Book & Analytics Dashboard */}
-      <div className="border-b border-slate-700/50 bg-slate-900/50 pt-32 md:pt-36">
+      <div className="border-b border-slate-700/50 bg-slate-900/50 pt-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Mobile-First Dashboard Controls */}
           <div className="mb-6">
@@ -1045,6 +1097,8 @@ AI Market Analysis:
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Tab Content */}
+        {activeTab === "nfts" && (
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Enhanced Filters Sidebar */}
           <div className={`lg:w-80 ${showFilters ? 'block' : 'hidden lg:block'}`}>
@@ -1304,7 +1358,8 @@ AI Market Analysis:
                       transition={{ duration: 0.3 }}
                     >
                       <Card className="bg-slate-800/50 border-slate-700 overflow-hidden group hover:border-slate-600 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10">
-                        <div className="relative">
+                        <Link href={`/marketplace/${nft.id}`} className="block">
+                          <div className="relative">
                           {/* NFT Image */}
                           <div className="aspect-square relative overflow-hidden">
                             <img
@@ -1451,7 +1506,8 @@ AI Market Analysis:
                               )}
                             </div>
                           </CardContent>
-                        </div>
+                          </div>
+                        </Link>
                       </Card>
                     </motion.div>
                   ))}
@@ -1473,7 +1529,8 @@ AI Market Analysis:
                       whileHover={{ scale: 1.01 }}
                     >
                       <Card className="bg-slate-800/50 border-slate-700 overflow-hidden group hover:border-slate-600 transition-all duration-300">
-                        <CardContent className="p-4">
+                        <Link href={`/marketplace/${nft.id}`} className="block">
+                          <CardContent className="p-4">
                           <div className="flex gap-4">
                             {/* Image */}
                             <div className="w-20 h-20 sm:w-24 sm:h-24 relative overflow-hidden rounded-lg flex-shrink-0">
@@ -1556,7 +1613,8 @@ AI Market Analysis:
                               </div>
                             </div>
                           </div>
-                        </CardContent>
+                          </CardContent>
+                        </Link>
                       </Card>
                     </motion.div>
                   ))}
@@ -1577,7 +1635,39 @@ AI Market Analysis:
             </div>
           </div>
         </div>
+        )}
+
+        {/* Tokens Tab Content */}
+        {activeTab === "tokens" && (
+          <div className="space-y-6">
+            <div className="text-center py-12">
+              <DollarSign className="w-16 h-16 mx-auto text-green-400 mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">Token Marketplace</h3>
+              <p className="text-slate-400 mb-6">Trade tokens with advanced order books and real-time analytics</p>
+              <Button className="bg-green-600 hover:bg-green-700 text-white">
+                Coming Soon
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Collections Tab Content */}
+        {activeTab === "collections" && (
+          <div className="space-y-6">
+            <div className="text-center py-12">
+              <Globe className="w-16 h-16 mx-auto text-purple-400 mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">NFT Collections</h3>
+              <p className="text-slate-400 mb-6">Browse and discover amazing NFT collections</p>
+              <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+                Coming Soon
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Unified Marketplace Actions */}
+      <UnifiedMarketplace />
     </div>
   )
 }
