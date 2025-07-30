@@ -111,6 +111,9 @@ interface PriceRecommendation {
   confidence: number
   estimatedSaleDays: number
   conversionRate: number
+  marketPrice?: number
+  floorPrice?: number
+  hotDealThreshold?: number
 }
 
 // Sample data
