@@ -1096,6 +1096,8 @@ AI Market Analysis:
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Tab Content */}
+        {activeTab === "nfts" && (
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Enhanced Filters Sidebar */}
           <div className={`lg:w-80 ${showFilters ? 'block' : 'hidden lg:block'}`}>
@@ -1628,6 +1630,35 @@ AI Market Analysis:
             </div>
           </div>
         </div>
+        )}
+
+        {/* Tokens Tab Content */}
+        {activeTab === "tokens" && (
+          <div className="space-y-6">
+            <div className="text-center py-12">
+              <DollarSign className="w-16 h-16 mx-auto text-green-400 mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">Token Marketplace</h3>
+              <p className="text-slate-400 mb-6">Trade tokens with advanced order books and real-time analytics</p>
+              <Button className="bg-green-600 hover:bg-green-700 text-white">
+                Coming Soon
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Collections Tab Content */}
+        {activeTab === "collections" && (
+          <div className="space-y-6">
+            <div className="text-center py-12">
+              <Globe className="w-16 h-16 mx-auto text-purple-400 mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">NFT Collections</h3>
+              <p className="text-slate-400 mb-6">Browse and discover amazing NFT collections</p>
+              <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+                Coming Soon
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
