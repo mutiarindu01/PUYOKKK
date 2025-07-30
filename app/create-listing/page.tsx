@@ -717,10 +717,46 @@ export default function CreateListingPage() {
                       onChange={(e) => setDescription(e.target.value)}
                       className="bg-slate-800 border-slate-600 text-white placeholder-slate-400"
                       rows={3}
+                      maxLength={500}
                     />
-                    <p className="text-xs text-slate-400 mt-1">
-                      💡 Tip: Deskripsi menarik dapat meningkatkan tingkat konversi hingga 40%
-                    </p>
+                    <div className="flex items-center justify-between text-xs text-slate-400 mt-1">
+                      <span>💡 Tip: Deskripsi menarik dapat meningkatkan tingkat konversi hingga 40%</span>
+                      <span>{description.length}/500 karakter</span>
+                    </div>
+
+                    {/* Smart Description Suggestions */}
+                    {selectedAsset && description.length < 50 && (
+                      <div className="mt-3 p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Sparkles className="w-4 h-4 text-purple-400" />
+                          <span className="text-purple-400 font-medium text-sm">Saran Deskripsi AI</span>
+                        </div>
+                        <div className="space-y-2">
+                          {getDescriptionSuggestions(selectedAsset).map((suggestion, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setDescription(suggestion)}
+                              className="block w-full text-left p-2 text-xs text-slate-300 hover:text-white hover:bg-slate-700/30 rounded transition-colors"
+                            >
+                              {suggestion}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* AI Market Analysis */}
+                    {selectedAsset && price && parseFloat(price) > 0 && (
+                      <div className="mt-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Calculator className="w-4 h-4 text-blue-400" />
+                          <span className="text-blue-400 font-medium text-sm">Analisis AI</span>
+                        </div>
+                        <p className="text-slate-300 text-xs">
+                          {generateMarketAnalysis(selectedAsset, parseFloat(price))}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
