@@ -134,7 +134,7 @@ export default function HelpPanel({ currentStep = 1, selectedCategory }: HelpPan
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed right-0 top-0 h-full w-full sm:max-w-md bg-slate-900 border-l border-slate-700 z-50 overflow-y-auto"
             >
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
                   <div>
