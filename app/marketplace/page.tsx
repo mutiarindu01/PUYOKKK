@@ -1724,8 +1724,7 @@ AI Market Analysis:
         )}
       </div>
 
-      {/* Unified Marketplace Actions */}
-      <UnifiedMarketplace />
+
 
       {/* Create Order Modal */}
       <Dialog open={showCreateOrder} onOpenChange={setShowCreateOrder}>
