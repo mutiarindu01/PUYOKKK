@@ -543,10 +543,8 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
   const handleBuy = async () => {
     setIsBuying(true)
     try {
-      // Simulate purchase process
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      // Here would be the actual purchase logic
-      console.log("Purchase initiated for order:", order.id)
+      // Redirect to payment instructions page
+      window.location.href = `/payment/${order.id}`
     } catch (error) {
       console.error("Purchase failed:", error)
     } finally {
