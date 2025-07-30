@@ -808,7 +808,7 @@ export default function CreateListingPage() {
                   {/* Fee Breakdown */}
                   {price && (
                     <div className="p-4 bg-slate-700/30 rounded-lg">
-                      <h4 className="font-medium text-white mb-3">Rincian Biaya</h4>
+                      <h4 className="font-medium text-white mb-3">💰 Rincian Biaya Transparan</h4>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span className="text-slate-400">Harga Jual</span>
@@ -816,14 +816,23 @@ export default function CreateListingPage() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-slate-400">Biaya Platform (1%)</span>
-                          <span className="text-white">-{formatCurrency((parseFloat(price) || 0) * 0.01)}</span>
+                          <span className="text-red-300">-{formatCurrency((parseFloat(price) || 0) * 0.01)}</span>
                         </div>
+                        {paymentMethod === "hybrid" && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-400">Biaya Transfer</span>
+                            <span className="text-green-400">GRATIS</span>
+                          </div>
+                        )}
                         <div className="border-t border-slate-600 pt-2 flex justify-between font-medium">
-                          <span className="text-white">Diterima</span>
-                          <span className="text-green-400 font-bold">
+                          <span className="text-white">💸 Yang Anda Terima</span>
+                          <span className="text-green-400 font-bold text-lg">
                             {formatCurrency((parseFloat(price) || 0) * 0.99)}
                           </span>
                         </div>
+                      </div>
+                      <div className="mt-3 p-2 bg-green-500/10 border border-green-500/20 rounded text-xs text-green-400">
+                        ✅ Tidak ada biaya tersembunyi • Dana langsung masuk ke akun Anda
                       </div>
                     </div>
                   )}
