@@ -379,16 +379,47 @@ export default function AssetsPage() {
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input
-              placeholder="Cari aset atau koleksi..."
-              className="pl-10 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400"
+              placeholder="Cari nama aset atau koleksi..."
+              className="pl-10 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
           {/* Filters */}
-          <div className="flex items-center gap-3">
-            {/* Type Filter */}
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* Quick Filters */}
+            <div className="flex gap-2">
+              <Button
+                variant={selectedType === "ERC20" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedType(selectedType === "ERC20" ? "All" : "ERC20")}
+                className={selectedType === "ERC20" ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
+              >
+                <Coins className="w-4 h-4 mr-1" />
+                ERC20
+              </Button>
+              <Button
+                variant={selectedType === "ERC721" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedType(selectedType === "ERC721" ? "All" : "ERC721")}
+                className={selectedType === "ERC721" ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
+              >
+                <ImageIcon className="w-4 h-4 mr-1" />
+                ERC721
+              </Button>
+              <Button
+                variant={selectedType === "ERC1155" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedType(selectedType === "ERC1155" ? "All" : "ERC1155")}
+                className={selectedType === "ERC1155" ? "bg-blue-600 text-white" : "border-slate-700 text-slate-300 hover:bg-slate-800"}
+              >
+                <Layers className="w-4 h-4 mr-1" />
+                ERC1155
+              </Button>
+            </div>
+
+            {/* Type Filter Dropdown */}
             <Select value={selectedType} onValueChange={setSelectedType}>
               <SelectTrigger className="w-40 bg-slate-800/50 border-slate-700 text-white">
                 <SelectValue />
@@ -398,19 +429,19 @@ export default function AssetsPage() {
                 <SelectItem value="ERC20">
                   <div className="flex items-center gap-2">
                     <Coins className="w-4 h-4" />
-                    Token
+                    Token (ERC20)
                   </div>
                 </SelectItem>
                 <SelectItem value="ERC721">
                   <div className="flex items-center gap-2">
                     <ImageIcon className="w-4 h-4" />
-                    NFT 1/1
+                    NFT 1/1 (ERC721)
                   </div>
                 </SelectItem>
                 <SelectItem value="ERC1155">
                   <div className="flex items-center gap-2">
                     <Layers className="w-4 h-4" />
-                    Editions
+                    Editions (ERC1155)
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -428,6 +459,17 @@ export default function AssetsPage() {
                 <SelectItem value="name">Nama A-Z</SelectItem>
               </SelectContent>
             </Select>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleRefresh}
+              className="border-slate-700 text-slate-300 hover:bg-slate-800"
+              disabled={showSkeletonLoader}
+            >
+              <ArrowRight className="w-4 h-4 mr-2" />
+              {showSkeletonLoader ? "Loading..." : "Refresh"}
+            </Button>
 
             {/* View Mode */}
             <div className="flex items-center bg-slate-800/50 rounded-lg p-1 border border-slate-700">
@@ -469,7 +511,19 @@ export default function AssetsPage() {
 
         {/* Asset Grid */}
         <AnimatePresence mode="wait">
-          {viewMode === "grid" ? (
+          {showSkeletonLoader ? (
+            <motion.div
+              key="skeleton"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
+              {Array.from({ length: 8 }).map((_, index) => (
+                <SkeletonCard key={index} />
+              ))}
+            </motion.div>
+          ) : viewMode === "grid" ? (
             <motion.div
               key="grid"
               initial={{ opacity: 0, y: 20 }}
@@ -516,16 +570,34 @@ export default function AssetsPage() {
 
                               {/* Quick Action */}
                               <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                <Button
-                                  size="sm"
-                                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                                  asChild
-                                >
-                                  <Link href={`/create-listing?asset=${asset.id}`}>
-                                    <Plus className="w-4 h-4 mr-2" />
-                                    Buat Listing
-                                  </Link>
-                                </Button>
+                                <div className="flex gap-2">
+                                  <Button
+                                    size="sm"
+                                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                                    asChild
+                                  >
+                                    <Link href={`/create-listing?asset=${asset.id}`}>
+                                      <Plus className="w-4 h-4 mr-1" />
+                                      List
+                                    </Link>
+                                  </Button>
+                                  <TooltipProvider>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Button
+                                          size="sm"
+                                          variant="outline"
+                                          className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                                        >
+                                          <Info className="w-4 h-4" />
+                                        </Button>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p className="text-sm max-w-xs">{getSmartTooltip(asset)}</p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                </div>
                               </div>
                             </div>
 
