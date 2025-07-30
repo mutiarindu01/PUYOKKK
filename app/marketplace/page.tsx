@@ -2183,7 +2183,7 @@ AI Market Analysis:
                 </motion.div>
               )}
 
-              {/* Step 4: Review & Create */}
+              {/* Step 4: Preview & Fee Transparency */}
               {createOrderStep === 4 && selectedAsset && (
                 <motion.div
                   key="step4"
@@ -2194,11 +2194,56 @@ AI Market Analysis:
                 >
                   <div className="text-center mb-6">
                     <h3 className="text-xl font-semibold text-white mb-2">
-                      Review Order
+                      📋 Preview Listing & Transparansi Biaya
                     </h3>
                     <p className="text-slate-400">
-                      Pastikan semua detail sudah benar sebelum membuat order
+                      Lihat bagaimana listing Anda akan tampil di marketplace
                     </p>
+                  </div>
+
+                  {/* Marketplace Preview */}
+                  <div className="bg-slate-800/50 rounded-lg p-4">
+                    <h4 className="font-medium text-white mb-3 flex items-center gap-2">
+                      <Eye className="w-4 h-4" />
+                      Pratinjau di Marketplace
+                    </h4>
+
+                    <div className="bg-slate-900/50 border border-slate-700 rounded-lg overflow-hidden max-w-sm mx-auto">
+                      <div className="aspect-square relative">
+                        <img
+                          src={selectedAsset.image}
+                          alt={selectedAsset.name}
+                          className="w-full h-full object-cover"
+                        />
+                        {selectedAsset.isPioneerNFT && (
+                          <Badge className="absolute top-2 right-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs">
+                            🏆 Pioneer NFT
+                          </Badge>
+                        )}
+                        <div className="absolute bottom-2 left-2 right-2">
+                          <div className="bg-black/70 backdrop-blur-sm rounded px-2 py-1">
+                            <p className="text-white text-xs font-medium">{selectedAsset.name}</p>
+                            <p className="text-slate-300 text-xs">{selectedAsset.collection}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-3">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="text-green-400 font-bold text-lg">
+                              {exchangeRate ? formatPrice(parseInt(exchangeRate)) : "Rp 0"}
+                            </p>
+                            <p className="text-slate-400 text-xs">Harga Jual</p>
+                          </div>
+                          <div className="text-right">
+                            <div className="flex items-center gap-1 text-slate-400 text-xs">
+                              <Eye className="w-3 h-3" />
+                              <span>0 views</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="bg-slate-800/50 rounded-lg p-6">
