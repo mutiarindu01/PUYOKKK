@@ -2418,7 +2418,7 @@ AI Market Analysis:
                     disabled={
                       (createOrderStep === 1 && !selectedAssetType) ||
                       (createOrderStep === 2 && !selectedAsset) ||
-                      (createOrderStep === 3 && (!desiredAsset || !exchangeRate))
+                      (createOrderStep === 3 && (!exchangeRate || !selectedPaymentAccount))
                     }
                     className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
