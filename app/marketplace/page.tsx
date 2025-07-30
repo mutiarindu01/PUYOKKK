@@ -347,6 +347,24 @@ const sampleActivities: LiveActivity[] = [
   { id: "5", type: "sale", nft: "Digital Dream #12", user: "@art_enthusiast", price: 75000000, timestamp: Date.now() - 15 * 60 * 1000, avatar: "" },
 ]
 
+// Sample Wallet Assets
+const sampleWalletAssets = {
+  ERC20: [
+    { id: "1", name: "PUYOK Token", symbol: "PUYOK", balance: "1,000.50", value: 50000000, image: "/api/placeholder/64/64" },
+    { id: "2", name: "Ethereum", symbol: "ETH", balance: "2.5", value: 120000000, image: "/api/placeholder/64/64" },
+    { id: "3", name: "USDT", symbol: "USDT", balance: "500.00", value: 7500000, image: "/api/placeholder/64/64" },
+  ],
+  ERC721: [
+    { id: "1", name: "Bored Ape #1234", collection: "BAYC", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400", value: 125000000 },
+    { id: "2", name: "CryptoPunk #5678", collection: "CryptoPunks", image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400", value: 280000000 },
+    { id: "3", name: "Azuki #999", collection: "Azuki", image: "https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?w=400", value: 45000000 },
+  ],
+  ERC1155: [
+    { id: "1", name: "Gaming Pack #1", collection: "MetaGame", balance: 5, image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400", value: 15000000 },
+    { id: "2", name: "Music NFT #42", collection: "SoundWave", balance: 3, image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400", value: 8000000 },
+  ]
+}
+
 // Categories with icons
 const categories = [
   { id: "all", name: "Semua", icon: Globe, count: 1247 },
