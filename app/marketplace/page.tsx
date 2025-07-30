@@ -626,7 +626,7 @@ AI Market Analysis:
       </div>
 
       {/* Order Book & Analytics Dashboard */}
-      <div className="border-b border-slate-700/50 bg-slate-900/50 pt-32 md:pt-36">
+      <div className="border-b border-slate-700/50 bg-slate-900/50 pt-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Mobile-First Dashboard Controls */}
           <div className="mb-6">
