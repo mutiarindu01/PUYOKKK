@@ -252,8 +252,16 @@ export default function CreateListingPage() {
     if (price && priceRecommendation) {
       const confidence = calculatePriceConfidence(parseFloat(price), priceRecommendation)
       setPriceConfidence(confidence)
+
+      // Show high value warning for expensive assets
+      const priceValue = parseFloat(price)
+      if (selectedAsset && priceValue > 2000000) { // 2M IDR threshold
+        setShowHighValueWarning(true)
+      } else {
+        setShowHighValueWarning(false)
+      }
     }
-  }, [price, priceRecommendation, calculatePriceConfidence])
+  }, [price, priceRecommendation, calculatePriceConfidence, selectedAsset])
 
   // Helper functions
   const formatCurrency = (amount: number) => {
