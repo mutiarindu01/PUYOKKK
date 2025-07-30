@@ -132,7 +132,7 @@ export default function HelpPanel({ currentStep = 1, selectedCategory }: HelpPan
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "100%", opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 h-full w-full max-w-md bg-slate-900 border-l border-slate-700 z-50 overflow-y-auto"
+              className="fixed right-0 top-0 h-full w-full sm:max-w-md bg-slate-900 border-l border-slate-700 z-50 overflow-y-auto"
             >
               <div className="p-6">
                 {/* Header */}
