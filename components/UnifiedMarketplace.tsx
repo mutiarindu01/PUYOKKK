@@ -53,13 +53,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
 import { Switch } from "@/components/ui/switch"
 import { Progress } from "@/components/ui/progress"
 
@@ -130,19 +123,6 @@ const sampleAssets: Asset[] = [
       successRate: 85,
       viewsPerListing: 180
     }
-  },
-  {
-    id: "2",
-    name: "PUYOK Token",
-    collection: "PUYOK",
-    type: "ERC20",
-    image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=400",
-    balance: 10000,
-    value: 5000000,
-    salesLastWeek: 15,
-    marketTrend: "up",
-    isHot: true,
-    category: "Token"
   }
 ]
 
@@ -156,16 +136,6 @@ const paymentAccounts: PaymentAccount[] = [
     logo: "🏦",
     isVerified: true,
     isDefault: true
-  },
-  {
-    id: "2",
-    type: "ewallet",
-    name: "DANA",
-    accountName: "0812-3456-7890",
-    accountNumber: "0812-3456-7890",
-    logo: "💳",
-    isVerified: true,
-    isDefault: false
   }
 ]
 
@@ -217,7 +187,7 @@ export default function UnifiedMarketplace() {
   const selectAssetForListing = (asset: Asset) => {
     setSelectedAsset(asset)
     setActiveModal("create-listing")
-    setListingStep(2) // Skip asset selection since it's already selected
+    setListingStep(2)
     
     const recommendation = generatePriceRecommendation(asset)
     setPriceRecommendation(recommendation)
@@ -291,7 +261,7 @@ export default function UnifiedMarketplace() {
             >
               <Settings className="w-5 h-5" />
             </Button>
-          </div>
+          </motion.div>
 
           {/* Main Create Button */}
           <motion.div
