@@ -313,6 +313,17 @@ export default function CreateListingPage() {
     return "Rendah"
   }
 
+  const getSaleSpeedInfo = (level: "low" | "medium" | "high") => {
+    switch (level) {
+      case "high":
+        return { label: "Sangat Cepat", color: "text-green-400", icon: "⚡", desc: "< 24 jam" }
+      case "medium":
+        return { label: "Cepat", color: "text-yellow-400", icon: "🚀", desc: "1-3 hari" }
+      case "low":
+        return { label: "Normal", color: "text-slate-400", icon: "🐌", desc: "3-7 hari" }
+    }
+  }
+
   const steps = [
     { id: 1, title: "Pilih Aset", icon: ImageIcon },
     { id: 2, title: "Atur Harga", icon: DollarSign },
