@@ -170,7 +170,7 @@ const sampleOrder: OrderDetail = {
   paymentAccountNumber: "0812-3456-7890",
   availableStock: 1,
   totalStock: 1,
-  expiresAt: "2024-02-01T10:00:00Z",
+  expiresAt: "2025-02-01T10:00:00Z",
   marketPrice: 1450000,
   createdAt: "2024-01-20T08:00:00Z",
   status: "active"
