@@ -299,20 +299,20 @@ function StickyHeader() {
       isScrolled ? 'bg-slate-900/95 backdrop-blur-xl border-b border-slate-700/50' : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xs sm:text-sm">P</span>
             </div>
-            <span className="text-white font-bold text-xl">PUYOK</span>
+            <span className="text-white font-bold text-lg sm:text-xl">PUYOK</span>
           </Link>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* Navigation - Hidden on mobile */}
+          <nav className="hidden lg:flex items-center space-x-6">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-slate-300 hover:text-white">
+                <Button variant="ghost" className="text-slate-300 hover:text-white text-sm">
                   Marketplace <ChevronDown className="w-4 h-4 ml-1" />
                 </Button>
               </DropdownMenuTrigger>
@@ -328,42 +328,51 @@ function StickyHeader() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link href="/tentang" className="text-slate-300 hover:text-white transition-colors">
+            <Link href="/tentang" className="text-slate-300 hover:text-white transition-colors text-sm">
               Tentang
             </Link>
-            <Link href="/bantuan" className="text-slate-300 hover:text-white transition-colors">
+            <Link href="/bantuan" className="text-slate-300 hover:text-white transition-colors text-sm">
               Bantuan
             </Link>
           </nav>
 
-          {/* Search */}
-          <div className="hidden lg:flex items-center flex-1 max-w-md mx-8">
+          {/* Search - Hidden on small screens */}
+          <div className="hidden xl:flex items-center flex-1 max-w-sm mx-6">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
               <input
                 type="text"
-                placeholder="Cari NFT, Token, atau Koleksi..."
-                className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Cari NFT, Token..."
+                className="w-full pl-10 pr-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
               />
             </div>
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Search icon for mobile */}
+            <Button variant="ghost" size="sm" className="xl:hidden text-slate-300 hover:text-white">
+              <Search className="w-5 h-5" />
+            </Button>
+
             <Button variant="ghost" size="sm" className="text-slate-300 hover:text-white">
               <Bell className="w-5 h-5" />
             </Button>
-            <Button variant="outline" className="hidden sm:inline-flex border-slate-600 text-slate-300">
-              <Wallet className="w-4 h-4 mr-2" />
-              Connect Wallet
+
+            <Button variant="outline" className="hidden md:inline-flex border-slate-600 text-slate-300 text-sm px-3 py-1.5">
+              <Wallet className="w-4 h-4 mr-1.5" />
+              <span className="hidden lg:inline">Connect Wallet</span>
+              <span className="lg:hidden">Connect</span>
             </Button>
-            <Avatar className="w-8 h-8">
+
+            <Avatar className="w-7 h-7 sm:w-8 sm:h-8">
               <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150" />
-              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm">
+              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs sm:text-sm">
                 U
               </AvatarFallback>
             </Avatar>
-            <Button variant="ghost" size="sm" className="md:hidden">
+
+            <Button variant="ghost" size="sm" className="lg:hidden text-slate-300 hover:text-white">
               <Menu className="w-5 h-5" />
             </Button>
           </div>
