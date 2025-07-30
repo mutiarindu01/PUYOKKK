@@ -377,7 +377,7 @@ const sampleWalletAssets = {
 // Sample Payment Accounts
 const samplePaymentAccounts = [
   { id: "1", type: "bank", name: "Bank BCA", accountName: "Rafly Rizky", accountNumber: "1234567890", alias: "BCA Utama", logo: "🏦" },
-  { id: "2", type: "ewallet", name: "DANA", accountName: "0812-3456-7890", accountNumber: "0812-3456-7890", alias: "DANA Pribadi", logo: "��" },
+  { id: "2", type: "ewallet", name: "DANA", accountName: "0812-3456-7890", accountNumber: "0812-3456-7890", alias: "DANA Pribadi", logo: "💳" },
   { id: "3", type: "ewallet", name: "OVO", accountName: "0856-7890-1234", accountNumber: "0856-7890-1234", alias: "OVO Business", logo: "💰" },
   { id: "4", type: "bank", name: "Bank Mandiri", accountName: "Rafly Rizky", accountNumber: "9876543210", alias: "Mandiri Saving", logo: "🏛️" },
 ]
@@ -1996,45 +1996,84 @@ AI Market Analysis:
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* What You Give */}
                     <div className="p-4 bg-slate-800/50 rounded-lg">
-                      <h4 className="font-medium text-white mb-3">Yang Anda Berikan</h4>
-                      <div className="flex items-center gap-3">
+                      <h4 className="font-medium text-white mb-3">Yang Anda Jual</h4>
+                      <div className="flex items-center gap-3 mb-4">
                         <img
                           src={selectedAsset.image}
                           alt={selectedAsset.name}
                           className="w-12 h-12 rounded-lg object-cover"
                         />
-                        <div>
+                        <div className="flex-1">
                           <p className="font-medium text-white">{selectedAsset.name}</p>
                           <p className="text-sm text-slate-400">
                             {orderQuantity > 1 ? `${orderQuantity}x ` : ""}
                             {selectedAsset.collection || selectedAsset.symbol}
                           </p>
+                          {selectedAsset.isPioneerNFT && (
+                            <div className="mt-1">
+                              <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs">
+                                🏆 Pioneer NFT
+                              </Badge>
+                            </div>
+                          )}
                         </div>
                       </div>
+
+                      {/* Quick Price Actions */}
+                      {priceRecommendation && (
+                        <div className="space-y-2">
+                          <p className="text-xs text-slate-400 mb-2">Quick Price Set:</p>
+                          <div className="flex gap-2 flex-wrap">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => setExchangeRate(priceRecommendation.floorPrice.toString())}
+                              className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10 text-xs"
+                            >
+                              Floor ({formatPrice(priceRecommendation.floorPrice)})
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => setExchangeRate(priceRecommendation.averagePrice.toString())}
+                              className="border-green-500/50 text-green-400 hover:bg-green-500/10 text-xs"
+                            >
+                              Market ({formatPrice(priceRecommendation.averagePrice)})
+                            </Button>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
-                    {/* What You Want */}
+                    {/* Pricing Input */}
                     <div className="p-4 bg-slate-800/50 rounded-lg">
-                      <h4 className="font-medium text-white mb-3">Yang Anda Inginkan</h4>
+                      <h4 className="font-medium text-white mb-3">Harga Jual</h4>
                       <div className="space-y-3">
                         <div>
-                          <Label className="text-white mb-2 block">Aset yang Diinginkan</Label>
-                          <Input
-                            placeholder="e.g., 1000 USDT, 0.5 ETH, atau nama NFT"
-                            value={desiredAsset}
-                            onChange={(e) => setDesiredAsset(e.target.value)}
-                            className="bg-slate-800 border-slate-600 text-white"
-                          />
+                          <Label className="text-white mb-2 block">Harga dalam IDR</Label>
+                          <div className="relative">
+                            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                            <Input
+                              type="number"
+                              placeholder="Masukkan harga jual"
+                              value={exchangeRate}
+                              onChange={(e) => setExchangeRate(e.target.value)}
+                              className="pl-10 bg-slate-800 border-slate-600 text-white"
+                            />
+                          </div>
                         </div>
                         <div>
-                          <Label className="text-white mb-2 block">Nilai Tukar (IDR)</Label>
-                          <Input
-                            type="number"
-                            placeholder="Masukkan nilai dalam Rupiah"
-                            value={exchangeRate}
-                            onChange={(e) => setExchangeRate(e.target.value)}
-                            className="bg-slate-800 border-slate-600 text-white"
+                          <Label className="text-white mb-2 block">Deskripsi (Opsional)</Label>
+                          <Textarea
+                            placeholder="Tambahkan deskripsi untuk menarik pembeli..."
+                            value={listingDescription}
+                            onChange={(e) => setListingDescription(e.target.value)}
+                            className="bg-slate-800 border-slate-600 text-white placeholder-slate-400"
+                            rows={2}
                           />
+                          <p className="text-xs text-slate-400 mt-1">
+                            💡 Deskripsi menarik meningkatkan konversi hingga 40%
+                          </p>
                         </div>
                       </div>
                     </div>
