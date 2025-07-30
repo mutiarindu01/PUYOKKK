@@ -444,6 +444,11 @@ export default function MarketplacePage() {
   const [desiredAsset, setDesiredAsset] = useState("")
   const [exchangeRate, setExchangeRate] = useState("")
   const [paymentMethod, setPaymentMethod] = useState<"onchain" | "hybrid">("hybrid")
+  const [feeModel, setFeeModel] = useState<"gasless" | "self_gas">("gasless")
+  const [selectedPaymentAccount, setSelectedPaymentAccount] = useState("")
+  const [listingDescription, setListingDescription] = useState("")
+  const [priceRecommendation, setPriceRecommendation] = useState<any>(null)
+  const [showSmartTips, setShowSmartTips] = useState(true)
 
   // Format currency
   const formatPrice = (price: number) => {
