@@ -193,7 +193,7 @@ export default function CreateListingPage() {
 
     const { avgPrice, avgSaleDays, successRate } = asset.marketData
     const variance = 0.15 // 15% variance
-    
+
     const recommendation: PriceRecommendation = {
       min: Math.round(avgPrice * (1 - variance)),
       max: Math.round(avgPrice * (1 + variance)),
@@ -201,7 +201,10 @@ export default function CreateListingPage() {
       reasoning: `Berdasarkan ${asset.salesLastWeek} penjualan sejenis dalam 7 hari terakhir`,
       confidence: successRate,
       estimatedSaleDays: avgSaleDays,
-      conversionRate: successRate
+      conversionRate: successRate,
+      marketPrice: asset.lastSalePrice || avgPrice,
+      floorPrice: asset.floorPrice,
+      hotDealThreshold: Math.round(avgPrice * 0.85) // 15% below market for hot deal
     }
 
     return recommendation
