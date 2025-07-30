@@ -1358,7 +1358,8 @@ AI Market Analysis:
                       transition={{ duration: 0.3 }}
                     >
                       <Card className="bg-slate-800/50 border-slate-700 overflow-hidden group hover:border-slate-600 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10">
-                        <div className="relative">
+                        <Link href={`/marketplace/${nft.id}`} className="block">
+                          <div className="relative">
                           {/* NFT Image */}
                           <div className="aspect-square relative overflow-hidden">
                             <img
@@ -1505,7 +1506,8 @@ AI Market Analysis:
                               )}
                             </div>
                           </CardContent>
-                        </div>
+                          </div>
+                        </Link>
                       </Card>
                     </motion.div>
                   ))}
