@@ -374,6 +374,7 @@ export default function MarketplacePage() {
     return () => document.head.removeChild(style);
   }, []);
   // State Management
+  const [activeTab, setActiveTab] = useState<"nfts" | "tokens" | "collections">("nfts")
   const [searchTerm, setSearchTerm] = useState("")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [gridSize, setGridSize] = useState<"compact" | "comfortable" | "spacious">("comfortable")
