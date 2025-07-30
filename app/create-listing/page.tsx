@@ -1,44 +1,62 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import ScrollReveal from "@/components/ScrollReveal"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Separator } from "@/components/ui/separator"
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
-import { 
-  ArrowLeft, 
+import React, { useState, useEffect, useCallback } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import {
+  Search,
+  ArrowLeft,
   ArrowRight,
-  Lightbulb, 
-  TrendingUp, 
-  Shield, 
-  Eye, 
-  Clock, 
-  CheckCircle,
-  AlertCircle,
+  Check,
+  AlertTriangle,
+  Info,
+  TrendingUp,
+  TrendingDown,
   DollarSign,
-  Wallet,
-  CreditCard,
-  Star,
+  Clock,
+  Eye,
+  Users,
+  Sparkles,
   Zap,
   Target,
-  BarChart3,
-  Users,
-  Calendar
+  ShieldCheck,
+  CreditCard,
+  Building2,
+  Smartphone,
+  Plus,
+  Minus,
+  RotateCcw,
+  Save,
+  Send,
+  ImageIcon,
+  Coins,
+  Layers,
+  ChevronDown,
+  Calculator,
+  HelpCircle,
+  Share2,
+  Twitter,
+  MessageCircle,
+  BookOpen
 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import {
   Dialog,
   DialogContent,
@@ -47,845 +65,919 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { toast } from "@/components/ui/use-toast"
+import { Switch } from "@/components/ui/switch"
+import { Slider } from "@/components/ui/slider"
+import { Progress } from "@/components/ui/progress"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 
-// Sample user assets data
-const userAssets = [
+// Types
+interface Asset {
+  id: string
+  name: string
+  collection: string
+  type: "ERC20" | "ERC721" | "ERC1155"
+  image: string
+  balance?: number
+  value: number
+  lastSalePrice?: number
+  floorPrice?: number
+  salesLastWeek: number
+  marketTrend: "up" | "down" | "stable"
+  rarity?: "Common" | "Rare" | "Epic" | "Legendary"
+  category: string
+  marketData?: {
+    avgPrice: number
+    avgSaleDays: number
+    successRate: number
+    viewsPerListing: number
+  }
+}
+
+interface PaymentAccount {
+  id: string
+  type: "bank" | "ewallet"
+  name: string
+  accountName: string
+  accountNumber: string
+  logo: string
+}
+
+interface PriceRecommendation {
+  min: number
+  max: number
+  optimal: number
+  reasoning: string
+  confidence: number
+  estimatedSaleDays: number
+  conversionRate: number
+}
+
+// Sample data
+const sampleAssets: Asset[] = [
   {
-    id: "asset-001",
-    type: "NFT",
-    name: "Cool Cat #1234",
-    image: "/placeholder.svg?height=200&width=200&text=Cool+Cat",
-    collection: "Cool Cats",
-    estimatedValue: "Rp 8.500.000",
-    lastSold: "Rp 9.200.000",
-    floorPrice: "Rp 7.800.000",
-    rarity: "Rare",
-    traits: 5
-  },
-  {
-    id: "asset-002", 
-    type: "NFT",
-    name: "Bored Ape #5678",
-    image: "/placeholder.svg?height=200&width=200&text=Bored+Ape",
+    id: "1",
+    name: "Bored Ape #1234",
     collection: "Bored Ape Yacht Club",
-    estimatedValue: "Rp 15.000.000",
-    lastSold: "Rp 16.500.000", 
-    floorPrice: "Rp 14.200.000",
-    rarity: "Epic",
-    traits: 7
-  },
-  {
-    id: "asset-003",
-    type: "Token",
-    name: "Ethereum",
-    ticker: "ETH",
-    balance: "2.5 ETH",
-    currentPrice: "Rp 45.000.000",
-    image: "/placeholder.svg?height=200&width=200&text=ETH",
-    marketCap: "Rp 5.8T",
-    volume24h: "15%"
-  },
-  {
-    id: "asset-004",
-    type: "Token", 
-    name: "Tether",
-    ticker: "USDT",
-    balance: "5,000 USDT",
-    currentPrice: "Rp 15.500",
-    image: "/placeholder.svg?height=200&width=200&text=USDT",
-    marketCap: "Rp 1.2T",
-    volume24h: "8%"
+    type: "ERC721",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
+    value: 1500000,
+    lastSalePrice: 1400000,
+    floorPrice: 1200000,
+    salesLastWeek: 3,
+    marketTrend: "up",
+    rarity: "Rare",
+    category: "Art",
+    marketData: {
+      avgPrice: 1450000,
+      avgSaleDays: 2.5,
+      successRate: 85,
+      viewsPerListing: 180
+    }
   }
 ]
 
-// Sample payment accounts
-const paymentAccounts = [
+const paymentAccounts: PaymentAccount[] = [
   {
-    id: "acc-001",
-    type: "DANA",
-    name: "DANA - Utama",
-    number: "081234****567",
-    verified: true,
-    completionRate: 98.5
+    id: "1",
+    type: "bank",
+    name: "BCA",
+    accountName: "Rafly Rizky",
+    accountNumber: "1234567890",
+    logo: "🏦"
   },
   {
-    id: "acc-002", 
-    type: "GoPay",
-    name: "GoPay - Bisnis",
-    number: "087654****321",
-    verified: true,
-    completionRate: 96.2
-  },
-  {
-    id: "acc-003",
-    type: "Bank Transfer",
-    name: "BCA - a.n. John Doe",
-    number: "1234567890",
-    verified: true,
-    completionRate: 94.8
-  },
-  {
-    id: "acc-004",
-    type: "OVO",
-    name: "OVO - Personal", 
-    number: "089876****543",
-    verified: false,
-    completionRate: 92.1
+    id: "2",
+    type: "ewallet",
+    name: "DANA",
+    accountName: "0812-3456-7890",
+    accountNumber: "0812-3456-7890",
+    logo: "💳"
   }
 ]
 
-// Smart pricing data
-const getPricingInsights = (asset: any) => {
-  const insights = {
-    marketPrice: "",
-    recommendation: "",
-    tips: [],
-    confidence: 0
-  }
+export default function CreateListingPage() {
+  // URL params
+  const searchParams = useSearchParams()
+  const preselectedAssetId = searchParams?.get("asset")
 
-  if (asset.type === "NFT") {
-    insights.marketPrice = `Rp ${(parseInt(asset.estimatedValue.replace(/[^\d]/g, '')) * 1.05).toLocaleString('id-ID')}`
-    insights.recommendation = "Berdasarkan penjualan terakhir dan floor price koleksi"
-    insights.tips = [
-      "💡 NFT dengan rarity 'Rare' di kisaran harga ini biasanya terjual dalam 48 jam",
-      "💡 Listing pada hari Sabtu-Minggu memiliki tingkat penjualan 23% lebih tinggi",
-      "💡 Harga 5-10% di atas floor price optimal untuk koleksi populer"
-    ]
-    insights.confidence = 85
-  } else {
-    insights.marketPrice = asset.currentPrice  
-    insights.recommendation = "Harga pasar real-time dari exchange utama"
-    insights.tips = [
-      "💡 Token stabil seperti USDT memiliki margin harga terbatas",
-      "💡 Pengguna yang menerima pembayaran via DANA memiliki tingkat penyelesaian 15% lebih tinggi",
-      "💡 Volume trading tinggi menunjukkan likuiditas yang baik"
-    ]
-    insights.confidence = 95
-  }
+  // Stepper state
+  const [currentStep, setCurrentStep] = useState(1)
+  const [completedSteps, setCompletedSteps] = useState<number[]>([])
 
-  return insights
-}
-
-// Platform fees calculation
-const calculateFees = (price: number) => {
-  const platformFee = price * 0.025 // 2.5%
-  const networkFee = price * 0.005 // 0.5%
-  const totalFees = platformFee + networkFee
-  const netAmount = price - totalFees
-
-  return {
-    platformFee,
-    networkFee, 
-    totalFees,
-    netAmount,
-    feePercentage: ((totalFees / price) * 100).toFixed(1)
-  }
-}
-
-interface StepProps {
-  currentStep: number
-  totalSteps: number
-}
-
-function StepIndicator({ currentStep, totalSteps }: StepProps) {
-  return (
-    <div className="flex items-center justify-center mb-8">
-      <div className="flex items-center gap-2">
-        {Array.from({ length: totalSteps }, (_, i) => (
-          <div key={i} className="flex items-center">
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                i + 1 <= currentStep
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground'
-              }`}
-            >
-              {i + 1 <= currentStep ? <CheckCircle className="w-4 h-4" /> : i + 1}
-            </div>
-            {i < totalSteps - 1 && (
-              <div
-                className={`w-12 h-0.5 mx-2 ${
-                  i + 1 < currentStep ? 'bg-primary' : 'bg-muted'
-                }`}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
+  // Form state
+  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(
+    preselectedAssetId ? sampleAssets.find(a => a.id === preselectedAssetId) || null : null
   )
-}
+  const [quantity, setQuantity] = useState(1)
+  const [price, setPrice] = useState("")
+  const [description, setDescription] = useState("")
+  const [paymentMethod, setPaymentMethod] = useState<"onchain" | "hybrid">("hybrid")
+  const [selectedAccount, setSelectedAccount] = useState<string>("")
+  const [acceptOffers, setAcceptOffers] = useState(true)
+  
+  // Smart assistance state
+  const [priceRecommendation, setPriceRecommendation] = useState<PriceRecommendation | null>(null)
+  const [priceConfidence, setPriceConfidence] = useState(0)
+  const [showPriceAssistant, setShowPriceAssistant] = useState(false)
+  const [isDraft, setIsDraft] = useState(false)
 
-function AssetSelectionStep({ 
-  selectedAsset, 
-  setSelectedAsset, 
-  onNext 
-}: { 
-  selectedAsset: any, 
-  setSelectedAsset: (asset: any) => void, 
-  onNext: () => void 
-}) {
-  return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold mb-2">Pilih Aset yang Ingin Dijual</h2>
-        <p className="text-muted-foreground">Pilih dari koleksi aset digital Anda</p>
-      </div>
+  // Generate price recommendation
+  const generatePriceRecommendation = useCallback((asset: Asset) => {
+    if (!asset.marketData) return null
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {userAssets.map((asset) => (
-          <Card
-            key={asset.id}
-            className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
-              selectedAsset?.id === asset.id
-                ? 'ring-2 ring-primary shadow-lg shadow-primary/20'
-                : 'hover:shadow-md'
-            }`}
-            onClick={() => setSelectedAsset(asset)}
-          >
-            <CardContent className="p-4">
-              <div className="aspect-square relative mb-4 rounded-lg overflow-hidden">
-                <img 
-                  src={asset.image} 
-                  alt={asset.name}
-                  className="w-full h-full object-cover"
-                />
-                <Badge className="absolute top-2 right-2" variant="secondary">
-                  {asset.type}
-                </Badge>
-              </div>
-              
-              <h3 className="font-semibold text-lg mb-2">{asset.name}</h3>
-              
-              {asset.type === "NFT" ? (
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">{asset.collection}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Estimasi Nilai:</span>
-                    <span className="font-bold text-primary">{asset.estimatedValue}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <Badge variant="outline" className="text-xs">{asset.rarity}</Badge>
-                    <Badge variant="outline" className="text-xs">{asset.traits} traits</Badge>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">Balance: {asset.balance}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Harga Saat Ini:</span>
-                    <span className="font-bold text-primary">{asset.currentPrice}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <Badge variant="outline" className="text-xs">Vol 24h: {asset.volume24h}</Badge>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    const { avgPrice, avgSaleDays, successRate } = asset.marketData
+    const variance = 0.15 // 15% variance
+    
+    const recommendation: PriceRecommendation = {
+      min: Math.round(avgPrice * (1 - variance)),
+      max: Math.round(avgPrice * (1 + variance)),
+      optimal: Math.round(avgPrice * 0.98), // Slightly below average for faster sale
+      reasoning: `Berdasarkan ${asset.salesLastWeek} penjualan sejenis dalam 7 hari terakhir`,
+      confidence: successRate,
+      estimatedSaleDays: avgSaleDays,
+      conversionRate: successRate
+    }
 
-      <div className="flex justify-center">
-        <Button 
-          onClick={onNext} 
-          disabled={!selectedAsset}
-          size="lg"
-          className="gap-2"
-        >
-          Lanjutkan
-          <ArrowRight className="w-4 h-4" />
-        </Button>
-      </div>
-    </div>
-  )
-}
+    return recommendation
+  }, [])
 
-function PricingStep({ 
-  selectedAsset, 
-  price, 
-  setPrice, 
-  quantity, 
-  setQuantity,
-  onNext, 
-  onBack 
-}: { 
-  selectedAsset: any, 
-  price: string, 
-  setPrice: (price: string) => void,
-  quantity: string,
-  setQuantity: (quantity: string) => void,
-  onNext: () => void, 
-  onBack: () => void 
-}) {
-  const insights = getPricingInsights(selectedAsset)
-  const numericPrice = parseInt(price.replace(/[^\d]/g, '')) || 0
-  const fees = calculateFees(numericPrice)
+  // Calculate price confidence
+  const calculatePriceConfidence = useCallback((priceValue: number, recommendation: PriceRecommendation | null) => {
+    if (!recommendation || !priceValue) return 0
 
-  const handlePriceChange = (value: string) => {
-    const numericValue = value.replace(/[^\d]/g, '')
-    if (numericValue) {
-      setPrice(`Rp ${parseInt(numericValue).toLocaleString('id-ID')}`)
+    const { min, max, optimal } = recommendation
+    
+    if (priceValue < min) {
+      return Math.max(0, 30 - Math.abs(priceValue - min) / min * 100)
+    } else if (priceValue > max) {
+      return Math.max(0, 50 - Math.abs(priceValue - max) / max * 100)
     } else {
-      setPrice('')
+      const distanceFromOptimal = Math.abs(priceValue - optimal) / optimal
+      return Math.max(60, 100 - distanceFromOptimal * 100)
+    }
+  }, [])
+
+  // Effects
+  useEffect(() => {
+    if (selectedAsset) {
+      const recommendation = generatePriceRecommendation(selectedAsset)
+      setPriceRecommendation(recommendation)
+      if (recommendation && !price) {
+        setPrice(recommendation.optimal.toString())
+      }
+    }
+  }, [selectedAsset, generatePriceRecommendation, price])
+
+  useEffect(() => {
+    if (price && priceRecommendation) {
+      const confidence = calculatePriceConfidence(parseFloat(price), priceRecommendation)
+      setPriceConfidence(confidence)
+    }
+  }, [price, priceRecommendation, calculatePriceConfidence])
+
+  // Helper functions
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+    }).format(amount)
+  }
+
+  const getStepStatus = (step: number) => {
+    if (completedSteps.includes(step)) return "completed"
+    if (step === currentStep) return "current"
+    return "upcoming"
+  }
+
+  const canProceedToNextStep = () => {
+    switch (currentStep) {
+      case 1: return selectedAsset !== null
+      case 2: return price && parseFloat(price) > 0
+      case 3: return paymentMethod === "onchain" || selectedAccount
+      case 4: return true
+      default: return false
     }
   }
 
-  const applyRecommendedPrice = () => {
-    setPrice(insights.marketPrice)
-  }
-
-  return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold mb-2">Tentukan Harga & Kuantitas</h2>
-        <p className="text-muted-foreground">Dapatkan rekomendasi harga cerdas dari data pasar</p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left: Asset Preview */}
-        <div>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-6">
-                <img 
-                  src={selectedAsset.image} 
-                  alt={selectedAsset.name}
-                  className="w-16 h-16 rounded-lg object-cover"
-                />
-                <div>
-                  <h3 className="font-semibold text-lg">{selectedAsset.name}</h3>
-                  <p className="text-muted-foreground">
-                    {selectedAsset.type === "NFT" ? selectedAsset.collection : selectedAsset.ticker}
-                  </p>
-                </div>
-              </div>
-
-              {/* Smart Pricing Insights */}
-              <div className="space-y-4">
-                <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                      <TrendingUp className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-blue-800 dark:text-blue-400 mb-1">
-                        💡 Harga Pasar Saat Ini: {insights.marketPrice}
-                      </h4>
-                      <p className="text-sm text-blue-700 dark:text-blue-300">{insights.recommendation}</p>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="mt-2 text-blue-600 border-blue-200"
-                        onClick={applyRecommendedPrice}
-                      >
-                        Gunakan Harga Ini
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Smart Tips */}
-                <div className="space-y-3">
-                  <h4 className="font-semibold flex items-center gap-2">
-                    <Lightbulb className="w-4 h-4 text-yellow-500" />
-                    Tips Cerdas
-                  </h4>
-                  {insights.tips.map((tip, index) => (
-                    <div key={index} className="p-3 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border border-yellow-200">
-                      <p className="text-sm text-yellow-800 dark:text-yellow-300">{tip}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Confidence Score */}
-                <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200">
-                  <Target className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-green-800 dark:text-green-300">
-                    Tingkat Akurasi Prediksi: {insights.confidence}%
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Right: Pricing Form */}
-        <div className="space-y-6">
-          {/* Quantity (for tokens) */}
-          {selectedAsset.type === "Token" && (
-            <div>
-              <Label htmlFor="quantity" className="text-lg font-semibold">Kuantitas</Label>
-              <div className="mt-2">
-                <Input
-                  id="quantity"
-                  placeholder="Masukkan jumlah token"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  className="text-lg h-12"
-                />
-                <p className="text-sm text-muted-foreground mt-1">
-                  Tersedia: {selectedAsset.balance}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Price */}
-          <div>
-            <Label htmlFor="price" className="text-lg font-semibold">Harga</Label>
-            <div className="mt-2">
-              <Input
-                id="price"
-                placeholder="Masukkan harga jual"
-                value={price}
-                onChange={(e) => handlePriceChange(e.target.value)}
-                className="text-lg h-12 font-bold"
-              />
-            </div>
-          </div>
-
-          {/* Fee Breakdown */}
-          {numericPrice > 0 && (
-            <Card className="border-orange-200 bg-orange-50/50 dark:bg-orange-950/20">
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <DollarSign className="w-5 h-5" />
-                  Transparansi Biaya
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between">
-                  <span>Harga Jual</span>
-                  <span className="font-semibold">{price}</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between text-sm">
-                  <span>Biaya Platform (2.5%)</span>
-                  <span>-Rp {fees.platformFee.toLocaleString('id-ID')}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Biaya Network (0.5%)</span>
-                  <span>-Rp {fees.networkFee.toLocaleString('id-ID')}</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between font-bold text-lg">
-                  <span>Anda Terima</span>
-                  <span className="text-green-600">Rp {fees.netAmount.toLocaleString('id-ID')}</span>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Total biaya: {fees.feePercentage}% dari harga jual
-                </p>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      </div>
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="gap-2">
-          <ArrowLeft className="w-4 h-4" />
-          Kembali
-        </Button>
-        <Button 
-          onClick={onNext} 
-          disabled={!price || (selectedAsset.type === "Token" && !quantity)}
-          className="gap-2"
-        >
-          Lanjutkan
-          <ArrowRight className="w-4 h-4" />
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-function PaymentStep({ 
-  selectedAccount, 
-  setSelectedAccount, 
-  onNext, 
-  onBack 
-}: { 
-  selectedAccount: any, 
-  setSelectedAccount: (account: any) => void, 
-  onNext: () => void, 
-  onBack: () => void 
-}) {
-  return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold mb-2">Pilih Akun Pembayaran</h2>
-        <p className="text-muted-foreground">Pilih akun untuk menerima pembayaran dari pembeli</p>
-      </div>
-
-      <div className="max-w-2xl mx-auto space-y-4">
-        {paymentAccounts.map((account) => (
-          <Card
-            key={account.id}
-            className={`cursor-pointer transition-all duration-300 ${
-              selectedAccount?.id === account.id
-                ? 'ring-2 ring-primary shadow-lg'
-                : 'hover:shadow-md'
-            }`}
-            onClick={() => setSelectedAccount(account)}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <CreditCard className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-semibold">{account.name}</h3>
-                      {account.verified && (
-                        <Badge variant="secondary" className="bg-green-100 text-green-800">
-                          <CheckCircle className="w-3 h-3 mr-1" />
-                          Terverifikasi
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-sm text-muted-foreground">{account.number}</p>
-                    <div className="flex items-center gap-4 mt-1">
-                      <span className="text-xs text-muted-foreground">
-                        Tingkat Penyelesaian: {account.completionRate}%
-                      </span>
-                      {account.completionRate >= 95 && (
-                        <Badge variant="outline" className="text-xs">
-                          <Star className="w-3 h-3 mr-1" />
-                          Terpercaya
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="text-right">
-                  <Badge variant={account.type === "DANA" ? "default" : "outline"}>
-                    {account.type}
-                  </Badge>
-                  {account.completionRate >= 95 && (
-                    <div className="flex items-center gap-1 mt-1">
-                      <Zap className="w-3 h-3 text-green-600" />
-                      <span className="text-xs text-green-600">Fast Track</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-
-        {/* Add New Account */}
-        <Card className="border-dashed border-2 cursor-pointer hover:border-primary transition-colors">
-          <CardContent className="p-4 text-center">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
-                <Wallet className="w-6 h-6 text-muted-foreground" />
-              </div>
-              <h3 className="font-semibold">Tambah Akun Baru</h3>
-              <p className="text-sm text-muted-foreground">Hubungkan metode pembayaran lainnya</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="gap-2">
-          <ArrowLeft className="w-4 h-4" />
-          Kembali
-        </Button>
-        <Button 
-          onClick={onNext} 
-          disabled={!selectedAccount}
-          className="gap-2"
-        >
-          Lanjutkan
-          <ArrowRight className="w-4 h-4" />
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-function PreviewStep({ 
-  selectedAsset, 
-  price, 
-  quantity, 
-  selectedAccount, 
-  onPublish, 
-  onBack 
-}: { 
-  selectedAsset: any, 
-  price: string, 
-  quantity: string, 
-  selectedAccount: any, 
-  onPublish: () => void, 
-  onBack: () => void 
-}) {
-  const numericPrice = parseInt(price.replace(/[^\d]/g, '')) || 0
-  const fees = calculateFees(numericPrice)
-
-  return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold mb-2">Preview Listing Anda</h2>
-        <p className="text-muted-foreground">Periksa kembali sebelum mempublikasikan ke marketplace</p>
-      </div>
-
-      <div className="max-w-4xl mx-auto">
-        <Card className="border-2 border-primary/20 shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Eye className="w-5 h-5" />
-              Tampilan di Marketplace
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* How it will appear in marketplace */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Asset Preview */}
-              <div>
-                <div className="aspect-square relative mb-4 rounded-lg overflow-hidden">
-                  <img 
-                    src={selectedAsset.image} 
-                    alt={selectedAsset.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <Badge className="absolute top-3 left-3" variant="secondary">
-                    {selectedAsset.type}
-                  </Badge>
-                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded px-2 py-1">
-                    <span className="text-white text-sm">🔥 New</span>
-                  </div>
-                </div>
-                <h3 className="font-bold text-xl mb-2">{selectedAsset.name}</h3>
-                <p className="text-muted-foreground mb-4">
-                  {selectedAsset.type === "NFT" ? selectedAsset.collection : `${quantity} ${selectedAsset.ticker}`}
-                </p>
-              </div>
-
-              {/* Pricing & Details */}
-              <div className="space-y-6">
-                <div>
-                  <h4 className="text-2xl font-bold text-primary mb-2">{price}</h4>
-                  {selectedAsset.type === "Token" && (
-                    <p className="text-muted-foreground">Jumlah: {quantity} {selectedAsset.ticker}</p>
-                  )}
-                </div>
-
-                <Separator />
-
-                <div>
-                  <h5 className="font-semibold mb-3">Informasi Penjual</h5>
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                      <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-medium">crypto_trader88</p>
-                      <div className="flex items-center gap-2">
-                        <div className="flex">
-                          {[1,2,3,4,5].map((star) => (
-                            <Star key={star} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <span className="text-sm text-muted-foreground">4.8 (23 transaksi)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold mb-3">Metode Pembayaran</h5>
-                  <Badge variant="outline" className="mb-2">{selectedAccount.type}</Badge>
-                  <p className="text-sm text-muted-foreground">
-                    Tingkat penyelesaian: {selectedAccount.completionRate}%
-                  </p>
-                </div>
-
-                <div className="p-4 bg-muted/50 rounded-lg">
-                  <h5 className="font-semibold mb-2">Estimasi Waktu Transaksi</h5>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-green-600" />
-                    <span className="text-sm">Biasanya selesai dalam 24 jam</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Transaction Summary */}
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle>Ringkasan Transaksi</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span>Aset:</span>
-                  <span className="font-medium">{selectedAsset.name}</span>
-                </div>
-                {selectedAsset.type === "Token" && (
-                  <div className="flex justify-between">
-                    <span>Kuantitas:</span>
-                    <span className="font-medium">{quantity} {selectedAsset.ticker}</span>
-                  </div>
-                )}
-                <div className="flex justify-between">
-                  <span>Harga Jual:</span>
-                  <span className="font-medium">{price}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Akun Penerima:</span>
-                  <span className="font-medium">{selectedAccount.name}</span>
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span>Biaya Platform:</span>
-                  <span>Rp {fees.platformFee.toLocaleString('id-ID')}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Biaya Network:</span>
-                  <span>Rp {fees.networkFee.toLocaleString('id-ID')}</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between font-bold text-lg">
-                  <span>Anda Terima:</span>
-                  <span className="text-green-600">Rp {fees.netAmount.toLocaleString('id-ID')}</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="gap-2">
-          <ArrowLeft className="w-4 h-4" />
-          Kembali
-        </Button>
-        <Button 
-          onClick={onPublish} 
-          size="lg"
-          className="gap-2 bg-green-600 hover:bg-green-700"
-        >
-          <CheckCircle className="w-5 h-5" />
-          Publikasikan ke Marketplace
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-export default function CreateListingPage() {
-  const router = useRouter()
-  const [currentStep, setCurrentStep] = useState(1)
-  const [selectedAsset, setSelectedAsset] = useState(null)
-  const [price, setPrice] = useState("")
-  const [quantity, setQuantity] = useState("")
-  const [selectedAccount, setSelectedAccount] = useState(null)
-
-  const totalSteps = 4
-
-  const handleNext = () => {
-    if (currentStep < totalSteps) {
+  const nextStep = () => {
+    if (canProceedToNextStep() && currentStep < 4) {
+      setCompletedSteps(prev => [...prev, currentStep])
       setCurrentStep(currentStep + 1)
     }
   }
 
-  const handleBack = () => {
+  const prevStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     }
   }
 
-  const handlePublish = () => {
-    toast({
-      title: "Listing Berhasil Dipublikasikan!",
-      description: "Aset Anda sekarang tersedia di marketplace",
-    })
-    
-    // Redirect to dashboard or marketplace
-    setTimeout(() => {
-      router.push("/dashboard")
-    }, 2000)
+  const getConfidenceColor = (confidence: number) => {
+    if (confidence >= 80) return "text-green-400"
+    if (confidence >= 60) return "text-yellow-400"
+    return "text-red-400"
   }
 
+  const getConfidenceLabel = (confidence: number) => {
+    if (confidence >= 80) return "Tinggi"
+    if (confidence >= 60) return "Sedang"
+    return "Rendah"
+  }
+
+  const steps = [
+    { id: 1, title: "Pilih Aset", icon: ImageIcon },
+    { id: 2, title: "Atur Harga", icon: DollarSign },
+    { id: 3, title: "Pembayaran", icon: CreditCard },
+    { id: 4, title: "Preview", icon: Eye }
+  ]
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
-      <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/dashboard">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                Kembali ke Dashboard
+      <div className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-slate-400 hover:text-white"
+                asChild
+              >
+                <Link href="/assets">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Kembali
+                </Link>
               </Button>
-            </Link>
-            <Separator orientation="vertical" className="h-6" />
-            <div>
-              <h1 className="text-xl font-bold">Jual Aset Baru</h1>
-              <p className="text-sm text-muted-foreground">Langkah {currentStep} dari {totalSteps}</p>
+              
+              <div>
+                <h1 className="text-xl lg:text-2xl font-bold text-white">
+                  Mari kita buat listing yang menarik! 🚀
+                </h1>
+                <p className="text-slate-400 text-sm">
+                  Harga optimal membantu asetmu cepat laku
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsDraft(true)}
+                className="border-slate-700 text-slate-300 hover:bg-slate-800"
+              >
+                <Save className="w-4 h-4 mr-2" />
+                Simpan Draft
+              </Button>
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />
-        
-        <div className="max-w-6xl mx-auto">
-          {currentStep === 1 && (
-            <AssetSelectionStep
-              selectedAsset={selectedAsset}
-              setSelectedAsset={setSelectedAsset}
-              onNext={handleNext}
-            />
-          )}
+      {/* Progress Stepper */}
+      <div className="border-b border-slate-700/30 bg-slate-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            {steps.map((step, index) => {
+              const status = getStepStatus(step.id)
+              const Icon = step.icon
+              
+              return (
+                <div key={step.id} className="flex items-center">
+                  <div className={`flex items-center gap-3 ${
+                    index < steps.length - 1 ? 'flex-1' : ''
+                  }`}>
+                    <div className={`
+                      w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors
+                      ${status === "completed" ? "bg-green-500 border-green-500 text-white" :
+                        status === "current" ? "bg-blue-500 border-blue-500 text-white" :
+                        "bg-slate-800 border-slate-600 text-slate-400"}
+                    `}>
+                      {status === "completed" ? (
+                        <Check className="w-5 h-5" />
+                      ) : (
+                        <Icon className="w-5 h-5" />
+                      )}
+                    </div>
+                    
+                    <div className="hidden sm:block">
+                      <div className={`font-medium ${
+                        status === "current" ? "text-white" : 
+                        status === "completed" ? "text-green-400" :
+                        "text-slate-400"
+                      }`}>
+                        {step.title}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {index < steps.length - 1 && (
+                    <div className={`hidden sm:block flex-1 h-0.5 mx-4 ${
+                      completedSteps.includes(step.id) ? "bg-green-500" : "bg-slate-700"
+                    }`} />
+                  )}
+                </div>
+              )
+            })}
+          </div>
           
-          {currentStep === 2 && (
-            <PricingStep
-              selectedAsset={selectedAsset}
-              price={price}
-              setPrice={setPrice}
-              quantity={quantity}
-              setQuantity={setQuantity}
-              onNext={handleNext}
-              onBack={handleBack}
-            />
-          )}
-          
-          {currentStep === 3 && (
-            <PaymentStep
-              selectedAccount={selectedAccount}
-              setSelectedAccount={setSelectedAccount}
-              onNext={handleNext}
-              onBack={handleBack}
-            />
-          )}
-          
-          {currentStep === 4 && (
-            <PreviewStep
-              selectedAsset={selectedAsset}
-              price={price}
-              quantity={quantity}
-              selectedAccount={selectedAccount}
-              onPublish={handlePublish}
-              onBack={handleBack}
-            />
-          )}
+          {/* Mobile step indicator */}
+          <div className="sm:hidden mt-3 text-center">
+            <span className="text-slate-400 text-sm">
+              Langkah {currentStep} dari {steps.length}: {steps[currentStep - 1].title}
+            </span>
+          </div>
         </div>
-      </main>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <AnimatePresence mode="wait">
+          {/* Step 1: Select Asset */}
+          {currentStep === 1 && (
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-6"
+            >
+              <Card className="bg-slate-800/50 border-slate-700">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center gap-2">
+                    <ImageIcon className="w-5 h-5" />
+                    Pilih Aset untuk Dijual
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {selectedAsset ? (
+                    <div className="flex items-center gap-4 p-4 bg-slate-700/30 rounded-lg">
+                      <img
+                        src={selectedAsset.image}
+                        alt={selectedAsset.name}
+                        className="w-20 h-20 rounded-lg object-cover"
+                      />
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-white">{selectedAsset.name}</h3>
+                        <p className="text-slate-400">{selectedAsset.collection}</p>
+                        <div className="flex items-center gap-4 mt-2">
+                          <Badge className="bg-blue-500/20 text-blue-400">
+                            {selectedAsset.type}
+                          </Badge>
+                          <span className="text-green-400 font-medium">
+                            {formatCurrency(selectedAsset.value)}
+                          </span>
+                        </div>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedAsset(null)}
+                        className="border-slate-600 text-slate-400 hover:bg-slate-700"
+                      >
+                        Ganti
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <ImageIcon className="w-16 h-16 mx-auto text-slate-600 mb-4" />
+                      <h3 className="text-xl font-semibold text-white mb-2">
+                        Pilih aset dari koleksi Anda
+                      </h3>
+                      <p className="text-slate-400 mb-6">
+                        Lihat semua aset yang tersedia di galeri
+                      </p>
+                      <Button asChild>
+                        <Link href="/assets">
+                          <ImageIcon className="w-4 h-4 mr-2" />
+                          Buka Galeri Aset
+                        </Link>
+                      </Button>
+                    </div>
+                  )}
+
+                  {selectedAsset && (selectedAsset.type === "ERC1155" || selectedAsset.type === "ERC20") && (
+                    <div className="mt-6 p-4 bg-slate-700/30 rounded-lg">
+                      <Label className="text-white mb-2 block">Jumlah</Label>
+                      <div className="flex items-center gap-3">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                          disabled={quantity <= 1}
+                          className="border-slate-600"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </Button>
+                        <Input
+                          type="number"
+                          value={quantity}
+                          onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                          className="w-24 text-center bg-slate-800 border-slate-600 text-white"
+                        />
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setQuantity(quantity + 1)}
+                          className="border-slate-600"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </Button>
+                        <span className="text-slate-400 text-sm">
+                          dari {selectedAsset.balance?.toLocaleString()} tersedia
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* Step 2: Price Setting */}
+          {currentStep === 2 && selectedAsset && (
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-6"
+            >
+              {/* Asset Summary */}
+              <Card className="bg-slate-800/50 border-slate-700">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={selectedAsset.image}
+                      alt={selectedAsset.name}
+                      className="w-16 h-16 rounded-lg object-cover"
+                    />
+                    <div>
+                      <h3 className="font-semibold text-white">{selectedAsset.name}</h3>
+                      <p className="text-slate-400">{selectedAsset.collection}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Price Intelligence */}
+              {priceRecommendation && (
+                <Card className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/20">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-blue-400" />
+                      Rekomendasi Harga Cerdas
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="text-center p-3 bg-slate-800/30 rounded-lg">
+                        <div className="text-sm text-slate-400 mb-1">Harga Pasar</div>
+                        <div className="text-white font-semibold">
+                          {formatCurrency(priceRecommendation.min)} - {formatCurrency(priceRecommendation.max)}
+                        </div>
+                      </div>
+                      <div className="text-center p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                        <div className="text-sm text-green-400 mb-1">💸 Harga Optimal</div>
+                        <div className="text-white font-bold text-lg">
+                          {formatCurrency(priceRecommendation.optimal)}
+                        </div>
+                      </div>
+                      <div className="text-center p-3 bg-slate-800/30 rounded-lg">
+                        <div className="text-sm text-slate-400 mb-1">Estimasi Terjual</div>
+                        <div className="text-white font-semibold">
+                          ⏱️ {priceRecommendation.estimatedSaleDays} hari
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 bg-slate-800/30 rounded-lg">
+                      <p className="text-slate-300 text-sm">
+                        🎯 <strong>Tip:</strong> {priceRecommendation.reasoning}. 
+                        Harga di range ini memiliki <strong>{priceRecommendation.conversionRate}%</strong> tingkat penyelesaian.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Price Input */}
+              <Card className="bg-slate-800/50 border-slate-700">
+                <CardHeader>
+                  <CardTitle className="text-white">Tentukan Harga</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label className="text-white mb-2 block">Harga (IDR)</Label>
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <Input
+                        type="number"
+                        placeholder="0"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        className="pl-10 bg-slate-800 border-slate-600 text-white text-lg font-semibold"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Price Confidence Indicator */}
+                  {price && priceRecommendation && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400 text-sm">Kemungkinan Cepat Laku</span>
+                        <span className={`text-sm font-medium ${getConfidenceColor(priceConfidence)}`}>
+                          {getConfidenceLabel(priceConfidence)} ({Math.round(priceConfidence)}%)
+                        </span>
+                      </div>
+                      <Progress 
+                        value={priceConfidence} 
+                        className="h-2"
+                      />
+                      
+                      {priceConfidence < 60 && (
+                        <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                          <div className="flex items-start gap-2">
+                            <AlertTriangle className="w-4 h-4 text-yellow-400 mt-0.5" />
+                            <div className="text-sm">
+                              <p className="text-yellow-400 font-medium">Peringatan Harga</p>
+                              <p className="text-slate-300">
+                                {parseFloat(price) < (priceRecommendation?.min || 0) ? 
+                                  "Harga terlalu rendah - risiko kehilangan nilai" :
+                                  "Harga tinggi - mungkin membutuhkan waktu lebih lama untuk terjual"
+                                }
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Quick Price Actions */}
+                  {priceRecommendation && (
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPrice(priceRecommendation.optimal.toString())}
+                        className="border-green-500/50 text-green-400 hover:bg-green-500/10"
+                      >
+                        <Target className="w-4 h-4 mr-2" />
+                        Gunakan Harga Optimal
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPrice((priceRecommendation.optimal * 0.9).toString())}
+                        className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10"
+                      >
+                        <Zap className="w-4 h-4 mr-2" />
+                        Quick Sale (-10%)
+                      </Button>
+                    </div>
+                  )}
+
+                  {/* Description */}
+                  <div>
+                    <Label className="text-white mb-2 block">Deskripsi (Opsional)</Label>
+                    <Textarea
+                      placeholder="Tambahkan deskripsi menarik untuk meningkatkan penjualan..."
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      className="bg-slate-800 border-slate-600 text-white placeholder-slate-400"
+                      rows={3}
+                    />
+                    <p className="text-xs text-slate-400 mt-1">
+                      💡 Tip: Deskripsi menarik dapat meningkatkan tingkat konversi hingga 40%
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* Step 3: Payment Method */}
+          {currentStep === 3 && (
+            <motion.div
+              key="step3"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-6"
+            >
+              <Card className="bg-slate-800/50 border-slate-700">
+                <CardHeader>
+                  <CardTitle className="text-white">Konfigurasi Pembayaran</CardTitle>
+                  <p className="text-slate-400">
+                    Pilih akun penerimaan - dana akan masuk langsung ke sini ✅
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Payment Method Toggle */}
+                  <div className="space-y-4">
+                    <Label className="text-white">Metode Pembayaran</Label>
+                    <div className="flex gap-4">
+                      <div 
+                        className={`flex-1 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                          paymentMethod === "hybrid" 
+                            ? "border-blue-500 bg-blue-500/10" 
+                            : "border-slate-600 bg-slate-800/30 hover:border-slate-500"
+                        }`}
+                        onClick={() => setPaymentMethod("hybrid")}
+                      >
+                        <div className="flex items-center gap-3">
+                          <CreditCard className="w-5 h-5 text-blue-400" />
+                          <div>
+                            <div className="font-medium text-white">Hybrid Payment</div>
+                            <div className="text-sm text-slate-400">Bank & E-wallet (Recommended)</div>
+                          </div>
+                        </div>
+                        {paymentMethod === "hybrid" && (
+                          <div className="mt-2 p-2 bg-green-500/10 rounded text-xs text-green-400">
+                            💡 15% lebih banyak penyelesaian dengan metode ini
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div 
+                        className={`flex-1 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                          paymentMethod === "onchain" 
+                            ? "border-purple-500 bg-purple-500/10" 
+                            : "border-slate-600 bg-slate-800/30 hover:border-slate-500"
+                        }`}
+                        onClick={() => setPaymentMethod("onchain")}
+                      >
+                        <div className="flex items-center gap-3">
+                          <Coins className="w-5 h-5 text-purple-400" />
+                          <div>
+                            <div className="font-medium text-white">On-Chain</div>
+                            <div className="text-sm text-slate-400">Crypto only</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Payment Account Selection */}
+                  {paymentMethod === "hybrid" && (
+                    <div className="space-y-4">
+                      <Label className="text-white">Akun Penerima</Label>
+                      <div className="space-y-3">
+                        {paymentAccounts.map((account) => (
+                          <div
+                            key={account.id}
+                            className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                              selectedAccount === account.id
+                                ? "border-blue-500 bg-blue-500/10"
+                                : "border-slate-600 bg-slate-800/30 hover:border-slate-500"
+                            }`}
+                            onClick={() => setSelectedAccount(account.id)}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="text-2xl">{account.logo}</div>
+                              <div className="flex-1">
+                                <div className="font-medium text-white">
+                                  {account.name} - {account.accountName}
+                                </div>
+                                <div className="text-sm text-slate-400">
+                                  •••• {account.accountNumber.slice(-4)}
+                                </div>
+                              </div>
+                              {selectedAccount === account.id && (
+                                <Check className="w-5 h-5 text-blue-400" />
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                        
+                        <Button
+                          variant="outline"
+                          className="w-full border-slate-600 text-slate-400 hover:bg-slate-700"
+                          asChild
+                        >
+                          <Link href="/settings?tab=payment">
+                            <Plus className="w-4 h-4 mr-2" />
+                            Tambah Akun Pembayaran
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Fee Breakdown */}
+                  {price && (
+                    <div className="p-4 bg-slate-700/30 rounded-lg">
+                      <h4 className="font-medium text-white mb-3">Rincian Biaya</h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">Harga Jual</span>
+                          <span className="text-white">{formatCurrency(parseFloat(price) || 0)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">Biaya Platform (1%)</span>
+                          <span className="text-white">-{formatCurrency((parseFloat(price) || 0) * 0.01)}</span>
+                        </div>
+                        <div className="border-t border-slate-600 pt-2 flex justify-between font-medium">
+                          <span className="text-white">Diterima</span>
+                          <span className="text-green-400 font-bold">
+                            {formatCurrency((parseFloat(price) || 0) * 0.99)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {/* Step 4: Preview */}
+          {currentStep === 4 && selectedAsset && price && (
+            <motion.div
+              key="step4"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-6"
+            >
+              <Card className="bg-slate-800/50 border-slate-700">
+                <CardHeader>
+                  <CardTitle className="text-white">
+                    Tinjau lagi - pastikan semuanya sudah benar sebelum publikasi 👀
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Listing Preview */}
+                  <div className="p-4 bg-slate-700/30 rounded-lg">
+                    <h4 className="font-medium text-white mb-3">Akan Terlihat Seperti Ini</h4>
+                    
+                    {/* Mock marketplace card */}
+                    <div className="bg-slate-800 border border-slate-600 rounded-lg overflow-hidden">
+                      <div className="aspect-square relative">
+                        <img
+                          src={selectedAsset.image}
+                          alt={selectedAsset.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <Badge className="absolute top-3 right-3 bg-green-500/90 text-white">
+                          BARU
+                        </Badge>
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-semibold text-white">{selectedAsset.name}</h3>
+                        <p className="text-sm text-slate-400">{selectedAsset.collection}</p>
+                        <div className="flex items-center justify-between mt-3">
+                          <div className="text-xl font-bold text-green-400">
+                            {formatCurrency(parseFloat(price))}
+                          </div>
+                          <div className="flex items-center text-slate-400 text-sm">
+                            <Eye className="w-4 h-4 mr-1" />
+                            <span>{selectedAsset.marketData?.viewsPerListing || 150}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Final Checklist */}
+                  <div className="p-4 bg-slate-700/30 rounded-lg">
+                    <h4 className="font-medium text-white mb-3">Final Checklist</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-green-400">
+                        <Check className="w-4 h-4" />
+                        <span className="text-sm">Aset: {selectedAsset.name}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-green-400">
+                        <Check className="w-4 h-4" />
+                        <span className="text-sm">Harga: {formatCurrency(parseFloat(price))}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-green-400">
+                        <Check className="w-4 h-4" />
+                        <span className="text-sm">
+                          Pembayaran: {paymentMethod === "onchain" ? "On-chain" : 
+                            paymentAccounts.find(a => a.id === selectedAccount)?.name + " •••• " + 
+                            paymentAccounts.find(a => a.id === selectedAccount)?.accountNumber.slice(-4)
+                          }
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-green-400">
+                        <Check className="w-4 h-4" />
+                        <span className="text-sm">Biaya: Sudah termasuk</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Confidence Booster */}
+                  <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                    <div className="flex items-start gap-3">
+                      <ShieldCheck className="w-5 h-5 text-green-400 mt-0.5" />
+                      <div>
+                        <h4 className="text-green-400 font-medium">🛡️ PUYOK Escrow Protection</h4>
+                        <p className="text-slate-300 text-sm">
+                          Dana pembeli diamankan sampai NFT diterima. Transaksi Anda 100% aman!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Potential Stats */}
+                  {selectedAsset.marketData && (
+                    <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                      <h4 className="text-blue-400 font-medium mb-2">Statistik Potensial</h4>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <div className="text-slate-400">👁️‍🗨️ Perkiraan viewer</div>
+                          <div className="text-white font-medium">
+                            {selectedAsset.marketData.viewsPerListing - 30}-{selectedAsset.marketData.viewsPerListing + 70} orang
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-slate-400">🛒 Tingkat konversi</div>
+                          <div className="text-white font-medium">
+                            {selectedAsset.marketData.successRate}% order sejenis terjual dalam {Math.ceil(selectedAsset.marketData.avgSaleDays)} hari
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Navigation */}
+        <div className="flex items-center justify-between pt-6 border-t border-slate-700">
+          <Button
+            variant="outline"
+            onClick={prevStep}
+            disabled={currentStep === 1}
+            className="border-slate-600 text-slate-400 hover:bg-slate-700"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Sebelumnya
+          </Button>
+
+          <div className="flex items-center gap-3">
+            {currentStep === 4 ? (
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button 
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                    disabled={!canProceedToNextStep()}
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    Publikasikan Listing 🚀
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                  <DialogHeader>
+                    <DialogTitle>🚀 Listing Akan Dipublikasikan!</DialogTitle>
+                    <DialogDescription className="text-slate-300">
+                      Pastikan semua informasi sudah benar. Setelah dipublikasi, listing akan muncul di marketplace.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-slate-700/50 rounded-lg">
+                      <div className="space-y-2 text-sm">
+                        <div>📷 <strong>Aset:</strong> {selectedAsset?.name}</div>
+                        <div>💰 <strong>Harga:</strong> {formatCurrency(parseFloat(price || "0"))}</div>
+                        <div>📥 <strong>Diterima:</strong> {formatCurrency((parseFloat(price || "0")) * 0.99)}</div>
+                        <div>🏦 <strong>Akun:</strong> {
+                          paymentMethod === "onchain" ? "On-chain Wallet" :
+                          paymentAccounts.find(a => a.id === selectedAccount)?.name + " •••• " + 
+                          paymentAccounts.find(a => a.id === selectedAccount)?.accountNumber.slice(-4)
+                        }</div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-3">
+                      <Button variant="outline" className="flex-1 border-slate-600">
+                        Batal
+                      </Button>
+                      <Button className="flex-1 bg-green-600 hover:bg-green-700">
+                        Ya, Publikasikan!
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            ) : (
+              <Button
+                onClick={nextStep}
+                disabled={!canProceedToNextStep()}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                Lanjutkan
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
