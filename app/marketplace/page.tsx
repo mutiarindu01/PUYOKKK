@@ -398,6 +398,15 @@ export default function MarketplacePage() {
   const [aiSearchSuggestions, setAiSearchSuggestions] = useState<string[]>([])
   const [showAiFeatures, setShowAiFeatures] = useState(false)
   const [aiAnalysisResults, setAiAnalysisResults] = useState<string>("")
+  const [showCreateOrder, setShowCreateOrder] = useState(false)
+  const [createOrderStep, setCreateOrderStep] = useState(1)
+  const [selectedAssetType, setSelectedAssetType] = useState<"ERC20" | "ERC721" | "ERC1155" | null>(null)
+  const [walletAssets, setWalletAssets] = useState<any[]>([])
+  const [selectedAsset, setSelectedAsset] = useState<any>(null)
+  const [orderQuantity, setOrderQuantity] = useState(1)
+  const [desiredAsset, setDesiredAsset] = useState("")
+  const [exchangeRate, setExchangeRate] = useState("")
+  const [paymentMethod, setPaymentMethod] = useState<"onchain" | "hybrid">("hybrid")
 
   // Format currency
   const formatPrice = (price: number) => {
