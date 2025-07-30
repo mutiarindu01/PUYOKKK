@@ -416,11 +416,11 @@ export default function CreateListingPage() {
               
               return (
                 <div key={step.id} className="flex items-center">
-                  <div className={`flex items-center gap-3 ${
+                  <div className={`flex items-center gap-2 sm:gap-3 ${
                     index < steps.length - 1 ? 'flex-1' : ''
                   }`}>
                     <div className={`
-                      w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors
+                      w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border-2 transition-colors text-xs sm:text-base
                       ${status === "completed" ? "bg-green-500 border-green-500 text-white" :
                         status === "current" ? "bg-blue-500 border-blue-500 text-white" :
                         "bg-slate-800 border-slate-600 text-slate-400"}
@@ -1018,7 +1018,7 @@ export default function CreateListingPage() {
                             <div className="text-xs text-slate-500">NFT sejenis terjual</div>
                           </div>
                           <div className="text-center p-3 bg-slate-800/30 rounded">
-                            <div className="text-slate-400 mb-1">���️ Estimasi terjual</div>
+                            <div className="text-slate-400 mb-1">⏱️ Estimasi terjual</div>
                             <div className="text-yellow-400 font-bold text-lg">
                               {getSaleSpeedInfo(saleSpeedLevel).desc}
                             </div>
