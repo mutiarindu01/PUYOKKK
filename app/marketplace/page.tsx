@@ -980,45 +980,7 @@ AI Market Analysis:
             )}
           </AnimatePresence>
 
-          {/* Mobile-Optimized Interactive Features Bar */}
-          <div className="py-3 sm:py-4 border-t border-slate-700/50">
-            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide sm:flex-wrap sm:gap-3">
-              <Button variant="outline" size="sm" className="flex-shrink-0 border-slate-700 text-slate-300 hover:bg-slate-800 text-xs sm:text-sm px-2 sm:px-3">
-                <Bell className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Price Alerts</span>
-                <span className="sm:hidden">Alerts</span>
-              </Button>
-              <Button variant="outline" size="sm" className="flex-shrink-0 border-slate-700 text-slate-300 hover:bg-slate-800 text-xs sm:text-sm px-2 sm:px-3">
-                <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Community Chat</span>
-                <span className="sm:hidden">Chat</span>
-              </Button>
-              <Button variant="outline" size="sm" className="flex-shrink-0 border-slate-700 text-slate-300 hover:bg-slate-800 text-xs sm:text-sm px-2 sm:px-3">
-                <Rocket className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Trending</span>
-                <span className="sm:hidden">Hot</span>
-              </Button>
-              <Button variant="outline" size="sm" className="flex-shrink-0 border-slate-700 text-slate-300 hover:bg-slate-800 text-xs sm:text-sm px-2 sm:px-3">
-                <Timer className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Auctions Ending Soon</span>
-                <span className="sm:hidden">Ending</span>
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="flex-shrink-0 border-purple-500/50 text-purple-400 hover:bg-purple-500/10 text-xs sm:text-sm px-2 sm:px-3"
-                onClick={() => {
-                  setShowAiFeatures(!showAiFeatures)
-                  generateAiRecommendations()
-                  performAiAnalysis()
-                }}
-              >
-                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">AI Assistant</span>
-                <span className="sm:hidden">AI</span>
-              </Button>
-            </div>
-          </div>
+
 
           {/* AI Features Panel */}
           <AnimatePresence>
