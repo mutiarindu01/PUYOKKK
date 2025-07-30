@@ -462,7 +462,7 @@ export default function CreateListingPage() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         <AnimatePresence mode="wait">
           {/* Step 1: Select Asset */}
           {currentStep === 1 && (
@@ -1018,7 +1018,7 @@ export default function CreateListingPage() {
                             <div className="text-xs text-slate-500">NFT sejenis terjual</div>
                           </div>
                           <div className="text-center p-3 bg-slate-800/30 rounded">
-                            <div className="text-slate-400 mb-1">⏱️ Estimasi terjual</div>
+                            <div className="text-slate-400 mb-1">���️ Estimasi terjual</div>
                             <div className="text-yellow-400 font-bold text-lg">
                               {getSaleSpeedInfo(saleSpeedLevel).desc}
                             </div>
