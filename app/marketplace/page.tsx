@@ -56,6 +56,17 @@ import {
   Layers,
   PieChart,
   Tag,
+  Plus,
+  Check,
+  Coins,
+  ImageIcon,
+  Layers,
+  Minus,
+  ArrowLeft,
+  ArrowRight,
+  Info,
+  Send,
+  CreditCard,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
