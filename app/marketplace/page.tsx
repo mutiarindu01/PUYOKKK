@@ -65,6 +65,7 @@ import {
   Info,
   Send,
   CreditCard,
+  Calculator,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
