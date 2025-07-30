@@ -2079,39 +2079,106 @@ AI Market Analysis:
                     </div>
                   </div>
 
-                  {/* Payment Method */}
+                  {/* Hybrid Fee Model */}
                   <div className="p-4 bg-slate-800/50 rounded-lg">
-                    <h4 className="font-medium text-white mb-4">Metode Pembayaran</h4>
+                    <h4 className="font-medium text-white mb-4">🔧 Model Biaya (Pilih yang Sesuai)</h4>
+
                     <RadioGroup
-                      value={paymentMethod}
-                      onValueChange={(value: "onchain" | "hybrid") => setPaymentMethod(value)}
-                      className="space-y-3"
+                      value={feeModel}
+                      onValueChange={(value: "gasless" | "self_gas") => setFeeModel(value)}
+                      className="space-y-3 mb-4"
                     >
-                      <div className="flex items-center space-x-3 p-3 border border-slate-700 rounded-lg">
-                        <RadioGroupItem value="onchain" id="onchain" />
-                        <Label htmlFor="onchain" className="flex-1 cursor-pointer">
+                      <div className={`flex items-center space-x-3 p-4 border-2 rounded-lg transition-all ${
+                        feeModel === "gasless" ? "border-green-500 bg-green-500/10" : "border-slate-700"
+                      }`}>
+                        <RadioGroupItem value="gasless" id="gasless" />
+                        <Label htmlFor="gasless" className="flex-1 cursor-pointer">
                           <div className="flex items-center gap-3">
-                            <Shield className="w-5 h-5 text-purple-400" />
-                            <div>
-                              <p className="font-medium text-white">On-Chain Only</p>
-                              <p className="text-sm text-slate-400">Transfer langsung melalui blockchain (100% otomatis)</p>
+                            <div className="p-2 bg-green-500/20 rounded-lg">
+                              <Shield className="w-5 h-5 text-green-400" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-medium text-white">PUYOK Tanggung Gas Fee</p>
+                              <p className="text-sm text-slate-400">Pengalaman Web2 - tanpa ribet gas fee</p>
+                              <div className="mt-1 flex items-center gap-2">
+                                <Badge className="bg-green-500/20 text-green-400 text-xs">Biaya: 3%</Badge>
+                                <Badge className="bg-blue-500/20 text-blue-400 text-xs">Recommended</Badge>
+                              </div>
                             </div>
                           </div>
                         </Label>
                       </div>
-                      <div className="flex items-center space-x-3 p-3 border border-slate-700 rounded-lg">
-                        <RadioGroupItem value="hybrid" id="hybrid" />
-                        <Label htmlFor="hybrid" className="flex-1 cursor-pointer">
+
+                      <div className={`flex items-center space-x-3 p-4 border-2 rounded-lg transition-all ${
+                        feeModel === "self_gas" ? "border-blue-500 bg-blue-500/10" : "border-slate-700"
+                      }`}>
+                        <RadioGroupItem value="self_gas" id="self_gas" />
+                        <Label htmlFor="self_gas" className="flex-1 cursor-pointer">
                           <div className="flex items-center gap-3">
-                            <CreditCard className="w-5 h-5 text-blue-400" />
-                            <div>
-                              <p className="font-medium text-white">Hybrid Payment</p>
-                              <p className="text-sm text-slate-400">Kombinasi blockchain + transfer bank/e-wallet</p>
+                            <div className="p-2 bg-blue-500/20 rounded-lg">
+                              <Zap className="w-5 h-5 text-blue-400" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-medium text-white">Saya Tanggung Gas Fee Sendiri</p>
+                              <p className="text-sm text-slate-400">Untuk user berpengalaman - biaya lebih murah</p>
+                              <div className="mt-1 flex items-center gap-2">
+                                <Badge className="bg-blue-500/20 text-blue-400 text-xs">Biaya: 1.5%</Badge>
+                                <Badge className="bg-purple-500/20 text-purple-400 text-xs">Advanced</Badge>
+                              </div>
                             </div>
                           </div>
                         </Label>
                       </div>
                     </RadioGroup>
+
+                    {/* Fee Explanation */}
+                    <div className="p-3 bg-slate-700/30 rounded-lg">
+                      <p className="text-xs text-slate-300">
+                        {feeModel === "gasless"
+                          ? "🛡️ PUYOK menanggung biaya gas transaksi Anda, membuat proses jual beli semudah aplikasi Web2."
+                          : "⚡ Anda bertanggung jawab atas biaya gas on-chain. Model ini cocok untuk pengguna berpengalaman yang ingin biaya layanan lebih rendah."
+                        }
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Payment Account Selection */}
+                  <div className="p-4 bg-slate-800/50 rounded-lg">
+                    <h4 className="font-medium text-white mb-4">💳 Akun Penerima Dana</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-white mb-2 block">Pilih Akun Pembayaran</Label>
+                        <Select value={selectedPaymentAccount} onValueChange={setSelectedPaymentAccount}>
+                          <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                            <SelectValue placeholder="Pilih akun untuk menerima pembayaran" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-800 border-slate-700 text-white">
+                            {samplePaymentAccounts.map((account) => (
+                              <SelectItem key={account.id} value={account.id}>
+                                <div className="flex items-center gap-3">
+                                  <span className="text-lg">{account.logo}</span>
+                                  <div>
+                                    <p className="font-medium">{account.name} - {account.alias}</p>
+                                    <p className="text-xs text-slate-400">
+                                      {account.accountName} •••• {account.accountNumber.slice(-4)}
+                                    </p>
+                                  </div>
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full border-slate-600 text-slate-400 hover:bg-slate-700"
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Tambah Akun Pembayaran Baru
+                      </Button>
+                    </div>
                   </div>
                 </motion.div>
               )}
