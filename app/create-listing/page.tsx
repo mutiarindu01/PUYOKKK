@@ -1093,34 +1093,68 @@ export default function CreateListingPage() {
                     Publikasikan Listing 🚀
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-md">
                   <DialogHeader>
-                    <DialogTitle>🚀 Listing Akan Dipublikasikan!</DialogTitle>
-                    <DialogDescription className="text-slate-300">
-                      Pastikan semua informasi sudah benar. Setelah dipublikasi, listing akan muncul di marketplace.
+                    <DialogTitle className="text-center">🚀 Listing Akan Dipublikasikan!</DialogTitle>
+                    <DialogDescription className="text-slate-300 text-center">
+                      Pastikan semua informasi sudah benar. Setelah dipublikasi, listing akan muncul di marketplace dalam 2-3 menit.
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4">
-                    <div className="p-4 bg-slate-700/50 rounded-lg">
-                      <div className="space-y-2 text-sm">
-                        <div>📷 <strong>Aset:</strong> {selectedAsset?.name}</div>
-                        <div>💰 <strong>Harga:</strong> {formatCurrency(parseFloat(price || "0"))}</div>
-                        <div>📥 <strong>Diterima:</strong> {formatCurrency((parseFloat(price || "0")) * 0.99)}</div>
-                        <div>🏦 <strong>Akun:</strong> {
-                          paymentMethod === "onchain" ? "On-chain Wallet" :
-                          paymentAccounts.find(a => a.id === selectedAccount)?.name + " •••• " + 
-                          paymentAccounts.find(a => a.id === selectedAccount)?.accountNumber.slice(-4)
-                        }</div>
+                    <div className="p-4 bg-slate-700/50 rounded-lg space-y-3">
+                      <div className="flex items-center gap-3">
+                        <img src={selectedAsset?.image} alt="" className="w-12 h-12 rounded-lg object-cover" />
+                        <div>
+                          <div className="font-medium text-white">{selectedAsset?.name}</div>
+                          <div className="text-sm text-slate-400">{selectedAsset?.collection}</div>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-slate-600 pt-3 space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">💰 Harga Jual</span>
+                          <span className="text-white font-medium">{formatCurrency(parseFloat(price || "0"))}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">📥 Anda Terima</span>
+                          <span className="text-green-400 font-bold">{formatCurrency((parseFloat(price || "0")) * 0.99)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">🏦 Akun Penerima</span>
+                          <span className="text-white text-xs">{
+                            paymentMethod === "onchain" ? "On-chain Wallet" :
+                            paymentAccounts.find(a => a.id === selectedAccount)?.name + " •••• " +
+                            paymentAccounts.find(a => a.id === selectedAccount)?.accountNumber.slice(-4)
+                          }</span>
+                        </div>
                       </div>
                     </div>
-                    
+
+                    {/* High Value Double Confirmation */}
+                    {showHighValueWarning && (
+                      <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                        <div className="flex items-center gap-2 text-yellow-400 text-sm">
+                          <AlertTriangle className="w-4 h-4" />
+                          <span className="font-medium">Konfirmasi Aset Berharga Tinggi</span>
+                        </div>
+                        <p className="text-slate-300 text-xs mt-1">
+                          Anda akan menjual aset senilai {formatCurrency(parseFloat(price || "0"))}. Pastikan harga sudah benar.
+                        </p>
+                      </div>
+                    )}
+
                     <div className="flex gap-3">
-                      <Button variant="outline" className="flex-1 border-slate-600">
+                      <Button variant="outline" className="flex-1 border-slate-600 hover:bg-slate-700">
                         Batal
                       </Button>
-                      <Button className="flex-1 bg-green-600 hover:bg-green-700">
+                      <Button className="flex-1 bg-green-600 hover:bg-green-700 text-white">
+                        <Send className="w-4 h-4 mr-2" />
                         Ya, Publikasikan!
                       </Button>
+                    </div>
+
+                    <div className="text-center text-xs text-slate-400">
+                      🛡️ Dilindungi PUYOK Escrow Protection
                     </div>
                   </div>
                 </DialogContent>
