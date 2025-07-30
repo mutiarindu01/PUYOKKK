@@ -930,22 +930,69 @@ export default function CreateListingPage() {
                     </div>
                   </div>
 
-                  {/* Potential Stats */}
-                  {selectedAsset.marketData && (
-                    <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                      <h4 className="text-blue-400 font-medium mb-2">Statistik Potensial</h4>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <div className="text-slate-400">👁️‍🗨️ Perkiraan viewer</div>
-                          <div className="text-white font-medium">
-                            {selectedAsset.marketData.viewsPerListing - 30}-{selectedAsset.marketData.viewsPerListing + 70} orang
+                  {/* Advanced Market Insights */}
+                  {selectedAsset.marketData && priceRecommendation && (
+                    <div className="space-y-4">
+                      <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                        <h4 className="text-blue-400 font-medium mb-3">📊 Proyeksi Performa Listing</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                          <div className="text-center p-3 bg-slate-800/30 rounded">
+                            <div className="text-slate-400 mb-1">👁️‍🗨️ Estimasi viewer</div>
+                            <div className="text-white font-bold text-lg">
+                              {selectedAsset.marketData.viewsPerListing - 30}-{selectedAsset.marketData.viewsPerListing + 70}
+                            </div>
+                            <div className="text-xs text-slate-500">orang dalam 24 jam</div>
+                          </div>
+                          <div className="text-center p-3 bg-slate-800/30 rounded">
+                            <div className="text-slate-400 mb-1">🛒 Tingkat konversi</div>
+                            <div className="text-green-400 font-bold text-lg">
+                              {selectedAsset.marketData.successRate}%
+                            </div>
+                            <div className="text-xs text-slate-500">NFT sejenis terjual</div>
+                          </div>
+                          <div className="text-center p-3 bg-slate-800/30 rounded">
+                            <div className="text-slate-400 mb-1">⏱️ Estimasi terjual</div>
+                            <div className="text-yellow-400 font-bold text-lg">
+                              {getSaleSpeedInfo(saleSpeedLevel).desc}
+                            </div>
+                            <div className="text-xs text-slate-500">berdasarkan harga</div>
                           </div>
                         </div>
-                        <div>
-                          <div className="text-slate-400">🛒 Tingkat konversi</div>
-                          <div className="text-white font-medium">
-                            {selectedAsset.marketData.successRate}% order sejenis terjual dalam {Math.ceil(selectedAsset.marketData.avgSaleDays)} hari
+
+                        <div className="mt-4 p-3 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Target className="w-4 h-4 text-green-400" />
+                            <span className="text-green-400 font-medium">Prediksi AI</span>
                           </div>
+                          <p className="text-slate-300 text-sm">
+                            Berdasarkan analisa pasar dan tren harga, listing ini memiliki
+                            <span className={`font-bold ${getConfidenceColor(priceConfidence)}`}>
+                              {" " + Math.round(priceConfidence)}% peluang
+                            </span> terjual dalam {getSaleSpeedInfo(saleSpeedLevel).desc}
+                            dengan harga {formatCurrency(parseFloat(price))}.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Social Sharing Boost */}
+                      <div className="p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                        <h4 className="text-purple-400 font-medium mb-2">🚀 Boost Penjualan</h4>
+                        <p className="text-slate-300 text-sm mb-3">
+                          Share listing Anda di media sosial untuk mendapatkan +40% lebih banyak viewer!
+                        </p>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline" className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10">
+                            <Share2 className="w-4 h-4 mr-1" />
+                            Share
+                          </Button>
+                          <Button size="sm" variant="outline" className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10">
+                            <Twitter className="w-4 h-4 mr-1" />
+                            Tweet
+                          </Button>
+                          <Button size="sm" variant="outline" className="border-green-500/50 text-green-400 hover:bg-green-500/10">
+                            <MessageCircle className="w-4 h-4 mr-1" />
+                            Discord
+                          </Button>
                         </div>
                       </div>
                     </div>
