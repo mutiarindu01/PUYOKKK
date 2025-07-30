@@ -210,19 +210,30 @@ export default function CreateListingPage() {
     return recommendation
   }, [])
 
-  // Calculate price confidence
+  // Calculate price confidence and sale speed
   const calculatePriceConfidence = useCallback((priceValue: number, recommendation: PriceRecommendation | null) => {
     if (!recommendation || !priceValue) return 0
 
-    const { min, max, optimal } = recommendation
-    
-    if (priceValue < min) {
-      return Math.max(0, 30 - Math.abs(priceValue - min) / min * 100)
-    } else if (priceValue > max) {
-      return Math.max(0, 50 - Math.abs(priceValue - max) / max * 100)
+    const { min, max, optimal, hotDealThreshold } = recommendation
+
+    // Determine sale speed level
+    if (priceValue <= (hotDealThreshold || min)) {
+      setSaleSpeedLevel("high")
+    } else if (priceValue <= optimal) {
+      setSaleSpeedLevel("medium")
     } else {
+      setSaleSpeedLevel("low")
+    }
+
+    if (priceValue < min * 0.7) {
+      return Math.max(0, 20 - Math.abs(priceValue - min) / min * 100)
+    } else if (priceValue > max * 1.3) {
+      return Math.max(0, 30 - Math.abs(priceValue - max) / max * 100)
+    } else if (priceValue >= min && priceValue <= max) {
       const distanceFromOptimal = Math.abs(priceValue - optimal) / optimal
-      return Math.max(60, 100 - distanceFromOptimal * 100)
+      return Math.max(70, 100 - distanceFromOptimal * 50)
+    } else {
+      return 50
     }
   }, [])
 
