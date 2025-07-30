@@ -359,19 +359,49 @@ const sampleActivities: LiveActivity[] = [
 // Sample Wallet Assets
 const sampleWalletAssets = {
   ERC20: [
-    { id: "1", name: "PUYOK Token", symbol: "PUYOK", balance: "1,000.50", value: 50000000, image: "/api/placeholder/64/64" },
-    { id: "2", name: "Ethereum", symbol: "ETH", balance: "2.5", value: 120000000, image: "/api/placeholder/64/64" },
-    { id: "3", name: "USDT", symbol: "USDT", balance: "500.00", value: 7500000, image: "/api/placeholder/64/64" },
+    { id: "1", name: "PUYOK Token", symbol: "PUYOK", balance: "1,000.50", value: 50000000, image: "/api/placeholder/64/64", type: "ERC20" },
+    { id: "2", name: "Ethereum", symbol: "ETH", balance: "2.5", value: 120000000, image: "/api/placeholder/64/64", type: "ERC20" },
+    { id: "3", name: "USDT", symbol: "USDT", balance: "500.00", value: 7500000, image: "/api/placeholder/64/64", type: "ERC20" },
   ],
   ERC721: [
-    { id: "1", name: "Bored Ape #1234", collection: "BAYC", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400", value: 125000000 },
-    { id: "2", name: "CryptoPunk #5678", collection: "CryptoPunks", image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400", value: 280000000 },
-    { id: "3", name: "Azuki #999", collection: "Azuki", image: "https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?w=400", value: 45000000 },
+    { id: "1", name: "Bored Ape #1234", collection: "BAYC", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400", value: 125000000, type: "ERC721", rarity: "Rare", isPioneerNFT: false },
+    { id: "2", name: "CryptoPunk #5678", collection: "CryptoPunks", image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400", value: 280000000, type: "ERC721", rarity: "Epic", isPioneerNFT: false },
+    { id: "3", name: "PUYOK Pioneer Badge", collection: "PUYOK Awards", image: "https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?w=400", value: 45000000, type: "ERC721", rarity: "Legendary", isPioneerNFT: true },
   ],
   ERC1155: [
-    { id: "1", name: "Gaming Pack #1", collection: "MetaGame", balance: 5, image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400", value: 15000000 },
-    { id: "2", name: "Music NFT #42", collection: "SoundWave", balance: 3, image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400", value: 8000000 },
+    { id: "1", name: "Gaming Pack #1", collection: "MetaGame", balance: 5, image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400", value: 15000000, type: "ERC1155" },
+    { id: "2", name: "Music NFT #42", collection: "SoundWave", balance: 3, image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400", value: 8000000, type: "ERC1155" },
   ]
+}
+
+// Sample Payment Accounts
+const samplePaymentAccounts = [
+  { id: "1", type: "bank", name: "Bank BCA", accountName: "Rafly Rizky", accountNumber: "1234567890", alias: "BCA Utama", logo: "🏦" },
+  { id: "2", type: "ewallet", name: "DANA", accountName: "0812-3456-7890", accountNumber: "0812-3456-7890", alias: "DANA Pribadi", logo: "💳" },
+  { id: "3", type: "ewallet", name: "OVO", accountName: "0856-7890-1234", accountNumber: "0856-7890-1234", alias: "OVO Business", logo: "💰" },
+  { id: "4", type: "bank", name: "Bank Mandiri", accountName: "Rafly Rizky", accountNumber: "9876543210", alias: "Mandiri Saving", logo: "🏛️" },
+]
+
+// Smart Price Recommendations
+const generatePriceRecommendation = (asset: any) => {
+  const marketData = {
+    averagePrice: asset.value,
+    floorPrice: asset.value * 0.8,
+    ceilingPrice: asset.value * 1.3,
+    salesVolume24h: Math.floor(Math.random() * 20) + 5,
+    avgSaleDays: Math.floor(Math.random() * 5) + 1,
+    successRate: Math.floor(Math.random() * 30) + 70
+  }
+
+  return {
+    ...marketData,
+    tips: [
+      `💡 NFT dengan gaya '${asset.collection}' di kisaran harga ini biasanya terjual dalam ${marketData.avgSaleDays * 24} jam`,
+      `💡 Pengguna yang menerima pembayaran via DANA memiliki tingkat penyelesaian 15% lebih tinggi`,
+      `💡 Kolektor cenderung membayar lebih untuk NFT yang dijual oleh kreator dengan rating sempurna`,
+      `💡 Harga antara ${formatPrice(marketData.floorPrice)} - ${formatPrice(marketData.averagePrice)} memiliki konversi tertinggi`
+    ]
+  }
 }
 
 // Categories with icons
