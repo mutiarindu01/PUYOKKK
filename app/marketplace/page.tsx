@@ -1529,7 +1529,8 @@ AI Market Analysis:
                       whileHover={{ scale: 1.01 }}
                     >
                       <Card className="bg-slate-800/50 border-slate-700 overflow-hidden group hover:border-slate-600 transition-all duration-300">
-                        <CardContent className="p-4">
+                        <Link href={`/marketplace/${nft.id}`} className="block">
+                          <CardContent className="p-4">
                           <div className="flex gap-4">
                             {/* Image */}
                             <div className="w-20 h-20 sm:w-24 sm:h-24 relative overflow-hidden rounded-lg flex-shrink-0">
@@ -1612,7 +1613,8 @@ AI Market Analysis:
                               </div>
                             </div>
                           </div>
-                        </CardContent>
+                          </CardContent>
+                        </Link>
                       </Card>
                     </motion.div>
                   ))}
