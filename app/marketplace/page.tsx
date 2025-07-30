@@ -2246,55 +2246,114 @@ AI Market Analysis:
                     </div>
                   </div>
 
+                  {/* Comprehensive Fee Transparency */}
                   <div className="bg-slate-800/50 rounded-lg p-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {/* Summary */}
-                      <div>
-                        <h4 className="font-medium text-white mb-4">Ringkasan Order</h4>
+                    <h4 className="font-medium text-white mb-4 flex items-center gap-2">
+                      <Calculator className="w-4 h-4" />
+                      💰 Transparansi Biaya Lengkap
+                    </h4>
+
+                    <div className="space-y-4">
+                      {/* Fee Breakdown */}
+                      <div className="p-4 bg-slate-700/30 rounded-lg">
                         <div className="space-y-3 text-sm">
-                          <div className="flex justify-between">
-                            <span className="text-slate-400">Jenis Aset:</span>
-                            <span className="text-white">{selectedAssetType}</span>
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-400">💵 Harga Jual Aset:</span>
+                            <span className="text-white font-medium">
+                              {exchangeRate ? formatPrice(parseInt(exchangeRate)) : "Rp 0"}
+                            </span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-400">Aset:</span>
-                            <span className="text-white">{selectedAsset.name}</span>
+
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-400">
+                              🔧 Biaya Layanan PUYOK ({feeModel === "gasless" ? "3%" : "1.5%"}):
+                            </span>
+                            <span className="text-red-300">
+                              -{exchangeRate ? formatPrice(parseInt(exchangeRate) * (feeModel === "gasless" ? 0.03 : 0.015)) : "Rp 0"}
+                            </span>
                           </div>
-                          {orderQuantity > 1 && (
-                            <div className="flex justify-between">
-                              <span className="text-slate-400">Jumlah:</span>
-                              <span className="text-white">{orderQuantity}</span>
+
+                          {feeModel === "gasless" && (
+                            <div className="flex justify-between items-center">
+                              <span className="text-slate-400">⛽ Biaya Gas (ditanggung PUYOK):</span>
+                              <span className="text-green-400">GRATIS</span>
                             </div>
                           )}
-                          <div className="flex justify-between">
-                            <span className="text-slate-400">Diinginkan:</span>
-                            <span className="text-white">{desiredAsset || "Belum diisi"}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-400">Nilai Tukar:</span>
-                            <span className="text-white">{exchangeRate ? formatPrice(parseInt(exchangeRate)) : "Belum diisi"}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-400">Metode:</span>
-                            <span className="text-white">{paymentMethod === "onchain" ? "On-Chain" : "Hybrid"}</span>
+
+                          {feeModel === "self_gas" && (
+                            <div className="flex justify-between items-center">
+                              <span className="text-slate-400">⛽ Biaya Gas (Anda tanggung):</span>
+                              <span className="text-yellow-400">~Rp 2,000 - 10,000</span>
+                            </div>
+                          )}
+
+                          {/* Special fee for Pioneer NFT */}
+                          {selectedAsset.isPioneerNFT && (
+                            <div className="p-2 bg-yellow-500/10 border border-yellow-500/20 rounded">
+                              <p className="text-yellow-400 text-xs">
+                                🏆 Pioneer NFT: Biaya layanan 0% untuk penjualan pertama!
+                              </p>
+                            </div>
+                          )}
+
+                          <div className="border-t border-slate-600 pt-3 flex justify-between items-center font-medium">
+                            <span className="text-white">💸 Anda Akan Menerima:</span>
+                            <span className="text-green-400 font-bold text-lg">
+                              {exchangeRate ? formatPrice(
+                                selectedAsset.isPioneerNFT
+                                  ? parseInt(exchangeRate)
+                                  : parseInt(exchangeRate) * (feeModel === "gasless" ? 0.97 : 0.985)
+                              ) : "Rp 0"}
+                            </span>
                           </div>
                         </div>
                       </div>
 
-                      {/* Asset Preview */}
-                      <div>
-                        <h4 className="font-medium text-white mb-4">Preview Aset</h4>
-                        <div className="border border-slate-700 rounded-lg p-4">
-                          <img
-                            src={selectedAsset.image}
-                            alt={selectedAsset.name}
-                            className="w-full h-32 object-cover rounded-lg mb-3"
-                          />
-                          <h5 className="font-medium text-white">{selectedAsset.name}</h5>
-                          <p className="text-sm text-slate-400">
-                            {selectedAsset.collection || selectedAsset.symbol}
-                          </p>
+                      {/* Selected Payment Account */}
+                      {selectedPaymentAccount && (
+                        <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                          <p className="text-blue-400 text-sm font-medium mb-1">Akun Penerima:</p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-lg">
+                              {samplePaymentAccounts.find(acc => acc.id === selectedPaymentAccount)?.logo}
+                            </span>
+                            <span className="text-white text-sm">
+                              {samplePaymentAccounts.find(acc => acc.id === selectedPaymentAccount)?.name} - {samplePaymentAccounts.find(acc => acc.id === selectedPaymentAccount)?.alias}
+                            </span>
+                            <span className="text-slate-400 text-xs">
+                              •••• {samplePaymentAccounts.find(acc => acc.id === selectedPaymentAccount)?.accountNumber.slice(-4)}
+                            </span>
+                          </div>
                         </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Order Summary */}
+                  <div className="bg-slate-800/50 rounded-lg p-4">
+                    <h4 className="font-medium text-white mb-3">📊 Ringkasan Order</h4>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-slate-400">Aset:</p>
+                        <p className="text-white font-medium">{selectedAsset.name}</p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">Model Biaya:</p>
+                        <p className="text-white font-medium">
+                          {feeModel === "gasless" ? "PUYOK Gasless" : "Self Gas"}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">Harga:</p>
+                        <p className="text-white font-medium">
+                          {exchangeRate ? formatPrice(parseInt(exchangeRate)) : "Belum diisi"}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">Fee Rate:</p>
+                        <p className="text-white font-medium">
+                          {selectedAsset.isPioneerNFT ? "0%" : (feeModel === "gasless" ? "3%" : "1.5%")}
+                        </p>
                       </div>
                     </div>
                   </div>
