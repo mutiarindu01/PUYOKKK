@@ -1851,7 +1851,12 @@ AI Market Analysis:
                     {walletAssets.map((asset) => (
                       <button
                         key={asset.id}
-                        onClick={() => setSelectedAsset(asset)}
+                        onClick={() => {
+                          setSelectedAsset(asset)
+                          // Generate price recommendation when asset is selected
+                          const recommendation = generatePriceRecommendation(asset)
+                          setPriceRecommendation(recommendation)
+                        }}
                         className={`p-4 rounded-lg border transition-all duration-300 ${
                           selectedAsset?.id === asset.id
                             ? "border-blue-500 bg-blue-500/10"
