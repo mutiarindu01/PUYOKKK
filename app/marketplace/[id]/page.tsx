@@ -975,21 +975,21 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
             </div>
 
             {/* Payment Details Box */}
-            <div className="mb-6 p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2 border-blue-500/30 rounded-xl">
+            <div className="mb-6 p-4 sm:p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2 border-blue-500/30 rounded-xl">
               <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
                 <Shield className="w-6 h-6 text-blue-400" />
                 Detail Pembayaran - PENTING!
               </h4>
 
               {/* Unique Amount */}
-              <div className="mb-6 p-4 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
-                <h5 className="text-yellow-400 font-bold mb-2">💰 Nominal Unik untuk Transfer</h5>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-2xl font-bold text-white font-mono">{formatCurrency(uniqueAmount)}</span>
+              <div className="mb-6 p-3 sm:p-4 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
+                <h5 className="text-yellow-400 font-bold mb-2 text-sm sm:text-base">💰 Nominal Unik untuk Transfer</h5>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                  <span className="text-xl sm:text-2xl font-bold text-white font-mono break-all">{formatCurrency(uniqueAmount)}</span>
                   <Button
                     size="sm"
                     onClick={() => copyToClipboard(uniqueAmount.toString(), 'amount')}
-                    className="bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400"
+                    className="bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400 w-full sm:w-auto"
                   >
                     {copiedField === 'amount' ? (
                       <>
@@ -1004,22 +1004,22 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
                     )}
                   </Button>
                 </div>
-                <p className="text-slate-300 text-sm">
+                <p className="text-slate-300 text-xs sm:text-sm">
                   ⚠️ Transfer sesuai nominal unik ini agar pembayaranmu bisa diverifikasi lebih cepat dan akurat.
                 </p>
               </div>
 
               {/* Transfer Code */}
-              <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
-                <h5 className="text-red-400 font-bold text-lg mb-2">📝 PENTING: Kode Berita Transfer</h5>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xl font-bold text-white font-mono bg-slate-900/50 px-3 py-2 rounded">
+              <div className="mb-6 p-3 sm:p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
+                <h5 className="text-red-400 font-bold text-base sm:text-lg mb-2">📝 PENTING: Kode Berita Transfer</h5>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                  <span className="text-lg sm:text-xl font-bold text-white font-mono bg-slate-900/50 px-3 py-2 rounded break-all">
                     {transferCode}
                   </span>
                   <Button
                     size="sm"
                     onClick={() => copyToClipboard(transferCode, 'code')}
-                    className="bg-red-500/20 hover:bg-red-500/30 text-red-400"
+                    className="bg-red-500/20 hover:bg-red-500/30 text-red-400 w-full sm:w-auto"
                   >
                     {copiedField === 'code' ? (
                       <>
@@ -1034,24 +1034,24 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
                     )}
                   </Button>
                 </div>
-                <p className="text-slate-300 text-sm font-medium">
+                <p className="text-slate-300 text-xs sm:text-sm font-medium">
                   <strong>WAJIB:</strong> Masukkan kode <strong>{transferCode}</strong> di kolom Berita/Catatan/Keterangan saat transfer.
                 </p>
               </div>
 
               {/* Account Details */}
-              <div className="mb-4 p-4 bg-slate-800/50 border border-slate-600 rounded-lg">
-                <h5 className="text-white font-medium mb-3">🏦 Detail Rekening Tujuan</h5>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
+              <div className="mb-4 p-3 sm:p-4 bg-slate-800/50 border border-slate-600 rounded-lg">
+                <h5 className="text-white font-medium mb-3 text-sm sm:text-base">🏦 Detail Rekening Tujuan</h5>
+                <div className="space-y-3 text-sm">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                     <span className="text-slate-400">Metode:</span>
                     <span className="text-white font-medium">{selectedPaymentMethod}</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                     <span className="text-slate-400">Nama Penerima:</span>
                     <span className="text-white">{order.seller.name || "PUYOK Escrow"}</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
                     <span className="text-slate-400">Nomor {selectedPaymentMethod}:</span>
                     <div className="flex items-center gap-2">
                       <span className="text-white font-mono">0812-3456-7890</span>
