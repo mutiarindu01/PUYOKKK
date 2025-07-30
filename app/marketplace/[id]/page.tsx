@@ -487,13 +487,13 @@ function TransactionDetails({ order }: { order: OrderDetail }) {
           </div>
         )}
 
-        {/* Order Timeline */}
+        {/* Order Info */}
         <div className="p-3 bg-slate-700/30 rounded-lg">
-          <h4 className="text-white font-medium mb-2">Timeline</h4>
+          <h4 className="text-white font-medium mb-2">Informasi Order</h4>
           <div className="text-sm text-slate-300 space-y-1">
             <p>📅 Dibuat: {formatDate(order.createdAt)}</p>
-            <p>⏰ Berakhir: {formatDate(order.expiresAt)}</p>
-            <p>🕒 Tersisa: {getTimeAgo(order.expiresAt)}</p>
+            <p>🟢 Status: Tersedia</p>
+            <p>⚡ Pembelian Instant</p>
           </div>
         </div>
       </CardContent>
