@@ -1,945 +1,854 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
-import ScrollReveal from "@/components/ScrollReveal"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from "@/components/ui/dialog"
-import { 
-  Star, 
-  Shield, 
-  Clock, 
-  CheckCircle, 
-  MessageCircle, 
-  TrendingUp, 
-  Wallet,
+import React, { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import {
+  ArrowLeft,
+  Star,
+  Shield,
+  Clock,
+  TrendingUp,
+  User,
+  MessageCircle,
+  Eye,
+  Heart,
+  Share2,
+  AlertTriangle,
+  CheckCircle,
+  Info,
   Copy,
   ExternalLink,
-  Tag,
-  Calendar,
-  Users,
-  Heart,
-  Eye,
-  AlertCircle,
   Zap,
+  Timer,
+  Verified,
   Award,
+  ThumbsUp,
+  Activity,
   DollarSign
 } from "lucide-react"
-import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { Progress } from "@/components/ui/progress"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
-import { toast } from "@/components/ui/use-toast"
+import { useParams } from "next/navigation"
 
-interface Asset {
+// Types
+interface OrderDetail {
   id: string
-  name: string
-  type: "NFT" | "Token"
-  image?: string
-  ticker?: string
-  price: string
-  originalPrice?: string
-  quantity?: string
-  description: string
-  seller: {
-    username: string
-    avatar: string
-    rating: number
-    totalTransactions: number
-    successRate: number
-    avgResponseTime: string
-    joinDate: string
-    isVerified: boolean
-    badges: string[]
-  }
-  details: {
-    contractAddress: string
-    tokenId?: string
-    blockchain: string
-    listingDate: string
-    paymentMethods: string[]
-    marketCap?: string
-    volume24h?: string
-  }
-  priceHistory: {
-    timeframe: string
-    change: number
-  }[]
-  analytics: {
-    views: number
-    favorites: number
-    watchers: number
-  }
-  reviews: {
+  asset: {
     id: string
-    buyer: string
+    name: string
+    collection: string
+    type: "ERC20" | "ERC721" | "ERC1155"
+    image: string
+    description?: string
+    traits?: { trait_type: string; value: string }[]
+  }
+  seller: {
+    id: string
+    address: string
+    name?: string
+    avatar?: string
+    isVerified: boolean
+    completedTrades: number
     rating: number
-    comment: string
-    date: string
-    verified: boolean
-  }[]
+    completionRate: number
+    avgResponseTime: number
+    lastActive: string
+    joinDate: string
+    reviews: Review[]
+  }
+  price: number
+  platformFee: number
+  total: number
+  paymentMethod: string
+  paymentAccountName?: string
+  paymentAccountNumber?: string
+  availableStock: number
+  totalStock: number
+  expiresAt: string
+  marketPrice: number
+  createdAt: string
+  status: "active" | "sold" | "expired"
 }
 
-// Extended sample data with trust-building elements
-const sampleAssets: Asset[] = [
-  {
-    id: "101",
+interface Review {
+  id: string
+  buyerAddress: string
+  buyerName?: string
+  buyerAvatar?: string
+  rating: number
+  comment: string
+  date: string
+  orderType: string
+  isVerified: boolean
+}
+
+// Sample data
+const sampleOrder: OrderDetail = {
+  id: "order-123",
+  asset: {
+    id: "asset-456",
     name: "Bored Ape #1234",
-    type: "NFT",
-    image: "/placeholder.svg?height=800&width=800",
-    price: "Rp 15.000.000",
-    originalPrice: "Rp 18.000.000",
-    description: "A unique digital artwork capturing the serene beauty of an enchanted forest. Part of the 'Nature's Embrace' collection. This piece features mystical elements and was created by renowned digital artist using advanced AI techniques.",
-    seller: {
-      username: "art_visionary",
-      avatar: "/placeholder.svg?height=60&width=60",
-      rating: 4.9,
-      totalTransactions: 247,
-      successRate: 98.5,
-      avgResponseTime: "8 menit",
-      joinDate: "Januari 2023",
-      isVerified: true,
-      badges: ["Top Seller", "Fast Responder", "Verified Artist"]
-    },
-    details: {
-      contractAddress: "0xabc123def456789...",
-      tokenId: "789012345",
-      blockchain: "Ethereum",
-      listingDate: "15 Juli 2024",
-      paymentMethods: ["DANA", "GoPay", "OVO", "Bank Transfer"],
-      marketCap: "Rp 2.4B",
-      volume24h: "Rp 45.2M"
-    },
-    priceHistory: [
-      { timeframe: "24h", change: -5.2 },
-      { timeframe: "7d", change: 12.8 },
-      { timeframe: "30d", change: 23.1 }
-    ],
-    analytics: {
-      views: 1247,
-      favorites: 89,
-      watchers: 34
-    },
+    collection: "Bored Ape Yacht Club",
+    type: "ERC721",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
+    description: "A rare Bored Ape from the original collection with unique traits including golden fur and laser eyes.",
+    traits: [
+      { trait_type: "Background", value: "Orange" },
+      { trait_type: "Fur", value: "Golden" },
+      { trait_type: "Eyes", value: "Laser Eyes" },
+      { trait_type: "Mouth", value: "Bored" }
+    ]
+  },
+  seller: {
+    id: "seller-789",
+    address: "0x1234...5678",
+    name: "CryptoArt_Master",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
+    isVerified: true,
+    completedTrades: 847,
+    rating: 4.8,
+    completionRate: 98,
+    avgResponseTime: 12,
+    lastActive: "2 minutes ago",
+    joinDate: "2021-03-15",
     reviews: [
       {
-        id: "1",
-        buyer: "crypto_collector88",
+        id: "review-1",
+        buyerAddress: "0xabc...def",
+        buyerName: "NFTCollector99",
         rating: 5,
-        comment: "Transaksi sangat lancar! Penjual responsif dan proses transfer cepat. NFT sesuai deskripsi. Highly recommended!",
-        date: "12 Juli 2024",
-        verified: true
+        comment: "Transaksi sangat lancar, penjual responsif dan aset diterima sesuai deskripsi. Highly recommended!",
+        date: "2024-01-15",
+        orderType: "NFT Purchase",
+        isVerified: true
       },
       {
-        id: "2", 
-        buyer: "nft_enthusiast",
+        id: "review-2",
+        buyerAddress: "0x123...789",
+        buyerName: "DigitalArtFan",
         rating: 5,
-        comment: "Kualitas artwork luar biasa. Penjual memberikan panduan lengkap cara transfer ke wallet. Terima kasih!",
-        date: "8 Juli 2024",
-        verified: true
+        comment: "Penjual terpercaya, komunikasi baik, pengiriman cepat. Akan transaksi lagi di masa depan.",
+        date: "2024-01-10",
+        orderType: "NFT Purchase",
+        isVerified: true
       },
       {
-        id: "3",
-        buyer: "digital_art_lover",
+        id: "review-3",
+        buyerAddress: "0x555...666",
+        buyerName: "CryptoWhale",
         rating: 4,
-        comment: "Proses pembelian mudah, seller sangat membantu. Artwork berkualitas tinggi sesuai ekspektasi.",
-        date: "5 Juli 2024", 
-        verified: true
+        comment: "Good seller, transaction went smoothly. NFT as described.",
+        date: "2024-01-05",
+        orderType: "NFT Purchase",
+        isVerified: true
       }
     ]
   },
-  {
-    id: "1",
-    name: "Tether",
-    type: "Token",
-    ticker: "USDT",
-    price: "Rp 15.500",
-    quantity: "1,000 USDT",
-    description: "1,000 units of Tether (USDT), a stablecoin pegged to the US Dollar. Ideal for secure and fast transactions. This is a verified stable token with minimal volatility risk.",
-    seller: {
-      username: "stable_trader",
-      avatar: "/placeholder.svg?height=60&width=60",
-      rating: 4.8,
-      totalTransactions: 523,
-      successRate: 99.2,
-      avgResponseTime: "5 menit",
-      joinDate: "Oktober 2022",
-      isVerified: true,
-      badges: ["Power Trader", "Stability Expert", "Fast Delivery"]
-    },
-    details: {
-      contractAddress: "0xdef789abc123456...",
-      blockchain: "Polygon",
-      listingDate: "14 Juli 2024",
-      paymentMethods: ["DANA", "GoPay", "OVO", "Bank Transfer"],
-      marketCap: "Rp 1.2T",
-      volume24h: "Rp 156B"
-    },
-    priceHistory: [
-      { timeframe: "24h", change: 0.1 },
-      { timeframe: "7d", change: -0.2 },
-      { timeframe: "30d", change: 0.3 }
-    ],
-    analytics: {
-      views: 892,
-      favorites: 156,
-      watchers: 67
-    },
-    reviews: [
-      {
-        id: "1",
-        buyer: "trader_pro",
-        rating: 5,
-        comment: "Transfer USDT sangat cepat dan aman. Seller memberikan konfirmasi real-time. Akan beli lagi!",
-        date: "11 Juli 2024",
-        verified: true
-      },
-      {
-        id: "2",
-        buyer: "crypto_newbie",
-        rating: 5, 
-        comment: "Sempurna untuk pemula! Seller sabar menjelaskan proses dan membantu setup wallet. Recommended!",
-        date: "9 Juli 2024",
-        verified: true
-      }
-    ]
-  },
-  {
-    id: "2",
-    name: "Ethereum",
-    type: "Token",
-    ticker: "ETH",
-    price: "Rp 45.000.000",
-    quantity: "0.5 ETH",
-    description: "0.5 units of Ethereum (ETH), the second-largest cryptocurrency by market cap. Perfect for DeFi and NFT transactions.",
-    seller: {
-      username: "eth_master",
-      avatar: "/placeholder.svg?height=60&width=60",
-      rating: 4.7,
-      totalTransactions: 156,
-      successRate: 97.8,
-      avgResponseTime: "12 menit",
-      joinDate: "Maret 2023",
-      isVerified: true,
-      badges: ["ETH Expert", "DeFi Pro", "Trusted Seller"]
-    },
-    details: {
-      contractAddress: "0x456def123abc789...",
-      blockchain: "Ethereum",
-      listingDate: "13 Juli 2024",
-      paymentMethods: ["DANA", "Bank Transfer"],
-      marketCap: "Rp 5.8T",
-      volume24h: "Rp 234B"
-    },
-    priceHistory: [
-      { timeframe: "24h", change: -1.5 },
-      { timeframe: "7d", change: 8.3 },
-      { timeframe: "30d", change: 15.7 }
-    ],
-    analytics: {
-      views: 856,
-      favorites: 123,
-      watchers: 45
-    },
-    reviews: [
-      {
-        id: "1",
-        buyer: "defi_trader",
-        rating: 5,
-        comment: "ETH transfer sangat cepat! Seller profesional dan membantu setup MetaMask. Highly recommended untuk pemula.",
-        date: "10 Juli 2024",
-        verified: true
-      }
-    ]
-  },
-  {
-    id: "3",
-    name: "Bitcoin",
-    type: "Token",
-    ticker: "BTC",
-    price: "Rp 850.000.000",
-    quantity: "0.1 BTC",
-    description: "0.1 units of Bitcoin (BTC), the original cryptocurrency and digital gold. Store of value untuk investasi jangka panjang.",
-    seller: {
-      username: "btc_hodler",
-      avatar: "/placeholder.svg?height=60&width=60",
-      rating: 4.6,
-      totalTransactions: 89,
-      successRate: 96.5,
-      avgResponseTime: "15 menit",
-      joinDate: "Juni 2023",
-      isVerified: false,
-      badges: ["Bitcoin Expert", "Long Term Holder"]
-    },
-    details: {
-      contractAddress: "0x789abc456def123...",
-      blockchain: "Bitcoin",
-      listingDate: "12 Juli 2024",
-      paymentMethods: ["GoPay", "OVO", "Bank Transfer"],
-      marketCap: "Rp 12.1T",
-      volume24h: "Rp 567B"
-    },
-    priceHistory: [
-      { timeframe: "24h", change: 2.1 },
-      { timeframe: "7d", change: -3.2 },
-      { timeframe: "30d", change: 18.9 }
-    ],
-    analytics: {
-      views: 2100,
-      favorites: 267,
-      watchers: 89
-    },
-    reviews: [
-      {
-        id: "1",
-        buyer: "bitcoin_newbie",
-        rating: 4,
-        comment: "Proses pembelian BTC pertama saya. Seller sabar menjelaskan cara setup wallet. Terima kasih!",
-        date: "9 Juli 2024",
-        verified: true
-      }
-    ]
-  },
-  {
-    id: "102",
-    name: "CryptoPunk #5678",
-    type: "NFT",
-    image: "/placeholder.svg?height=800&width=800",
-    price: "Rp 45.000.000",
-    description: "Iconic CryptoPunk NFT from the legendary collection. One of the first and most valuable NFT projects in crypto history.",
-    seller: {
-      username: "pixelartfan",
-      avatar: "/placeholder.svg?height=60&width=60",
-      rating: 4.9,
-      totalTransactions: 334,
-      successRate: 99.1,
-      avgResponseTime: "6 menit",
-      joinDate: "Desember 2022",
-      isVerified: true,
-      badges: ["NFT Curator", "Pixel Art Expert", "Premium Seller"]
-    },
-    details: {
-      contractAddress: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb...",
-      tokenId: "5678",
-      blockchain: "Ethereum",
-      listingDate: "11 Juli 2024",
-      paymentMethods: ["GoPay", "Bank Transfer"],
-      marketCap: "Rp 890M",
-      volume24h: "Rp 23.4M"
-    },
-    priceHistory: [
-      { timeframe: "24h", change: 3.2 },
-      { timeframe: "7d", change: -8.1 },
-      { timeframe: "30d", change: 45.7 }
-    ],
-    analytics: {
-      views: 3200,
-      favorites: 445,
-      watchers: 112
-    },
-    reviews: [
-      {
-        id: "1",
-        buyer: "nft_collector_id",
-        rating: 5,
-        comment: "CryptoPunk asli dengan authenticity terjamin! Seller sangat profesional dan proses transfer aman. Worth every rupiah!",
-        date: "8 Juli 2024",
-        verified: true
-      }
-    ]
-  },
-  {
-    id: "4",
-    name: "Binance Coin",
-    type: "Token",
-    ticker: "BNB",
-    price: "Rp 6.000.000",
-    quantity: "2 BNB",
-    description: "2 units of Binance Coin (BNB), the native token of Binance Smart Chain. Perfect for DeFi and low-cost transactions.",
-    seller: {
-      username: "bnb_trader",
-      avatar: "/placeholder.svg?height=60&width=60",
-      rating: 4.8,
-      totalTransactions: 634,
-      successRate: 99.6,
-      avgResponseTime: "4 menit",
-      joinDate: "November 2022",
-      isVerified: true,
-      badges: ["BSC Expert", "Fast Trader", "Reliable"]
-    },
-    details: {
-      contractAddress: "0x123bnb456def789...",
-      blockchain: "Binance Smart Chain",
-      listingDate: "10 Juli 2024",
-      paymentMethods: ["DANA", "GoPay"],
-      marketCap: "Rp 1.8T",
-      volume24h: "Rp 89B"
-    },
-    priceHistory: [
-      { timeframe: "24h", change: 0.8 },
-      { timeframe: "7d", change: 5.2 },
-      { timeframe: "30d", change: 12.4 }
-    ],
-    analytics: {
-      views: 634,
-      favorites: 89,
-      watchers: 23
-    },
-    reviews: [
-      {
-        id: "1",
-        buyer: "bnb_fan",
-        rating: 5,
-        comment: "BNB transfer ke Binance wallet super cepat! Gas fee murah dan seller responsif. Recommended!",
-        date: "7 Juli 2024",
-        verified: true
-      }
-    ]
-  },
-  {
-    id: "103",
-    name: "Azuki #9876",
-    type: "NFT",
-    image: "/placeholder.svg?height=800&width=800",
-    price: "Rp 8.500.000",
-    description: "Beautiful Azuki NFT from the popular anime-inspired collection. Clean art style and strong community backing.",
-    seller: {
-      username: "azuki_lover",
-      avatar: "/placeholder.svg?height=60&width=60",
-      rating: 4.5,
-      totalTransactions: 78,
-      successRate: 94.2,
-      avgResponseTime: "18 menit",
-      joinDate: "Mei 2023",
-      isVerified: false,
-      badges: ["Anime Fan", "NFT Collector"]
-    },
-    details: {
-      contractAddress: "0xed5af388653567af2f388e6224dc7c4b3241c544...",
-      tokenId: "9876",
-      blockchain: "Ethereum",
-      listingDate: "9 Juli 2024",
-      paymentMethods: ["DANA", "OVO"],
-      marketCap: "Rp 234M",
-      volume24h: "Rp 8.9M"
-    },
-    priceHistory: [
-      { timeframe: "24h", change: -2.1 },
-      { timeframe: "7d", change: 6.7 },
-      { timeframe: "30d", change: -8.3 }
-    ],
-    analytics: {
-      views: 967,
-      favorites: 67,
-      watchers: 19
-    },
-    reviews: [
-      {
-        id: "1",
-        buyer: "anime_collector",
-        rating: 4,
-        comment: "Azuki artwork sangat bagus! Seller membantu proses transfer dan memberikan tips untuk hold NFT. Good deal.",
-        date: "6 Juli 2024",
-        verified: true
-      }
-    ]
-  },
-  {
-    id: "104",
-    name: "Moonbird #2468",
-    type: "NFT",
-    image: "/placeholder.svg?height=800&width=800",
-    price: "Rp 18.000.000",
-    description: "Premium Moonbird NFT with unique traits and rarity. Part of the prestigious Moonbirds collection with utility benefits.",
-    seller: {
-      username: "moon_collector",
-      avatar: "/placeholder.svg?height=60&width=60",
-      rating: 4.9,
-      totalTransactions: 167,
-      successRate: 98.8,
-      avgResponseTime: "7 menit",
-      joinDate: "Februari 2023",
-      isVerified: true,
-      badges: ["Premium Collector", "Moonbird Expert", "Trusted"]
-    },
-    details: {
-      contractAddress: "0x23581767687eadbbeb96f84742a8e1e21c4bc00...",
-      tokenId: "2468",
-      blockchain: "Ethereum",
-      listingDate: "8 Juli 2024",
-      paymentMethods: ["DANA", "GoPay", "OVO", "Bank Transfer"],
-      marketCap: "Rp 456M",
-      volume24h: "Rp 15.7M"
-    },
-    priceHistory: [
-      { timeframe: "24h", change: 1.8 },
-      { timeframe: "7d", change: -4.2 },
-      { timeframe: "30d", change: 28.5 }
-    ],
-    analytics: {
-      views: 1400,
-      favorites: 198,
-      watchers: 56
-    },
-    reviews: [
-      {
-        id: "1",
-        buyer: "moon_investor",
-        rating: 5,
-        comment: "Moonbird dengan traits bagus! Seller sangat detail menjelaskan utility dan roadmap project. Excellent service!",
-        date: "5 Juli 2024",
-        verified: true
-      }
-    ]
+  price: 1500000,
+  platformFee: 15000,
+  total: 1515000,
+  paymentMethod: "DANA",
+  paymentAccountName: "John Doe",
+  paymentAccountNumber: "0812-3456-7890",
+  availableStock: 1,
+  totalStock: 1,
+  expiresAt: "2024-02-01T10:00:00Z",
+  marketPrice: 1450000,
+  createdAt: "2024-01-20T08:00:00Z",
+  status: "active"
+}
+
+// Helper functions
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+  }).format(amount)
+}
+
+const formatDate = (dateString: string) => {
+  return new Intl.DateTimeFormat('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(new Date(dateString))
+}
+
+const shortenAddress = (address: string) => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`
+}
+
+const getTimeAgo = (dateString: string) => {
+  const now = new Date()
+  const date = new Date(dateString)
+  const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60))
+  
+  if (diffInMinutes < 60) return `${diffInMinutes} menit yang lalu`
+  if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)} jam yang lalu`
+  return `${Math.floor(diffInMinutes / 1440)} hari yang lalu`
+}
+
+// Components
+function AssetVisualSection({ order }: { order: OrderDetail }) {
+  const [isFavorited, setIsFavorited] = useState(false)
+
+  return (
+    <div className="relative">
+      <div className="aspect-square lg:aspect-[4/3] relative overflow-hidden rounded-xl bg-slate-800">
+        <img
+          src={order.asset.image}
+          alt={order.asset.name}
+          className="w-full h-full object-cover"
+        />
+        
+        {/* Status Badge */}
+        <div className="absolute top-4 left-4">
+          <Badge className={`${
+            order.status === "active" ? "bg-green-500/90 text-white" :
+            order.status === "sold" ? "bg-red-500/90 text-white" :
+            "bg-yellow-500/90 text-black"
+          }`}>
+            {order.status === "active" ? "🟢 Tersedia" :
+             order.status === "sold" ? "🔴 Terjual" :
+             "⏰ Expired"}
+          </Badge>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="absolute top-4 right-4 flex gap-2">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setIsFavorited(!isFavorited)}
+            className="bg-black/50 backdrop-blur-sm border-none hover:bg-black/70"
+          >
+            <Heart className={`w-4 h-4 ${isFavorited ? 'fill-red-500 text-red-500' : 'text-white'}`} />
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            className="bg-black/50 backdrop-blur-sm border-none hover:bg-black/70"
+          >
+            <Share2 className="w-4 h-4 text-white" />
+          </Button>
+        </div>
+
+        {/* Price Comparison */}
+        <div className="absolute bottom-4 left-4 right-4">
+          <div className="bg-black/70 backdrop-blur-sm rounded-lg p-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-white font-bold text-xl">{formatCurrency(order.price)}</p>
+                <p className="text-slate-300 text-sm">
+                  Market: {formatCurrency(order.marketPrice)} 
+                  <span className={`ml-2 ${order.price < order.marketPrice ? 'text-green-400' : 'text-red-400'}`}>
+                    ({order.price < order.marketPrice ? '-' : '+'}{Math.abs(((order.price - order.marketPrice) / order.marketPrice) * 100).toFixed(1)}%)
+                  </span>
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-slate-300 text-sm">Stock</p>
+                <p className="text-white font-semibold">{order.availableStock}/{order.totalStock}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <h1 className="text-2xl lg:text-3xl font-bold text-white mb-2">{order.asset.name}</h1>
+        <p className="text-slate-400 mb-4">{order.asset.collection}</p>
+        {order.asset.description && (
+          <p className="text-slate-300 text-sm leading-relaxed">{order.asset.description}</p>
+        )}
+      </div>
+
+      {/* Traits */}
+      {order.asset.traits && order.asset.traits.length > 0 && (
+        <div className="mt-6">
+          <h3 className="text-white font-medium mb-3">Traits</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {order.asset.traits.map((trait, index) => (
+              <div key={index} className="bg-slate-800/50 border border-slate-700 rounded-lg p-3 text-center">
+                <p className="text-slate-400 text-xs uppercase tracking-wide">{trait.trait_type}</p>
+                <p className="text-white font-medium">{trait.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function TrustBadge({ icon, text, color = "slate" }: { icon: string; text: string; color?: string }) {
+  const colorClasses = {
+    slate: "bg-slate-800/50 text-slate-300",
+    green: "bg-green-500/10 text-green-400 border-green-500/20",
+    blue: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    yellow: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20"
   }
-]
+
+  return (
+    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border ${colorClasses[color as keyof typeof colorClasses] || colorClasses.slate}`}>
+      <span>{icon}</span>
+      <span className="text-sm font-medium">{text}</span>
+    </div>
+  )
+}
+
+function SellerTrustSection({ seller, onShowReviews }: { seller: OrderDetail['seller']; onShowReviews: () => void }) {
+  return (
+    <Card className="bg-slate-800/50 border-slate-700">
+      <CardHeader>
+        <CardTitle className="text-white flex items-center gap-2">
+          <User className="w-5 h-5" />
+          Informasi Penjual
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {/* Seller Header */}
+        <div className="flex items-start gap-4">
+          <div className="relative">
+            <Avatar className="w-16 h-16">
+              <AvatarImage src={seller.avatar} />
+              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold">
+                {seller.name?.[0] || seller.address.slice(2, 4).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            {seller.isVerified && (
+              <div className="absolute -bottom-1 -right-1 bg-blue-500 rounded-full p-1">
+                <CheckCircle className="w-3 h-3 text-white" />
+              </div>
+            )}
+          </div>
+          
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-1">
+              <h3 className="text-xl font-semibold text-white">
+                {seller.name || shortenAddress(seller.address)}
+              </h3>
+              {seller.isVerified && (
+                <Badge className="bg-blue-500/20 text-blue-400">
+                  <Verified className="w-3 h-3 mr-1" />
+                  Verified
+                </Badge>
+              )}
+            </div>
+            <p className="text-slate-400 text-sm mb-3">{shortenAddress(seller.address)}</p>
+            
+            {/* Trust Metrics */}
+            <div className="flex flex-wrap gap-2">
+              <TrustBadge icon="✅" text={`${seller.completedTrades} Transaksi`} color="green" />
+              <TrustBadge icon="⭐" text={`${seller.rating} Rating`} color="yellow" />
+              <TrustBadge icon="📈" text={`${seller.completionRate}% Sukses`} color="blue" />
+              <TrustBadge icon="⏱️" text={`${seller.avgResponseTime}m Respon`} color="slate" />
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Stats */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="text-center p-3 bg-slate-700/30 rounded-lg">
+            <div className="text-lg font-bold text-white">{seller.completedTrades}</div>
+            <div className="text-xs text-slate-400">Total Sales</div>
+          </div>
+          <div className="text-center p-3 bg-slate-700/30 rounded-lg">
+            <div className="text-lg font-bold text-green-400">{seller.completionRate}%</div>
+            <div className="text-xs text-slate-400">Success Rate</div>
+          </div>
+          <div className="text-center p-3 bg-slate-700/30 rounded-lg">
+            <div className="text-lg font-bold text-blue-400">{seller.rating}</div>
+            <div className="text-xs text-slate-400">Avg Rating</div>
+          </div>
+          <div className="text-center p-3 bg-slate-700/30 rounded-lg">
+            <div className="text-lg font-bold text-yellow-400">{seller.avgResponseTime}m</div>
+            <div className="text-xs text-slate-400">Response</div>
+          </div>
+        </div>
+
+        {/* Activity Status */}
+        <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-sm text-slate-300">Terakhir aktif {seller.lastActive}</span>
+          </div>
+          <div className="text-sm text-slate-400">
+            Bergabung {formatDate(seller.joinDate)}
+          </div>
+        </div>
+
+        {/* Reviews Button */}
+        <Button
+          variant="outline"
+          onClick={onShowReviews}
+          className="w-full border-slate-600 text-slate-300 hover:bg-slate-700"
+        >
+          <MessageCircle className="w-4 h-4 mr-2" />
+          Lihat Ulasan Pembeli ({seller.reviews.length})
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
+
+function TransactionDetails({ order }: { order: OrderDetail }) {
+  const priceComparison = ((order.price - order.marketPrice) / order.marketPrice) * 100
+
+  return (
+    <Card className="bg-slate-800/50 border-slate-700">
+      <CardHeader>
+        <CardTitle className="text-white flex items-center gap-2">
+          <DollarSign className="w-5 h-5" />
+          Detail Transaksi
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {/* Price Breakdown */}
+        <div className="space-y-3">
+          <div className="flex justify-between items-center">
+            <span className="text-slate-400">Harga Aset</span>
+            <span className="text-white font-semibold">{formatCurrency(order.price)}</span>
+          </div>
+          
+          <div className="flex justify-between items-center">
+            <span className="text-slate-400">Biaya Platform (1%)</span>
+            <span className="text-white">{formatCurrency(order.platformFee)}</span>
+          </div>
+          
+          <div className="border-t border-slate-700 pt-3">
+            <div className="flex justify-between items-center">
+              <span className="text-white font-medium">Total Pembayaran</span>
+              <span className="text-green-400 font-bold text-xl">{formatCurrency(order.total)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Market Comparison */}
+        <div className="p-3 bg-slate-700/30 rounded-lg">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-slate-400 text-sm">Perbandingan Harga Pasar</span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Info className="w-4 h-4 text-slate-400" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-sm">Berdasarkan rata-rata harga 7 hari terakhir</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-slate-300">Harga Pasar: {formatCurrency(order.marketPrice)}</span>
+            <span className={`font-medium ${priceComparison < 0 ? 'text-green-400' : 'text-red-400'}`}>
+              {priceComparison > 0 ? '+' : ''}{priceComparison.toFixed(1)}%
+            </span>
+          </div>
+          {priceComparison < 0 && (
+            <p className="text-green-400 text-sm mt-1">🎉 Harga di bawah pasar!</p>
+          )}
+        </div>
+
+        {/* Payment Method */}
+        {order.paymentMethod !== "on-chain" && (
+          <div className="p-3 bg-slate-700/30 rounded-lg">
+            <h4 className="text-white font-medium mb-2">Metode Pembayaran</h4>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs font-bold">💳</span>
+              </div>
+              <div>
+                <p className="text-white font-medium">{order.paymentMethod}</p>
+                <p className="text-slate-400 text-sm">
+                  Transfer ke {order.paymentAccountName} ({order.paymentAccountNumber?.replace(/(.{4})/g, '$1-')})
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Order Timeline */}
+        <div className="p-3 bg-slate-700/30 rounded-lg">
+          <h4 className="text-white font-medium mb-2">Timeline</h4>
+          <div className="text-sm text-slate-300 space-y-1">
+            <p>📅 Dibuat: {formatDate(order.createdAt)}</p>
+            <p>⏰ Berakhir: {formatDate(order.expiresAt)}</p>
+            <p>🕒 Tersisa: {getTimeAgo(order.expiresAt)}</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function CountdownTimer({ expiresAt }: { expiresAt: string }) {
+  const [timeLeft, setTimeLeft] = useState("")
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date().getTime()
+      const expiry = new Date(expiresAt).getTime()
+      const difference = expiry - now
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+        
+        setTimeLeft(`${days}d ${hours}h ${minutes}m`)
+      } else {
+        setTimeLeft("Expired")
+      }
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [expiresAt])
+
+  return (
+    <div className="flex items-center gap-2 text-sm text-yellow-400 mb-3">
+      <Timer className="w-4 h-4" />
+      <span>Berakhir dalam: {timeLeft}</span>
+    </div>
+  )
+}
+
+function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentUser?: { address: string } }) {
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+  const [isBuying, setIsBuying] = useState(false)
+  
+  const isSeller = currentUser?.address === order.seller.address
+  const isExpired = new Date(order.expiresAt) < new Date()
+  const isSold = order.status === "sold"
+
+  const handleBuy = async () => {
+    setIsBuying(true)
+    try {
+      // Simulate purchase process
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Here would be the actual purchase logic
+      console.log("Purchase initiated for order:", order.id)
+    } catch (error) {
+      console.error("Purchase failed:", error)
+    } finally {
+      setIsBuying(false)
+      setIsConfirmOpen(false)
+    }
+  }
+
+  return (
+    <Card className="bg-slate-800/50 border-slate-700">
+      <CardContent className="p-6">
+        {!isExpired && !isSold && (
+          <CountdownTimer expiresAt={order.expiresAt} />
+        )}
+        
+        {isSeller ? (
+          <div className="text-center py-4">
+            <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+              <User className="w-8 h-8 text-blue-400" />
+            </div>
+            <p className="text-slate-400">Ini adalah listing Anda</p>
+            <Button variant="outline" className="mt-3 border-slate-600" asChild>
+              <Link href={`/marketplace/${order.id}/edit`}>
+                Edit Listing
+              </Link>
+            </Button>
+          </div>
+        ) : (
+          <>
+            <div className="space-y-4">
+              <div className="text-center">
+                <p className="text-2xl font-bold text-green-400 mb-1">{formatCurrency(order.total)}</p>
+                <p className="text-slate-400 text-sm">Total yang harus dibayar</p>
+              </div>
+
+              {isExpired ? (
+                <Button disabled className="w-full h-12">
+                  <AlertTriangle className="w-4 h-4 mr-2" />
+                  Listing Telah Berakhir
+                </Button>
+              ) : isSold ? (
+                <Button disabled className="w-full h-12">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Sudah Terjual
+                </Button>
+              ) : (
+                <Dialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
+                  <DialogTrigger asChild>
+                    <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-semibold">
+                      <Zap className="w-4 h-4 mr-2" />
+                      Beli Sekarang
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                    <DialogHeader>
+                      <DialogTitle>Konfirmasi Pembelian</DialogTitle>
+                      <DialogDescription className="text-slate-300">
+                        Pastikan detail pembelian Anda sudah benar
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4 p-4 bg-slate-700/50 rounded-lg">
+                        <img
+                          src={order.asset.image}
+                          alt={order.asset.name}
+                          className="w-16 h-16 rounded-lg object-cover"
+                        />
+                        <div>
+                          <h3 className="font-semibold text-white">{order.asset.name}</h3>
+                          <p className="text-slate-400">{order.asset.collection}</p>
+                          <p className="text-green-400 font-bold">{formatCurrency(order.total)}</p>
+                        </div>
+                      </div>
+
+                      <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                        <div className="flex items-start gap-3">
+                          <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
+                          <div>
+                            <h4 className="text-blue-400 font-medium">Escrow Protection</h4>
+                            <p className="text-slate-300 text-sm">
+                              Dana Anda akan diamankan sampai aset diterima
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3">
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsConfirmOpen(false)}
+                          className="flex-1 border-slate-600"
+                          disabled={isBuying}
+                        >
+                          Batal
+                        </Button>
+                        <Button
+                          onClick={handleBuy}
+                          className="flex-1 bg-green-600 hover:bg-green-700"
+                          disabled={isBuying}
+                        >
+                          {isBuying ? (
+                            <>
+                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                              Memproses...
+                            </>
+                          ) : (
+                            "Konfirmasi Beli"
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              )}
+
+              <div className="flex gap-2">
+                <Button variant="outline" className="flex-1 border-slate-600 text-slate-300" size="sm">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Chat Penjual
+                </Button>
+                <Button variant="outline" className="flex-1 border-slate-600 text-slate-300" size="sm">
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  View on Chain
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
+function EscrowGuaranteeSection() {
+  return (
+    <Card className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border-green-500/20">
+      <CardContent className="p-6">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+            <Shield className="w-6 h-6 text-green-400" />
+          </div>
+          <div>
+            <h3 className="text-white font-bold text-lg mb-2">🛡️ Dilindungi Escrow PUYOK</h3>
+            <div className="text-slate-300 space-y-2">
+              <p>✅ Dana Anda diamankan sampai aset diterima</p>
+              <p>✅ Jaminan 100% uang kembali jika terjadi masalah</p>
+              <p>✅ Tim support 24/7 siap membantu</p>
+              <p>✅ Sistem reputasi terintegrasi untuk keamanan maksimal</p>
+            </div>
+            <Button variant="outline" size="sm" className="mt-3 border-green-500/50 text-green-400 hover:bg-green-500/10">
+              <Info className="w-4 h-4 mr-2" />
+              Pelajari Lebih Lanjut
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function RatingStars({ rating }: { rating: number }) {
+  return (
+    <div className="flex items-center gap-1">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star
+          key={star}
+          className={`w-4 h-4 ${
+            star <= rating
+              ? "fill-yellow-400 text-yellow-400"
+              : "text-slate-400"
+          }`}
+        />
+      ))}
+      <span className="text-sm text-slate-400 ml-1">({rating})</span>
+    </div>
+  )
+}
+
+function ReviewModal({ reviews, onClose }: { reviews: Review[]; onClose: () => void }) {
+  return (
+    <Dialog open={true} onOpenChange={onClose}>
+      <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-2xl max-h-[80vh] overflow-hidden">
+        <DialogHeader>
+          <DialogTitle>Ulasan Pembeli ({reviews.length})</DialogTitle>
+          <DialogDescription className="text-slate-300">
+            Feedback dari pembeli yang telah bertransaksi
+          </DialogDescription>
+        </DialogHeader>
+        
+        <div className="overflow-y-auto max-h-[60vh] space-y-4">
+          {reviews.length === 0 ? (
+            <div className="text-center py-8">
+              <MessageCircle className="w-16 h-16 mx-auto text-slate-600 mb-4" />
+              <p className="text-slate-400">Belum ada ulasan</p>
+            </div>
+          ) : (
+            reviews.map((review) => (
+              <div key={review.id} className="p-4 bg-slate-700/30 rounded-lg border border-slate-600">
+                <div className="flex items-start gap-3 mb-3">
+                  <Avatar className="w-10 h-10">
+                    <AvatarImage src={review.buyerAvatar} />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white text-sm">
+                      {review.buyerName?.[0] || review.buyerAddress.slice(2, 4).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-white">
+                          {review.buyerName || shortenAddress(review.buyerAddress)}
+                        </span>
+                        {review.isVerified && (
+                          <Badge className="bg-blue-500/20 text-blue-400 text-xs">
+                            <CheckCircle className="w-3 h-3 mr-1" />
+                            Verified
+                          </Badge>
+                        )}
+                      </div>
+                      <span className="text-slate-400 text-sm">{formatDate(review.date)}</span>
+                    </div>
+                    <RatingStars rating={review.rating} />
+                    <p className="text-slate-400 text-xs mt-1">{review.orderType}</p>
+                  </div>
+                </div>
+                <p className="text-slate-300 leading-relaxed">"{review.comment}"</p>
+              </div>
+            ))
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}
 
 export default function OrderDetailPage() {
   const params = useParams()
-  const router = useRouter()
-  const { id } = params as { id: string }
-  const [asset, setAsset] = useState<Asset | null>(null)
-  const [showReviewsModal, setShowReviewsModal] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [showReviews, setShowReviews] = useState(false)
+  const [order] = useState<OrderDetail>(sampleOrder)
   
-  // Simulate checking if current user is the seller
-  const [currentUser] = useState("current_user") // This would come from auth context
-  const isOwner = asset?.seller.username === currentUser
+  // Mock current user
+  const currentUser = { address: "0x9999...1111" }
 
-  useEffect(() => {
-    const foundAsset = sampleAssets.find((a) => a.id === id)
-    setAsset(foundAsset || null)
-  }, [id])
-
-  if (!asset) {
+  if (!order) {
     return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-10rem)]">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <AlertCircle className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-          <h2 className="text-2xl font-semibold mb-2">Aset Tidak Ditemukan</h2>
-          <p className="text-muted-foreground mb-6">Maaf, aset yang Anda cari tidak tersedia.</p>
-          <Button onClick={() => router.push("/")}>Kembali ke Beranda</Button>
+          <h1 className="text-2xl font-bold text-white mb-2">Order Tidak Ditemukan</h1>
+          <p className="text-slate-400 mb-6">Order dengan ID tersebut tidak tersedia</p>
+          <Button asChild>
+            <Link href="/marketplace">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Kembali ke Marketplace
+            </Link>
+          </Button>
         </div>
       </div>
     )
   }
 
-  const handleCopy = (text: string, message: string) => {
-    navigator.clipboard.writeText(text)
-    toast({
-      title: "Berhasil Disalin!",
-      description: message,
-    })
-  }
-
-  const handleBuyNow = () => {
-    if (isOwner) return
-    
-    setIsLoading(true)
-    
-    // Simulate loading
-    setTimeout(() => {
-      setIsLoading(false)
-      router.push(`/payment-instructions?assetId=${asset.id}`)
-      toast({
-        title: "Mengarahkan ke Pembayaran...", 
-        description: "Anda akan segera diarahkan ke halaman instruksi pembayaran.",
-      })
-    }, 1000)
-  }
-
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star 
-        key={i} 
-        className={`w-4 h-4 ${i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
-      />
-    ))
-  }
-
-  const formatNumber = (num: number) => {
-    return new Intl.NumberFormat('id-ID').format(num)
-  }
-
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto py-8 px-4 md:px-6">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-          <Link href="/" className="hover:text-primary">Beranda</Link>
-          <span>/</span>
-          <Link href="/marketplace" className="hover:text-primary">Marketplace</Link>
-          <span>/</span>
-          <span className="text-foreground">{asset.name}</span>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Left Column: Large Asset Image - 3 columns */}
-          <div className="lg:col-span-3">
-            <Card className="overflow-hidden border-2 border-border shadow-xl">
-              {asset.type === "NFT" && asset.image && (
-                <div className="relative group">
-                  <Image
-                    src={asset.image}
-                    alt={asset.name}
-                    width={800}
-                    height={800}
-                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                    priority
-                  />
-                  <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm rounded-lg px-3 py-2">
-                    <div className="flex items-center gap-4 text-white text-sm">
-                      <div className="flex items-center gap-1">
-                        <Eye className="w-4 h-4" />
-                        {formatNumber(asset.analytics.views)}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Heart className="w-4 h-4" />
-                        {asset.analytics.favorites}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {asset.type === "Token" && (
-                <div className="flex items-center justify-center h-96 bg-gradient-to-br from-primary/20 to-primary/5">
-                  <div className="text-center">
-                    <span className="text-8xl font-bold text-primary">{asset.ticker}</span>
-                    <p className="text-xl text-muted-foreground mt-2">{asset.name}</p>
-                  </div>
-                </div>
-              )}
-            </Card>
-
-            {/* Asset Description */}
-            <Card className="mt-6">
-              <CardContent className="p-6">
-                <h1 className="text-3xl font-bold mb-4">{asset.name}</h1>
-                <div className="flex items-center gap-2 mb-4">
-                  <Badge variant="secondary" className="text-sm">{asset.type}</Badge>
-                  {asset.ticker && <Badge variant="outline" className="text-sm">{asset.ticker}</Badge>}
-                  {asset.seller.isVerified && (
-                    <Badge className="bg-green-100 text-green-800 border-green-200">
-                      <Shield className="w-3 h-3 mr-1" />
-                      Terverifikasi
-                    </Badge>
-                  )}
-                </div>
-                <p className="text-muted-foreground leading-relaxed text-lg">{asset.description}</p>
-                
-                {/* Asset Analytics */}
-                <div className="grid grid-cols-3 gap-4 mt-6 p-4 bg-muted/50 rounded-lg">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">{formatNumber(asset.analytics.views)}</div>
-                    <div className="text-sm text-muted-foreground">Views</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">{asset.analytics.favorites}</div>
-                    <div className="text-sm text-muted-foreground">Favorites</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">{asset.analytics.watchers}</div>
-                    <div className="text-sm text-muted-foreground">Watchers</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Right Column: Price & Seller Info - 2 columns */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Price Section */}
-            <Card className="border-2 border-primary/20 shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex items-baseline gap-3 mb-2">
-                  <div className="text-4xl font-bold text-primary">{asset.price}</div>
-                  {asset.originalPrice && (
-                    <div className="text-lg text-muted-foreground line-through">{asset.originalPrice}</div>
-                  )}
-                </div>
-                {asset.quantity && (
-                  <div className="text-lg text-muted-foreground mb-4">Jumlah: {asset.quantity}</div>
-                )}
-                
-                {/* Price History */}
-                <div className="grid grid-cols-3 gap-2 mb-6">
-                  {asset.priceHistory.map((period) => (
-                    <div key={period.timeframe} className="text-center p-2 bg-muted/50 rounded">
-                      <div className="text-xs text-muted-foreground">{period.timeframe}</div>
-                      <div className={`text-sm font-semibold ${period.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {period.change >= 0 ? '+' : ''}{period.change}%
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Main Buy Button */}
-                <Button 
-                  onClick={handleBuyNow}
-                  disabled={isOwner || isLoading}
-                  className={`w-full h-14 text-lg font-semibold transition-all duration-300 ${
-                    isOwner 
-                      ? 'bg-muted text-muted-foreground cursor-not-allowed' 
-                      : 'bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-105'
-                  }`}
-                >
-                  {isOwner ? (
-                    <>
-                      <AlertCircle className="w-5 h-5 mr-2" />
-                      Ini adalah order Anda
-                    </>
-                  ) : isLoading ? (
-                    <>
-                      <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Memproses...
-                    </>
-                  ) : (
-                    <>
-                      <Zap className="w-5 h-5 mr-2" />
-                      Beli Sekarang
-                    </>
-                  )}
-                </Button>
-
-                {!isOwner && (
-                  <p className="text-center text-sm text-muted-foreground mt-3">
-                    🔒 Transaksi 100% aman dengan garansi uang kembali
-                  </p>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Seller Reputation - The Trust Builder */}
-            <Card className="border-2 border-green-200 bg-green-50/50 dark:bg-green-950/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-800 dark:text-green-400">
-                  <Shield className="w-5 h-5" />
-                  Informasi Penjual Terpercaya
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-start gap-4 mb-6">
-                  <Avatar className="w-16 h-16 border-2 border-green-200">
-                    <AvatarImage src={asset.seller.avatar} alt={asset.seller.username} />
-                    <AvatarFallback className="bg-green-100 text-green-800 text-lg font-semibold">
-                      {asset.seller.username[0].toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Link 
-                        href={`/profile/${asset.seller.username}`} 
-                        className="text-xl font-bold hover:text-primary transition-colors"
-                      >
-                        {asset.seller.username}
-                      </Link>
-                      {asset.seller.isVerified && (
-                        <CheckCircle className="w-5 h-5 text-green-600" />
-                      )}
-                    </div>
-                    <div className="flex items-center gap-1 mb-2">
-                      {renderStars(asset.seller.rating)}
-                      <span className="ml-2 font-semibold">{asset.seller.rating}</span>
-                      <span className="text-muted-foreground">
-                        ({formatNumber(asset.seller.totalTransactions)} transaksi)
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      {asset.seller.badges.map((badge) => (
-                        <Badge key={badge} variant="secondary" className="text-xs bg-green-100 text-green-800">
-                          <Award className="w-3 h-3 mr-1" />
-                          {badge}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Trust Statistics */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
-                    <div className="text-2xl font-bold text-green-600 mb-1">
-                      ✅ {formatNumber(asset.seller.totalTransactions)}
-                    </div>
-                    <div className="text-sm text-muted-foreground">Transaksi Berhasil</div>
-                  </div>
-                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border">
-                    <div className="text-2xl font-bold text-green-600 mb-1">
-                      {asset.seller.successRate}%
-                    </div>
-                    <div className="text-sm text-muted-foreground">Tingkat Penyelesaian</div>
-                  </div>
-                </div>
-
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center">
-                      <Clock className="w-4 h-4 mr-2" />
-                      Waktu Respon Rata-rata:
-                    </span>
-                    <span className="font-semibold text-green-600">{asset.seller.avgResponseTime}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      Bergabung Sejak:
-                    </span>
-                    <span className="font-semibold">{asset.seller.joinDate}</span>
-                  </div>
-                </div>
-
-                {/* Reviews Link */}
-                <Dialog open={showReviewsModal} onOpenChange={setShowReviewsModal}>
-                  <DialogTrigger asChild>
-                    <Button variant="outline" className="w-full">
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      Lihat Ulasan Pembeli ({asset.reviews.length})
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                    <DialogHeader>
-                      <DialogTitle>Ulasan dari Pembeli Sebelumnya</DialogTitle>
-                      <DialogDescription>
-                        Testimoni nyata dari {asset.reviews.length} pembeli yang telah bertransaksi dengan {asset.seller.username}
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="space-y-4 mt-4">
-                      {asset.reviews.map((review) => (
-                        <div key={review.id} className="border rounded-lg p-4 bg-muted/30">
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-2">
-                              <span className="font-semibold">{review.buyer}</span>
-                              {review.verified && (
-                                <Badge variant="secondary" className="text-xs">
-                                  <CheckCircle className="w-3 h-3 mr-1" />
-                                  Terverifikasi
-                                </Badge>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              {renderStars(review.rating)}
-                            </div>
-                          </div>
-                          <p className="text-muted-foreground mb-2 leading-relaxed">{review.comment}</p>
-                          <div className="text-sm text-muted-foreground">{review.date}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </CardContent>
-            </Card>
-
-            {/* Asset Details */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Detail Teknis</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center">
-                      <Wallet className="w-4 h-4 mr-2" />
-                      Blockchain:
-                    </span>
-                    <Badge variant="outline">{asset.details.blockchain}</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      Tanggal Listing:
-                    </span>
-                    <span className="font-medium">{asset.details.listingDate}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center">
-                      <Tag className="w-4 h-4 mr-2" />
-                      Contract Address:
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-auto p-1 text-primary hover:bg-primary/10"
-                      onClick={() => handleCopy(asset.details.contractAddress, "Contract address berhasil disalin!")}
-                    >
-                      <span className="text-sm font-mono">
-                        {asset.details.contractAddress.substring(0, 6)}...{asset.details.contractAddress.slice(-4)}
-                      </span>
-                      <Copy className="w-3 h-3 ml-1" />
-                    </Button>
-                  </div>
-                  {asset.details.tokenId && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground flex items-center">
-                        <Tag className="w-4 h-4 mr-2" />
-                        Token ID:
-                      </span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-auto p-1 text-primary hover:bg-primary/10"
-                        onClick={() => handleCopy(asset.details.tokenId!, "Token ID berhasil disalin!")}
-                      >
-                        <span className="text-sm font-mono">{asset.details.tokenId}</span>
-                        <Copy className="w-3 h-3 ml-1" />
-                      </Button>
-                    </div>
-                  )}
-                  <div className="pt-2">
-                    <span className="text-muted-foreground flex items-center mb-2">
-                      <DollarSign className="w-4 h-4 mr-2" />
-                      Metode Pembayaran:
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {asset.details.paymentMethods.map((method) => (
-                        <Badge key={method} variant="secondary" className="bg-green-100 text-green-800">
-                          ✓ {method}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Security Features */}
-            <Card className="border-blue-200 bg-blue-50/50 dark:bg-blue-950/20">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-blue-800 dark:text-blue-400 mb-4 flex items-center">
-                  <Shield className="w-5 h-5 mr-2" />
-                  Jaminan Keamanan PUYOK
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span>Sistem escrow otomatis melindungi dana Anda</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span>Verifikasi identitas penjual telah dilakukan</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span>Garansi uang kembali 100% jika ada masalah</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span>Customer support 24/7 siap membantu</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Header */}
+      <div className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/marketplace" className="text-slate-400 hover:text-white">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Marketplace
+              </Link>
+            </Button>
+            <div className="text-slate-400">/</div>
+            <div className="text-white">{order.asset.name}</div>
           </div>
         </div>
       </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Asset Visual */}
+          <div className="lg:col-span-2">
+            <AssetVisualSection order={order} />
+          </div>
+
+          {/* Right Column - Order Details */}
+          <div className="space-y-6">
+            <BuyActionSection order={order} currentUser={currentUser} />
+            <SellerTrustSection seller={order.seller} onShowReviews={() => setShowReviews(true)} />
+            <TransactionDetails order={order} />
+            <EscrowGuaranteeSection />
+          </div>
+        </div>
+      </div>
+
+      {/* Review Modal */}
+      {showReviews && (
+        <ReviewModal
+          reviews={order.seller.reviews}
+          onClose={() => setShowReviews(false)}
+        />
+      )}
     </div>
   )
 }
