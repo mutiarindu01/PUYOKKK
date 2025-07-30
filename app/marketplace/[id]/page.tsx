@@ -1246,16 +1246,16 @@ function LiveMarketPulse() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="fixed bottom-6 left-6 z-40"
+        className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 max-w-[calc(100vw-2rem)] sm:max-w-sm"
       >
-        <div className="bg-slate-800/90 backdrop-blur-xl border border-slate-700 rounded-lg p-4 max-w-sm">
+        <div className="bg-slate-800/90 backdrop-blur-xl border border-slate-700 rounded-lg p-3 sm:p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
-              <Activity className="w-5 h-5 text-green-400" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
             </div>
-            <div>
-              <p className="text-white font-medium text-sm">Baru saja terjual!</p>
-              <p className="text-slate-400 text-xs">
+            <div className="min-w-0 flex-1">
+              <p className="text-white font-medium text-xs sm:text-sm">Baru saja terjual!</p>
+              <p className="text-slate-400 text-xs truncate">
                 @{liveActivities[currentActivity].username} {liveActivities[currentActivity].action} {liveActivities[currentActivity].assetName}
               </p>
               <p className="text-green-400 text-xs font-medium">
