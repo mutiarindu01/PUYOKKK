@@ -501,36 +501,7 @@ function TransactionDetails({ order }: { order: OrderDetail }) {
   )
 }
 
-function CountdownTimer({ expiresAt }: { expiresAt: string }) {
-  const [timeLeft, setTimeLeft] = useState("")
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date().getTime()
-      const expiry = new Date(expiresAt).getTime()
-      const difference = expiry - now
-
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
-        
-        setTimeLeft(`${days}d ${hours}h ${minutes}m`)
-      } else {
-        setTimeLeft("Expired")
-      }
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [expiresAt])
-
-  return (
-    <div className="flex items-center gap-2 text-sm text-yellow-400 mb-3">
-      <Timer className="w-4 h-4" />
-      <span>Berakhir dalam: {timeLeft}</span>
-    </div>
-  )
-}
 
 function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentUser?: { address: string } }) {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
