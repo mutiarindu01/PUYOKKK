@@ -956,8 +956,8 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
           </>
         )}
 
-        {/* Step 3: Payment Instructions */}
-        {paymentStep === 3 && selectedPaymentMethod && (
+        {/* Step 3: Payment Instructions - Moved to Modal */}
+        {false && paymentStep === 3 && selectedPaymentMethod && (
           <>
             {/* Timer Countdown */}
             <div className="mb-6 p-4 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-xl text-center">
