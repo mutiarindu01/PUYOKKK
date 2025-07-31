@@ -1109,7 +1109,7 @@ export default function LandingPage() {
                         </div>
                         <div>
                           <div className="flex items-center gap-1">
-                            <span className="text-white text-sm font-medium">@eth_trader</span>
+                            <Link href="/profile/eth_trader" className="text-white text-sm font-medium hover:text-blue-400 transition-colors">@eth_trader</Link>
                             <Shield className="w-3 h-3 text-slate-400" />
                           </div>
                           <div className="flex items-center gap-2">
