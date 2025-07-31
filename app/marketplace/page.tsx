@@ -95,7 +95,6 @@ import {
   HelpCircle,
   MessageSquare,
   Paperclip,
-  Send,
   MoreVertical,
   Flag,
 } from "lucide-react"
@@ -1729,7 +1728,7 @@ export default function MarketplacePage() {
 AI Market Analysis:
 • Current trend: Gaming NFTs showing 23% growth
 • Optimal price range: 45M-125M IDR
-��� Best selling time: Weekends 7-9 PM
+���� Best selling time: Weekends 7-9 PM
 • Similar collections performing 15% above average
 • Recommendation: Consider listing during peak hours
     `.trim()
@@ -3694,7 +3693,7 @@ AI Market Analysis:
                       <div className="text-sm">
                         <p className="text-blue-400 font-medium mb-1">Informasi Penting</p>
                         <ul className="text-slate-300 space-y-1">
-                          <li>��� Order akan masuk ke marketplace public</li>
+                          <li>• Order akan masuk ke marketplace public</li>
                           <li>• {paymentMethod === "onchain" ? "Aset akan di-lock di smart contract escrow" : "Order akan pending hingga pembayaran selesai"}</li>
                           <li>• Anda akan menerima notifikasi real-time untuk setiap update</li>
                           <li>• PUYOK Escrow Protection melindungi kedua belah pihak</li>
