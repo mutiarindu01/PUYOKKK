@@ -83,7 +83,8 @@ import {
 } from "lucide-react"
 
 // Enhanced creator data with more professional information
-const creatorData = {
+const creatorsData: Record<string, any> = {
+  rafly_art: {
   username: "rafly_art",
   displayName: "Rafly Ananda",
   title: "Senior Digital Artist & NFT Creator",
@@ -343,6 +344,386 @@ const creatorData = {
       issuer: "Indonesia Blockchain Association",
     },
   ]
+  },
+
+  crypto_master: {
+    username: "crypto_master",
+    displayName: "Crypto Master",
+    title: "Professional Crypto Trader",
+    bio: "Expert cryptocurrency trader with 5+ years experience. Specialized in algorithmic trading and DeFi strategies. Helping investors maximize returns while minimizing risks.",
+    avatar: "/placeholder.svg?height=200&width=200",
+    coverImage: "/placeholder.svg?height=500&width=1400&text=Crypto+Trading+Cover",
+    joinDate: "Januari 2022",
+    location: "Singapore",
+    verified: true,
+    isPremium: true,
+    isOnline: true,
+    lastSeen: "5 menit yang lalu",
+    totalTransactions: 456,
+    successfulTransactions: 449,
+    averageRating: 4.8,
+    totalRatings: 89,
+    completionRate: 98.5,
+    responseTime: "< 30 menit",
+    totalEarnings: "Rp 890.250.000",
+    totalFollowers: 1289,
+    totalFollowing: 234,
+    totalViews: 23450,
+    portfolioValue: "Rp 1.200.000.000",
+    monthlyEarnings: [
+      { month: "Jan", amount: 120000000 },
+      { month: "Feb", amount: 135000000 },
+      { month: "Mar", amount: 145000000 },
+      { month: "Apr", amount: 158000000 },
+      { month: "May", amount: 162000000 },
+      { month: "Jun", amount: 170000000 },
+    ],
+    skills: [
+      { name: "Crypto Trading", level: 98 },
+      { name: "Risk Management", level: 95 },
+      { name: "Technical Analysis", level: 92 },
+      { name: "DeFi Strategy", level: 88 },
+      { name: "Portfolio Management", level: 90 },
+    ],
+    socialLinks: {
+      twitter: "https://twitter.com/crypto_master",
+      telegram: "https://t.me/cryptomaster",
+      website: "https://cryptomaster.pro",
+    },
+    services: [
+      {
+        id: "service-1",
+        title: "Crypto Trading Signal",
+        description: "Daily trading signals with 85%+ accuracy rate",
+        price: "Mulai dari Rp 500.000/bulan",
+        duration: "30 hari",
+        rating: 4.9,
+        orders: 156,
+      },
+    ],
+    assetsForSale: [],
+    recentActivity: [
+      {
+        id: "activity-1",
+        type: "trade",
+        title: "Successful Bitcoin trade",
+        description: "Completed BTC trade with 12% profit",
+        timestamp: "1 jam yang lalu",
+        icon: "💰",
+      },
+    ],
+    testimonials: [
+      {
+        id: "testimonial-1",
+        author: "trader_123",
+        avatar: "/placeholder.svg?height=50&width=50",
+        rating: 5,
+        text: "Amazing signals! Helped me increase my portfolio by 45% this month.",
+        date: "10 Des 2024",
+        verified: true,
+      },
+    ],
+    awards: [
+      {
+        id: "award-001",
+        title: "Top Trader 2024",
+        description: "Recognized as one of the top crypto traders on PUYOK platform",
+        image: "/placeholder.svg?height=100&width=100&text=Top+Trader",
+        earnedDate: "15 Des 2024",
+        rarity: "Epic",
+        type: "Achievement",
+        issuer: "PUYOK Platform",
+      },
+    ]
+  },
+
+  eth_trader: {
+    username: "eth_trader",
+    displayName: "Ethereum Trader",
+    title: "DeFi & Ethereum Specialist",
+    bio: "Specialized in Ethereum ecosystem trading and DeFi protocols. 3+ years experience with consistently profitable strategies.",
+    avatar: "/placeholder.svg?height=200&width=200",
+    coverImage: "/placeholder.svg?height=500&width=1400&text=Ethereum+Trading",
+    joinDate: "Maret 2023",
+    location: "Jakarta, Indonesia",
+    verified: true,
+    isPremium: false,
+    isOnline: false,
+    lastSeen: "2 jam yang lalu",
+    totalTransactions: 234,
+    successfulTransactions: 227,
+    averageRating: 4.7,
+    totalRatings: 67,
+    completionRate: 97.2,
+    responseTime: "< 1 jam",
+    totalEarnings: "Rp 456.780.000",
+    totalFollowers: 789,
+    totalFollowing: 145,
+    totalViews: 12340,
+    portfolioValue: "Rp 650.000.000",
+    monthlyEarnings: [
+      { month: "Jan", amount: 60000000 },
+      { month: "Feb", amount: 72000000 },
+      { month: "Mar", amount: 68000000 },
+      { month: "Apr", amount: 81000000 },
+      { month: "May", amount: 89000000 },
+      { month: "Jun", amount: 86780000 },
+    ],
+    skills: [
+      { name: "Ethereum Trading", level: 95 },
+      { name: "DeFi Protocols", level: 92 },
+      { name: "Smart Contracts", level: 85 },
+      { name: "Yield Farming", level: 88 },
+    ],
+    socialLinks: {
+      twitter: "https://twitter.com/eth_trader",
+      discord: "https://discord.gg/ethtrader",
+    },
+    services: [
+      {
+        id: "service-1",
+        title: "DeFi Strategy Consultation",
+        description: "Personal DeFi investment strategy consultation",
+        price: "Rp 1.500.000/sesi",
+        duration: "2 jam",
+        rating: 4.8,
+        orders: 45,
+      },
+    ],
+    assetsForSale: [],
+    recentActivity: [
+      {
+        id: "activity-1",
+        type: "defi",
+        title: "Successful yield farming",
+        description: "Harvested rewards from Uniswap LP",
+        timestamp: "3 jam yang lalu",
+        icon: "🌾",
+      },
+    ],
+    testimonials: [
+      {
+        id: "testimonial-1",
+        author: "defi_lover",
+        avatar: "/placeholder.svg?height=50&width=50",
+        rating: 5,
+        text: "Great DeFi strategies! Very knowledgeable about Ethereum ecosystem.",
+        date: "5 Des 2024",
+        verified: true,
+      },
+    ],
+    awards: [
+      {
+        id: "award-001",
+        title: "DeFi Expert",
+        description: "Recognized expertise in DeFi protocols and strategies",
+        image: "/placeholder.svg?height=100&width=100&text=DeFi+Expert",
+        earnedDate: "20 Nov 2024",
+        rarity: "Rare",
+        type: "Recognition",
+        issuer: "DeFi Community",
+      },
+    ]
+  },
+
+  stable_pro: {
+    username: "stable_pro",
+    displayName: "Stable Pro",
+    title: "Stablecoin & Low-Risk Trading Expert",
+    bio: "Conservative trading specialist focused on stablecoins and low-risk strategies. Consistent profits with minimal volatility exposure.",
+    avatar: "/placeholder.svg?height=200&width=200",
+    coverImage: "/placeholder.svg?height=500&width=1400&text=Stable+Trading",
+    joinDate: "Juni 2023",
+    location: "Surabaya, Indonesia",
+    verified: true,
+    isPremium: true,
+    isOnline: true,
+    lastSeen: "30 menit yang lalu",
+    totalTransactions: 567,
+    successfulTransactions: 562,
+    averageRating: 4.9,
+    totalRatings: 134,
+    completionRate: 99.1,
+    responseTime: "< 15 menit",
+    totalEarnings: "Rp 234.560.000",
+    totalFollowers: 456,
+    totalFollowing: 89,
+    totalViews: 8940,
+    portfolioValue: "Rp 800.000.000",
+    monthlyEarnings: [
+      { month: "Jan", amount: 35000000 },
+      { month: "Feb", amount: 38000000 },
+      { month: "Mar", amount: 41000000 },
+      { month: "Apr", amount: 39000000 },
+      { month: "May", amount: 42000000 },
+      { month: "Jun", amount: 39560000 },
+    ],
+    skills: [
+      { name: "Stablecoin Trading", level: 99 },
+      { name: "Risk Management", level: 98 },
+      { name: "Arbitrage", level: 94 },
+      { name: "Portfolio Stability", level: 96 },
+    ],
+    socialLinks: {
+      twitter: "https://twitter.com/stable_pro",
+      linkedin: "https://linkedin.com/in/stablepro",
+    },
+    services: [
+      {
+        id: "service-1",
+        title: "Stable Investment Strategy",
+        description: "Low-risk, stable return investment strategies",
+        price: "Rp 750.000/konsultasi",
+        duration: "1.5 jam",
+        rating: 4.9,
+        orders: 234,
+      },
+    ],
+    assetsForSale: [],
+    recentActivity: [
+      {
+        id: "activity-1",
+        type: "arbitrage",
+        title: "USDC arbitrage completed",
+        description: "Successful arbitrage trade with 0.5% profit",
+        timestamp: "45 menit yang lalu",
+        icon: "💱",
+      },
+    ],
+    testimonials: [
+      {
+        id: "testimonial-1",
+        author: "conservative_investor",
+        avatar: "/placeholder.svg?height=50&width=50",
+        rating: 5,
+        text: "Perfect for risk-averse investors. Consistent small profits add up!",
+        date: "1 Des 2024",
+        verified: true,
+      },
+    ],
+    awards: [
+      {
+        id: "award-001",
+        title: "Consistency Champion",
+        description: "Most consistent trader with highest success rate",
+        image: "/placeholder.svg?height=100&width=100&text=Consistency",
+        earnedDate: "30 Nov 2024",
+        rarity: "Legendary",
+        type: "Achievement",
+        issuer: "PUYOK Platform",
+      },
+    ]
+  },
+
+  // Add creator data for NFT creators
+  MythArt_ID: {
+    username: "MythArt_ID",
+    displayName: "Myth Art Indonesia",
+    title: "Mythological Digital Artist",
+    bio: "Creating stunning digital art inspired by Indonesian mythology and folklore. Bringing ancient stories to the modern digital world.",
+    avatar: "/placeholder.svg?height=200&width=200",
+    coverImage: "/placeholder.svg?height=500&width=1400&text=Mythology+Art",
+    joinDate: "Agustus 2023",
+    location: "Yogyakarta, Indonesia",
+    verified: true,
+    isPremium: true,
+    isOnline: true,
+    lastSeen: "1 jam yang lalu",
+    totalTransactions: 89,
+    successfulTransactions: 87,
+    averageRating: 4.8,
+    totalRatings: 45,
+    completionRate: 97.8,
+    responseTime: "< 2 jam",
+    totalEarnings: "Rp 156.750.000",
+    totalFollowers: 1245,
+    totalFollowing: 234,
+    totalViews: 15630,
+    portfolioValue: "Rp 450.000.000",
+    monthlyEarnings: [
+      { month: "Jan", amount: 20000000 },
+      { month: "Feb", amount: 25000000 },
+      { month: "Mar", amount: 28000000 },
+      { month: "Apr", amount: 32000000 },
+      { month: "May", amount: 29000000 },
+      { month: "Jun", amount: 22750000 },
+    ],
+    skills: [
+      { name: "Digital Art", level: 95 },
+      { name: "Indonesian Mythology", level: 98 },
+      { name: "Character Design", level: 92 },
+      { name: "NFT Creation", level: 89 },
+    ],
+    socialLinks: {
+      instagram: "https://instagram.com/mythart_id",
+      behance: "https://behance.net/mythart_id",
+      website: "https://mythart.id",
+    },
+    services: [
+      {
+        id: "service-1",
+        title: "Custom Mythology NFT",
+        description: "Custom digital art based on Indonesian mythology",
+        price: "Mulai dari Rp 3.500.000",
+        duration: "14 hari",
+        rating: 4.9,
+        orders: 23,
+      },
+    ],
+    assetsForSale: [
+      {
+        id: "nft-myth-001",
+        title: "Garuda Nusantara Collection",
+        price: "Rp 8.500.000",
+        image: "/placeholder.svg?height=400&width=400&text=Garuda+Art",
+        category: "Art",
+        views: 2340,
+        likes: 156,
+        timeLeft: "7 hari",
+        rarity: "Epic",
+        isHot: true,
+        priceHistory: [],
+      },
+    ],
+    recentActivity: [
+      {
+        id: "activity-1",
+        type: "sale",
+        title: "Barong NFT terjual",
+        description: "Barong Mythology NFT terjual seharga Rp 5.200.000",
+        timestamp: "2 hari yang lalu",
+        icon: "🎨",
+      },
+    ],
+    testimonials: [
+      {
+        id: "testimonial-1",
+        author: "culture_lover",
+        avatar: "/placeholder.svg?height=50&width=50",
+        rating: 5,
+        text: "Beautiful artwork that perfectly captures Indonesian mythology!",
+        date: "28 Nov 2024",
+        verified: true,
+      },
+    ],
+    awards: [
+      {
+        id: "award-001",
+        title: "Cultural Heritage Artist",
+        description: "Recognition for preserving Indonesian culture through digital art",
+        image: "/placeholder.svg?height=100&width=100&text=Cultural+Award",
+        earnedDate: "25 Nov 2024",
+        rarity: "Legendary",
+        type: "Recognition",
+        issuer: "Ministry of Culture Indonesia",
+      },
+    ]
+  }
+}
+
+// Get creator data by username, fallback to rafly_art if not found
+function getCreatorData(username: string) {
+  return creatorsData[username] || creatorsData.rafly_art
 }
 
 interface CreatorProfilePageProps {
@@ -353,6 +734,7 @@ interface CreatorProfilePageProps {
 
 export default function CreatorProfilePage({ params }: CreatorProfilePageProps) {
   const resolvedParams = use(params)
+  const creatorData = getCreatorData(resolvedParams.username)
   const [activeTab, setActiveTab] = useState("portfolio")
   const [isFollowing, setIsFollowing] = useState(false)
   const [isBookmarked, setIsBookmarked] = useState(false)
