@@ -1218,7 +1218,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                           </Badge>
                         )}
                         {creatorData.isPremium && (
-                          <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-0">
+                          <Badge className="bg-gradient-to-r from-amber-200 to-yellow-300 text-amber-800 border-0">
                             <Crown className="w-4 h-4 mr-1" />
                             Premium
                           </Badge>
