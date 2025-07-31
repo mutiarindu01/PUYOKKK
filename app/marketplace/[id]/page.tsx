@@ -804,10 +804,10 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
         })
       }, 1000)
 
-      // Enable upload button after 2 minutes
+      // Enable upload button after 1 minute
       const uploadTimer = setTimeout(() => {
         setCanUploadProof(true)
-      }, 120000) // 2 minutes
+      }, 60000) // 1 minute
 
       return () => {
         clearInterval(timer)
