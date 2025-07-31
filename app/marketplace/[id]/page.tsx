@@ -1198,7 +1198,18 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
               </div>
             </div>
           </div>
-          {paymentStep === 2 && (
+
+          {/* Loading Overlay */}
+          {isTransitioning && (
+            <div className="flex items-center justify-center py-20">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin"></div>
+                <span className="text-gray-600">Memproses...</span>
+              </div>
+            </div>
+          )}
+
+          {paymentStep === 2 && !isTransitioning && (
             <div className="space-y-6">
               <div className="text-center">
                 <p className="text-gray-600">Pilih cara pembayaran yang paling mudah untuk Anda</p>
