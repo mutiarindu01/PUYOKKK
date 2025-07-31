@@ -70,6 +70,40 @@ import {
   Fuel,
   Building2,
   Smartphone,
+  QrCode,
+  Headphones,
+  AlertCircle,
+  Gift,
+  Zap,
+  Crown,
+  TrendingUp,
+  BarChart3,
+  Calendar,
+  Bell,
+  Settings,
+  ChevronRight,
+  MapPin,
+  Verified,
+  Award,
+  FileText,
+  Phone,
+  Mail,
+  Camera,
+  Upload,
+  Fingerprint,
+  Key,
+  Wifi,
+  WifiOff,
+  Circle,
+  CheckCircle2,
+  XCircle,
+  HelpCircle,
+  MessageSquare,
+  Video,
+  Paperclip,
+  Send,
+  MoreVertical,
+  Flag,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -114,6 +148,9 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
+import {
+  Progress,
+} from "@/components/ui/progress"
 
 // NFT Data Type
 interface NFT {
@@ -460,6 +497,218 @@ interface TokenInfo {
   telegram?: string
 }
 
+// Enhanced User Profile with KYC and Security Features
+interface UserProfile {
+  id: string
+  username: string
+  email: string
+  phone: string
+  avatar: string
+  kycLevel: "none" | "basic" | "advanced" | "premium"
+  kycStatus: "pending" | "verified" | "rejected"
+  membershipTier: "basic" | "silver" | "gold" | "platinum"
+  reputation: number
+  totalTrades: number
+  successRate: number
+  responseTime: string
+  joinedAt: string
+  lastActive: string
+  escrowRating: number
+  disputeCount: number
+  warningCount: number
+  is2FAEnabled: boolean
+  isPhoneVerified: boolean
+  isEmailVerified: boolean
+  transactionLimits: {
+    daily: number
+    monthly: number
+    used: {
+      daily: number
+      monthly: number
+    }
+  }
+  loyaltyPoints: number
+  referralCode: string
+  referredBy?: string
+  languages: string[]
+  preferredPayments: string[]
+  location: {
+    country: string
+    city: string
+  }
+}
+
+// Smart Contract Escrow Data
+interface EscrowContract {
+  id: string
+  contractAddress: string
+  status: "created" | "funded" | "released" | "disputed" | "cancelled"
+  buyer: string
+  seller: string
+  asset: {
+    type: "ERC20" | "ERC721" | "ERC1155"
+    contractAddress: string
+    tokenId?: string
+    amount: number
+  }
+  paymentAmount: number
+  currency: string
+  escrowFee: number
+  insuranceFee: number
+  createdAt: string
+  expiresAt: string
+  milestones: {
+    id: string
+    name: string
+    completed: boolean
+    timestamp?: string
+  }[]
+  disputeId?: string
+}
+
+// Chat Message Interface
+interface ChatMessage {
+  id: string
+  senderId: string
+  receiverId: string
+  orderId: string
+  message: string
+  timestamp: string
+  type: "text" | "image" | "file" | "payment_proof" | "system"
+  fileUrl?: string
+  fileName?: string
+  isRead: boolean
+  reactions?: { emoji: string; userId: string }[]
+}
+
+// Dispute System
+interface Dispute {
+  id: string
+  orderId: string
+  escrowId: string
+  complainant: string
+  respondent: string
+  reason: string
+  status: "open" | "investigating" | "mediation" | "resolved" | "escalated"
+  priority: "low" | "medium" | "high" | "urgent"
+  evidence: {
+    id: string
+    type: "text" | "image" | "document"
+    content: string
+    uploadedBy: string
+    timestamp: string
+  }[]
+  mediatorId?: string
+  resolution?: string
+  createdAt: string
+  resolvedAt?: string
+  compensationAmount?: number
+}
+
+// Sample Enhanced User Data
+const sampleUser: UserProfile = {
+  id: "user-123",
+  username: "bude_putuk",
+  email: "bude.putuk@puyok.com",
+  phone: "+62812-3456-7890",
+  avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64",
+  kycLevel: "premium",
+  kycStatus: "verified",
+  membershipTier: "platinum",
+  reputation: 4.9,
+  totalTrades: 1247,
+  successRate: 99.2,
+  responseTime: "< 2 menit",
+  joinedAt: "2023-01-15",
+  lastActive: "2024-01-20T15:30:00Z",
+  escrowRating: 5.0,
+  disputeCount: 0,
+  warningCount: 0,
+  is2FAEnabled: true,
+  isPhoneVerified: true,
+  isEmailVerified: true,
+  transactionLimits: {
+    daily: 1000000000, // 1B IDR for platinum
+    monthly: 25000000000, // 25B IDR
+    used: {
+      daily: 245000000,
+      monthly: 3200000000
+    }
+  },
+  loyaltyPoints: 15420,
+  referralCode: "BUDEPT2024",
+  referredBy: "pioneer_user",
+  languages: ["Bahasa Indonesia", "English"],
+  preferredPayments: ["DANA", "BCA", "OVO"],
+  location: {
+    country: "Indonesia",
+    city: "Jakarta"
+  }
+}
+
+// Sample Escrow Contracts
+const sampleEscrowContracts: EscrowContract[] = [
+  {
+    id: "escrow-001",
+    contractAddress: "0xabc123...def456",
+    status: "funded",
+    buyer: "crypto_whale_id",
+    seller: "nft_creator_pro",
+    asset: {
+      type: "ERC721",
+      contractAddress: "0x123...456",
+      tokenId: "1234",
+      amount: 1
+    },
+    paymentAmount: 125000000,
+    currency: "IDR",
+    escrowFee: 1250000, // 1%
+    insuranceFee: 625000, // 0.5%
+    createdAt: "2024-01-20T10:00:00Z",
+    expiresAt: "2024-01-22T10:00:00Z",
+    milestones: [
+      { id: "1", name: "Payment Confirmed", completed: true, timestamp: "2024-01-20T10:15:00Z" },
+      { id: "2", name: "Asset Transferred to Escrow", completed: true, timestamp: "2024-01-20T10:30:00Z" },
+      { id: "3", name: "Buyer Confirmation", completed: false },
+      { id: "4", name: "Asset Release", completed: false }
+    ]
+  }
+]
+
+// Sample Chat Messages
+const sampleChatMessages: ChatMessage[] = [
+  {
+    id: "msg-1",
+    senderId: "crypto_whale_id",
+    receiverId: "nft_creator_pro",
+    orderId: "order-1",
+    message: "Halo! Saya tertarik dengan NFT Anda. Apakah masih available?",
+    timestamp: "2024-01-20T10:00:00Z",
+    type: "text",
+    isRead: true
+  },
+  {
+    id: "msg-2",
+    senderId: "nft_creator_pro",
+    receiverId: "crypto_whale_id",
+    message: "Halo! Ya masih available. Harga fixed atau bisa nego?",
+    timestamp: "2024-01-20T10:02:00Z",
+    type: "text",
+    isRead: true
+  },
+  {
+    id: "msg-3",
+    senderId: "crypto_whale_id",
+    receiverId: "nft_creator_pro",
+    message: "Saya sudah transfer pembayaran. Ini bukti transfernya.",
+    timestamp: "2024-01-20T10:15:00Z",
+    type: "payment_proof",
+    fileUrl: "/api/placeholder/400/300",
+    fileName: "transfer_proof.jpg",
+    isRead: true
+  }
+]
+
 // Sample tokens with more data
 const sampleTokens: TokenInfo[] = [
   {
@@ -769,6 +1018,18 @@ function TokenOrderBookSection() {
   const [selectedTokenOrder, setSelectedTokenOrder] = useState<TokenOrder | null>(null)
   const [showOrderDetails, setShowOrderDetails] = useState(false)
   const [showCreateTokenOrder, setShowCreateTokenOrder] = useState(false)
+  const [showKYCModal, setShowKYCModal] = useState(false)
+  const [showChatModal, setShowChatModal] = useState(false)
+  const [show2FAModal, setShow2FAModal] = useState(false)
+  const [showDisputeModal, setShowDisputeModal] = useState(false)
+  const [showTutorialModal, setShowTutorialModal] = useState(false)
+  const [currentChatOrder, setCurrentChatOrder] = useState<TokenOrder | null>(null)
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>(sampleChatMessages)
+  const [newMessage, setNewMessage] = useState("")
+  const [currentUser] = useState(sampleUser)
+  const [selectedEscrow, setSelectedEscrow] = useState<EscrowContract | null>(null)
+  const [showPriceAlerts, setShowPriceAlerts] = useState(false)
+  const [tutorialStep, setTutorialStep] = useState(1)
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {
