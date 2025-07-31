@@ -1199,15 +1199,21 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
           <div className="flex items-center justify-center mb-6">
             <div className="flex items-center space-x-2">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                paymentStep >= 2 ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-500'
+                paymentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-400'
               }`}>
                 1
               </div>
-              <div className={`w-12 h-0.5 ${paymentStep >= 3 ? 'bg-gray-900' : 'bg-gray-200'}`}></div>
+              <div className={`w-12 h-0.5 ${paymentStep >= 3 ? 'bg-blue-600' : 'bg-slate-700'}`}></div>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                paymentStep >= 3 ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-500'
+                paymentStep >= 3 ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-400'
               }`}>
                 2
+              </div>
+              <div className={`w-12 h-0.5 ${paymentStep >= 4 ? 'bg-blue-600' : 'bg-slate-700'}`}></div>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                paymentStep >= 4 ? 'bg-green-600 text-white' : 'bg-slate-700 text-slate-400'
+              }`}>
+                3
               </div>
             </div>
           </div>
@@ -1216,8 +1222,8 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
           {isTransitioning && (
             <div className="flex items-center justify-center py-20">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin"></div>
-                <span className="text-gray-600">Memproses...</span>
+                <div className="w-8 h-8 border-2 border-slate-600 border-t-blue-500 rounded-full animate-spin"></div>
+                <span className="text-slate-300">Memproses...</span>
               </div>
             </div>
           )}
@@ -1225,7 +1231,7 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
           {paymentStep === 2 && !isTransitioning && (
             <div className="space-y-6">
               <div className="text-center">
-                <p className="text-gray-600">Pilih cara pembayaran yang paling mudah untuk Anda</p>
+                <p className="text-slate-400">Pilih cara pembayaran yang paling mudah untuk Anda</p>
               </div>
 
               <div className="space-y-3">
@@ -1233,18 +1239,18 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
                   <button
                     key={index}
                     onClick={() => handlePaymentMethodSelect(method)}
-                    className="w-full p-4 border border-gray-200 hover:border-gray-400 hover:shadow-sm rounded-lg transition-all bg-gray-50 hover:bg-gray-100 text-left"
+                    className="w-full p-4 border border-slate-700 hover:border-blue-500 hover:shadow-sm rounded-lg transition-all bg-slate-800 hover:bg-slate-700 text-left"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                        {method === "DANA" && <span className="text-gray-700 text-lg">💳</span>}
-                        {method === "OVO" && <span className="text-gray-700 text-lg">💳</span>}
-                        {method === "GoPay" && <span className="text-gray-700 text-lg">💳</span>}
-                        {method === "Bank Transfer" && <Building2 className="w-6 h-6 text-gray-700" />}
+                      <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center">
+                        {method === "DANA" && <span className="text-slate-300 text-lg">💳</span>}
+                        {method === "OVO" && <span className="text-slate-300 text-lg">💳</span>}
+                        {method === "GoPay" && <span className="text-slate-300 text-lg">💳</span>}
+                        {method === "Bank Transfer" && <Building2 className="w-6 h-6 text-slate-300" />}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900 text-lg">{method}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="font-medium text-white text-lg">{method}</p>
+                        <p className="text-sm text-slate-400">
                           {method === "Bank Transfer" ? "Transfer bank konvensional" : "E-wallet digital"}
                         </p>
                       </div>
