@@ -79,7 +79,7 @@ export default function Footer() {
     { label: "Cara Kerja Escrow", href: "/escrow", icon: <ShieldCheck className="w-4 h-4" /> },
     { label: "Transaksi Gasless", href: "/gasless", icon: <Zap className="w-4 h-4" /> },
     { label: "Keamanan", href: "/security", icon: <Shield className="w-4 h-4" /> },
-    { label: "API Developer", href: "/api", icon: <Code className="w-4 h-4" />, badge: "Beta" }
+    { label: "API Developer", href: "/api", icon: <Code className="w-4 h-4" /> }
   ]
 
   const legalLinks = [
