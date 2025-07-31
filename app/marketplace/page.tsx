@@ -2777,11 +2777,16 @@ AI Market Analysis:
                 >
                   <div className="text-center mb-6">
                     <h3 className="text-xl font-semibold text-white mb-2">
-                      💰 Tentukan Harga & Detail
+                      💰 Pricing & Payment Setup
                     </h3>
                     <p className="text-slate-400">
-                      Dapatkan rekomendasi harga cerdas berdasarkan data pasar
+                      Set your price and choose Indonesian payment methods for P2P trading
                     </p>
+                    <div className="flex justify-center gap-2 mt-2">
+                      <Badge className="bg-green-500/20 text-green-400">E-Wallet Ready</Badge>
+                      <Badge className="bg-blue-500/20 text-blue-400">Bank Transfer</Badge>
+                      <Badge className="bg-purple-500/20 text-purple-400">Instant Settlement</Badge>
+                    </div>
                   </div>
 
                   {/* Smart Price Recommendations */}
@@ -2796,8 +2801,9 @@ AI Market Analysis:
                           <div className="text-xs text-slate-400 mb-1">Floor Price</div>
                           <div className="text-white font-semibold">{formatPrice(priceRecommendation.floorPrice)}</div>
                         </div>
-                        <div className="text-center p-3 bg-green-500/10 border border-green-500/20 rounded">
-                          <div className="text-xs text-green-400 mb-1">💸 Harga Pasar</div>
+                        <div className="text-center p-3 bg-green-500/10 border border-green-500/20 rounded cursor-pointer hover:bg-green-500/20 transition-colors"
+                           onClick={() => setExchangeRate(priceRecommendation.averagePrice.toString())}>
+                          <div className="text-xs text-green-400 mb-1">💸 Harga Pasar (Klik)</div>
                           <div className="text-white font-bold">{formatPrice(priceRecommendation.averagePrice)}</div>
                         </div>
                         <div className="text-center p-3 bg-slate-800/30 rounded">
