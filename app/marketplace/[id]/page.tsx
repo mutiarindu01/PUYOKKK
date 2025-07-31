@@ -1403,6 +1403,60 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
               </div>
             </div>
           )}
+
+          {/* Step 4: Success State */}
+          {paymentStep === 4 && (
+            <div className="text-center py-8">
+              <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-green-400" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-white mb-3">Pembayaran Berhasil!</h3>
+
+              <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 mb-6 text-left">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={order.asset.image}
+                    alt={order.asset.name}
+                    className="w-12 h-12 rounded-lg object-cover"
+                  />
+                  <div>
+                    <p className="text-white font-medium">{order.asset.name}</p>
+                    <p className="text-slate-400 text-sm">{order.asset.collection}</p>
+                    <p className="text-green-400 font-bold">{formatCurrency(order.total)}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mb-6">
+                <p className="text-blue-300 text-sm mb-2">📄 Status Transaksi</p>
+                <p className="text-white">
+                  Pembayaran Anda sedang diverifikasi. NFT akan dikirim ke wallet Anda dalam 5-15 menit.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <Button
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12"
+                  onClick={() => {
+                    handleCloseModal()
+                    // Here you could redirect to transaction history
+                  }}
+                >
+                  <Eye className="w-5 h-5 mr-2" />
+                  Lihat Status Transaksi
+                </Button>
+
+                <Button
+                  variant="outline"
+                  onClick={handleCloseModal}
+                  className="w-full border-slate-600 text-slate-400 hover:bg-slate-800"
+                >
+                  Kembali ke Marketplace
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
