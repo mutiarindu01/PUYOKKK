@@ -830,12 +830,21 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
   }
 
   const handleStartPurchase = () => {
+    setShowPaymentModal(true)
     setPaymentStep(2)
   }
 
   const handlePaymentMethodSelect = (method: string) => {
     setSelectedPaymentMethod(method)
     setPaymentStep(3)
+  }
+
+  const handleCloseModal = () => {
+    setShowPaymentModal(false)
+    setPaymentStep(1)
+    setSelectedPaymentMethod(undefined)
+    setPaymentProof(null)
+    setCopiedField('')
   }
 
   const handleUploadProof = () => {
@@ -872,7 +881,7 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
               <p className="text-3xl font-bold text-green-400 mb-2">{formatCurrency(order.total)}</p>
               <p className="text-slate-400">Total yang harus dibayar</p>
               <Badge className="bg-green-500/20 text-green-400 mt-2">
-                🟢 Tersedia - Beli Instant
+                ��� Tersedia - Beli Instant
               </Badge>
             </div>
 
