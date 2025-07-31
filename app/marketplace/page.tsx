@@ -1026,13 +1026,6 @@ function TokenOrderBookSection() {
 
       {/* Action Buttons */}
       <div className="flex gap-4">
-        <Button
-          onClick={() => setShowCreateTokenOrder(true)}
-          className="bg-blue-600 hover:bg-blue-700"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Buat Order
-        </Button>
         <Button variant="outline" className="border-slate-600 text-slate-300">
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh
@@ -1478,15 +1471,18 @@ AI Market Analysis:
                 </p>
               </div>
 
-              {/* Create Swap Button */}
+              {/* Universal Create Swap Button */}
               <div className="flex justify-center md:justify-end">
                 <Button
                   onClick={() => setShowCreateOrder(true)}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
                   size="lg"
                 >
-                  <Plus className="w-5 h-5 mr-2" />
-                  Buat Swap
+                  <Plus className="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform duration-300" />
+                  <span className="flex flex-col items-center">
+                    <span className="font-bold">Buat Swap Universal</span>
+                    <span className="text-xs opacity-90">NFT • Token • Digital Asset</span>
+                  </span>
                 </Button>
               </div>
             </div>
