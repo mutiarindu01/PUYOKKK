@@ -1402,13 +1402,13 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                 {Object.entries(creatorData.socialLinks).map(([platform, url]) => {
                   const getIcon = (platform: string) => {
                     switch (platform) {
-                      case "twitter": return <Twitter className="w-5 h-5 text-blue-400" />
-                      case "instagram": return <Instagram className="w-5 h-5 text-pink-500" />
-                      case "website": return <Globe className="w-5 h-5 text-gray-600" />
-                      case "discord": return <MessageSquare className="w-5 h-5 text-indigo-500" />
-                      case "youtube": return <Video className="w-5 h-5 text-red-500" />
-                      case "behance": return <Palette className="w-5 h-5 text-blue-600" />
-                      default: return <ExternalLink className="w-5 h-5" />
+                      case "twitter": return <Twitter className="w-5 h-5 text-slate-500" />
+                      case "instagram": return <Instagram className="w-5 h-5 text-slate-500" />
+                      case "website": return <Globe className="w-5 h-5 text-slate-500" />
+                      case "discord": return <MessageSquare className="w-5 h-5 text-slate-500" />
+                      case "youtube": return <Video className="w-5 h-5 text-slate-500" />
+                      case "behance": return <Palette className="w-5 h-5 text-slate-500" />
+                      default: return <ExternalLink className="w-5 h-5 text-slate-500" />
                     }
                   }
                   
