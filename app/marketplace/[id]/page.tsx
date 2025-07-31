@@ -778,6 +778,7 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
   const [copiedField, setCopiedField] = useState<string>('')
   const [uniqueAmount, setUniqueAmount] = useState(0)
   const [transferCode, setTransferCode] = useState('')
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
 
   const isSeller = currentUser?.address === order.seller.address
   const isSold = order.status === "sold"
