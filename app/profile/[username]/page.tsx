@@ -1135,19 +1135,19 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float glass-effect hover-glow">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-yellow-400" />
+                <Sparkles className="w-5 h-5 text-slate-200" />
                 <span className="text-sm font-medium">{creatorData.totalViews.toLocaleString()} Views</span>
               </div>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float glass-effect hover-glow" style={{ animationDelay: "1s" }}>
               <div className="flex items-center gap-2">
-                <Trophy className="w-5 h-5 text-yellow-400" />
+                <Trophy className="w-5 h-5 text-slate-200" />
                 <span className="text-sm font-medium">{creatorData.awards.length} Awards</span>
               </div>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float glass-effect hover-glow" style={{ animationDelay: "2s" }}>
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-green-400" />
+                <TrendingUp className="w-5 h-5 text-slate-200" />
                 <span className="text-sm font-medium">{creatorData.completionRate}% Success</span>
               </div>
             </div>
