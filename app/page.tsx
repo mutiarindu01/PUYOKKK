@@ -1476,7 +1476,9 @@ export default function LandingPage() {
                               <div className="w-6 h-6 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                 {nft.creator.slice(1, 3).toUpperCase()}
                               </div>
-                              <span className="text-sm text-gray-300">{nft.creator}</span>
+                              <Link href={`/profile/${nft.creator.slice(1)}`} className="text-sm text-gray-300 hover:text-purple-400 transition-colors">
+                                {nft.creator}
+                              </Link>
                               {nft.verified && (
                                 <Shield className="w-4 h-4 text-slate-400" />
                               )}
