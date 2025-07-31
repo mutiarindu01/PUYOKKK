@@ -1167,9 +1167,9 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
     </Card>
 
     <Dialog open={showPaymentModal} onOpenChange={handleCloseModal}>
-      <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-2xl max-h-[90vh] overflow-hidden">
+      <DialogContent className="bg-white border-gray-200 text-gray-900 max-w-2xl max-h-[90vh] overflow-hidden">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-gray-900 text-xl font-semibold">
             {paymentStep === 2 ? "Pilih Metode Pembayaran" : "Instruksi Pembayaran"}
           </DialogTitle>
         </DialogHeader>
@@ -1178,7 +1178,7 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
           {paymentStep === 2 && (
             <div className="space-y-6">
               <div className="text-center">
-                <p className="text-slate-400">Pilih cara pembayaran yang paling mudah untuk Anda</p>
+                <p className="text-gray-600">Pilih cara pembayaran yang paling mudah untuk Anda</p>
               </div>
 
               <div className="space-y-3">
@@ -1186,18 +1186,18 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
                   <button
                     key={index}
                     onClick={() => handlePaymentMethodSelect(method)}
-                    className="w-full p-4 border border-slate-700 hover:border-blue-500 rounded-lg transition-all bg-slate-700/30 hover:bg-blue-500/10 text-left"
+                    className="w-full p-4 border border-gray-200 hover:border-gray-400 hover:shadow-sm rounded-lg transition-all bg-gray-50 hover:bg-gray-100 text-left"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
-                        {method === "DANA" && <span className="text-blue-400 text-lg">💳</span>}
-                        {method === "OVO" && <span className="text-purple-400 text-lg">💳</span>}
-                        {method === "GoPay" && <span className="text-green-400 text-lg">💳</span>}
-                        {method === "Bank Transfer" && <Building2 className="w-6 h-6 text-yellow-400" />}
+                      <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                        {method === "DANA" && <span className="text-gray-700 text-lg">💳</span>}
+                        {method === "OVO" && <span className="text-gray-700 text-lg">💳</span>}
+                        {method === "GoPay" && <span className="text-gray-700 text-lg">💳</span>}
+                        {method === "Bank Transfer" && <Building2 className="w-6 h-6 text-gray-700" />}
                       </div>
                       <div>
-                        <p className="font-medium text-white text-lg">{method}</p>
-                        <p className="text-sm text-slate-400">
+                        <p className="font-medium text-gray-900 text-lg">{method}</p>
+                        <p className="text-sm text-gray-500">
                           {method === "Bank Transfer" ? "Transfer bank konvensional" : "E-wallet digital"}
                         </p>
                       </div>
