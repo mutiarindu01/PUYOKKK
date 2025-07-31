@@ -12,6 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Footer from "@/components/Footer"
+import ProfileChart from "@/components/ProfileChart"
+import "../profile-animations.css"
 import {
   ArrowLeft,
   Star,
@@ -662,8 +664,20 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
           {/* Enhanced Left Sidebar */}
           <div className="xl:col-span-1 space-y-8">
+            {/* Interactive Charts Dashboard */}
+            <ProfileChart data={{
+              monthlyEarnings: creatorData.monthlyEarnings,
+              totalEarnings: creatorData.totalEarnings,
+              totalViews: creatorData.totalViews,
+              totalFollowers: creatorData.totalFollowers,
+              averageRating: creatorData.averageRating,
+              completionRate: creatorData.completionRate,
+              responseTime: creatorData.responseTime,
+              successfulTransactions: creatorData.successfulTransactions,
+            }} />
+
             {/* Professional Stats Dashboard */}
-            <Card className="bg-gradient-to-br from-card to-card/50 border-border/50 shadow-lg">
+            <Card className="bg-gradient-to-br from-card to-card/50 border-border/50 shadow-lg hover-lift">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-2 text-xl">
                   <BarChart3 className="w-6 h-6 text-primary" />
