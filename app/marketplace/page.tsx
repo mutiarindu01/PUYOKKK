@@ -2545,12 +2545,17 @@ AI Market Analysis:
       <Dialog open={showCreateOrder} onOpenChange={setShowCreateOrder}>
         <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-center">
-              🔄 Buat Swap Baru
+            <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              🔄 Universal P2P Swap Creator
             </DialogTitle>
             <DialogDescription className="text-slate-400 text-center">
-              Tukar NFT, Token, atau aset digital Anda dengan mudah dan aman
+              Tukar aset digital apapun dengan pembayaran e-wallet atau bank transfer
             </DialogDescription>
+            <div className="flex justify-center gap-2 mt-2">
+              <Badge className="bg-blue-500/20 text-blue-400">NFT Trading</Badge>
+              <Badge className="bg-green-500/20 text-green-400">Token Exchange</Badge>
+              <Badge className="bg-purple-500/20 text-purple-400">P2P Banking</Badge>
+            </div>
           </DialogHeader>
 
           <div className="mt-6">
@@ -2596,43 +2601,61 @@ AI Market Analysis:
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
                       {
                         type: "ERC20" as const,
-                        title: "Token (ERC20)",
-                        desc: "Token fungible seperti PUYOK, ETH, USDT",
+                        title: "Token Trading",
+                        desc: "PUYOK, ETH, USDT, custom tokens",
                         icon: <Coins className="w-8 h-8" />,
-                        gradient: "from-green-500 to-emerald-500"
+                        gradient: "from-green-500 to-emerald-500",
+                        badge: "Populer"
                       },
                       {
                         type: "ERC721" as const,
-                        title: "NFT 1/1 (ERC721)",
-                        desc: "NFT unik satu-satunya",
+                        title: "NFT 1/1 Sale",
+                        desc: "Art, collectibles, unique items",
                         icon: <ImageIcon className="w-8 h-8" />,
-                        gradient: "from-blue-500 to-cyan-500"
+                        gradient: "from-blue-500 to-cyan-500",
+                        badge: "Premium"
                       },
                       {
                         type: "ERC1155" as const,
-                        title: "NFT Multi-Edisi (ERC1155)",
-                        desc: "NFT dengan beberapa copy",
+                        title: "Multi-Edition NFT",
+                        desc: "Gaming items, limited editions",
                         icon: <Layers className="w-8 h-8" />,
-                        gradient: "from-purple-500 to-pink-500"
+                        gradient: "from-purple-500 to-pink-500",
+                        badge: "Gaming"
+                      },
+                      {
+                        type: "MINT" as const,
+                        title: "NFT Minting",
+                        desc: "Create & sell new NFTs",
+                        icon: <Sparkles className="w-8 h-8" />,
+                        gradient: "from-yellow-500 to-orange-500",
+                        badge: "Baru"
                       },
                     ].map((option) => (
                       <button
                         key={option.type}
                         onClick={() => {
-                          setSelectedAssetType(option.type)
-                          setWalletAssets(sampleWalletAssets[option.type])
+                          setSelectedAssetType(option.type as "ERC20" | "ERC721" | "ERC1155")
+                          if (option.type !== "MINT") {
+                            setWalletAssets(sampleWalletAssets[option.type as keyof typeof sampleWalletAssets] || [])
+                          }
                         }}
-                        className={`p-6 rounded-xl border-2 transition-all duration-300 ${
+                        className={`relative p-6 rounded-xl border-2 transition-all duration-300 group ${
                           selectedAssetType === option.type
-                            ? "border-blue-500 bg-blue-500/10"
-                            : "border-slate-700 bg-slate-800/50 hover:border-slate-600 hover:bg-slate-800"
+                            ? "border-blue-500 bg-blue-500/10 scale-105"
+                            : "border-slate-700 bg-slate-800/50 hover:border-slate-600 hover:bg-slate-800 hover:scale-102"
                         }`}
                       >
-                        <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${option.gradient} text-white mb-4`}>
+                        {option.badge && (
+                          <Badge className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-black text-xs font-bold">
+                            {option.badge}
+                          </Badge>
+                        )}
+                        <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${option.gradient} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
                           {option.icon}
                         </div>
                         <h4 className="font-semibold text-white mb-2">{option.title}</h4>
