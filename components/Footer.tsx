@@ -323,16 +323,7 @@ export default function Footer() {
         </div>
 
         {/* Payment Partners */}
-        <div className="mt-16 pt-8 border-t border-gray-700">
-          <h4 className="font-semibold text-white mb-6 text-center">Partner Pembayaran Terpercaya:</h4>
-          <div className="flex justify-center items-center gap-8 flex-wrap">
-            {paymentPartners.map((partner) => (
-              <div key={partner.name} className="bg-white rounded-lg p-3 w-20 h-12 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity">
-                <span className="text-xs font-bold text-gray-800">{partner.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </div>
 
       {/* Footer Bottom */}
