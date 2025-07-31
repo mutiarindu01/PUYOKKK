@@ -74,7 +74,6 @@ import {
   Headphones,
   AlertCircle,
   Gift,
-  Zap,
   Crown,
   TrendingUp,
   BarChart3,
@@ -3585,7 +3584,7 @@ AI Market Analysis:
                   <div className="bg-slate-800/50 rounded-lg p-6">
                     <h4 className="font-medium text-white mb-4 flex items-center gap-2">
                       <Calculator className="w-4 h-4" />
-                      💰 Transparansi Biaya Lengkap
+                      �� Transparansi Biaya Lengkap
                     </h4>
 
                     <div className="space-y-4">
