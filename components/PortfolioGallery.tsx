@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { formatNumber } from "@/lib/formatters"
 import {
   Heart,
   Eye,
@@ -220,7 +221,7 @@ export default function PortfolioGallery({
                 <div className="flex items-center gap-4 text-white mb-3 text-sm">
                   <div className="flex items-center gap-1">
                     <Eye className="w-4 h-4" />
-                    <span>{asset.views.toLocaleString()}</span>
+                    <span>{formatNumber(asset.views)}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Heart className="w-4 h-4" />
@@ -330,7 +331,7 @@ export default function PortfolioGallery({
                 <div className="flex items-center gap-6 mb-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Eye className="w-4 h-4" />
-                    <span>{asset.views.toLocaleString()} views</span>
+                    <span>{formatNumber(asset.views)} views</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Heart className="w-4 h-4" />
@@ -486,7 +487,7 @@ export default function PortfolioGallery({
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <span className="text-muted-foreground">Views:</span>
-                        <span className="ml-2 font-medium">{selectedAsset.views.toLocaleString()}</span>
+                        <span className="ml-2 font-medium">{formatNumber(selectedAsset.views)}</span>
                       </div>
                       <div>
                         <span className="text-muted-foreground">Likes:</span>
