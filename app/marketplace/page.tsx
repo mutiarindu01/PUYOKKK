@@ -709,6 +709,16 @@ const sampleTokenOrders: TokenOrder[] = [
 
 // Smart Price Recommendations
 const generatePriceRecommendation = (asset: any) => {
+  // Local formatPrice function
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price)
+  }
+
   const marketData = {
     averagePrice: asset.value,
     floorPrice: asset.value * 0.8,
