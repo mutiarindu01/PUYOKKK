@@ -1118,7 +1118,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
       {/* Enhanced Cover Photo & Profile Header */}
       <div className="relative overflow-hidden">
         {/* Dynamic Cover Image with Parallax Effect */}
-        <div className="h-80 md:h-96 bg-gradient-to-br from-primary/30 via-purple-500/20 to-pink-500/30 relative">
+        <div className="h-80 md:h-96 bg-gradient-to-br from-slate-200/20 via-slate-300/10 to-slate-400/20 relative">
           <img
             src={creatorData.coverImage}
             alt="Cover"
