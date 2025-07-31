@@ -103,6 +103,13 @@ import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+import { Switch } from "@/components/ui/switch"
 
 // NFT Data Type
 interface NFT {
@@ -383,6 +390,321 @@ const samplePaymentAccounts = [
   { id: "4", type: "bank", name: "Bank Mandiri", accountName: "Rafly Rizky", accountNumber: "9876543210", alias: "Mandiri Saving", logo: "🏛️" },
 ]
 
+// Token Order Book Types and Data
+interface TokenOrder {
+  id: string
+  token: {
+    id: string
+    name: string
+    symbol: string
+    contractAddress: string
+    decimals: number
+    logo: string
+    description?: string
+    totalSupply: string
+    verified: boolean
+  }
+  side: "buy" | "sell"
+  price: number
+  amount: number
+  filled: number
+  total: number
+  maker: {
+    address: string
+    username?: string
+    reputation: number
+    completedTrades: number
+    isVerified: boolean
+    avatar?: string
+    joinedAt: string
+    responseTime: string
+    escrowRating: number
+  }
+  paymentMethod: "gasless" | "onchain"
+  paymentDetails?: {
+    methods: string[]
+    accountInfo?: any
+  }
+  createdAt: string
+  expiresAt: string
+  status: "active" | "filled" | "cancelled" | "expired"
+  feeStructure: {
+    makerFee: number
+    takerFee: number
+    gasFee?: number
+  }
+  notes?: string
+  tradingPairs?: string[]
+}
+
+interface TokenInfo {
+  id: string
+  name: string
+  symbol: string
+  contractAddress: string
+  decimals: number
+  logo: string
+  currentPrice: number
+  priceChange24h: number
+  volume24h: number
+  marketCap: number
+  totalSupply: string
+  verified: boolean
+  description: string
+  website?: string
+  twitter?: string
+  telegram?: string
+}
+
+// Sample tokens with more data
+const sampleTokens: TokenInfo[] = [
+  {
+    id: "puyok-token",
+    name: "PUYOK Token",
+    symbol: "PUYOK",
+    contractAddress: "0x123...abc",
+    decimals: 18,
+    logo: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=100",
+    currentPrice: 50000,
+    priceChange24h: 12.5,
+    volume24h: 1250000000,
+    marketCap: 25000000000,
+    totalSupply: "100000000",
+    verified: true,
+    description: "Native utility token of the PUYOK ecosystem",
+    website: "https://puyok.com",
+    twitter: "@puyok_official"
+  },
+  {
+    id: "dragon-coin",
+    name: "Dragon Coin",
+    symbol: "DRG",
+    contractAddress: "0x456...def",
+    decimals: 18,
+    logo: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=100",
+    currentPrice: 87500,
+    priceChange24h: -5.2,
+    volume24h: 850000000,
+    marketCap: 15750000000,
+    totalSupply: "9000000",
+    verified: true,
+    description: "Gaming token for Dragon NFT ecosystem"
+  },
+  {
+    id: "stellar-token",
+    name: "Stellar Coin",
+    symbol: "STR",
+    contractAddress: "0x789...ghi",
+    decimals: 18,
+    logo: "https://images.unsplash.com/photo-1552242718-3db51684dd23?w=100",
+    currentPrice: 125000,
+    priceChange24h: 8.7,
+    volume24h: 650000000,
+    marketCap: 18750000000,
+    totalSupply: "15000000",
+    verified: true,
+    description: "Decentralized finance token for space exploration"
+  }
+]
+
+// Enhanced sample orders with diverse users
+const sampleTokenOrders: TokenOrder[] = [
+  {
+    id: "order-1",
+    token: sampleTokens[0],
+    side: "buy",
+    price: 48000,
+    amount: 10000,
+    filled: 0,
+    total: 480000000,
+    maker: {
+      address: "0x789...123",
+      username: "crypto_whale_id",
+      reputation: 4.9,
+      completedTrades: 256,
+      isVerified: true,
+      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=64",
+      joinedAt: "2023-01-15",
+      responseTime: "< 5 menit",
+      escrowRating: 4.8
+    },
+    paymentMethod: "gasless",
+    paymentDetails: {
+      methods: ["DANA", "OVO", "Bank BCA"]
+    },
+    createdAt: "2024-01-20T10:00:00Z",
+    expiresAt: "2024-01-27T10:00:00Z",
+    status: "active",
+    feeStructure: {
+      makerFee: 0.1,
+      takerFee: 0.15
+    },
+    notes: "Hanya untuk trader berpengalaman. Payment dalam 15 menit.",
+    tradingPairs: ["PUYOK/USDT", "PUYOK/IDR"]
+  },
+  {
+    id: "order-2",
+    token: sampleTokens[0],
+    side: "sell",
+    price: 52000,
+    amount: 5000,
+    filled: 1000,
+    total: 260000000,
+    maker: {
+      address: "0xabc...789",
+      username: "hodler_pro",
+      reputation: 4.7,
+      completedTrades: 189,
+      isVerified: true,
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=64",
+      joinedAt: "2023-03-20",
+      responseTime: "< 10 menit",
+      escrowRating: 4.9
+    },
+    paymentMethod: "onchain",
+    createdAt: "2024-01-20T11:00:00Z",
+    expiresAt: "2024-01-25T11:00:00Z",
+    status: "active",
+    feeStructure: {
+      makerFee: 0.05,
+      takerFee: 0.1,
+      gasFee: 0.02
+    },
+    notes: "Token berkualitas untuk long-term holding. Fast execution.",
+    tradingPairs: ["PUYOK/ETH"]
+  },
+  {
+    id: "order-3",
+    token: sampleTokens[1],
+    side: "buy",
+    price: 85000,
+    amount: 2500,
+    filled: 0,
+    total: 212500000,
+    maker: {
+      address: "0xdef...456",
+      username: "dragon_collector",
+      reputation: 4.8,
+      completedTrades: 92,
+      isVerified: false,
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64",
+      joinedAt: "2023-07-10",
+      responseTime: "< 20 menit",
+      escrowRating: 4.6
+    },
+    paymentMethod: "gasless",
+    paymentDetails: {
+      methods: ["GoPay", "Bank Mandiri"]
+    },
+    createdAt: "2024-01-20T12:30:00Z",
+    expiresAt: "2024-01-23T12:30:00Z",
+    status: "active",
+    feeStructure: {
+      makerFee: 0.15,
+      takerFee: 0.20
+    },
+    notes: "Looking for bulk purchase. Serious buyers only.",
+    tradingPairs: ["DRG/IDR"]
+  },
+  {
+    id: "order-4",
+    token: sampleTokens[1],
+    side: "sell",
+    price: 90000,
+    amount: 1200,
+    filled: 300,
+    total: 108000000,
+    maker: {
+      address: "0x321...987",
+      username: "gaming_maven",
+      reputation: 4.5,
+      completedTrades: 67,
+      isVerified: true,
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64",
+      joinedAt: "2023-09-05",
+      responseTime: "< 15 menit",
+      escrowRating: 4.7
+    },
+    paymentMethod: "gasless",
+    paymentDetails: {
+      methods: ["DANA", "OVO", "SeaBank"]
+    },
+    createdAt: "2024-01-20T09:15:00Z",
+    expiresAt: "2024-01-24T09:15:00Z",
+    status: "active",
+    feeStructure: {
+      makerFee: 0.12,
+      takerFee: 0.18
+    },
+    notes: "Premium gaming tokens from verified collection. Quick settlement.",
+    tradingPairs: ["DRG/USDT", "DRG/PUYOK"]
+  },
+  {
+    id: "order-5",
+    token: sampleTokens[2],
+    side: "buy",
+    price: 120000,
+    amount: 800,
+    filled: 0,
+    total: 96000000,
+    maker: {
+      address: "0x654...321",
+      username: "stellar_investor",
+      reputation: 4.9,
+      completedTrades: 445,
+      isVerified: true,
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64",
+      joinedAt: "2022-11-12",
+      responseTime: "< 5 menit",
+      escrowRating: 5.0
+    },
+    paymentMethod: "onchain",
+    createdAt: "2024-01-20T14:20:00Z",
+    expiresAt: "2024-01-26T14:20:00Z",
+    status: "active",
+    feeStructure: {
+      makerFee: 0.05,
+      takerFee: 0.10,
+      gasFee: 0.01
+    },
+    notes: "High-volume trader. Instant execution preferred.",
+    tradingPairs: ["STR/ETH", "STR/USDC"]
+  },
+  {
+    id: "order-6",
+    token: sampleTokens[2],
+    side: "sell",
+    price: 128000,
+    amount: 1500,
+    filled: 500,
+    total: 192000000,
+    maker: {
+      address: "0x987...654",
+      username: "defi_pioneer",
+      reputation: 4.6,
+      completedTrades: 156,
+      isVerified: true,
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64",
+      joinedAt: "2023-02-28",
+      responseTime: "< 30 menit",
+      escrowRating: 4.8
+    },
+    paymentMethod: "gasless",
+    paymentDetails: {
+      methods: ["Bank BCA", "Bank Mandiri", "DANA"]
+    },
+    createdAt: "2024-01-20T08:45:00Z",
+    expiresAt: "2024-01-28T08:45:00Z",
+    status: "active",
+    feeStructure: {
+      makerFee: 0.10,
+      takerFee: 0.15
+    },
+    notes: "DeFi specialist. Flexible payment terms for bulk orders.",
+    tradingPairs: ["STR/IDR"]
+  }
+]
+
 // Smart Price Recommendations
 const generatePriceRecommendation = (asset: any) => {
   const marketData = {
@@ -480,6 +802,13 @@ export default function MarketplacePage() {
   const [listingDescription, setListingDescription] = useState("")
   const [priceRecommendation, setPriceRecommendation] = useState<any>(null)
   const [showSmartTips, setShowSmartTips] = useState(true)
+
+  // Token order book states
+  const [selectedToken, setSelectedToken] = useState<TokenInfo | null>(sampleTokens[0])
+  const [selectedTokenOrder, setSelectedTokenOrder] = useState<TokenOrder | null>(null)
+  const [showOrderDetails, setShowOrderDetails] = useState(false)
+  const [tokenActiveTab, setTokenActiveTab] = useState("orderbook")
+  const [showCreateTokenOrder, setShowCreateTokenOrder] = useState(false)
 
   // Format currency
   const formatPrice = (price: number) => {
@@ -741,16 +1070,20 @@ AI Market Analysis:
                 <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">1.2K</span>
               </div>
             </button>
-            <Link
-              href="/marketplace/tokens"
-              className="px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap border-transparent text-slate-400 hover:text-white hover:border-slate-600"
+            <button
+              onClick={() => setActiveTab("tokens")}
+              className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
+                activeTab === "tokens"
+                  ? "border-green-500 text-green-400 bg-green-500/5"
+                  : "border-transparent text-slate-400 hover:text-white hover:border-slate-600"
+              }`}
             >
               <div className="flex items-center gap-2">
                 <Coins className="w-4 h-4" />
                 <span>Token Order Book</span>
                 <span className="hidden sm:inline text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">NEW</span>
               </div>
-            </Link>
+            </button>
             <button
               onClick={() => setActiveTab("collections")}
               className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
@@ -1693,16 +2026,7 @@ AI Market Analysis:
 
         {/* Tokens Tab Content */}
         {activeTab === "tokens" && (
-          <div className="space-y-6">
-            <div className="text-center py-12">
-              <DollarSign className="w-16 h-16 mx-auto text-green-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Token Marketplace</h3>
-              <p className="text-slate-400 mb-6">Trade tokens with advanced order books and real-time analytics</p>
-              <Button className="bg-green-600 hover:bg-green-700 text-white">
-                Coming Soon
-              </Button>
-            </div>
-          </div>
+          <TokenOrderBookSection />
         )}
 
         {/* Collections Tab Content */}
