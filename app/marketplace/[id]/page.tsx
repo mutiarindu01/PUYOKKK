@@ -913,8 +913,8 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
           </>
         )}
 
-        {/* Step 2: Payment Method Selection */}
-        {paymentStep === 2 && (
+        {/* Step 2: Payment Method Selection - Moved to Modal */}
+        {false && paymentStep === 2 && (
           <>
             <div className="text-center mb-6">
               <h3 className="text-xl font-bold text-white mb-2">Pilih Metode Pembayaran</h3>
