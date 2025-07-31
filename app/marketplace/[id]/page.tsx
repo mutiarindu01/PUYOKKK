@@ -1291,7 +1291,7 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
                   ) : (
                     <>
                       <Timer className="w-5 h-5 mr-2" />
-                      Tunggu {Math.max(0, 120 - (900 - timeLeft))}s
+                      Tunggu {Math.max(0, 60 - (900 - timeLeft))}s
                     </>
                   )}
                 </Button>
