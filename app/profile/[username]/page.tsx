@@ -16,6 +16,7 @@ import ProfileChart from "@/components/ProfileChart"
 import PortfolioGallery from "@/components/PortfolioGallery"
 import AnimatedBackground from "@/components/AnimatedBackground"
 import ProfileLoadingScreen from "@/components/ProfileLoadingScreen"
+import { formatNumber } from "@/lib/formatters"
 import "./profile-animations.css"
 import {
   ArrowLeft,
@@ -1136,7 +1137,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float glass-effect hover-glow">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-slate-200" />
-                <span className="text-sm font-medium">{creatorData.totalViews.toLocaleString()} Views</span>
+                <span className="text-sm font-medium">{formatNumber(creatorData.totalViews)} Views</span>
               </div>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float glass-effect hover-glow" style={{ animationDelay: "1s" }}>
@@ -1187,7 +1188,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                 {/* Quick Stats Below Avatar */}
                 <div className="mt-4 grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-xl font-bold text-foreground">{creatorData.totalFollowers.toLocaleString()}</div>
+                    <div className="text-xl font-bold text-foreground">{formatNumber(creatorData.totalFollowers)}</div>
                     <div className="text-xs text-muted-foreground">Followers</div>
                   </div>
                   <div>
