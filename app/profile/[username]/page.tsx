@@ -1358,7 +1358,9 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                     <span className="text-sm text-muted-foreground">Success Rate</span>
                     <div className="flex items-center gap-2">
                       <span className="font-semibold text-green-600">{creatorData.completionRate}%</span>
-                      <Progress value={creatorData.completionRate} className="w-16 h-2" />
+                      <Progress value={creatorData.completionRate} className="w-16 h-2 bg-slate-800">
+                        <div className="h-full bg-green-600 transition-all rounded-full border border-green-700" style={{ width: `${creatorData.completionRate}%` }} />
+                      </Progress>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
