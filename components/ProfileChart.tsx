@@ -51,12 +51,15 @@ export default function ProfileChart({ data }: ProfileChartProps) {
   const [activeChart, setActiveChart] = useState<"earnings" | "performance" | "analytics">("earnings")
   const [animationPhase, setAnimationPhase] = useState(0)
 
-  // Enhanced data processing
+  // Enhanced data processing with consistent mock data
+  const mockSalesData = [12, 8, 15, 22, 18, 25]; // Consistent mock sales data
+  const mockViewsData = [2500, 3200, 4100, 3800, 4500, 4200]; // Consistent mock views data
+
   const chartData: ChartData[] = data.monthlyEarnings.map((item, index) => ({
     month: item.month,
     amount: item.amount,
-    sales: Math.floor(Math.random() * 20) + 5, // Mock sales data
-    views: Math.floor(Math.random() * 5000) + 1000, // Mock views data
+    sales: mockSalesData[index] || 15, // Consistent sales data
+    views: mockViewsData[index] || 3000, // Consistent views data
     followers: data.totalFollowers + (index * 50), // Progressive followers
   }))
 
