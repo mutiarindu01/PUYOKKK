@@ -1175,6 +1175,22 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
         </DialogHeader>
 
         <div className="overflow-y-auto max-h-[70vh]">
+          {/* Progress Indicator */}
+          <div className="flex items-center justify-center mb-6">
+            <div className="flex items-center space-x-2">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                paymentStep >= 2 ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-500'
+              }`}>
+                1
+              </div>
+              <div className={`w-12 h-0.5 ${paymentStep >= 3 ? 'bg-gray-900' : 'bg-gray-200'}`}></div>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                paymentStep >= 3 ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-500'
+              }`}>
+                2
+              </div>
+            </div>
+          </div>
           {paymentStep === 2 && (
             <div className="space-y-6">
               <div className="text-center">
