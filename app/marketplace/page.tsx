@@ -75,7 +75,6 @@ import {
   AlertCircle,
   Gift,
   Crown,
-  BarChart3,
   Calendar,
   Bell,
   Settings,
@@ -982,7 +981,7 @@ const generatePriceRecommendation = (asset: any) => {
     tips: [
       `💡 NFT dengan gaya '${asset.collection}' di kisaran harga ini biasanya terjual dalam ${marketData.avgSaleDays * 24} jam`,
       `💡 Pengguna yang menerima pembayaran via DANA memiliki tingkat penyelesaian 15% lebih tinggi`,
-      `💡 Kolektor cenderung membayar lebih untuk NFT yang dijual oleh kreator dengan rating sempurna`,
+      `���� Kolektor cenderung membayar lebih untuk NFT yang dijual oleh kreator dengan rating sempurna`,
       `💡 Harga antara ${formatPrice(marketData.floorPrice)} - ${formatPrice(marketData.averagePrice)} memiliki konversi tertinggi`
     ]
   }
@@ -3583,7 +3582,7 @@ AI Market Analysis:
                   <div className="bg-slate-800/50 rounded-lg p-6">
                     <h4 className="font-medium text-white mb-4 flex items-center gap-2">
                       <Calculator className="w-4 h-4" />
-                      �� Transparansi Biaya Lengkap
+                      ���� Transparansi Biaya Lengkap
                     </h4>
 
                     <div className="space-y-4">
