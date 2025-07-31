@@ -748,6 +748,500 @@ const priceRanges = [
   { label: "Over 100M IDR", min: 100000000, max: 1000000000 },
 ]
 
+// Token Order Book Section Component
+function TokenOrderBookSection() {
+  // States for token order book
+  const [selectedToken, setSelectedToken] = useState<TokenInfo | null>(sampleTokens[0])
+  const [selectedTokenOrder, setSelectedTokenOrder] = useState<TokenOrder | null>(null)
+  const [showOrderDetails, setShowOrderDetails] = useState(false)
+  const [showCreateTokenOrder, setShowCreateTokenOrder] = useState(false)
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+    }).format(amount)
+  }
+
+  const formatToken = (amount: number, decimals: number = 2) => {
+    return new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    }).format(amount)
+  }
+
+  const shortenAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`
+  }
+
+  const formatTimeAgo = (dateString: string) => {
+    const diff = Date.now() - new Date(dateString).getTime()
+    const minutes = Math.floor(diff / (1000 * 60))
+    const hours = Math.floor(diff / (1000 * 60 * 60))
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+
+    if (minutes < 1) return "Baru saja"
+    if (minutes < 60) return `${minutes} menit lalu`
+    if (hours < 24) return `${hours} jam lalu`
+    return `${days} hari lalu`
+  }
+
+  function TokenSelector() {
+    return (
+      <div className="mb-6">
+        <Label className="text-white font-medium mb-3 block">Pilih Token</Label>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {sampleTokens.map((token) => (
+            <button
+              key={token.id}
+              onClick={() => setSelectedToken(token)}
+              className={`p-4 rounded-lg border-2 transition-all ${
+                selectedToken?.id === token.id
+                  ? "border-green-500 bg-green-500/10"
+                  : "border-slate-700 bg-slate-800/50 hover:border-slate-600"
+              }`}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <img src={token.logo} alt={token.symbol} className="w-12 h-12 rounded-full" />
+                <div className="text-left">
+                  <h4 className="font-semibold text-white">{token.symbol}</h4>
+                  <p className="text-sm text-slate-400">{token.name}</p>
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-lg font-bold text-white">{formatCurrency(token.currentPrice)}</div>
+                <div className={`text-sm ${
+                  token.priceChange24h >= 0 ? 'text-green-400' : 'text-red-400'
+                }`}>
+                  {token.priceChange24h >= 0 ? '+' : ''}{token.priceChange24h.toFixed(2)}%
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  function OrderBookTable() {
+    const filteredOrders = sampleTokenOrders.filter(order =>
+      !selectedToken || order.token.id === selectedToken.id
+    )
+
+    const buyOrders = filteredOrders.filter(order => order.side === "buy").sort((a, b) => b.price - a.price)
+    const sellOrders = filteredOrders.filter(order => order.side === "sell").sort((a, b) => a.price - b.price)
+
+    const OrderCard = ({ order }: { order: TokenOrder }) => (
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        className={`p-4 rounded-lg border cursor-pointer transition-all ${
+          order.side === "buy"
+            ? "border-green-500/30 bg-green-500/5 hover:bg-green-500/10"
+            : "border-red-500/30 bg-red-500/5 hover:bg-red-500/10"
+        }`}
+        onClick={() => {
+          setSelectedTokenOrder(order)
+          setShowOrderDetails(true)
+        }}
+      >
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <img src={order.maker.avatar} alt={order.maker.username} className="w-8 h-8 rounded-full" />
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-white font-medium">{order.maker.username}</span>
+                {order.maker.isVerified && (
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                )}
+              </div>
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <span>⭐ {order.maker.reputation.toFixed(1)}</span>
+                <span>•</span>
+                <span>{order.maker.completedTrades} trades</span>
+              </div>
+            </div>
+          </div>
+          <div className="text-right">
+            <Badge className={`${
+              order.side === "buy" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
+            }`}>
+              {order.side.toUpperCase()}
+            </Badge>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 mb-3">
+          <div>
+            <div className="text-xs text-slate-400">Harga</div>
+            <div className={`font-semibold ${
+              order.side === "buy" ? "text-green-400" : "text-red-400"
+            }`}>
+              {formatCurrency(order.price)}
+            </div>
+          </div>
+          <div>
+            <div className="text-xs text-slate-400">Jumlah</div>
+            <div className="text-white font-medium">
+              {formatToken(order.amount - order.filled)} {order.token.symbol}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between mb-3">
+          <div className="text-sm">
+            <span className="text-slate-400">Total: </span>
+            <span className="text-white font-medium">{formatCurrency(order.total - (order.filled * order.price))}</span>
+          </div>
+          <div className="flex items-center gap-1 text-xs">
+            {order.paymentMethod === "gasless" ? (
+              <>
+                <CreditCard className="w-3 h-3 text-blue-400" />
+                <span className="text-blue-400">Gasless</span>
+              </>
+            ) : (
+              <>
+                <Gas className="w-3 h-3 text-purple-400" />
+                <span className="text-purple-400">On-chain</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {order.paymentMethod === "gasless" && order.paymentDetails && (
+          <div className="flex items-center gap-1 text-xs text-slate-400 mb-2">
+            <span>Payment:</span>
+            {order.paymentDetails.methods.slice(0, 2).map((method, index) => (
+              <Badge key={index} variant="outline" className="text-xs border-slate-600 text-slate-300">
+                {method}
+              </Badge>
+            ))}
+            {order.paymentDetails.methods.length > 2 && (
+              <span className="text-slate-500">+{order.paymentDetails.methods.length - 2}</span>
+            )}
+          </div>
+        )}
+
+        <div className="text-xs text-slate-500">
+          {formatTimeAgo(order.createdAt)}
+        </div>
+      </motion.div>
+    )
+
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Buy Orders */}
+        <div>
+          <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-green-400" />
+            Buy Orders ({buyOrders.length})
+          </h3>
+          <div className="space-y-3 max-h-96 overflow-y-auto">
+            {buyOrders.length > 0 ? buyOrders.map((order) => (
+              <OrderCard key={order.id} order={order} />
+            )) : (
+              <div className="text-center py-8 text-slate-400">
+                <TrendingUp className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                <p>Tidak ada buy order untuk token ini</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Sell Orders */}
+        <div>
+          <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+            <TrendingDown className="w-5 h-5 text-red-400" />
+            Sell Orders ({sellOrders.length})
+          </h3>
+          <div className="space-y-3 max-h-96 overflow-y-auto">
+            {sellOrders.length > 0 ? sellOrders.map((order) => (
+              <OrderCard key={order.id} order={order} />
+            )) : (
+              <div className="text-center py-8 text-slate-400">
+                <TrendingDown className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                <p>Tidak ada sell order untuk token ini</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Token Selector */}
+      <TokenSelector />
+
+      {/* Selected Token Info */}
+      {selectedToken && (
+        <Card className="bg-slate-800/50 border-slate-700">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <img src={selectedToken.logo} alt={selectedToken.symbol} className="w-16 h-16 rounded-full" />
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <h2 className="text-2xl font-bold text-white">{selectedToken.name}</h2>
+                    <Badge className="bg-blue-500/20 text-blue-400">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      Verified
+                    </Badge>
+                  </div>
+                  <p className="text-slate-400">{selectedToken.description}</p>
+                  <div className="flex items-center gap-4 mt-2 text-sm text-slate-500">
+                    <span>Vol 24h: {formatCurrency(selectedToken.volume24h)}</span>
+                    <span>•</span>
+                    <span>Market Cap: {formatCurrency(selectedToken.marketCap)}</span>
+                    <span>•</span>
+                    <span>Supply: {selectedToken.totalSupply} {selectedToken.symbol}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-3xl font-bold text-white">{formatCurrency(selectedToken.currentPrice)}</div>
+                <div className={`text-lg ${
+                  selectedToken.priceChange24h >= 0 ? 'text-green-400' : 'text-red-400'
+                }`}>
+                  {selectedToken.priceChange24h >= 0 ? '+' : ''}{selectedToken.priceChange24h.toFixed(2)}%
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Action Buttons */}
+      <div className="flex gap-4">
+        <Button
+          onClick={() => setShowCreateTokenOrder(true)}
+          className="bg-blue-600 hover:bg-blue-700"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Buat Order
+        </Button>
+        <Button variant="outline" className="border-slate-600 text-slate-300">
+          <RefreshCw className="w-4 h-4 mr-2" />
+          Refresh
+        </Button>
+      </div>
+
+      {/* Order Book */}
+      <OrderBookTable />
+
+      {/* Order Details Modal */}
+      <Dialog open={showOrderDetails} onOpenChange={setShowOrderDetails}>
+        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
+          {selectedTokenOrder && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+                  <img src={selectedTokenOrder.token.logo} alt={selectedTokenOrder.token.symbol} className="w-8 h-8 rounded-full" />
+                  {selectedTokenOrder.side === "buy" ? "Buy" : "Sell"} Order - {selectedTokenOrder.token.symbol}
+                </DialogTitle>
+                <DialogDescription className="text-slate-400">
+                  Order details dari {selectedTokenOrder.maker.username}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-6">
+                {/* Trader Info */}
+                <div className="p-4 bg-slate-800/50 rounded-lg">
+                  <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                    <UserCheck className="w-4 h-4" />
+                    Trader Information
+                  </h4>
+                  <div className="flex items-center gap-4">
+                    <img src={selectedTokenOrder.maker.avatar} alt={selectedTokenOrder.maker.username} className="w-16 h-16 rounded-full" />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-lg font-semibold text-white">{selectedTokenOrder.maker.username}</span>
+                        {selectedTokenOrder.maker.isVerified && (
+                          <CheckCircle className="w-5 h-5 text-green-400" />
+                        )}
+                      </div>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="text-slate-400">Reputation: </span>
+                          <span className="text-yellow-400">⭐ {selectedTokenOrder.maker.reputation.toFixed(1)}/5.0</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">Completed: </span>
+                          <span className="text-green-400">{selectedTokenOrder.maker.completedTrades} trades</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">Response: </span>
+                          <span className="text-blue-400">{selectedTokenOrder.maker.responseTime}</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">Escrow: </span>
+                          <span className="text-purple-400">⚡ {selectedTokenOrder.maker.escrowRating.toFixed(1)}/5.0</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">Joined: </span>
+                          <span className="text-slate-300">{selectedTokenOrder.maker.joinedAt}</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">Address: </span>
+                          <span className="text-slate-300 font-mono text-xs">{shortenAddress(selectedTokenOrder.maker.address)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Order Details */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-slate-800/50 rounded-lg">
+                    <h4 className="text-white font-medium mb-3">Order Info</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Type:</span>
+                        <Badge className={`${
+                          selectedTokenOrder.side === "buy" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
+                        }`}>
+                          {selectedTokenOrder.side.toUpperCase()}
+                        </Badge>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Price:</span>
+                        <span className="text-white font-medium">{formatCurrency(selectedTokenOrder.price)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Amount:</span>
+                        <span className="text-white">{formatToken(selectedTokenOrder.amount)} {selectedTokenOrder.token.symbol}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Filled:</span>
+                        <span className="text-yellow-400">{formatToken(selectedTokenOrder.filled)} {selectedTokenOrder.token.symbol}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Remaining:</span>
+                        <span className="text-green-400">{formatToken(selectedTokenOrder.amount - selectedTokenOrder.filled)} {selectedTokenOrder.token.symbol}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Total Value:</span>
+                        <span className="text-white font-bold">{formatCurrency(selectedTokenOrder.total - (selectedTokenOrder.filled * selectedTokenOrder.price))}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-slate-800/50 rounded-lg">
+                    <h4 className="text-white font-medium mb-3">Payment Info</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        {selectedTokenOrder.paymentMethod === "gasless" ? (
+                          <>
+                            <CreditCard className="w-4 h-4 text-blue-400" />
+                            <span className="text-blue-400 font-medium">Gasless P2P</span>
+                          </>
+                        ) : (
+                          <>
+                            <Gas className="w-4 h-4 text-purple-400" />
+                            <span className="text-purple-400 font-medium">On-chain Direct</span>
+                          </>
+                        )}
+                      </div>
+
+                      {selectedTokenOrder.paymentMethod === "gasless" && selectedTokenOrder.paymentDetails && (
+                        <div>
+                          <div className="text-sm text-slate-400 mb-2">Accepted Methods:</div>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedTokenOrder.paymentDetails.methods.map((method, index) => (
+                              <Badge key={index} variant="outline" className="border-blue-500/30 text-blue-400">
+                                {method}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="text-xs text-slate-500">
+                        <div>Maker Fee: {selectedTokenOrder.feeStructure.makerFee}%</div>
+                        <div>Taker Fee: {selectedTokenOrder.feeStructure.takerFee}%</div>
+                        {selectedTokenOrder.feeStructure.gasFee && (
+                          <div>Gas Fee: ~{selectedTokenOrder.feeStructure.gasFee}%</div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Trading Pairs */}
+                {selectedTokenOrder.tradingPairs && (
+                  <div className="p-4 bg-slate-800/50 rounded-lg">
+                    <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                      <ArrowUpDown className="w-4 h-4" />
+                      Available Trading Pairs
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedTokenOrder.tradingPairs.map((pair, index) => (
+                        <Badge key={index} variant="outline" className="border-slate-600 text-slate-300">
+                          {pair}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Notes */}
+                {selectedTokenOrder.notes && (
+                  <div className="p-4 bg-slate-800/50 rounded-lg">
+                    <h4 className="text-white font-medium mb-2 flex items-center gap-2">
+                      <MessageCircle className="w-4 h-4" />
+                      Trader Notes
+                    </h4>
+                    <p className="text-slate-300 text-sm">{selectedTokenOrder.notes}</p>
+                  </div>
+                )}
+
+                {/* Time Info */}
+                <div className="p-4 bg-slate-800/50 rounded-lg">
+                  <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    Time Information
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-slate-400">Created: </span>
+                      <span className="text-slate-300">{formatTimeAgo(selectedTokenOrder.createdAt)}</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400">Expires: </span>
+                      <span className="text-orange-400">{formatTimeAgo(selectedTokenOrder.expiresAt)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <Button
+                    className={`flex-1 ${
+                      selectedTokenOrder.side === "buy"
+                        ? "bg-green-600 hover:bg-green-700"
+                        : "bg-red-600 hover:bg-red-700"
+                    }`}
+                  >
+                    {selectedTokenOrder.side === "buy" ? "Sell to this buyer" : "Buy from this seller"}
+                  </Button>
+                  <Button variant="outline" className="border-slate-600">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Chat
+                  </Button>
+                  <Button variant="outline" className="border-slate-600">
+                    <Share2 className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
+  )
+}
+
 export default function MarketplacePage() {
   // Add scrollbar hiding styles
   React.useEffect(() => {
