@@ -1298,6 +1298,103 @@ function TokenOrderBookSection() {
       {/* Order Book */}
       <OrderBookTable />
 
+      {/* KYC Verification Modal */}
+      <Dialog open={showKYCModal} onOpenChange={setShowKYCModal}>
+        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+              <Verified className="w-6 h-6 text-blue-400" />
+              Verifikasi KYC - Level {currentUser.kycLevel}
+            </DialogTitle>
+            <DialogDescription className="text-slate-400">
+              Tingkatkan limit transaksi dan kepercayaan dengan verifikasi identitas
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6">
+            <div className="p-4 bg-slate-800/50 rounded-lg">
+              <h4 className="text-white font-medium mb-3">Level Verifikasi</h4>
+              <div className="space-y-3">
+                {[
+                  { level: "basic", name: "Basic", limit: "50 Juta/hari", completed: currentUser.kycLevel !== "none" },
+                  { level: "advanced", name: "Advanced", limit: "200 Juta/hari", completed: ["advanced", "premium"].includes(currentUser.kycLevel) },
+                  { level: "premium", name: "Premium", limit: "1 Miliar/hari", completed: currentUser.kycLevel === "premium" }
+                ].map((tier, index) => (
+                  <div key={tier.level} className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      tier.completed ? "bg-green-500" : "bg-slate-700"
+                    }`}>
+                      {tier.completed ? <CheckCircle2 className="w-4 h-4 text-white" /> : <span className="text-white text-sm">{index + 1}</span>}
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-white font-medium">{tier.name} KYC</div>
+                      <div className="text-slate-400 text-sm">Limit: {tier.limit}</div>
+                    </div>
+                    {tier.completed && <Badge className="bg-green-500/20 text-green-400">Verified</Badge>}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <Button variant="outline" onClick={() => setShowKYCModal(false)} className="flex-1 border-slate-600">
+                Tutup
+              </Button>
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
+                Lanjutkan Verifikasi
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Real-Time Chat Modal */}
+      <Dialog open={showChatModal} onOpenChange={setShowChatModal}>
+        <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-3xl max-h-[80vh]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <MessageSquare className="w-5 h-5 text-blue-400" />
+              Chat dengan {currentChatOrder?.maker.username}
+              <div className="flex items-center gap-1 ml-auto">
+                <Circle className="w-2 h-2 fill-green-400 text-green-400" />
+                <span className="text-xs text-green-400">Online</span>
+              </div>
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="flex flex-col h-96">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-800/30 rounded-lg">
+              {chatMessages.map((message) => (
+                <div key={message.id} className={`flex ${message.senderId === currentUser.id ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                    message.senderId === currentUser.id
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-slate-700 text-slate-100'
+                  }`}>
+                    <div className="text-sm">{message.message}</div>
+                    <div className="text-xs opacity-70 mt-1">
+                      {new Date(message.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 flex gap-2">
+              <Input
+                placeholder="Ketik pesan..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                className="flex-1 bg-slate-800 border-slate-600"
+              />
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Order Details Modal */}
       <Dialog open={showOrderDetails} onOpenChange={setShowOrderDetails}>
         <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -3535,7 +3632,7 @@ AI Market Analysis:
                           )}
 
                           <div className="border-t border-slate-600 pt-3 flex justify-between items-center font-medium">
-                            <span className="text-white">💸 Anda Akan Menerima:</span>
+                            <span className="text-white">���� Anda Akan Menerima:</span>
                             <span className="text-green-400 font-bold text-lg">
                               {exchangeRate ? formatPrice(
                                 selectedAsset.isPioneerNFT
