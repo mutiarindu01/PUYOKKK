@@ -1640,8 +1640,10 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                           <p className="text-muted-foreground">Based on {creatorData.totalRatings} reviews</p>
                         </div>
                         <div className="space-y-3">
-                          {[5, 4, 3, 2, 1].map((rating) => {
-                            const count = Math.floor(Math.random() * 50) + 10
+                          {[5, 4, 3, 2, 1].map((rating, index) => {
+                            // Consistent rating distribution data
+                            const ratingCounts = [89, 32, 15, 4, 2]; // 5-star to 1-star counts
+                            const count = ratingCounts[index];
                             const percentage = (count / creatorData.totalRatings) * 100
                             return (
                               <div key={rating} className="flex items-center gap-3">
