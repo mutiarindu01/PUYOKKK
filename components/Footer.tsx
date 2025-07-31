@@ -49,7 +49,7 @@ export default function Footer() {
   const [isSubscribed, setIsSubscribed] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(true)
 
-  const currentYear = new Date().getFullYear()
+  const currentYear = 2024 // Fixed year to prevent hydration mismatch
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault()
