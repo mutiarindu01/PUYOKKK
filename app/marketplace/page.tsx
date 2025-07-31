@@ -903,7 +903,7 @@ function TokenOrderBookSection() {
               </>
             ) : (
               <>
-                <Gas className="w-3 h-3 text-purple-400" />
+                <Fuel className="w-3 h-3 text-purple-400" />
                 <span className="text-purple-400">On-chain</span>
               </>
             )}
