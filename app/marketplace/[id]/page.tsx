@@ -893,12 +893,12 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
               </Button>
             ) : (
               <Button
-                onClick={handleStartPurchase}
-                className="w-full h-14 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold text-lg"
-              >
-                <Zap className="w-5 h-5 mr-2" />
-                Beli Sekarang
-              </Button>
+              onClick={handleStartPurchase}
+              className="w-full h-14 bg-gray-900 hover:bg-gray-800 text-white font-semibold text-lg transition-colors"
+            >
+              <Zap className="w-5 h-5 mr-2" />
+              Beli Sekarang
+            </Button>
             )}
 
             <div className="grid grid-cols-2 gap-3 mt-4">
