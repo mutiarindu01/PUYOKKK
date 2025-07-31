@@ -139,18 +139,18 @@ export default function ProfileChart({ data }: ProfileChartProps) {
     <div className="space-y-6">
       {/* Chart Navigation */}
       <Tabs value={activeChart} onValueChange={(value) => setActiveChart(value as any)} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 h-12">
-          <TabsTrigger value="earnings" className="flex items-center gap-2">
+        <TabsList className="grid w-full grid-cols-3 h-12 bg-transparent border border-slate-800">
+          <TabsTrigger value="earnings" className="flex items-center gap-2 bg-slate-900 shadow-sm rounded border border-slate-700 hover:bg-slate-800 data-[state=active]:bg-slate-900">
             <BarChart3 className="w-4 h-4" />
-            Earnings
+            <p><strong>Earnings</strong></p>
           </TabsTrigger>
           <TabsTrigger value="performance" className="flex items-center gap-2">
             <TrendingUp className="w-4 h-4" />
-            Performance
+            <p><strong>Performance</strong></p>
           </TabsTrigger>
           <TabsTrigger value="analytics" className="flex items-center gap-2">
             <PieChart className="w-4 h-4" />
-            Analytics
+            <p><strong>Analytics</strong></p>
           </TabsTrigger>
         </TabsList>
 
@@ -204,29 +204,29 @@ export default function ProfileChart({ data }: ProfileChartProps) {
 
               {/* Earnings Summary */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-green-50 rounded-xl">
-                  <div className="text-lg font-bold text-green-600">
+                <div className="text-center p-4 bg-slate-900 rounded-xl text-white border border-slate-700">
+                  <div className="text-lg font-bold text-white">
                     {formatCurrency(chartData[chartData.length - 1]?.amount || 0)}
                   </div>
-                  <div className="text-xs text-muted-foreground">Current Month</div>
+                  <div className="text-xs text-muted-foreground"><p><strong>Current Month</strong></p></div>
                 </div>
-                <div className="text-center p-4 bg-blue-50 rounded-xl">
-                  <div className="text-lg font-bold text-blue-600">
+                <div className="text-center p-4 bg-slate-900 rounded-xl text-white border border-slate-800">
+                  <div className="text-lg font-bold text-white">
                     {formatCurrency(chartData.reduce((sum, item) => sum + item.amount, 0))}
                   </div>
-                  <div className="text-xs text-muted-foreground">Total 6 Months</div>
+                  <div className="text-xs text-muted-foreground"><p><strong>Total 6 Months</strong></p></div>
                 </div>
-                <div className="text-center p-4 bg-purple-50 rounded-xl">
-                  <div className="text-lg font-bold text-purple-600">
+                <div className="text-center p-4 bg-slate-900 rounded-xl text-white border border-slate-700">
+                  <div className="text-lg font-bold text-white">
                     {formatCurrency(chartData.reduce((sum, item) => sum + item.amount, 0) / chartData.length)}
                   </div>
-                  <div className="text-xs text-muted-foreground">Average/Month</div>
+                  <div className="text-xs text-muted-foreground"><p><strong>Average/Month</strong></p></div>
                 </div>
-                <div className="text-center p-4 bg-yellow-50 rounded-xl">
-                  <div className="text-lg font-bold text-yellow-600">
-                    {Math.round(((chartData[chartData.length - 1]?.amount || 0) / (chartData[chartData.length - 2]?.amount || 1) - 1) * 100)}%
+                <div className="text-center p-4 bg-slate-900 rounded-xl border border-slate-800">
+                  <div className="text-lg font-bold">
+                    <span className="text-white">{Math.round(((chartData[chartData.length - 1]?.amount || 0) / (chartData[chartData.length - 2]?.amount || 1) - 1) * 100)}</span><span className="text-white">%</span>
                   </div>
-                  <div className="text-xs text-muted-foreground">Growth Rate</div>
+                  <div className="text-xs text-muted-foreground"><p><strong>Growth Rate</strong></p></div>
                 </div>
               </div>
             </CardContent>
