@@ -103,7 +103,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
-import Link from "next/link"
 
 // NFT Data Type
 interface NFT {
@@ -555,7 +554,7 @@ export default function MarketplacePage() {
 AI Market Analysis:
 • Current trend: Gaming NFTs showing 23% growth
 • Optimal price range: 45M-125M IDR
-• Best selling time: Weekends 7-9 PM
+��� Best selling time: Weekends 7-9 PM
 • Similar collections performing 15% above average
 • Recommendation: Consider listing during peak hours
     `.trim()
