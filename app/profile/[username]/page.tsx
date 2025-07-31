@@ -1170,17 +1170,17 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                   
                   {/* Status Indicators */}
                   {creatorData.verified && (
-                    <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center border-4 border-background shadow-lg">
+                    <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-slate-400 rounded-full flex items-center justify-center border-4 border-background shadow-lg">
                       <Verified className="w-6 h-6 text-white" />
                     </div>
                   )}
                   {creatorData.isPremium && (
-                    <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-4 border-background shadow-lg">
+                    <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-r from-amber-300 to-yellow-400 rounded-full flex items-center justify-center border-4 border-background shadow-lg">
                       <Crown className="w-5 h-5 text-white" />
                     </div>
                   )}
                   {creatorData.isOnline && (
-                    <div className="absolute bottom-4 -right-4 w-6 h-6 bg-green-500 rounded-full border-4 border-background animate-pulse" />
+                    <div className="absolute bottom-4 -right-4 w-6 h-6 bg-emerald-400 rounded-full border-4 border-background animate-pulse" />
                   )}
                 </div>
                 
