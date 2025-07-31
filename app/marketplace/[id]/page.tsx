@@ -1211,63 +1211,102 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
           {paymentStep === 3 && selectedPaymentMethod && (
             <div className="space-y-6">
               {/* Timer */}
-              <div className="p-4 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-xl text-center">
+              <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg text-center">
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <Timer className="w-5 h-5 text-red-400" />
-                  <span className="text-red-400 font-medium">Selesaikan pembayaran dalam</span>
+                  <Timer className="w-5 h-5 text-gray-600" />
+                  <span className="text-gray-700 font-medium">Selesaikan pembayaran dalam</span>
                 </div>
-                <div className="text-3xl font-bold text-white font-mono">
+                <div className="text-3xl font-bold text-gray-900 font-mono">
                   {formatTime(timeLeft)}
+                </div>
+                <p className="text-gray-500 text-sm mt-2">
+                  Waktu pembayaran terbatas untuk menjaga harga tetap
+                </p>
+              </div>
+
+              {/* Order Summary */}
+              <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                <h4 className="text-gray-900 font-semibold mb-3 flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-gray-600" />
+                  Ringkasan Pembelian
+                </h4>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={order.asset.image}
+                    alt={order.asset.name}
+                    className="w-12 h-12 rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <p className="text-gray-900 font-medium">{order.asset.name}</p>
+                    <p className="text-gray-500 text-sm">{order.asset.collection}</p>
+                    <p className="text-gray-900 font-bold">{formatCurrency(uniqueAmount)}</p>
+                  </div>
                 </div>
               </div>
 
               {/* Payment Details */}
-              <div className="p-4 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl">
-                <h4 className="text-white font-bold mb-4 flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-blue-400" />
-                  Detail Pembayaran
+              <div className="p-4 bg-white border border-gray-200 rounded-lg">
+                <h4 className="text-gray-900 font-semibold mb-4 flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-gray-600" />
+                  Detail Transfer - Penting
                 </h4>
 
                 <div className="space-y-4">
-                  <div className="p-3 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
+                  <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
                     <div className="flex items-center justify-between gap-2">
                       <div>
-                        <p className="text-yellow-400 font-bold text-sm">💰 Nominal Transfer</p>
-                        <p className="text-xl font-bold text-white font-mono">{formatCurrency(uniqueAmount)}</p>
+                        <p className="text-amber-800 font-semibold text-sm">Nominal Transfer</p>
+                        <p className="text-xl font-bold text-gray-900 font-mono">{formatCurrency(uniqueAmount)}</p>
+                        <p className="text-amber-700 text-xs mt-1">
+                          Transfer sesuai nominal persis ini
+                        </p>
                       </div>
                       <Button
                         size="sm"
                         onClick={() => copyToClipboard(uniqueAmount.toString(), 'amount')}
-                        className="bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400"
+                        className="bg-amber-100 hover:bg-amber-200 text-amber-800 border border-amber-300"
                       >
-                        {copiedField === 'amount' ? '✅' : '📋'}
+                        {copiedField === 'amount' ? '✓ Tersalin' : 'Salin'}
                       </Button>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-red-500/20 border border-red-500/30 rounded-lg">
+                  <div className="p-4 bg-rose-50 border border-rose-200 rounded-lg">
                     <div className="flex items-center justify-between gap-2">
                       <div>
-                        <p className="text-red-400 font-bold text-sm">📝 Kode Berita</p>
-                        <p className="text-lg font-bold text-white font-mono bg-slate-900/50 px-2 py-1 rounded">
+                        <p className="text-rose-800 font-semibold text-sm">Kode Berita Transfer</p>
+                        <p className="text-lg font-bold text-gray-900 font-mono bg-white px-3 py-2 rounded border border-gray-200 mt-1">
                           {transferCode}
+                        </p>
+                        <p className="text-rose-700 text-xs mt-1">
+                          Wajib diisi di kolom berita/catatan
                         </p>
                       </div>
                       <Button
                         size="sm"
                         onClick={() => copyToClipboard(transferCode, 'code')}
-                        className="bg-red-500/20 hover:bg-red-500/30 text-red-400"
+                        className="bg-rose-100 hover:bg-rose-200 text-rose-800 border border-rose-300"
                       >
-                        {copiedField === 'code' ? '✅' : '📋'}
+                        {copiedField === 'code' ? '✓ Tersalin' : 'Salin'}
                       </Button>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-slate-800/50 border border-slate-600 rounded-lg">
-                    <p className="text-white font-medium mb-2 text-sm">🏦 Transfer ke:</p>
-                    <div className="space-y-1 text-sm">
-                      <p className="text-slate-300">{selectedPaymentMethod}: <span className="font-mono text-white">0812-3456-7890</span></p>
-                      <p className="text-slate-300">Nama: <span className="text-white">PUYOK Escrow</span></p>
+                  <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                    <p className="text-gray-900 font-semibold mb-3 text-sm">Detail Rekening Tujuan</p>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Metode:</span>
+                        <span className="text-gray-900 font-medium">{selectedPaymentMethod}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Nomor:</span>
+                        <span className="text-gray-900 font-mono">0812-3456-7890</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Nama:</span>
+                        <span className="text-gray-900 font-medium">PUYOK Escrow</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1277,10 +1316,10 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
                 <Button
                   onClick={handleUploadProof}
                   disabled={!canUploadProof}
-                  className={`w-full h-12 font-bold ${
+                  className={`w-full h-12 font-semibold transition-all ${
                     canUploadProof
-                      ? "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
-                      : "bg-slate-600 cursor-not-allowed"
+                      ? "bg-gray-900 hover:bg-gray-800 text-white"
+                      : "bg-gray-300 cursor-not-allowed text-gray-500"
                   }`}
                 >
                   {canUploadProof ? (
@@ -1299,9 +1338,9 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
                 <Button
                   variant="outline"
                   onClick={() => setPaymentStep(2)}
-                  className="w-full border-slate-600 text-slate-400"
+                  className="w-full border-gray-300 text-gray-600 hover:bg-gray-50"
                 >
-                  Ganti Metode
+                  ← Ganti Metode Pembayaran
                 </Button>
               </div>
             </div>
