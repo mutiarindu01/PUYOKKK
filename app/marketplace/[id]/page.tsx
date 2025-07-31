@@ -835,9 +835,15 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
     setPaymentStep(2)
   }
 
-  const handlePaymentMethodSelect = (method: string) => {
+  const handlePaymentMethodSelect = async (method: string) => {
+    setIsTransitioning(true)
     setSelectedPaymentMethod(method)
+
+    // Short delay for smooth transition
+    await new Promise(resolve => setTimeout(resolve, 300))
+
     setPaymentStep(3)
+    setIsTransitioning(false)
   }
 
   const handleCloseModal = () => {
