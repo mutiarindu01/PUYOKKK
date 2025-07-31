@@ -95,7 +95,6 @@ import {
   XCircle,
   HelpCircle,
   MessageSquare,
-  Video,
   Paperclip,
   Send,
   MoreVertical,
