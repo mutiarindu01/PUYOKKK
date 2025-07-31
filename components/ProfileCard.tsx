@@ -394,7 +394,9 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                   </div>
                   <div className="pc-user-text">
                     <div className="pc-handle">
-                      <p>@{truncatedHandle}</p>
+                      <a href={`/profile/${handle}`} className="hover:text-blue-400 transition-colors">
+                        <p>@{truncatedHandle}</p>
+                      </a>
                     </div>
                     <div className="pc-status">{status}</div>
                   </div>
