@@ -854,10 +854,21 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
     setCopiedField('')
   }
 
-  const handleUploadProof = () => {
-    // Handle proof upload logic here
-    console.log('Uploading proof:', paymentProof)
-    // Show success state or next step
+  const handleUploadProof = async () => {
+    setIsBuying(true)
+    try {
+      // Simulate upload and processing
+      await new Promise(resolve => setTimeout(resolve, 1500))
+
+      // Move to success step
+      setPaymentStep(4)
+
+      console.log('Uploading proof:', paymentProof)
+    } catch (error) {
+      console.error("Upload failed:", error)
+    } finally {
+      setIsBuying(false)
+    }
   }
 
   if (isSeller) {
