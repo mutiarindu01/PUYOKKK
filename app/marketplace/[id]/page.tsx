@@ -1185,10 +1185,12 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
     </Card>
 
     <Dialog open={showPaymentModal} onOpenChange={handleCloseModal}>
-      <DialogContent className="bg-white border-gray-200 text-gray-900 max-w-2xl max-h-[90vh] overflow-hidden">
+      <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-2xl max-h-[90vh] overflow-hidden">
         <DialogHeader>
-          <DialogTitle className="text-gray-900 text-xl font-semibold">
-            {paymentStep === 2 ? "Pilih Metode Pembayaran" : "Instruksi Pembayaran"}
+          <DialogTitle className="text-white text-xl font-semibold">
+            {paymentStep === 2 ? "Pilih Metode Pembayaran" :
+             paymentStep === 3 ? "Instruksi Pembayaran" :
+             "Pembayaran Berhasil"}
           </DialogTitle>
         </DialogHeader>
 
