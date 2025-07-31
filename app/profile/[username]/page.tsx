@@ -1339,12 +1339,12 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl">
-                    <div className="text-2xl font-bold text-primary">{formatPrice(parseInt(creatorData.totalEarnings.replace(/\D/g, '')))}</div>
+                  <div className="text-center p-4 bg-slate-900 rounded-xl border border-slate-700">
+                    <div className="text-2xl font-bold">{formatPrice(parseInt(creatorData.totalEarnings.replace(/\D/g, '')))}</div>
                     <div className="text-sm text-muted-foreground">Total Sales</div>
                   </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-500/10 to-green-500/5 rounded-xl">
-                    <div className="text-2xl font-bold text-green-600">{creatorData.successfulTransactions}</div>
+                  <div className="text-center p-4 bg-gradient-to-br from-green-500/10 to-green-500/5 rounded-xl border border-slate-600">
+                    <div className="text-2xl font-bold text-white">{creatorData.successfulTransactions}</div>
                     <div className="text-sm text-muted-foreground">Completed</div>
                   </div>
                 </div>
@@ -1352,7 +1352,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Response Time</span>
-                    <span className="font-semibold text-blue-600">{creatorData.responseTime}</span>
+                    <span className="font-semibold text-white">{creatorData.responseTime}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Success Rate</span>
@@ -1363,7 +1363,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-muted-foreground">Portfolio Value</span>
-                    <span className="font-semibold text-purple-600">{creatorData.portfolioValue}</span>
+                    <span className="font-semibold text-white">{creatorData.portfolioValue}</span>
                   </div>
                 </div>
               </CardContent>
