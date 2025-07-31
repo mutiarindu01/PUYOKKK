@@ -66,6 +66,8 @@ import {
   Send,
   CreditCard,
   Calculator,
+  RefreshCw,
+  Gas,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -2775,7 +2777,7 @@ AI Market Analysis:
                         </div>
                       </div>
                       <div className="flex items-center gap-4 text-xs text-slate-300">
-                        <span>📊 Volume 24h: {priceRecommendation.salesVolume24h}</span>
+                        <span>���� Volume 24h: {priceRecommendation.salesVolume24h}</span>
                         <span>⏱️ Avg Sale: {priceRecommendation.avgSaleDays} hari</span>
                         <span>✅ Success Rate: {priceRecommendation.successRate}%</span>
                       </div>
