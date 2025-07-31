@@ -436,7 +436,15 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
   })
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <ProfileLoadingScreen
+        isLoading={isLoading}
+        onLoadingComplete={() => setIsLoading(false)}
+      />
+
+      <div className="min-h-screen bg-background relative overflow-hidden">
+        {/* Animated Background */}
+        <AnimatedBackground className="opacity-30" particleCount={30} />
       {/* Enhanced Header Navigation */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
@@ -1162,6 +1170,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
       </div>
 
       <Footer />
-    </div>
+      </div>
+    </>
   )
 }
