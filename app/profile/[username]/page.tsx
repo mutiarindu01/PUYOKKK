@@ -372,6 +372,14 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
     return () => clearInterval(interval)
   }, [])
 
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [])
+
   const handleFollow = () => {
     setIsFollowing(!isFollowing)
   }
