@@ -16,7 +16,7 @@ import ProfileChart from "@/components/ProfileChart"
 import PortfolioGallery from "@/components/PortfolioGallery"
 import AnimatedBackground from "@/components/AnimatedBackground"
 import ProfileLoadingScreen from "@/components/ProfileLoadingScreen"
-import "../profile-animations.css"
+import "./profile-animations.css"
 import {
   ArrowLeft,
   Star,
