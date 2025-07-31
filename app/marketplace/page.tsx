@@ -742,20 +742,16 @@ AI Market Analysis:
                 <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">1.2K</span>
               </div>
             </button>
-            <button
-              onClick={() => setActiveTab("tokens")}
-              className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
-                activeTab === "tokens"
-                  ? "border-green-500 text-green-400 bg-green-500/5"
-                  : "border-transparent text-slate-400 hover:text-white hover:border-slate-600"
-              }`}
+            <Link
+              href="/marketplace/tokens"
+              className="px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap border-transparent text-slate-400 hover:text-white hover:border-slate-600"
             >
               <div className="flex items-center gap-2">
-                <DollarSign className="w-4 h-4" />
-                <span>Tokens</span>
-                <span className="hidden sm:inline text-xs bg-slate-700 px-2 py-0.5 rounded-full">89</span>
+                <Coins className="w-4 h-4" />
+                <span>Token Order Book</span>
+                <span className="hidden sm:inline text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">NEW</span>
               </div>
-            </button>
+            </Link>
             <button
               onClick={() => setActiveTab("collections")}
               className={`px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base font-medium border-b-2 transition-all whitespace-nowrap ${
