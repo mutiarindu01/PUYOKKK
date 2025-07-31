@@ -2842,6 +2842,132 @@ AI Market Analysis:
                     </div>
                   )}
 
+                  {/* Comprehensive Payment Methods Selection */}
+                  <div className="p-6 bg-slate-800/50 rounded-lg border border-slate-700 mb-6">
+                    <h4 className="font-medium text-white mb-4 flex items-center gap-2">
+                      <CreditCard className="w-5 h-5 text-blue-400" />
+                      Metode Pembayaran P2P (Pilih Multiple)
+                    </h4>
+                    <p className="text-sm text-slate-400 mb-4">
+                      Semakin banyak metode pembayaran, semakin cepat transaksi Anda selesai
+                    </p>
+
+                    {/* E-Wallet Section */}
+                    <div className="mb-6">
+                      <h5 className="text-white font-medium mb-3 flex items-center gap-2">
+                        <Smartphone className="w-4 h-4 text-green-400" />
+                        E-Wallet Indonesia
+                      </h5>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        {[
+                          { name: "DANA", icon: "💙", fee: "0%", popular: true },
+                          { name: "OVO", icon: "💜", fee: "0%", popular: true },
+                          { name: "GoPay", icon: "💚", fee: "0%", popular: true },
+                          { name: "ShopeePay", icon: "🧡", fee: "0%", popular: false },
+                          { name: "LinkAja", icon: "❤️", fee: "0%", popular: false },
+                          { name: "QRIS", icon: "📱", fee: "0%", popular: true },
+                          { name: "SeaBank", icon: "🌊", fee: "0%", popular: false },
+                          { name: "Jenius", icon: "⚡", fee: "0%", popular: false },
+                        ].map((method) => (
+                          <button
+                            key={method.name}
+                            onClick={() => {
+                              const currentMethods = selectedPaymentAccount ? selectedPaymentAccount.split(',').filter(Boolean) : []
+                              if (currentMethods.includes(method.name)) {
+                                setSelectedPaymentAccount(currentMethods.filter(m => m !== method.name).join(','))
+                              } else {
+                                setSelectedPaymentAccount([...currentMethods, method.name].join(','))
+                              }
+                            }}
+                            className={`relative p-3 border rounded-lg transition-all text-center group ${
+                              selectedPaymentAccount.includes(method.name)
+                                ? "border-green-500 bg-green-500/10"
+                                : "border-slate-700 hover:border-slate-600 hover:bg-slate-800"
+                            }`}
+                          >
+                            {method.popular && (
+                              <Badge className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs">HOT</Badge>
+                            )}
+                            <div className="text-2xl mb-1">{method.icon}</div>
+                            <div className="text-sm font-medium text-white">{method.name}</div>
+                            <div className="text-xs text-green-400">{method.fee} fee</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Bank Transfer Section */}
+                    <div className="mb-6">
+                      <h5 className="text-white font-medium mb-3 flex items-center gap-2">
+                        <Building2 className="w-4 h-4 text-blue-400" />
+                        Bank Transfer Indonesia
+                      </h5>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {[
+                          { name: "BCA", fullName: "Bank Central Asia", icon: "🏦", fee: "Free" },
+                          { name: "Mandiri", fullName: "Bank Mandiri", icon: "🏛️", fee: "Free" },
+                          { name: "BRI", fullName: "Bank Rakyat Indonesia", icon: "🏦", fee: "Free" },
+                          { name: "BNI", fullName: "Bank Negara Indonesia", icon: "🏛️", fee: "Free" },
+                          { name: "CIMB Niaga", fullName: "CIMB Niaga", icon: "🏦", fee: "Free" },
+                          { name: "Permata", fullName: "Bank Permata", icon: "💎", fee: "Free" },
+                        ].map((bank) => (
+                          <button
+                            key={bank.name}
+                            onClick={() => {
+                              const currentMethods = selectedPaymentAccount ? selectedPaymentAccount.split(',').filter(Boolean) : []
+                              if (currentMethods.includes(bank.name)) {
+                                setSelectedPaymentAccount(currentMethods.filter(m => m !== bank.name).join(','))
+                              } else {
+                                setSelectedPaymentAccount([...currentMethods, bank.name].join(','))
+                              }
+                            }}
+                            className={`p-3 border rounded-lg transition-all text-left ${
+                              selectedPaymentAccount.includes(bank.name)
+                                ? "border-blue-500 bg-blue-500/10"
+                                : "border-slate-700 hover:border-slate-600 hover:bg-slate-800"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="text-xl">{bank.icon}</span>
+                              <div>
+                                <div className="text-sm font-medium text-white">{bank.name}</div>
+                                <div className="text-xs text-slate-400">{bank.fullName}</div>
+                                <div className="text-xs text-green-400">{bank.fee}</div>
+                              </div>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Additional Payment Features */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-lg">
+                        <h6 className="text-white font-medium mb-2 flex items-center gap-2">
+                          <Shield className="w-4 h-4 text-green-400" />
+                          Escrow Protection
+                        </h6>
+                        <p className="text-xs text-slate-400 mb-2">Aset Anda diamankan sampai pembayaran dikonfirmasi</p>
+                        <div className="flex items-center gap-2">
+                          <Switch defaultChecked />
+                          <span className="text-sm text-green-400">Aktif</span>
+                        </div>
+                      </div>
+
+                      <div className="p-4 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-lg">
+                        <h6 className="text-white font-medium mb-2 flex items-center gap-2">
+                          <Timer className="w-4 h-4 text-yellow-400" />
+                          Auto-Release
+                        </h6>
+                        <p className="text-xs text-slate-400 mb-2">Otomatis release setelah konfirmasi payment</p>
+                        <div className="flex items-center gap-2">
+                          <Switch defaultChecked />
+                          <span className="text-sm text-green-400">15 menit</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* What You Give */}
                     <div className="p-4 bg-slate-800/50 rounded-lg">
