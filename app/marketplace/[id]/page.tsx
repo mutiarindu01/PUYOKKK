@@ -872,6 +872,7 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
   }
 
   return (
+    <>
     <Card className="bg-slate-800/50 border-slate-700">
       <CardContent className="p-6">
         {/* Step 1: Initial Buy Button */}
@@ -1164,6 +1165,151 @@ function BuyActionSection({ order, currentUser }: { order: OrderDetail; currentU
         )}
       </CardContent>
     </Card>
+
+    <Dialog open={showPaymentModal} onOpenChange={handleCloseModal}>
+      <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-2xl max-h-[90vh] overflow-hidden">
+        <DialogHeader>
+          <DialogTitle>
+            {paymentStep === 2 ? "Pilih Metode Pembayaran" : "Instruksi Pembayaran"}
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="overflow-y-auto max-h-[70vh]">
+          {paymentStep === 2 && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <p className="text-slate-400">Pilih cara pembayaran yang paling mudah untuk Anda</p>
+              </div>
+
+              <div className="space-y-3">
+                {order.paymentMethods.map((method, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handlePaymentMethodSelect(method)}
+                    className="w-full p-4 border border-slate-700 hover:border-blue-500 rounded-lg transition-all bg-slate-700/30 hover:bg-blue-500/10 text-left"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
+                        {method === "DANA" && <span className="text-blue-400 text-lg">💳</span>}
+                        {method === "OVO" && <span className="text-purple-400 text-lg">💳</span>}
+                        {method === "GoPay" && <span className="text-green-400 text-lg">💳</span>}
+                        {method === "Bank Transfer" && <Building2 className="w-6 h-6 text-yellow-400" />}
+                      </div>
+                      <div>
+                        <p className="font-medium text-white text-lg">{method}</p>
+                        <p className="text-sm text-slate-400">
+                          {method === "Bank Transfer" ? "Transfer bank konvensional" : "E-wallet digital"}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {paymentStep === 3 && selectedPaymentMethod && (
+            <div className="space-y-6">
+              {/* Timer */}
+              <div className="p-4 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-xl text-center">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Timer className="w-5 h-5 text-red-400" />
+                  <span className="text-red-400 font-medium">Selesaikan pembayaran dalam</span>
+                </div>
+                <div className="text-3xl font-bold text-white font-mono">
+                  {formatTime(timeLeft)}
+                </div>
+              </div>
+
+              {/* Payment Details */}
+              <div className="p-4 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl">
+                <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-blue-400" />
+                  Detail Pembayaran
+                </h4>
+
+                <div className="space-y-4">
+                  <div className="p-3 bg-yellow-500/20 border border-yellow-500/30 rounded-lg">
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <p className="text-yellow-400 font-bold text-sm">💰 Nominal Transfer</p>
+                        <p className="text-xl font-bold text-white font-mono">{formatCurrency(uniqueAmount)}</p>
+                      </div>
+                      <Button
+                        size="sm"
+                        onClick={() => copyToClipboard(uniqueAmount.toString(), 'amount')}
+                        className="bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400"
+                      >
+                        {copiedField === 'amount' ? '✅' : '📋'}
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="p-3 bg-red-500/20 border border-red-500/30 rounded-lg">
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <p className="text-red-400 font-bold text-sm">📝 Kode Berita</p>
+                        <p className="text-lg font-bold text-white font-mono bg-slate-900/50 px-2 py-1 rounded">
+                          {transferCode}
+                        </p>
+                      </div>
+                      <Button
+                        size="sm"
+                        onClick={() => copyToClipboard(transferCode, 'code')}
+                        className="bg-red-500/20 hover:bg-red-500/30 text-red-400"
+                      >
+                        {copiedField === 'code' ? '✅' : '📋'}
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="p-3 bg-slate-800/50 border border-slate-600 rounded-lg">
+                    <p className="text-white font-medium mb-2 text-sm">🏦 Transfer ke:</p>
+                    <div className="space-y-1 text-sm">
+                      <p className="text-slate-300">{selectedPaymentMethod}: <span className="font-mono text-white">0812-3456-7890</span></p>
+                      <p className="text-slate-300">Nama: <span className="text-white">PUYOK Escrow</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <Button
+                  onClick={handleUploadProof}
+                  disabled={!canUploadProof}
+                  className={`w-full h-12 font-bold ${
+                    canUploadProof
+                      ? "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
+                      : "bg-slate-600 cursor-not-allowed"
+                  }`}
+                >
+                  {canUploadProof ? (
+                    <>
+                      <CheckCircle className="w-5 h-5 mr-2" />
+                      Saya Sudah Transfer
+                    </>
+                  ) : (
+                    <>
+                      <Timer className="w-5 h-5 mr-2" />
+                      Tunggu {Math.max(0, 120 - (900 - timeLeft))}s
+                    </>
+                  )}
+                </Button>
+
+                <Button
+                  variant="outline"
+                  onClick={() => setPaymentStep(2)}
+                  className="w-full border-slate-600 text-slate-400"
+                >
+                  Ganti Metode
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+    </>
   )
 }
 
