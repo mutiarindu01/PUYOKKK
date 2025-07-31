@@ -76,7 +76,6 @@ import {
   Gift,
   Crown,
   Calendar,
-  Bell,
   Settings,
   ChevronRight,
   MapPin,
@@ -3695,7 +3694,7 @@ AI Market Analysis:
                       <div className="text-sm">
                         <p className="text-blue-400 font-medium mb-1">Informasi Penting</p>
                         <ul className="text-slate-300 space-y-1">
-                          <li>• Order akan masuk ke marketplace public</li>
+                          <li>��� Order akan masuk ke marketplace public</li>
                           <li>• {paymentMethod === "onchain" ? "Aset akan di-lock di smart contract escrow" : "Order akan pending hingga pembayaran selesai"}</li>
                           <li>• Anda akan menerima notifikasi real-time untuk setiap update</li>
                           <li>• PUYOK Escrow Protection melindungi kedua belah pihak</li>
