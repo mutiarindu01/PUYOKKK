@@ -13,6 +13,7 @@ import { Progress } from "@/components/ui/progress"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Footer from "@/components/Footer"
 import ProfileChart from "@/components/ProfileChart"
+import PortfolioGallery from "@/components/PortfolioGallery"
 import "../profile-animations.css"
 import {
   ArrowLeft,
@@ -478,21 +479,26 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
           
-          {/* Floating Elements */}
+          {/* Floating Elements with Particles */}
           <div className="absolute top-10 right-10 hidden lg:flex flex-col gap-4">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float">
+            <div className="particles-bg">
+              {[...Array(9)].map((_, i) => (
+                <div key={i} className="particle" />
+              ))}
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float glass-effect hover-glow">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-yellow-400" />
                 <span className="text-sm font-medium">{creatorData.totalViews.toLocaleString()} Views</span>
               </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float" style={{ animationDelay: "1s" }}>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float glass-effect hover-glow" style={{ animationDelay: "1s" }}>
               <div className="flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-yellow-400" />
                 <span className="text-sm font-medium">{creatorData.awards.length} Awards</span>
               </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float" style={{ animationDelay: "2s" }}>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white animate-float glass-effect hover-glow" style={{ animationDelay: "2s" }}>
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-green-400" />
                 <span className="text-sm font-medium">{creatorData.completionRate}% Success</span>
@@ -507,8 +513,8 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
             <div className="flex flex-col lg:flex-row lg:items-end gap-8">
               {/* Enhanced Avatar Section */}
               <div className="relative flex-shrink-0">
-                <div className="relative">
-                  <Avatar className="w-40 h-40 md:w-48 md:h-48 border-6 border-background shadow-2xl ring-4 ring-primary/20">
+                <div className="relative status-online">
+                  <Avatar className="w-40 h-40 md:w-48 md:h-48 border-6 border-background shadow-2xl ring-4 ring-primary/20 hover-lift">
                     <AvatarImage src={creatorData.avatar} alt={creatorData.displayName} />
                     <AvatarFallback className="text-5xl bg-gradient-to-br from-primary to-purple-600 text-white">
                       {creatorData.displayName.split(' ').map(n => n[0]).join('')}
@@ -717,7 +723,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
             </Card>
 
             {/* Skills & Expertise */}
-            <Card className="shadow-lg">
+            <Card className="shadow-lg hover-lift">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="w-5 h-5 text-primary" />
@@ -725,13 +731,13 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {creatorData.skills.map((skill) => (
-                  <div key={skill.name}>
+                {creatorData.skills.map((skill, index) => (
+                  <div key={skill.name} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-medium">{skill.name}</span>
                       <span className="text-sm text-muted-foreground">{skill.level}%</span>
                     </div>
-                    <Progress value={skill.level} className="h-2" />
+                    <Progress value={skill.level} className="h-2 progress-bar" style={{ animationDelay: `${index * 0.2}s` }} />
                   </div>
                 ))}
               </CardContent>
@@ -779,10 +785,10 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
             </Card>
 
             {/* Services Showcase */}
-            <Card className="shadow-lg overflow-hidden">
+            <Card className="shadow-lg overflow-hidden hover-lift">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Zap className="w-5 h-5 text-primary" />
+                  <Zap className="w-5 h-5 text-primary animate-pulse-glow" />
                   Professional Services
                 </CardTitle>
               </CardHeader>
@@ -822,9 +828,10 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                   {creatorData.services.map((_, index) => (
                     <div
                       key={index}
-                      className={`w-2 h-2 rounded-full transition-all ${
+                      className={`w-2 h-2 rounded-full transition-all animate-scale-pulse ${
                         index === activeService ? 'bg-primary' : 'bg-muted-foreground/30'
                       }`}
+                      style={{ animationDelay: `${index * 0.2}s` }}
                     />
                   ))}
                 </div>
@@ -907,96 +914,36 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
 
               {/* Portfolio Tab */}
               <TabsContent value="portfolio" className="mt-0">
-                <div className={viewMode === "grid" 
-                  ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" 
-                  : "space-y-6"
-                }>
-                  {filteredAssets.map((asset) => (
-                    <Card key={asset.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer border-0 shadow-lg overflow-hidden">
-                      <div className="aspect-square relative overflow-hidden">
-                        <img
-                          src={asset.image}
-                          alt={asset.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                        
-                        {/* Overlay with Info */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="absolute bottom-4 left-4 right-4">
-                            <div className="flex items-center gap-4 text-white mb-3">
-                              <div className="flex items-center gap-1">
-                                <Eye className="w-4 h-4" />
-                                <span className="text-sm">{asset.views.toLocaleString()}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Heart className="w-4 h-4" />
-                                <span className="text-sm">{asset.likes}</span>
-                              </div>
-                            </div>
-                            <Button size="sm" className="w-full">
-                              View Details
-                              <ArrowRight className="w-4 h-4 ml-2" />
-                            </Button>
-                          </div>
-                        </div>
-
-                        {/* Top Badges */}
-                        <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                          <div className="flex gap-2">
-                            <Badge className={`${getRarityColor(asset.rarity)} text-white border-0 shadow-lg`}>
-                              {asset.rarity}
-                            </Badge>
-                            {asset.isHot && (
-                              <Badge className="bg-red-500 text-white border-0 shadow-lg animate-pulse">
-                                <Flame className="w-3 h-3 mr-1" />
-                                Hot
-                              </Badge>
-                            )}
-                          </div>
-                          <Badge variant="secondary" className="bg-black/50 text-white border-0 backdrop-blur-sm">
-                            {asset.category}
-                          </Badge>
-                        </div>
-
-                        {/* Time Left Indicator */}
-                        <div className="absolute bottom-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                          <Clock className="w-3 h-3 mr-1 inline" />
-                          {asset.timeLeft}
-                        </div>
-                      </div>
-                      
-                      <CardContent className="p-6">
-                        <h3 className="font-bold text-lg text-foreground mb-2 line-clamp-2">{asset.title}</h3>
-                        <div className="flex justify-between items-center mb-4">
-                          <p className="text-2xl font-bold text-primary">{asset.price}</p>
-                          <div className="flex items-center gap-1 text-muted-foreground">
-                            <TrendingUp className="w-4 h-4 text-green-500" />
-                            <span className="text-sm">+12%</span>
-                          </div>
-                        </div>
-                        
-                        {/* Quick Actions */}
-                        <div className="flex gap-2">
-                          <Button className="flex-1" size="sm">
-                            Buy Now
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Heart className="w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Share2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                <PortfolioGallery
+                  assets={filteredAssets}
+                  viewMode={viewMode}
+                  filterCategory={filterCategory}
+                  sortBy={sortBy}
+                  onLike={(assetId) => {
+                    // Handle like logic
+                    console.log('Liked asset:', assetId)
+                  }}
+                  onShare={(asset) => {
+                    // Handle share logic
+                    if (navigator.share) {
+                      navigator.share({
+                        title: asset.title,
+                        text: `Check out this amazing artwork: ${asset.title}`,
+                        url: window.location.href,
+                      })
+                    }
+                  }}
+                  onBookmark={(assetId) => {
+                    // Handle bookmark logic
+                    console.log('Bookmarked asset:', assetId)
+                  }}
+                />
               </TabsContent>
 
               {/* Activity Tab */}
               <TabsContent value="activity" className="mt-0">
-                <div className="space-y-6">
-                  <Card className="shadow-lg">
+                <div className="space-y-6 stagger-children">
+                  <Card className="shadow-lg hover-lift">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Activity className="w-5 h-5 text-primary" />
@@ -1004,9 +951,13 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {creatorData.recentActivity.map((activity) => (
-                        <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg hover:bg-accent/50 transition-colors">
-                          <div className="text-2xl">{activity.icon}</div>
+                      {creatorData.recentActivity.map((activity, index) => (
+                        <div
+                          key={activity.id}
+                          className="flex items-start gap-4 p-4 rounded-lg hover:bg-accent/50 transition-all duration-300 interactive-card"
+                          style={{ animationDelay: `${index * 0.1}s` }}
+                        >
+                          <div className="text-2xl animate-bounce-subtle">{activity.icon}</div>
                           <div className="flex-1">
                             <h4 className="font-semibold text-foreground">{activity.title}</h4>
                             <p className="text-muted-foreground text-sm">{activity.description}</p>
@@ -1058,12 +1009,12 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                   </Card>
 
                   {/* Individual Reviews */}
-                  <div className="space-y-4">
-                    {creatorData.testimonials.map((testimonial) => (
-                      <Card key={testimonial.id} className="shadow-lg">
+                  <div className="space-y-4 stagger-children">
+                    {creatorData.testimonials.map((testimonial, index) => (
+                      <Card key={testimonial.id} className="shadow-lg hover-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                         <CardContent className="p-6">
                           <div className="flex items-start gap-4">
-                            <Avatar className="w-12 h-12">
+                            <Avatar className="w-12 h-12 hover-glow">
                               <AvatarImage src={testimonial.avatar} />
                               <AvatarFallback>{testimonial.author[0].toUpperCase()}</AvatarFallback>
                             </Avatar>
@@ -1071,7 +1022,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                               <div className="flex items-center gap-2 mb-2">
                                 <h4 className="font-semibold">@{testimonial.author}</h4>
                                 {testimonial.verified && (
-                                  <Badge variant="secondary" className="text-xs">
+                                  <Badge variant="secondary" className="text-xs badge-glow">
                                     <CheckCircle className="w-3 h-3 mr-1" />
                                     Verified Purchase
                                   </Badge>
@@ -1080,9 +1031,10 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
                                   {[1, 2, 3, 4, 5].map((star) => (
                                     <Star
                                       key={star}
-                                      className={`w-4 h-4 ${
-                                        star <= testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                                      className={`w-4 h-4 transition-all duration-300 ${
+                                        star <= testimonial.rating ? 'text-yellow-400 fill-current animate-bounce-subtle' : 'text-gray-300'
                                       }`}
+                                      style={{ animationDelay: `${star * 0.1}s` }}
                                     />
                                   ))}
                                 </div>
