@@ -1034,11 +1034,11 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
-      case "Legendary": return "bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500"
-      case "Epic": return "bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500"
-      case "Rare": return "bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500"
-      case "Common": return "bg-gradient-to-r from-gray-400 to-gray-600"
-      default: return "bg-gradient-to-r from-gray-400 to-gray-600"
+      case "Legendary": return "bg-gradient-to-r from-amber-200 to-yellow-300"
+      case "Epic": return "bg-gradient-to-r from-purple-200 to-indigo-300"
+      case "Rare": return "bg-gradient-to-r from-blue-200 to-cyan-300"
+      case "Common": return "bg-gradient-to-r from-gray-200 to-gray-300"
+      default: return "bg-gradient-to-r from-gray-200 to-gray-300"
     }
   }
 
