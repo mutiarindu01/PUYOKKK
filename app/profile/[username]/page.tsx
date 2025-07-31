@@ -361,6 +361,7 @@ export default function CreatorProfilePage({ params }: CreatorProfilePageProps) 
   const [sortBy, setSortBy] = useState("newest")
   const [notifications, setNotifications] = useState(true)
   const [activeService, setActiveService] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
 
   // Auto-rotate services showcase
