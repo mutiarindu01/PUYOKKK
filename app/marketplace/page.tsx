@@ -1297,13 +1297,6 @@ export default function MarketplacePage() {
   const [priceRecommendation, setPriceRecommendation] = useState<any>(null)
   const [showSmartTips, setShowSmartTips] = useState(true)
 
-  // Token order book states
-  const [selectedToken, setSelectedToken] = useState<TokenInfo | null>(sampleTokens[0])
-  const [selectedTokenOrder, setSelectedTokenOrder] = useState<TokenOrder | null>(null)
-  const [showOrderDetails, setShowOrderDetails] = useState(false)
-  const [tokenActiveTab, setTokenActiveTab] = useState("orderbook")
-  const [showCreateTokenOrder, setShowCreateTokenOrder] = useState(false)
-
   // Format currency
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('id-ID', {
