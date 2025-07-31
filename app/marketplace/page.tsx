@@ -75,7 +75,6 @@ import {
   AlertCircle,
   Gift,
   Crown,
-  TrendingUp,
   BarChart3,
   Calendar,
   Bell,
