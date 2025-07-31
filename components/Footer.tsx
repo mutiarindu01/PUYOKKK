@@ -154,11 +154,8 @@ export default function Footer() {
                 alt="PUYOK Logo"
                 className="w-12 h-12 object-contain"
               />
-              <div>
-                <span className="text-3xl font-bold text-white">PUYOK</span>
-                <Badge variant="outline" className="ml-2 text-xs border-emerald-500 text-emerald-400">
-                  v2.1
-                </Badge>
+              <div className="text-3xl font-bold text-white">
+                PUYOK
               </div>
             </div>
             
