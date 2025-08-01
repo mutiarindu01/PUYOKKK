@@ -81,24 +81,30 @@ const GooeyNav = ({
         particle.style.setProperty("--scale", `${p.scale}`);
         particle.style.setProperty(
           "--color",
-          `var(--color-${p.color}, white)`
+          `var(--color-${p.color})`
         );
         particle.style.setProperty("--rotate", `${p.rotate}deg`);
 
         point.classList.add("point");
         particle.appendChild(point);
         element.appendChild(particle);
+
+        // Force immediate render
         requestAnimationFrame(() => {
+          particle.style.opacity = "1";
           element.classList.add("active");
         });
+
         setTimeout(() => {
           try {
-            element.removeChild(particle);
+            if (element.contains(particle)) {
+              element.removeChild(particle);
+            }
           } catch {
             // Do nothing
           }
         }, t);
-      }, 30);
+      }, i * 5); // Stagger particle creation
     }
   };
 
