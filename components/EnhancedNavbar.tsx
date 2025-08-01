@@ -451,6 +451,12 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                     <DropdownMenuItem className="hover:bg-slate-700/50 p-2 cursor-pointer text-red-400" onClick={() => {
                       setIsWalletConnected(false);
                       setWalletAddress("");
+                      setIsLoggedIn(false);
+                      localStorage.removeItem('walletConnected');
+                      localStorage.removeItem('walletAddress');
+                      localStorage.removeItem('authToken');
+                      // Redirect to home after disconnect
+                      router.push('/');
                     }}>
                       <LogOut className="w-4 h-4 mr-2" />
                       Disconnect
