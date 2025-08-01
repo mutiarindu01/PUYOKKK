@@ -92,8 +92,10 @@ import SafeTransactionSteps from "@/components/SafeTransactionSteps"
 import GaslessSection from "@/components/GaslessSection"
 import ValuePropositionSection from "@/components/ValuePropositionSection"
 import LegendSection from "@/components/LegendSection"
+import DevStatus from "@/components/DevStatus"
 import { motion } from "framer-motion"
 import { formatRupiah, formatVolume, formatActivity, formatNumber } from "@/lib/formatters"
+import { isSupabaseConfigured } from "@/lib/supabase"
 
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
 
@@ -109,6 +111,7 @@ export default function LandingPage() {
   const [currentLegendarySlide, setCurrentLegendarySlide] = useState(0)
   const [transactionValue, setTransactionValue] = useState(10000000)
   const [visibleNFTs, setVisibleNFTs] = useState(3) // Default to desktop
+  const [showDevStatus, setShowDevStatus] = useState(false)
   const lastScrollY = useRef(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
@@ -132,6 +135,12 @@ export default function LandingPage() {
     maxXp: 3000
   })
   const searchInputRef = useRef<HTMLInputElement>(null)
+
+  // Check if we should show dev status
+  useEffect(() => {
+    const shouldShowDevStatus = !isSupabaseConfigured() && process.env.NODE_ENV === 'development'
+    setShowDevStatus(shouldShowDevStatus)
+  }, [])
 
   // Popular searches data
   const popularSearches = [
@@ -630,6 +639,17 @@ export default function LandingPage() {
         backgroundType={backgroundType}
         setBackgroundType={setBackgroundType}
       />
+
+      {/* Development Status (only show in dev mode without Supabase) */}
+      {showDevStatus && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed top-20 left-1/2 -translate-x-1/2 z-50 max-w-2xl w-full mx-4"
+        >
+          <DevStatus onClose={() => setShowDevStatus(false)} />
+        </motion.div>
+      )}
 
       {/* Enhanced Navigation Bar with All Features */}
       <EnhancedNavbar
@@ -1206,7 +1226,7 @@ export default function LandingPage() {
                     {/* Market Sentiment */}
                     <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3 mb-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-green-400 text-xl">��️</span>
+                        <span className="text-green-400 text-xl">🛡️</span>
                         <span className="text-green-400 font-medium text-sm">Safe Haven</span>
                       </div>
                       <p className="text-xs text-gray-400">Stablecoin terpercaya dengan demand tinggi</p>
