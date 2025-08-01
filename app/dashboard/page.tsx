@@ -441,7 +441,7 @@ function ModernSidebar({
       </div>
 
       {/* Enhanced Navigation with Scrolling */}
-      <nav className={`flex-1 py-6 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800 ${isCollapsed ? 'px-2' : 'px-4'}`}>
+      <nav className={`flex-1 py-6 space-y-2 overflow-y-auto ${isCollapsed ? 'px-2' : 'px-4'}`} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         {menuItems.map((item) => (
           <div key={item.id} className="relative group">
             <button
