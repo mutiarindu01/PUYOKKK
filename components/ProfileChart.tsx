@@ -52,6 +52,17 @@ export default function ProfileChart({ data }: ProfileChartProps) {
   const [activeChart, setActiveChart] = useState<"earnings" | "performance" | "analytics">("earnings")
   const [animationPhase, setAnimationPhase] = useState(0)
 
+  const navItems = [
+    { label: "💰 Earnings" },
+    { label: "📈 Performance" },
+    { label: "📊 Analytics" }
+  ]
+
+  const handleTabChange = (index: number) => {
+    const tabs = ["earnings", "performance", "analytics"] as const
+    setActiveChart(tabs[index])
+  }
+
   // Enhanced data processing with consistent mock data
   const mockSalesData = [12, 8, 15, 22, 18, 25]; // Consistent mock sales data
   const mockViewsData = [2500, 3200, 4100, 3800, 4500, 4200]; // Consistent mock views data
