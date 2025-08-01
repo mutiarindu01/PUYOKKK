@@ -131,49 +131,59 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   <div className="p-4">
                     <div className="text-sm text-slate-400 mb-3">Jelajahi Marketplace</div>
                     <div className="grid grid-cols-2 gap-2">
-                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Palette className="w-5 h-5 text-blue-400" />
-                          <div>
-                            <div className="font-medium">Digital Art</div>
-                            <div className="text-xs text-slate-400">NFT Seni Digital</div>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                        <Link href="/marketplace?category=art">
+                          <div className="flex items-center gap-3">
+                            <Palette className="w-5 h-5 text-blue-400" />
+                            <div>
+                              <div className="font-medium">Digital Art</div>
+                              <div className="text-xs text-slate-400">NFT Seni Digital</div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Trophy className="w-5 h-5 text-yellow-400" />
-                          <div>
-                            <div className="font-medium">Legendary</div>
-                            <div className="text-xs text-slate-400">Premium Collection</div>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                        <Link href="/marketplace?category=legendary">
+                          <div className="flex items-center gap-3">
+                            <Trophy className="w-5 h-5 text-yellow-400" />
+                            <div>
+                              <div className="font-medium">Legendary</div>
+                              <div className="text-xs text-slate-400">Premium Collection</div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Flame className="w-5 h-5 text-red-400" />
-                          <div>
-                            <div className="font-medium">Trending</div>
-                            <div className="text-xs text-slate-400">Hot Items</div>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                        <Link href="/marketplace?sort=trending">
+                          <div className="flex items-center gap-3">
+                            <Flame className="w-5 h-5 text-red-400" />
+                            <div>
+                              <div className="font-medium">Trending</div>
+                              <div className="text-xs text-slate-400">Hot Items</div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Gamepad2 className="w-5 h-5 text-green-400" />
-                          <div>
-                            <div className="font-medium">Gaming</div>
-                            <div className="text-xs text-slate-400">Game Assets</div>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                        <Link href="/marketplace?category=gaming">
+                          <div className="flex items-center gap-3">
+                            <Gamepad2 className="w-5 h-5 text-green-400" />
+                            <div>
+                              <div className="font-medium">Gaming</div>
+                              <div className="text-xs text-slate-400">Game Assets</div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </DropdownMenuItem>
                     </div>
                     <DropdownMenuSeparator className="my-3 bg-slate-700" />
-                    <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                      <div className="flex items-center justify-between w-full">
-                        <span>Lihat Semua NFT</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
+                    <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                      <Link href="/marketplace">
+                        <div className="flex items-center justify-between w-full">
+                          <span>Lihat Semua NFT</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </Link>
                     </DropdownMenuItem>
                   </div>
                 </DropdownMenuContent>
