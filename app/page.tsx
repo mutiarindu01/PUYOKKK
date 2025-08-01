@@ -683,7 +683,7 @@ export default function LandingPage() {
                   transition={{ delay: 0.5 }}
                   className="text-lg text-gray-300 leading-relaxed max-w-lg"
                 >
-                  PUYOK mempelopori panggung NFT di Indonesia dengan marketplace untuk koleksi digital dan aset kreatif
+                  Ꭾuyok mempelopori panggung NFT di Indonesia dengan marketplace untuk koleksi digital dan aset kreatif
                 </motion.p>
               </div>
 
