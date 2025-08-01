@@ -3178,10 +3178,11 @@ AI Market Analysis:
                     ].map((option) => (
                       <button
                         key={option.type}
-                        onClick={() => {
-                          setSelectedAssetType(option.type as "ERC20" | "ERC721" | "ERC1155")
+                        onClick={async () => {
+                          const assetType = option.type as "ERC20" | "ERC721" | "ERC1155"
+                          setSelectedAssetType(assetType)
                           if (option.type !== "MINT") {
-                            setWalletAssets(sampleWalletAssets[option.type as keyof typeof sampleWalletAssets] || [])
+                            await loadWalletAssets(assetType)
                           }
                         }}
                         className={`relative p-6 rounded-xl border-2 transition-all duration-300 group ${
