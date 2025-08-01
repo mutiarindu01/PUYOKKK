@@ -2,8 +2,14 @@
  * Utility functions for consistent number and currency formatting
  */
 
-// Format number with Indonesian thousands separator (titik)
+// Format number with Indonesian thousands separator (titik) - SSR safe
 export function formatNumber(num: number): string {
+  // Use consistent formatting that works the same on server and client
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+}
+
+// Format number with Indonesian thousands separator (titik) - legacy
+export function formatNumberLocale(num: number): string {
   return num.toLocaleString('id-ID')
 }
 

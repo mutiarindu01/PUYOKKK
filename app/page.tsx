@@ -987,7 +987,7 @@ export default function LandingPage() {
                         </div>
                         <div>
                           <div className="flex items-center gap-1">
-                            <span className="text-white text-sm font-medium">@crypto_master</span>
+                            <Link href="/profile/crypto_master" className="text-white text-sm font-medium hover:text-blue-400 transition-colors">@crypto_master</Link>
                             <Shield className="w-3 h-3 text-slate-400" />
                           </div>
                           <div className="flex items-center gap-2">
@@ -1109,7 +1109,7 @@ export default function LandingPage() {
                         </div>
                         <div>
                           <div className="flex items-center gap-1">
-                            <span className="text-white text-sm font-medium">@eth_trader</span>
+                            <Link href="/profile/eth_trader" className="text-white text-sm font-medium hover:text-blue-400 transition-colors">@eth_trader</Link>
                             <Shield className="w-3 h-3 text-slate-400" />
                           </div>
                           <div className="flex items-center gap-2">
@@ -1230,7 +1230,7 @@ export default function LandingPage() {
                         </div>
                         <div>
                           <div className="flex items-center gap-1">
-                            <span className="text-white text-sm font-medium">@stable_pro</span>
+                            <Link href="/profile/stable_pro" className="text-white text-sm font-medium hover:text-blue-400 transition-colors">@stable_pro</Link>
                             <Shield className="w-3 h-3 text-slate-400" />
                           </div>
                           <div className="flex items-center gap-2">
@@ -1476,7 +1476,9 @@ export default function LandingPage() {
                               <div className="w-6 h-6 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                 {nft.creator.slice(1, 3).toUpperCase()}
                               </div>
-                              <span className="text-sm text-gray-300">{nft.creator}</span>
+                              <Link href={`/profile/${nft.creator.slice(1)}`} className="text-sm text-gray-300 hover:text-purple-400 transition-colors">
+                                {nft.creator}
+                              </Link>
                               {nft.verified && (
                                 <Shield className="w-4 h-4 text-slate-400" />
                               )}

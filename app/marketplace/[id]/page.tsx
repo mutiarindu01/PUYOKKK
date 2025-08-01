@@ -609,9 +609,11 @@ function SellerTrustSection({ seller, onShowReviews }: { seller: OrderDetail['se
           
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-xl font-semibold text-white">
-                @{seller.username}
-              </h3>
+              <Link href={`/profile/${seller.username}`} className="hover:opacity-80 transition-opacity">
+                <h3 className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
+                  @{seller.username}
+                </h3>
+              </Link>
               {seller.isVerified && (
                 <Badge className="bg-blue-500/20 text-blue-400">
                   <Verified className="w-3 h-3 mr-1" />

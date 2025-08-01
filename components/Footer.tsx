@@ -49,7 +49,7 @@ export default function Footer() {
   const [isSubscribed, setIsSubscribed] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(true)
 
-  const currentYear = new Date().getFullYear()
+  const currentYear = 2024 // Fixed year to prevent hydration mismatch
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -79,7 +79,7 @@ export default function Footer() {
     { label: "Cara Kerja Escrow", href: "/escrow", icon: <ShieldCheck className="w-4 h-4" /> },
     { label: "Transaksi Gasless", href: "/gasless", icon: <Zap className="w-4 h-4" /> },
     { label: "Keamanan", href: "/security", icon: <Shield className="w-4 h-4" /> },
-    { label: "API Developer", href: "/api", icon: <Code className="w-4 h-4" />, badge: "Beta" }
+    { label: "API Developer", href: "/api", icon: <Code className="w-4 h-4" /> }
   ]
 
   const legalLinks = [
@@ -154,11 +154,8 @@ export default function Footer() {
                 alt="PUYOK Logo"
                 className="w-12 h-12 object-contain"
               />
-              <div>
-                <span className="text-3xl font-bold text-white">PUYOK</span>
-                <Badge variant="outline" className="ml-2 text-xs border-emerald-500 text-emerald-400">
-                  v2.1
-                </Badge>
+              <div className="text-3xl font-bold text-white">
+                PUYOK
               </div>
             </div>
             
@@ -326,79 +323,10 @@ export default function Footer() {
         </div>
 
         {/* Payment Partners */}
-        <div className="mt-16 pt-8 border-t border-gray-700">
-          <h4 className="font-semibold text-white mb-6 text-center">Partner Pembayaran Terpercaya:</h4>
-          <div className="flex justify-center items-center gap-8 flex-wrap">
-            {paymentPartners.map((partner) => (
-              <div key={partner.name} className="bg-white rounded-lg p-3 w-20 h-12 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity">
-                <span className="text-xs font-bold text-gray-800">{partner.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </div>
 
-      {/* Footer Bottom */}
-      <div className="bg-gray-800 border-t border-gray-700">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          
-          {/* Security & Trust Badges */}
-          <div className="mb-6">
-            <div className="flex flex-wrap justify-center gap-6 mb-6">
-              {securityBadges.map((badge, index) => (
-                <div key={index} className="flex items-center gap-2 text-emerald-400">
-                  {badge.icon}
-                  <span className="text-sm">{badge.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          <Separator className="mb-6 bg-gray-600" />
-
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            {/* Copyright */}
-            <div className="text-center lg:text-left">
-              <p className="text-gray-300 font-medium mb-2">
-                © {currentYear} PT PUYOK INOVASI DIGITAL. Seluruh hak cipta dilindungi.
-              </p>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-gray-400">
-                {legalLinks.map((link, index) => (
-                  <span key={link.label}>
-                    <Link href={link.href} className="hover:text-emerald-400 transition-colors">
-                      {link.label}
-                    </Link>
-                    {index < legalLinks.length - 1 && <span className="ml-4">•</span>}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Regulatory Badges */}
-            <div className="flex items-center gap-4">
-              {regulatoryBadges.map((badge) => (
-                <div key={badge.name} className="bg-white rounded-lg p-2 w-16 h-12 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity">
-                  <span className="text-xs font-bold text-gray-800">{badge.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Blockchain Links */}
-          <div className="mt-6 pt-4 border-t border-gray-700 text-center">
-            <p className="text-sm text-gray-400 mb-2">Kontrak Smart Contract:</p>
-            <div className="flex justify-center gap-6 text-sm">
-              <a href="https://etherscan.io/address/0x863...bffb" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
-                Kontrak Escrow <ExternalLink className="w-3 h-3" />
-              </a>
-              <span className="text-gray-600">|</span>
-              <a href="https://polygonscan.com/address/0x92a...d4e" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
-                Kontrak Gasless <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Back to Top Button */}
       {showBackToTop && (
