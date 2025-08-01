@@ -48,7 +48,7 @@ export interface EmailAuthParams {
 }
 
 export class AuthService {
-  private supabase = createClientComponentClient()
+  private supabase = createClientSupabaseClient()
 
   // Wallet Authentication
   async signInWithWallet({ walletAddress, signature, message, username }: WalletAuthParams): Promise<AuthUser | null> {
