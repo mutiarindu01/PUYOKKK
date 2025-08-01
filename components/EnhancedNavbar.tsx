@@ -392,6 +392,11 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                       <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer" onClick={() => {
                         setIsWalletConnected(true);
                         setWalletAddress("0x1234...5678");
+                        setIsLoggedIn(true);
+                        localStorage.setItem('walletConnected', 'true');
+                        localStorage.setItem('walletAddress', '0x1234...5678');
+                        // Redirect to dashboard after wallet connection
+                        setTimeout(() => router.push('/dashboard'), 1000);
                       }}>
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
