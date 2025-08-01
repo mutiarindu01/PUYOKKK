@@ -1,5 +1,4 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { createServerSupabaseClient, supabaseAdmin } from './supabase'
+import { createClientSupabaseClient, createServerSupabaseClient, supabaseAdmin } from './supabase'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { ethers } from 'ethers'
