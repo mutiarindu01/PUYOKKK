@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useOnboarding } from "@/contexts/OnboardingContext"
 import { motion } from "framer-motion"
 import {
   Search,
