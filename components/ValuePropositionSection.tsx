@@ -172,7 +172,7 @@ const FeatureComparison = () => {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <td className="py-4 px-6 text-white font-medium">{item.feature}</td>
-                <td className="py-4 px-6 text-center text-green-400 font-semibold">{item.puyok}</td>
+                <td className="py-4 px-6 text-center text-green-400 font-semibold">{item.ꭾuyok}</td>
                 <td className="py-4 px-6 text-center text-gray-400">{item.others}</td>
               </motion.tr>
             ))}
