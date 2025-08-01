@@ -189,49 +189,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 text-white hover:text-purple-400 transition-colors font-medium group">
-                  CREATOR
-                  <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-64 bg-slate-800/95 border-slate-700 text-white backdrop-blur-xl">
-                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3">
-                    <Plus className="w-4 h-4 mr-3 text-green-400" />
-                    <div>
-                      <div className="font-medium">Buat NFT</div>
-                      <div className="text-xs text-slate-400">Upload & Mint</div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3">
-                    <TrendingUp className="w-4 h-4 mr-3 text-blue-400" />
-                    <div>
-                      <div className="font-medium">Analytics</div>
-                      <div className="text-xs text-slate-400">Tracking Performance</div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3">
-                    <Award className="w-4 h-4 mr-3 text-yellow-400" />
-                    <div>
-                      <div className="font-medium">Tutorial</div>
-                      <div className="text-xs text-slate-400">Panduan Creator</div>
-                    </div>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
 
-              <Link href="/rewards" className="text-white hover:text-orange-400 transition-colors font-medium relative group">
-                <span className="flex items-center gap-2">
-                  HADIAH
-                  <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs animate-pulse shadow-lg">
-                    NEW
-                  </Badge>
-                </span>
-              </Link>
-
-              <Link href="/voting" className="text-white hover:text-green-400 transition-colors font-medium flex items-center gap-2">
-                <Target className="w-4 h-4" />
-                VOTING
-              </Link>
             </nav>
           </div>
 
