@@ -85,25 +85,25 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
     "🎮 Gaming Assets"
   ]
 
-  // Check for authentication status and redirect if needed
+  // Check for authentication status and integrate with onboarding
   useEffect(() => {
     // Check if user is logged in (from localStorage, session, etc.)
     const checkAuthStatus = () => {
       const authToken = localStorage.getItem('authToken')
       const walletConnected = localStorage.getItem('walletConnected')
 
-      if (authToken || walletConnected === 'true') {
+      // Only set logged in status if onboarding is complete
+      if ((authToken || walletConnected === 'true') && onboardingStatus.isOnboardingComplete) {
         setIsLoggedIn(true)
-        if (authToken) {
-          // If we have an auth token, set wallet as connected too
+        if (authToken || walletConnected === 'true') {
           setIsWalletConnected(true)
-          setWalletAddress(localStorage.getItem('walletAddress') || "0x1234...5678")
+          setWalletAddress(localStorage.getItem('walletAddress') || onboardingStatus.walletAddress || "0x1234...5678")
         }
       }
     }
 
     checkAuthStatus()
-  }, [])
+  }, [onboardingStatus.isOnboardingComplete])
 
   // Function to handle logo click with smart redirection
   const handleLogoClick = () => {
