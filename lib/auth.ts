@@ -1,4 +1,5 @@
-import { createClientSupabaseClient, createServerSupabaseClient, supabaseAdmin } from './supabase'
+import { createClientSupabaseClient } from './supabase'
+import { supabaseAdmin } from './supabase-server'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { ethers } from 'ethers'
