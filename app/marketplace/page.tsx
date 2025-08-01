@@ -1656,6 +1656,8 @@ export default function MarketplacePage() {
   const [listingDescription, setListingDescription] = useState("")
   const [priceRecommendation, setPriceRecommendation] = useState<any>(null)
   const [showSmartTips, setShowSmartTips] = useState(true)
+  const [loadingWalletAssets, setLoadingWalletAssets] = useState(false)
+  const [userAddress, setUserAddress] = useState("")
 
   // Format currency
   const formatPrice = (price: number) => {
