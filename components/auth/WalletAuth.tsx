@@ -75,8 +75,9 @@ export default function WalletAuth({ isOpen, onClose, onSuccess, mode }: WalletA
 
     setIsLoading(true)
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
+      // Use ethers v6 syntax
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
       
       const message = `Sign this message to authenticate with PUYOK NFT Marketplace.
 
@@ -123,8 +124,8 @@ Nonce: ${Date.now()}`
 
     setIsLoading(true)
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
       
       const message = `Register new account with PUYOK NFT Marketplace.
 
