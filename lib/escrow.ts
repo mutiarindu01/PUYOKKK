@@ -66,22 +66,23 @@ export class EscrowService {
     try {
       // Initialize provider (you can use Infura, Alchemy, etc.)
       const infuraId = process.env.INFURA_PROJECT_ID
-      const contractAddress = process.env.ESCROW_CONTRACT_ADDRESS
+      const contractAddress = process.env.ESCROW_CONTRACT_ADDRESS || '0x86391Db0f7614E31cBAefB0b881F2fb3dbfFBFFb'
 
-      if (infuraId && contractAddress) {
-        this.provider = new ethers.JsonRpcProvider(
-          `https://mainnet.infura.io/v3/${infuraId}`
-        )
-        
-        // Initialize contract
-        this.contract = new ethers.Contract(
-          contractAddress,
-          ESCROW_ABI,
-          this.provider
-        )
-      } else {
-        console.warn('⚠️ Escrow service not configured. Set INFURA_PROJECT_ID and ESCROW_CONTRACT_ADDRESS in .env.local')
-      }
+      // Use fallback RPC if Infura not configured
+      const rpcUrl = infuraId
+        ? `https://mainnet.infura.io/v3/${infuraId}`
+        : 'https://eth-sepolia.g.alchemy.com/v2/demo' // Fallback for development
+
+      this.provider = new ethers.JsonRpcProvider(rpcUrl)
+
+      // Initialize contract with your address
+      this.contract = new ethers.Contract(
+        contractAddress,
+        ESCROW_ABI,
+        this.provider
+      )
+
+      console.log('🔗 Escrow service initialized with contract:', contractAddress)
     } catch (error) {
       console.error('Failed to initialize escrow provider:', error)
     }
