@@ -1691,6 +1691,12 @@ export default function LandingPage() {
         {/* Subtle pulse ring */}
         <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
       </motion.button>
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={showOnboardingModal}
+        onClose={() => setShowOnboardingModal(false)}
+      />
     </motion.div>
   )
 }
