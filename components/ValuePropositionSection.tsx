@@ -30,7 +30,7 @@ const ValuePropositionSection = () => {
         >
           <div className="inline-flex items-center gap-3 bg-slate-800/30 border border-slate-600/30 rounded-full px-6 py-3 mb-6">
             <ArrowLeftRight className="w-5 h-5 text-slate-400" />
-            <span className="text-slate-400 font-semibold">MENGAPA PUYOK BERBEDA</span>
+            <span className="text-slate-400 font-semibold">MENGAPA Ꭾuyok BERBEDA</span>
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
@@ -123,27 +123,27 @@ const FeatureComparison = () => {
   const featureComparison = [
     {
       feature: 'Biaya Gas',
-      puyok: 'Gratis (Ditanggung Platform)',
+      ꭾuyok: 'Gratis (Ditanggung Platform)',
       others: `${formatRupiah(50000)} - ${formatRupiah(500000)} per transaksi`
     },
     {
       feature: 'Metode Pembayaran',
-      puyok: 'DANA, GoPay, OVO, QRIS',
+      ꭾuyok: 'DANA, GoPay, OVO, QRIS',
       others: 'Transfer Bank, Crypto'
     },
     {
       feature: 'Keamanan',
-      puyok: 'Escrow Smart Contract + Verifikasi AI',
+      ꭾuyok: 'Escrow Smart Contract + Verifikasi AI',
       others: 'Escrow Dasar'
     },
     {
       feature: 'Komunitas',
-      puyok: 'Forum Edukasi & Dukungan 24/7',
+      ꭾuyok: 'Forum Edukasi & Dukungan 24/7',
       others: 'Dukungan Terbatas'
     },
     {
       feature: 'Biaya Platform',
-      puyok: '2-3%',
+      ꭾuyok: '2-3%',
       others: '5-15%'
     }
   ]
@@ -151,14 +151,14 @@ const FeatureComparison = () => {
   return (
     <div>
       <h3 className="text-2xl font-bold text-white mb-6 text-center">
-        🏆 PUYOK vs Platform Lain
+        🏆 Ꭾuyok vs Platform Lain
       </h3>
       <div className="overflow-x-auto">
         <table className="min-w-full">
           <thead>
             <tr className="border-b border-slate-700/50">
               <th className="py-4 px-6 text-left text-gray-400 font-semibold">Fitur</th>
-              <th className="py-4 px-6 text-center text-green-500 font-semibold">🚀 PUYOK</th>
+              <th className="py-4 px-6 text-center text-green-500 font-semibold">🚀 Ꭾuyok</th>
               <th className="py-4 px-6 text-center text-gray-400 font-semibold">Platform Lain</th>
             </tr>
           </thead>
@@ -172,7 +172,7 @@ const FeatureComparison = () => {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <td className="py-4 px-6 text-white font-medium">{item.feature}</td>
-                <td className="py-4 px-6 text-center text-green-400 font-semibold">{item.puyok}</td>
+                <td className="py-4 px-6 text-center text-green-400 font-semibold">{item.ꭾuyok}</td>
                 <td className="py-4 px-6 text-center text-gray-400">{item.others}</td>
               </motion.tr>
             ))}
@@ -193,10 +193,10 @@ const SavingsCalculator = () => {
   const [amount, setAmount] = useState(1000000)
   
   // Hitung penghematan
-  const puyokFee = amount * 0.03
+  const ꭾuyokFee = amount * 0.03
   const othersFee = amount * 0.1 // Rata-rata 10%
   const gasFee = 250000 // Rata-rata biaya gas
-  const savings = (othersFee + gasFee) - puyokFee
+  const savings = (othersFee + gasFee) - ꭾuyokFee
   
   return (
     <div>
@@ -259,10 +259,10 @@ const SavingsCalculator = () => {
         >
           <h4 className="text-gray-400 font-medium mb-3 flex items-center">
             <span className="text-green-500 mr-2">✅</span>
-            Di PUYOK
+            Di Ꭾuyok
           </h4>
           <div className="text-3xl font-bold text-green-500 mb-2">
-            {formatRupiah(amount - puyokFee)}
+            {formatRupiah(amount - ꭾuyokFee)}
           </div>
           <div className="text-sm text-gray-400">
             Biaya platform 3% + biaya gas gratis
@@ -295,7 +295,7 @@ const TestimonialsCarousel = () => {
     {
       name: "Budi Santoso",
       role: "Kreator NFT",
-      content: "Sejak pindah ke PUYOK, penjualan saya naik 40%! Biaya rendah dan pembayaran langsung ke DANA bikin cash flow lancar.",
+      content: "Sejak pindah ke Ꭾuyok, penjualan saya naik 40%! Biaya rendah dan pembayaran langsung ke DANA bikin cash flow lancar.",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Budi",
       rating: 5
     },
@@ -332,7 +332,7 @@ const TestimonialsCarousel = () => {
   return (
     <div>
       <h3 className="text-2xl font-bold text-white mb-8 text-center">
-        💬 Apa Kata Pengguna PUYOK
+        💬 Apa Kata Pengguna Ꭾuyok
       </h3>
       
       <motion.div 

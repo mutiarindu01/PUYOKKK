@@ -1,7 +1,9 @@
 "use client"
 
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useOnboarding } from "@/contexts/OnboardingContext"
 import { motion } from "framer-motion"
 import {
   Search,
@@ -52,6 +54,9 @@ interface EnhancedNavbarProps {
 }
 
 export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }: EnhancedNavbarProps) {
+  const router = useRouter()
+  const { onboardingStatus, triggerOnboarding, isReturningUser } = useOnboarding()
+
   // Enhanced navbar state
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
@@ -60,6 +65,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
   const [currency, setCurrency] = useState("idr")
   const [isWalletConnected, setIsWalletConnected] = useState(false)
   const [walletAddress, setWalletAddress] = useState("")
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState({
     name: "Pioneer User",
     avatar: "",
@@ -78,6 +84,35 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
     "💎 Premium Collection",
     "🎮 Gaming Assets"
   ]
+
+  // Check for authentication status and integrate with onboarding
+  useEffect(() => {
+    // Check if user is logged in (from localStorage, session, etc.)
+    const checkAuthStatus = () => {
+      const authToken = localStorage.getItem('authToken')
+      const walletConnected = localStorage.getItem('walletConnected')
+
+      // Only set logged in status if onboarding is complete
+      if ((authToken || walletConnected === 'true') && onboardingStatus.isOnboardingComplete) {
+        setIsLoggedIn(true)
+        if (authToken || walletConnected === 'true') {
+          setIsWalletConnected(true)
+          setWalletAddress(localStorage.getItem('walletAddress') || onboardingStatus.walletAddress || "0x1234...5678")
+        }
+      }
+    }
+
+    checkAuthStatus()
+  }, [onboardingStatus.isOnboardingComplete])
+
+  // Function to handle logo click with smart redirection
+  const handleLogoClick = () => {
+    if (isLoggedIn || isWalletConnected) {
+      router.push('/dashboard')
+    } else {
+      router.push('/')
+    }
+  }
 
   return (
     <header
@@ -106,17 +141,20 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
         >
           {/* Left Side - Logo and Enhanced Navigation */}
           <div className="flex items-center gap-3 md:gap-4">
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div
+              className="flex items-center gap-2 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={handleLogoClick}
+            >
               <div className="relative">
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
-                  alt="PUYOK Logo"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Ffa8faf3c486a40418d8ebcd83d93a67b%2F1f8a70592f3b4d0baa8ff7eddaf3b5b3?format=webp&width=800"
+                  alt="Ꭾuyok Logo"
                   className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 object-contain"
                 />
                 <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse" />
               </div>
               <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-                PUYOK
+                Ꭾuyok
               </span>
             </div>
 
@@ -131,97 +169,74 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   <div className="p-4">
                     <div className="text-sm text-slate-400 mb-3">Jelajahi Marketplace</div>
                     <div className="grid grid-cols-2 gap-2">
-                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Palette className="w-5 h-5 text-blue-400" />
-                          <div>
-                            <div className="font-medium">Digital Art</div>
-                            <div className="text-xs text-slate-400">NFT Seni Digital</div>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                        <Link href="/marketplace?category=art">
+                          <div className="flex items-center gap-3">
+                            <Palette className="w-5 h-5 text-blue-400" />
+                            <div>
+                              <div className="font-medium">Digital Art</div>
+                              <div className="text-xs text-slate-400">NFT Seni Digital</div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Trophy className="w-5 h-5 text-yellow-400" />
-                          <div>
-                            <div className="font-medium">Legendary</div>
-                            <div className="text-xs text-slate-400">Premium Collection</div>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                        <Link href="/marketplace?category=legendary">
+                          <div className="flex items-center gap-3">
+                            <Trophy className="w-5 h-5 text-yellow-400" />
+                            <div>
+                              <div className="font-medium">Legendary</div>
+                              <div className="text-xs text-slate-400">Premium Collection</div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Flame className="w-5 h-5 text-red-400" />
-                          <div>
-                            <div className="font-medium">Trending</div>
-                            <div className="text-xs text-slate-400">Hot Items</div>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                        <Link href="/marketplace?sort=trending">
+                          <div className="flex items-center gap-3">
+                            <Flame className="w-5 h-5 text-red-400" />
+                            <div>
+                              <div className="font-medium">Trending</div>
+                              <div className="text-xs text-slate-400">Hot Items</div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <Gamepad2 className="w-5 h-5 text-green-400" />
-                          <div>
-                            <div className="font-medium">Gaming</div>
-                            <div className="text-xs text-slate-400">Game Assets</div>
+                      <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                        <Link href="/marketplace?category=gaming">
+                          <div className="flex items-center gap-3">
+                            <Gamepad2 className="w-5 h-5 text-green-400" />
+                            <div>
+                              <div className="font-medium">Gaming</div>
+                              <div className="text-xs text-slate-400">Game Assets</div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </DropdownMenuItem>
                     </div>
                     <DropdownMenuSeparator className="my-3 bg-slate-700" />
-                    <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer">
-                      <div className="flex items-center justify-between w-full">
-                        <span>Lihat Semua NFT</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
+                    <DropdownMenuItem className="hover:bg-slate-700/50 p-3 rounded-lg cursor-pointer" asChild>
+                      <Link href="/marketplace">
+                        <div className="flex items-center justify-between w-full">
+                          <span>Lihat Semua NFT</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </Link>
                     </DropdownMenuItem>
                   </div>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 text-white hover:text-purple-400 transition-colors font-medium group">
-                  CREATOR
-                  <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-64 bg-slate-800/95 border-slate-700 text-white backdrop-blur-xl">
-                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3">
-                    <Plus className="w-4 h-4 mr-3 text-green-400" />
-                    <div>
-                      <div className="font-medium">Buat NFT</div>
-                      <div className="text-xs text-slate-400">Upload & Mint</div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3">
-                    <TrendingUp className="w-4 h-4 mr-3 text-blue-400" />
-                    <div>
-                      <div className="font-medium">Analytics</div>
-                      <div className="text-xs text-slate-400">Tracking Performance</div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-slate-700/50 p-3">
-                    <Award className="w-4 h-4 mr-3 text-yellow-400" />
-                    <div>
-                      <div className="font-medium">Tutorial</div>
-                      <div className="text-xs text-slate-400">Panduan Creator</div>
-                    </div>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              <Link href="/rewards" className="text-white hover:text-orange-400 transition-colors font-medium relative group">
-                <span className="flex items-center gap-2">
-                  HADIAH
-                  <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs animate-pulse shadow-lg">
-                    NEW
-                  </Badge>
-                </span>
-              </Link>
-
-              <Link href="/voting" className="text-white hover:text-green-400 transition-colors font-medium flex items-center gap-2">
-                <Target className="w-4 h-4" />
-                VOTING
-              </Link>
+              {/* Dashboard Menu - Only show when user is actually logged in */}
+              {(isLoggedIn && isWalletConnected && onboardingStatus.isOnboardingComplete) && (
+                <Link
+                  href="/dashboard"
+                  className="text-white hover:text-green-400 transition-colors font-bold text-lg flex items-center gap-2"
+                >
+                  <Target className="w-4 h-4" />
+                  DASHBOARD
+                </Link>
+              )}
             </nav>
           </div>
 
@@ -386,8 +401,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                     <div className="text-sm text-slate-400 mb-3">Pilih Wallet</div>
                     <div className="space-y-2">
                       <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer" onClick={() => {
-                        setIsWalletConnected(true);
-                        setWalletAddress("0x1234...5678");
+                        triggerOnboarding();
                       }}>
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
@@ -427,7 +441,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   <div className="p-4">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        ✓
+                        ���
                       </div>
                       <div>
                         <div className="font-medium">Wallet Connected</div>
@@ -442,6 +456,12 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                     <DropdownMenuItem className="hover:bg-slate-700/50 p-2 cursor-pointer text-red-400" onClick={() => {
                       setIsWalletConnected(false);
                       setWalletAddress("");
+                      setIsLoggedIn(false);
+                      localStorage.removeItem('walletConnected');
+                      localStorage.removeItem('walletAddress');
+                      localStorage.removeItem('authToken');
+                      // Redirect to home after disconnect
+                      router.push('/');
                     }}>
                       <LogOut className="w-4 h-4 mr-2" />
                       Disconnect
@@ -451,8 +471,9 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* User Profile with Gamification */}
-            <DropdownMenu>
+            {/* User Profile with Gamification - Only show when user is actually logged in */}
+            {(isLoggedIn && isWalletConnected && onboardingStatus.isOnboardingComplete) && (
+              <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="hidden md:flex items-center gap-3 hover:bg-slate-800/50 p-2">
                   <div className="relative">
@@ -519,7 +540,8 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>
-            </DropdownMenu>
+              </DropdownMenu>
+            )}
 
             {/* Mobile Quick Actions */}
             <div className="flex sm:hidden items-center gap-1">
@@ -564,8 +586,9 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               </SheetTrigger>
               <SheetContent side="right" className="bg-slate-900/95 border-slate-700 text-white w-full sm:w-80 max-w-sm backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right">
                 <div className="flex flex-col gap-4 sm:gap-6 py-4 sm:py-6 h-full overflow-y-auto">
-                  {/* Mobile User Profile */}
-                  <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-800/50 rounded-lg sm:rounded-xl">
+                  {/* Mobile User Profile - Only show when user is actually logged in */}
+                  {(isLoggedIn && isWalletConnected && onboardingStatus.isOnboardingComplete) && (
+                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-800/50 rounded-lg sm:rounded-xl">
                     <Avatar className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-blue-500">
                       <AvatarImage src={user.avatar} />
                       <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600">
@@ -582,7 +605,8 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                         />
                       </div>
                     </div>
-                  </div>
+                    </div>
+                  )}
 
                   {/* Mobile Search Bar */}
                   <div className="p-3 sm:p-4 border border-slate-700 rounded-lg sm:rounded-xl">
@@ -643,22 +667,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                       </CollapsibleContent>
                     </Collapsible>
 
-                    <SheetClose asChild>
-                      <Link href="/rewards" className="flex items-center gap-3 text-base sm:text-lg font-medium hover:text-orange-400 p-3 sm:p-4 hover:bg-slate-800/30 rounded-lg transition-all duration-200 min-h-[44px] sm:min-h-[48px]">
-                        <Trophy className="w-5 h-5" />
-                        <span>Hadiah</span>
-                        <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs ml-auto">
-                          NEW
-                        </Badge>
-                      </Link>
-                    </SheetClose>
 
-                    <SheetClose asChild>
-                      <Link href="/voting" className="flex items-center gap-3 text-base sm:text-lg font-medium hover:text-green-400 p-3 sm:p-4 hover:bg-slate-800/30 rounded-lg transition-all duration-200 min-h-[44px] sm:min-h-[48px]">
-                        <Target className="w-5 h-5" />
-                        Voting
-                      </Link>
-                    </SheetClose>
                   </div>
                 </div>
               </SheetContent>

@@ -76,6 +76,10 @@ import { useRouter } from "next/navigation"
 import Footer from "@/components/Footer"
 import MarketplaceLoading from "@/components/MarketplaceLoading"
 import BackgroundParticles from "@/components/BackgroundParticles"
+import OnboardingModal from "@/components/OnboardingModal"
+import AuthGuard from "@/components/AuthGuard"
+import { useOnboarding } from "@/contexts/OnboardingContext"
+import { useAuthGuard } from "@/hooks/useAuthGuard"
 import SplineBackground, { SplineBackgroundDemo } from "@/components/SplineBackground"
 import FloatingBackgroundSwitcher from "@/components/FloatingBackgroundSwitcher"
 import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
@@ -94,6 +98,8 @@ import { formatRupiah, formatVolume, formatActivity, formatNumber } from "@/lib/
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
 
 export default function LandingPage() {
+  const { showOnboardingModal, setShowOnboardingModal } = useOnboarding()
+  const { requireAuthWithPrompt } = useAuthGuard()
   const [searchTerm, setSearchTerm] = useState("")
   const [isNavOpen, setIsNavOpen] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
@@ -683,7 +689,7 @@ export default function LandingPage() {
                   transition={{ delay: 0.5 }}
                   className="text-lg text-gray-300 leading-relaxed max-w-lg"
                 >
-                  PUYOK mempelopori panggung NFT di Indonesia dengan marketplace untuk koleksi digital dan aset kreatif
+                  Ꭾuyok mempelopori panggung NFT di Indonesia dengan marketplace untuk koleksi digital dan aset kreatif
                 </motion.p>
               </div>
 
@@ -1016,15 +1022,18 @@ export default function LandingPage() {
 
                   {/* Enhanced Action Buttons */}
                   <div className="flex gap-2">
-                    <Button
-                      className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
-                      asChild
+                    <AuthGuard
+                      actionName="membeli token"
+                      requirePrompt={true}
                     >
-                      <Link href="/marketplace">
+                      <Button
+                        className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
+                        onClick={() => {}}
+                      >
                         <DollarSign className="w-4 h-4 mr-2" />
                         Beli Sekarang
-                      </Link>
-                    </Button>
+                      </Button>
+                    </AuthGuard>
                     <Button size="icon" variant="outline" className="border-slate-600/50 text-slate-400 hover:bg-slate-800/50">
                       <Heart className="w-4 h-4" />
                     </Button>
@@ -1137,15 +1146,18 @@ export default function LandingPage() {
 
                   {/* Action Buttons */}
                   <div className="flex gap-2">
-                    <Button
-                      className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
-                      asChild
+                    <AuthGuard
+                      actionName="membeli token"
+                      requirePrompt={true}
                     >
-                      <Link href="/marketplace">
+                      <Button
+                        className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
+                        onClick={() => {}}
+                      >
                         <DollarSign className="w-4 h-4 mr-2" />
                         Beli Sekarang
-                      </Link>
-                    </Button>
+                      </Button>
+                    </AuthGuard>
                     <Button size="icon" variant="outline" className="border-slate-600/50 text-slate-400 hover:bg-slate-800/50">
                       <Heart className="w-4 h-4" />
                     </Button>
@@ -1259,15 +1271,18 @@ export default function LandingPage() {
 
                   {/* Action Buttons */}
                   <div className="flex gap-2">
-                    <Button
-                      className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
-                      asChild
+                    <AuthGuard
+                      actionName="membeli token"
+                      requirePrompt={true}
                     >
-                      <Link href="/marketplace">
+                      <Button
+                        className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
+                        onClick={() => {}}
+                      >
                         <DollarSign className="w-4 h-4 mr-2" />
                         Beli Sekarang
-                      </Link>
-                    </Button>
+                      </Button>
+                    </AuthGuard>
                     <Button size="icon" variant="outline" className="border-slate-600/50 text-slate-400 hover:bg-slate-800/50">
                       <Heart className="w-4 h-4" />
                     </Button>
@@ -1537,14 +1552,17 @@ export default function LandingPage() {
 
                         {/* Action Buttons */}
                         <div className="flex gap-2">
-                          <Button
-                            className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
-                            asChild
+                          <AuthGuard
+                            actionName="mengajukan penawaran"
+                            requirePrompt={true}
                           >
-                            <Link href={`/marketplace/${nft.id}`}>
+                            <Button
+                              className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
+                              onClick={() => {}}
+                            >
                               Ajukan Penawaran
-                            </Link>
-                          </Button>
+                            </Button>
+                          </AuthGuard>
                           <Button
                             size="icon"
                             variant="outline"
@@ -1688,6 +1706,12 @@ export default function LandingPage() {
         {/* Subtle pulse ring */}
         <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
       </motion.button>
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={showOnboardingModal}
+        onClose={() => setShowOnboardingModal(false)}
+      />
     </motion.div>
   )
 }

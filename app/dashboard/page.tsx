@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import ProtectedRoute from "@/components/ProtectedRoute"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -356,17 +357,19 @@ function ModernSidebar({
 }) {
   const menuItems = [
     { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 5 },
+    { id: "analytics", label: "Analytics", icon: LineChart, badge: "New" },
     { id: "marketplace", label: "Marketplace", icon: Home, special: true },
-    { id: "awards", label: "Awards", icon: Trophy, badge: "Premium" },
     { id: "assets", label: "Aset Saya", icon: Wallet, count: 12 },
     { id: "payments", label: "Pembayaran", icon: CreditCard },
-    { id: "analytics", label: "Analytics", icon: LineChart, badge: "New" },
+    { id: "awards", label: "Awards", icon: Trophy, badge: "Premium" },
     { id: "settings", label: "Pengaturan", icon: Settings }
   ]
 
+  const router = useRouter()
+
   const handleMenuClick = (item: typeof menuItems[0]) => {
     if (item.id === 'marketplace') {
-      window.open('/marketplace', '_blank')
+      router.push('/marketplace')
     } else {
       setActiveTab(item.id)
     }
@@ -511,7 +514,10 @@ function ModernSidebar({
 
       {/* Footer */}
       <div className={`p-4 border-t border-slate-700/50 ${isCollapsed ? 'px-2' : ''}`}>
-        <Button className={`w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 ${isCollapsed ? 'px-2' : ''}`}>
+        <Button
+          onClick={() => router.push('/marketplace')}
+          className={`w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 ${isCollapsed ? 'px-2' : ''}`}
+        >
           <Plus className="w-4 h-4" />
           <AnimatePresence>
             {!isCollapsed && (
@@ -2124,7 +2130,7 @@ function PaymentsContent() {
   )
 }
 
-export default function ModernDashboard() {
+function DashboardContent() {
   const [activeTab, setActiveTab] = useState("orders")
   const [isLoading, setIsLoading] = useState(true)
   const [isCollapsed, setIsCollapsed] = useState(false)
@@ -2236,5 +2242,13 @@ export default function ModernDashboard() {
         </main>
       </div>
     </div>
+  )
+}
+
+export default function ModernDashboard() {
+  return (
+    <ProtectedRoute>
+      <DashboardContent />
+    </ProtectedRoute>
   )
 }
