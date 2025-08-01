@@ -150,7 +150,7 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
+                src="https://cdn.builder.io/api/v1/image/assets%2Ffa8faf3c486a40418d8ebcd83d93a67b%2F1f8a70592f3b4d0baa8ff7eddaf3b5b3?format=webp&width=800"
                 alt="Ꭾuyok Logo"
                 className="w-12 h-12 object-contain"
               />
