@@ -83,6 +83,35 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
     "🎮 Gaming Assets"
   ]
 
+  // Check for authentication status and redirect if needed
+  useEffect(() => {
+    // Check if user is logged in (from localStorage, session, etc.)
+    const checkAuthStatus = () => {
+      const authToken = localStorage.getItem('authToken')
+      const walletConnected = localStorage.getItem('walletConnected')
+
+      if (authToken || walletConnected === 'true') {
+        setIsLoggedIn(true)
+        if (authToken) {
+          // If we have an auth token, set wallet as connected too
+          setIsWalletConnected(true)
+          setWalletAddress(localStorage.getItem('walletAddress') || "0x1234...5678")
+        }
+      }
+    }
+
+    checkAuthStatus()
+  }, [])
+
+  // Function to handle logo click with smart redirection
+  const handleLogoClick = () => {
+    if (isLoggedIn || isWalletConnected) {
+      router.push('/dashboard')
+    } else {
+      router.push('/')
+    }
+  }
+
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
