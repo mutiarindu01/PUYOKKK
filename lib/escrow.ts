@@ -2202,6 +2202,16 @@ export class EscrowService {
     }
   }
 
+  // Get contract address
+  getContractAddress(): string {
+    return process.env.ESCROW_CONTRACT_ADDRESS || '0x86391Db0f7614E31cBAefB0b881F2fb3dbfFBFFb'
+  }
+
+  // Check if escrow service is properly initialized
+  isInitialized(): boolean {
+    return this.provider !== null && this.contract !== null
+  }
+
   // Create Escrow Contract
   async createEscrow(params: CreateEscrowParams, signerPrivateKey: string): Promise<EscrowDetails | null> {
     try {
