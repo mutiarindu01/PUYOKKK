@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import GooeyNav from "./GooeyNav"
 import {
   BarChart3,
@@ -54,7 +53,7 @@ export default function ProfileChart({ data }: ProfileChartProps) {
 
   const navItems = [
     { label: "💰 Earnings" },
-    { label: "📈 Performance" },
+    { label: "📈 Performance" }, 
     { label: "📊 Analytics" }
   ]
 
@@ -66,7 +65,7 @@ export default function ProfileChart({ data }: ProfileChartProps) {
   // Enhanced data processing with consistent mock data
   const mockSalesData = [12, 8, 15, 22, 18, 25]; // Consistent mock sales data
   const mockViewsData = [2500, 3200, 4100, 3800, 4500, 4200]; // Consistent mock views data
-
+  
   const chartData: ChartData[] = data.monthlyEarnings.map((item, index) => ({
     month: item.month,
     amount: item.amount,
@@ -153,24 +152,23 @@ export default function ProfileChart({ data }: ProfileChartProps) {
   return (
     <div className="space-y-6">
       {/* Chart Navigation */}
-      <Tabs value={activeChart} onValueChange={(value) => setActiveChart(value as any)} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 h-12 bg-transparent border border-slate-800">
-          <TabsTrigger value="earnings" className="flex items-center gap-2 bg-slate-900 shadow-sm rounded border border-slate-700 hover:bg-slate-800 data-[state=active]:bg-slate-900">
-            <BarChart3 className="w-4 h-4" />
-            <p><strong>Earnings</strong></p>
-          </TabsTrigger>
-          <TabsTrigger value="performance" className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4" />
-            <p><strong>Performance</strong></p>
-          </TabsTrigger>
-          <TabsTrigger value="analytics" className="flex items-center gap-2">
-            <PieChart className="w-4 h-4" />
-            <p><strong>Analytics</strong></p>
-          </TabsTrigger>
-        </TabsList>
+      <div className="w-full">
+        <div className="mb-6">
+          <GooeyNav
+            items={navItems}
+            particleCount={12}
+            particleDistances={[60, 8]}
+            particleR={80}
+            initialActiveIndex={0}
+            animationTime={500}
+            timeVariance={200}
+            colors={[1, 2, 3, 4]}
+            onTabChange={handleTabChange}
+          />
+        </div>
 
         {/* Earnings Chart */}
-        <TabsContent value="earnings" className="mt-6">
+        {activeChart === "earnings" && (
           <Card className="shadow-lg overflow-hidden">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
@@ -246,10 +244,10 @@ export default function ProfileChart({ data }: ProfileChartProps) {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        )}
 
         {/* Performance Chart */}
-        <TabsContent value="performance" className="mt-6">
+        {activeChart === "performance" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {performanceMetrics.map((metric, index) => {
               const Icon = metric.icon
@@ -311,128 +309,130 @@ export default function ProfileChart({ data }: ProfileChartProps) {
               )
             })}
           </div>
-        </TabsContent>
+        )}
 
         {/* Analytics Chart */}
-        <TabsContent value="analytics" className="mt-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Analytics Cards */}
-            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {analyticsData.map((item, index) => {
-                const Icon = item.icon
-                return (
-                  <Card key={item.label} className="shadow-lg hover:shadow-xl transition-all duration-300">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between mb-3">
-                        <Icon className="w-8 h-8 text-primary" />
-                        <Badge variant="secondary" className="text-green-600 bg-green-50">
-                          {item.change}
-                        </Badge>
+        {activeChart === "analytics" && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Analytics Cards */}
+              <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {analyticsData.map((item, index) => {
+                  const Icon = item.icon
+                  return (
+                    <Card key={item.label} className="shadow-lg hover:shadow-xl transition-all duration-300">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <Icon className="w-8 h-8 text-primary" />
+                          <Badge variant="secondary" className="text-green-600 bg-green-50">
+                            {item.change}
+                          </Badge>
+                        </div>
+                        <h4 className="text-sm text-muted-foreground mb-1">{item.label}</h4>
+                        <div className="text-2xl font-bold text-foreground">
+                          {typeof item.value === 'number' ? formatNumber(item.value) : item.value}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
+              </div>
+
+              {/* Circular Progress Chart */}
+              <Card className="shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-center">Overall Performance</CardTitle>
+                </CardHeader>
+                <CardContent className="flex items-center justify-center p-6">
+                  <div className="relative w-40 h-40">
+                    {/* Background Circle */}
+                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        stroke="currentColor"
+                        strokeWidth="8"
+                        fill="transparent"
+                        className="text-gray-200"
+                      />
+                      {/* Progress Circle */}
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        stroke="currentColor"
+                        strokeWidth="8"
+                        fill="transparent"
+                        strokeDasharray={`${data.completionRate * 2.51} 251`}
+                        className="text-primary transition-all duration-1000 ease-out"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    {/* Center Text */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-primary">{data.completionRate}%</div>
+                        <div className="text-xs text-muted-foreground">Success Rate</div>
                       </div>
-                      <h4 className="text-sm text-muted-foreground mb-1">{item.label}</h4>
-                      <div className="text-2xl font-bold text-foreground">
-                        {typeof item.value === 'number' ? formatNumber(item.value) : item.value}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-              })}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
-            {/* Circular Progress Chart */}
+            {/* Trend Line Chart */}
             <Card className="shadow-lg">
               <CardHeader>
-                <CardTitle className="text-center">Overall Performance</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-primary" />
+                  Activity Trends (Last 6 Months)
+                </CardTitle>
               </CardHeader>
-              <CardContent className="flex items-center justify-center p-6">
-                <div className="relative w-40 h-40">
-                  {/* Background Circle */}
-                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="transparent"
-                      className="text-gray-200"
-                    />
-                    {/* Progress Circle */}
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="transparent"
-                      strokeDasharray={`${data.completionRate * 2.51} 251`}
-                      className="text-primary transition-all duration-1000 ease-out"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  {/* Center Text */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-primary">{data.completionRate}%</div>
-                      <div className="text-xs text-muted-foreground">Success Rate</div>
-                    </div>
+              <CardContent>
+                <div className="h-32 flex items-end justify-between gap-1">
+                  {chartData.map((item, index) => {
+                    const height = (item.views / maxViews) * 100
+                    return (
+                      <div key={index} className="flex-1 flex flex-col items-center">
+                        <div className="w-full flex items-end gap-0.5">
+                          {/* Views line */}
+                          <div 
+                            className="w-1/2 bg-gradient-to-t from-blue-400 to-blue-300 rounded-t transition-all duration-1000 ease-out"
+                            style={{ 
+                              height: `${height}%`,
+                              animationDelay: `${index * 0.1}s`
+                            }}
+                          />
+                          {/* Sales line */}
+                          <div 
+                            className="w-1/2 bg-gradient-to-t from-green-400 to-green-300 rounded-t transition-all duration-1000 ease-out"
+                            style={{ 
+                              height: `${(item.sales / maxSales) * 100}%`,
+                              animationDelay: `${index * 0.1 + 0.5}s`
+                            }}
+                          />
+                        </div>
+                        <span className="text-xs text-muted-foreground mt-1">{item.month}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="flex justify-center gap-6 mt-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-blue-400 rounded" />
+                    <span className="text-sm text-muted-foreground">Views</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-400 rounded" />
+                    <span className="text-sm text-muted-foreground">Sales</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
           </div>
-
-          {/* Trend Line Chart */}
-          <Card className="mt-6 shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Activity className="w-5 h-5 text-primary" />
-                Activity Trends (Last 6 Months)
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-32 flex items-end justify-between gap-1">
-                {chartData.map((item, index) => {
-                  const height = (item.views / maxViews) * 100
-                  return (
-                    <div key={index} className="flex-1 flex flex-col items-center">
-                      <div className="w-full flex items-end gap-0.5">
-                        {/* Views line */}
-                        <div 
-                          className="w-1/2 bg-gradient-to-t from-blue-400 to-blue-300 rounded-t transition-all duration-1000 ease-out"
-                          style={{ 
-                            height: `${height}%`,
-                            animationDelay: `${index * 0.1}s`
-                          }}
-                        />
-                        {/* Sales line */}
-                        <div 
-                          className="w-1/2 bg-gradient-to-t from-green-400 to-green-300 rounded-t transition-all duration-1000 ease-out"
-                          style={{ 
-                            height: `${(item.sales / maxSales) * 100}%`,
-                            animationDelay: `${index * 0.1 + 0.5}s`
-                          }}
-                        />
-                      </div>
-                      <span className="text-xs text-muted-foreground mt-1">{item.month}</span>
-                    </div>
-                  )
-                })}
-              </div>
-              <div className="flex justify-center gap-6 mt-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-blue-400 rounded" />
-                  <span className="text-sm text-muted-foreground">Views</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-400 rounded" />
-                  <span className="text-sm text-muted-foreground">Sales</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+        )}
+      </div>
     </div>
   )
 }
