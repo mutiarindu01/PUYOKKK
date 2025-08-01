@@ -3725,19 +3725,12 @@ AI Market Analysis:
               <div className="flex items-center gap-3">
                 {createOrderStep === 4 ? (
                   <Button
-                    onClick={() => {
-                      // Handle order creation
-                      alert("Order berhasil dibuat! 🎉")
-                      setShowCreateOrder(false)
-                      setCreateOrderStep(1)
-                      setSelectedAssetType(null)
-                      setSelectedAsset(null)
-                    }}
+                    onClick={handleCreateEscrowOrder}
                     className="bg-green-600 hover:bg-green-700 text-white"
                     disabled={!selectedAsset || !exchangeRate || !selectedPaymentAccount}
                   >
                     <Send className="w-4 h-4 mr-2" />
-                    Buat Order
+                    Buat Order Escrow
                   </Button>
                 ) : (
                   <Button
