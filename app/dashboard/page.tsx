@@ -2120,7 +2120,7 @@ function PaymentsContent() {
 }
 
 export default function ModernDashboard() {
-  const [activeTab, setActiveTab] = useState("dashboard")
+  const [activeTab, setActiveTab] = useState("orders")
   const [isLoading, setIsLoading] = useState(true)
   const [isCollapsed, setIsCollapsed] = useState(false)
 
