@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 import { getServerUser } from '@/lib/auth'
 import { EscrowService } from '@/lib/escrow'
 
@@ -134,7 +134,7 @@ export async function POST(
 
     if (result) {
       // Log the action for audit trail
-      const supabase = createServerSupabaseClient()
+      const supabase = await createServerSupabaseClient()
       await supabase
         .from('transactions')
         .insert({
