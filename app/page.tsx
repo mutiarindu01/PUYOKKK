@@ -1022,15 +1022,18 @@ export default function LandingPage() {
 
                   {/* Enhanced Action Buttons */}
                   <div className="flex gap-2">
-                    <Button
-                      className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
-                      asChild
+                    <AuthGuard
+                      actionName="membeli token"
+                      requirePrompt={true}
                     >
-                      <Link href="/marketplace">
+                      <Button
+                        className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
+                        onClick={() => {}}
+                      >
                         <DollarSign className="w-4 h-4 mr-2" />
                         Beli Sekarang
-                      </Link>
-                    </Button>
+                      </Button>
+                    </AuthGuard>
                     <Button size="icon" variant="outline" className="border-slate-600/50 text-slate-400 hover:bg-slate-800/50">
                       <Heart className="w-4 h-4" />
                     </Button>
