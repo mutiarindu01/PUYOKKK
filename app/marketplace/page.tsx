@@ -1929,10 +1929,10 @@ AI Market Analysis:
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
                   size="lg"
                 >
-                  <Plus className="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform duration-300" />
+                  <Shield className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
                   <span className="flex flex-col items-center">
-                    <span className="font-bold">Buat Swap Universal</span>
-                    <span className="text-xs opacity-90">NFT • Token ��� Digital Asset</span>
+                    <span className="font-bold">Buat Order Escrow</span>
+                    <span className="text-xs opacity-90">NFT • Token • Aman dengan Smart Contract</span>
                   </span>
                 </Button>
               </div>
@@ -3317,7 +3317,7 @@ AI Market Analysis:
                           { name: "ShopeePay", icon: "🧡", fee: "0%", popular: false },
                           { name: "LinkAja", icon: "❤️", fee: "0%", popular: false },
                           { name: "QRIS", icon: "📱", fee: "0%", popular: true },
-                          { name: "SeaBank", icon: "🌊", fee: "0%", popular: false },
+                          { name: "SeaBank", icon: "���", fee: "0%", popular: false },
                           { name: "Jenius", icon: "⚡", fee: "0%", popular: false },
                         ].map((method) => (
                           <button
