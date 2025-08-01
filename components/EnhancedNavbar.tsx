@@ -483,8 +483,8 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* User Profile with Gamification - Only show after onboarding is complete */}
-            {onboardingStatus.isOnboardingComplete && (
+            {/* User Profile with Gamification - Only show when user is actually logged in */}
+            {(isLoggedIn && isWalletConnected && onboardingStatus.isOnboardingComplete) && (
               <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="hidden md:flex items-center gap-3 hover:bg-slate-800/50 p-2">
