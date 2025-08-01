@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import GooeyNav styles */
-@import url('../components/GooeyNav.css');
-
 @layer base {
   :root {
     /* GooeyNav particle colors */
