@@ -196,7 +196,7 @@ const SavingsCalculator = () => {
   const ꭾuyokFee = amount * 0.03
   const othersFee = amount * 0.1 // Rata-rata 10%
   const gasFee = 250000 // Rata-rata biaya gas
-  const savings = (othersFee + gasFee) - puyokFee
+  const savings = (othersFee + gasFee) - ꭾuyokFee
   
   return (
     <div>
