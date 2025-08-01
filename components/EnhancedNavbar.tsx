@@ -477,8 +477,9 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* User Profile with Gamification */}
-            <DropdownMenu>
+            {/* User Profile with Gamification - Only show after onboarding is complete */}
+            {onboardingStatus.isOnboardingComplete && (
+              <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="hidden md:flex items-center gap-3 hover:bg-slate-800/50 p-2">
                   <div className="relative">
@@ -545,7 +546,8 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>
-            </DropdownMenu>
+              </DropdownMenu>
+            )}
 
             {/* Mobile Quick Actions */}
             <div className="flex sm:hidden items-center gap-1">
