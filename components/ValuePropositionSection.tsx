@@ -295,7 +295,7 @@ const TestimonialsCarousel = () => {
     {
       name: "Budi Santoso",
       role: "Kreator NFT",
-      content: "Sejak pindah ke PUYOK, penjualan saya naik 40%! Biaya rendah dan pembayaran langsung ke DANA bikin cash flow lancar.",
+      content: "Sejak pindah ke Ꭾuyok, penjualan saya naik 40%! Biaya rendah dan pembayaran langsung ke DANA bikin cash flow lancar.",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Budi",
       rating: 5
     },
