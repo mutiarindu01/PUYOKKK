@@ -1796,6 +1796,93 @@ export default function MarketplacePage() {
     }
   }
 
+  // Load wallet assets for selected type
+  const loadWalletAssets = async (assetType: "ERC20" | "ERC721" | "ERC1155") => {
+    try {
+      setLoadingWalletAssets(true)
+
+      if (typeof window.ethereum === 'undefined') {
+        alert("MetaMask tidak terdeteksi")
+        return
+      }
+
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      await provider.send("eth_requestAccounts", [])
+      const signer = await provider.getSigner()
+      const address = await signer.getAddress()
+      setUserAddress(address)
+
+      // For demo, create mock wallet assets based on asset type
+      let mockAssets: any[] = []
+
+      if (assetType === "ERC721") {
+        mockAssets = [
+          {
+            id: "nft-1",
+            name: "Indonesian Heritage #001",
+            collection: "Indonesian NFT Collection",
+            image: "https://cdn.builder.io/o/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2F621f7614b36148e9b3e41ac80f97eb07?alt=media&token=9dfccc14-99eb-403d-9c27-83c57aecf064&apiKey=e1dcaf7f92ea487e93771f915bcf348b",
+            contract_address: "0x1234567890123456789012345678901234567890",
+            token_id: "1",
+            token_standard: "ERC721"
+          },
+          {
+            id: "nft-2",
+            name: "Batik Digital #05",
+            collection: "Cultural Arts",
+            image: "https://cdn.builder.io/o/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2Ff1234567890abcdef1234567890abcdef?alt=media&token=sample-token&apiKey=e1dcaf7f92ea487e93771f915bcf348b",
+            contract_address: "0x0987654321098765432109876543210987654321",
+            token_id: "5",
+            token_standard: "ERC721"
+          }
+        ]
+      } else if (assetType === "ERC1155") {
+        mockAssets = [
+          {
+            id: "nft1155-1",
+            name: "Gaming Token Pack",
+            collection: "GameFi Assets",
+            image: "https://cdn.builder.io/o/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2Fgaming-pack?alt=media&token=sample&apiKey=e1dcaf7f92ea487e93771f915bcf348b",
+            contract_address: "0xaabbccddaabbccddaabbccddaabbccddaabbccdd",
+            token_id: "10",
+            balance: "25",
+            token_standard: "ERC1155"
+          }
+        ]
+      } else if (assetType === "ERC20") {
+        mockAssets = [
+          {
+            id: "token-1",
+            name: "USDT",
+            symbol: "USDT",
+            image: "https://cdn.builder.io/o/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2Fusdt-logo?alt=media&token=sample&apiKey=e1dcaf7f92ea487e93771f915bcf348b",
+            contract_address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            balance: "1000.50",
+            decimals: 6,
+            token_standard: "ERC20"
+          },
+          {
+            id: "token-2",
+            name: "Indonesian Rupiah Token",
+            symbol: "IDRT",
+            image: "https://cdn.builder.io/o/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2Fidrt-logo?alt=media&token=sample&apiKey=e1dcaf7f92ea487e93771f915bcf348b",
+            contract_address: "0x998b3c5c8e3c5c8e3c5c8e3c5c8e3c5c8e3c5c8e",
+            balance: "5000000",
+            decimals: 18,
+            token_standard: "ERC20"
+          }
+        ]
+      }
+
+      setWalletAssets(mockAssets)
+    } catch (error) {
+      console.error("Error loading wallet assets:", error)
+      alert("Error memuat asset wallet: " + (error as Error).message)
+    } finally {
+      setLoadingWalletAssets(false)
+    }
+  }
+
   // AI-Powered Features
   const generateAiRecommendations = () => {
     // Simulate AI recommendation algorithm
