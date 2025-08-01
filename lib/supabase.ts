@@ -2,17 +2,29 @@ import { createClient } from '@supabase/supabase-js'
 import { createClientComponentClient, createServerComponentClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+// Use fallback values for development when env vars are not set
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://demo.supabase.co'
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'demo-anon-key'
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'demo-service-key'
 
-// Client-side Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Client-side Supabase client with proper error handling
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+  }
+})
 
 // Server-side Supabase client
 export const createServerSupabaseClient = () => {
-  const cookieStore = cookies()
-  return createServerComponentClient({ cookies: () => cookieStore })
+  try {
+    const cookieStore = cookies()
+    return createServerComponentClient({ cookies: () => cookieStore })
+  } catch (error) {
+    // Fallback for development when server context is not available
+    console.warn('Server context not available, using fallback Supabase client')
+    return createClient(supabaseUrl, supabaseAnonKey)
+  }
 }
 
 // Service role client for admin operations
@@ -23,8 +35,16 @@ export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
   }
 })
 
-// Client component client
-export const createClientSupabaseClient = () => createClientComponentClient()
+// Client component client with error handling
+export const createClientSupabaseClient = () => {
+  try {
+    return createClientComponentClient()
+  } catch (error) {
+    // Fallback for development
+    console.warn('Client component context not available, using fallback Supabase client')
+    return createClient(supabaseUrl, supabaseAnonKey)
+  }
+}
 
 // Database types (will be generated from Supabase)
 export interface Database {
@@ -254,5 +274,22 @@ export interface Database {
     Enums: {
       [_ in never]: never
     }
+  }
+}
+
+// Helper function to check if Supabase is properly configured
+export const isSupabaseConfigured = (): boolean => {
+  return !!(
+    process.env.NEXT_PUBLIC_SUPABASE_URL && 
+    process.env.NEXT_PUBLIC_SUPABASE_URL !== 'your_supabase_project_url' &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY !== 'your_supabase_anon_key'
+  )
+}
+
+// Helper function to show development warning
+export const showSupabaseConfigWarning = () => {
+  if (typeof window !== 'undefined' && !isSupabaseConfigured()) {
+    console.warn('⚠️ Supabase not configured. Using demo mode. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local')
   }
 }
