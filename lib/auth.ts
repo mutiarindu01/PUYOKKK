@@ -54,8 +54,8 @@ export class AuthService {
   // Wallet Authentication
   async signInWithWallet({ walletAddress, signature, message, username }: WalletAuthParams): Promise<AuthUser | null> {
     try {
-      // Verify the signature
-      const recoveredAddress = ethers.utils.verifyMessage(message, signature)
+      // Verify the signature using ethers v6 syntax
+      const recoveredAddress = ethers.verifyMessage(message, signature)
       if (recoveredAddress.toLowerCase() !== walletAddress.toLowerCase()) {
         throw new Error('Invalid signature')
       }
@@ -383,7 +383,7 @@ export class AuthService {
   private createSessionToken(user: AuthUser): string {
     return jwt.sign(
       { user, exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) }, // 24 hours
-      process.env.JWT_SECRET!
+      process.env.JWT_SECRET || 'fallback-secret-for-development'
     )
   }
 
