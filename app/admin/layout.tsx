@@ -1,265 +1,285 @@
 "use client"
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { 
-  Shield, 
-  User, 
-  Eye, 
-  EyeOff, 
-  Lock,
-  BarChart3,
-  CheckCircle,
-  Users,
-  LogOut,
-  Home
-} from "lucide-react"
+import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import {
+  Home, Users, Shield, DollarSign, BarChart3, Lock,
+  Gauge, Headphones, Settings, Crown, LogOut, Bell,
+  Search, Menu, X, RefreshCw, Download
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-interface AdminLayoutProps {
+export default function AdminLayout({
+  children,
+}: {
   children: React.ReactNode
-}
-
-export default function AdminLayout({ children }: AdminLayoutProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
+}) {
   const pathname = usePathname()
-
-  const adminPassword = "PUYOK-ADMIN-2024"
-
-  const handleLogin = () => {
-    if (password === adminPassword) {
-      setIsAuthenticated(true)
-    } else {
-      alert("❌ Password admin salah!")
-    }
-  }
-
-  const handleLogout = () => {
-    setIsAuthenticated(false)
-    setPassword("")
-  }
+  const [sidebarOpen, setSidebarOpen] = React.useState(false)
 
   const navigationItems = [
-    {
-      href: "/admin",
-      label: "📊 Dashboard Analytics",
-      icon: BarChart3,
-      isActive: pathname === "/admin"
+    { 
+      href: "/admin", 
+      label: "Dashboard", 
+      icon: Home, 
+      badge: null,
+      description: "Overview and key metrics"
     },
-    {
-      href: "/admin/verification",
-      label: "✅ Verifikasi Order",
-      icon: CheckCircle,
-      isActive: pathname === "/admin/verification"
+    { 
+      href: "/admin/users", 
+      label: "User Management", 
+      icon: Users, 
+      badge: "12",
+      description: "Manage users and permissions"
     },
-    {
-      href: "/admin/users",
-      label: "👥 User Management",
-      icon: Users,
-      isActive: pathname === "/admin/users"
+    { 
+      href: "/admin/verification", 
+      label: "Content Moderation", 
+      icon: Shield, 
+      badge: "5",
+      description: "Review and moderate content"
+    },
+    { 
+      href: "/admin/transactions", 
+      label: "Transactions", 
+      icon: DollarSign, 
+      badge: "3",
+      description: "Monitor financial activity"
+    },
+    { 
+      href: "/admin/analytics", 
+      label: "Analytics", 
+      icon: BarChart3, 
+      badge: null,
+      description: "Business intelligence"
+    },
+    { 
+      href: "/admin/security", 
+      label: "Security Center", 
+      icon: Lock, 
+      badge: "23",
+      description: "Security monitoring"
+    },
+    { 
+      href: "/admin/system", 
+      label: "System Health", 
+      icon: Gauge, 
+      badge: null,
+      description: "Infrastructure monitoring"
+    },
+    { 
+      href: "/admin/support", 
+      label: "Support Tickets", 
+      icon: Headphones, 
+      badge: "89",
+      description: "Customer support"
+    },
+    { 
+      href: "/admin/settings", 
+      label: "Admin Settings", 
+      icon: Settings, 
+      badge: null,
+      description: "System configuration"
     }
   ]
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
-        <div className="w-full max-w-md">
-          <Card className="bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl">
-            <CardHeader className="text-center">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-4">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <CardTitle className="text-2xl font-bold text-white mb-2">
-                🔐 Panel Admin Internal
-              </CardTitle>
-              <p className="text-slate-300">
-                Akses terbatas untuk administrator sistem
-              </p>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-white">
-                  Password Admin
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Masukkan password admin..."
-                    className="bg-white/10 border-white/20 text-white placeholder:text-slate-400 pr-10"
-                    onKeyPress={(e) => e.key === "Enter" && handleLogin()}
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 text-slate-400 hover:text-white"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <EyeOff className="w-4 h-4" />
-                    ) : (
-                      <Eye className="w-4 h-4" />
-                    )}
-                  </Button>
-                </div>
-              </div>
-
-              <Button 
-                onClick={handleLogin}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3"
-              >
-                <Lock className="w-4 h-4 mr-2" />
-                Masuk ke Panel Admin
-              </Button>
-
-              <div className="text-center">
-                <Badge className="bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-                  🚨 Area Terlarang - Khusus Admin
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    )
+  const adminUser = {
+    name: "Bude Putuk",
+    email: "admin@puyok.com",
+    role: "Super Admin",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64"
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-      {/* Admin Navigation Bar */}
-      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo & Title */}
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-6 h-6 text-white" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Mobile Sidebar Backdrop */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <div className={`fixed left-0 top-0 h-full w-64 bg-slate-900/95 backdrop-blur-xl border-r border-slate-700/50 z-50 transform transition-transform duration-300 ease-in-out ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      } lg:translate-x-0`}>
+        
+        {/* Admin Header */}
+        <div className="p-6 border-b border-slate-700/50">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                <Crown className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-slate-900 dark:text-white">
-                  PUYOK Admin Panel
-                </h1>
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                  Internal Control Center
-                </p>
+                <h1 className="text-lg font-bold text-white">PUYOK Admin</h1>
+                <p className="text-xs text-slate-400">Control Panel</p>
               </div>
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSidebarOpen(false)}
+              className="lg:hidden text-slate-400 hover:text-white"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
 
-            {/* Navigation Menu */}
-            <div className="hidden md:flex items-center gap-2">
-              {navigationItems.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  <Button
-                    variant={item.isActive ? "default" : "ghost"}
-                    size="sm"
-                    className={`${
-                      item.isActive 
-                        ? "bg-blue-600 text-white hover:bg-blue-700" 
-                        : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
-                    }`}
-                  >
-                    <item.icon className="w-4 h-4 mr-2" />
-                    {item.label}
-                  </Button>
-                </Link>
-              ))}
+        {/* Admin Profile */}
+        <div className="p-4 border-b border-slate-700/50">
+          <div className="flex items-center gap-3">
+            <Avatar className="w-10 h-10">
+              <AvatarImage src={adminUser.avatar} alt={adminUser.name} />
+              <AvatarFallback>{adminUser.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+            </Avatar>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-white truncate">{adminUser.name}</p>
+              <p className="text-xs text-slate-400 truncate">{adminUser.role}</p>
             </div>
+            <Badge className="bg-blue-500/20 text-blue-400 text-xs">Online</Badge>
+          </div>
+        </div>
 
-            {/* Admin Profile & Actions */}
-            <div className="flex items-center gap-3">
-              <Link href="/">
-                <Button variant="outline" size="sm">
-                  <Home className="w-4 h-4 mr-2" />
-                  Ke Website Utama
-                </Button>
-              </Link>
-              
-              <Separator orientation="vertical" className="h-6" />
-              
-              <div className="flex items-center gap-2">
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src="/placeholder.svg" />
-                  <AvatarFallback>
-                    <User className="w-4 h-4" />
-                  </AvatarFallback>
-                </Avatar>
-                <div className="hidden sm:block">
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                    Super Admin
-                  </p>
-                  <p className="text-xs text-slate-600 dark:text-slate-300">
-                    Administrator
-                  </p>
-                </div>
-              </div>
-
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleLogout}
-                className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+        {/* Navigation */}
+        <nav className="p-4 space-y-2 flex-1 overflow-y-auto">
+          {navigationItems.map((item) => {
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setSidebarOpen(false)}
+                className={`group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-slate-800/50 ${
+                  isActive
+                    ? "bg-blue-600 text-white shadow-lg"
+                    : "text-slate-400 hover:text-white"
+                }`}
               >
-                <LogOut className="w-4 h-4 mr-2" />
-                Keluar
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div className="md:hidden bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-        <div className="container mx-auto px-4">
-          <div className="flex overflow-x-auto gap-2 py-3">
-            {navigationItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <Button
-                  variant={item.isActive ? "default" : "ghost"}
-                  size="sm"
-                  className={`whitespace-nowrap ${
-                    item.isActive 
-                      ? "bg-blue-600 text-white" 
-                      : "text-slate-600 dark:text-slate-300"
-                  }`}
-                >
-                  <item.icon className="w-4 h-4 mr-2" />
-                  {item.label}
-                </Button>
+                <item.icon className="w-4 h-4 flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="truncate">{item.label}</div>
+                  {!isActive && (
+                    <div className="text-xs text-slate-500 truncate group-hover:text-slate-400">
+                      {item.description}
+                    </div>
+                  )}
+                </div>
+                {item.badge && (
+                  <Badge className={`text-xs flex-shrink-0 ${
+                    parseInt(item.badge) > 0 
+                      ? "bg-red-500/20 text-red-400" 
+                      : "bg-slate-600/20 text-slate-400"
+                  }`}>
+                    {item.badge}
+                  </Badge>
+                )}
               </Link>
-            ))}
+            )
+          })}
+        </nav>
+
+        {/* System Status */}
+        <div className="p-4 border-t border-slate-700/50">
+          <div className="bg-slate-800/50 rounded-lg p-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-medium text-slate-300">System Health</span>
+              <span className="text-xs text-green-400">97.8%</span>
+            </div>
+            <div className="w-full bg-slate-700 rounded-full h-1.5">
+              <div className="bg-green-400 h-1.5 rounded-full" style={{ width: '97.8%' }}></div>
+            </div>
+            <div className="flex items-center gap-1 mt-2 text-xs text-slate-400">
+              <div className="w-2 h-2 rounded-full bg-green-400"></div>
+              All systems operational
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Status Bar */}
-      <div className="bg-gradient-to-r from-green-500 to-green-600 text-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex items-center justify-between py-2">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-200 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium">Sistema Online</span>
-            </div>
-            <div className="text-sm">
-              Last Updated: {new Date().toLocaleTimeString('id-ID')}
-            </div>
-          </div>
+        {/* Logout */}
+        <div className="p-4 border-t border-slate-700/50">
+          <Button 
+            variant="outline" 
+            className="w-full border-slate-600 text-slate-300 hover:bg-slate-800"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
         </div>
       </div>
 
       {/* Main Content */}
-      <main>{children}</main>
+      <div className="lg:ml-64">
+        {/* Top Header */}
+        <div className="bg-slate-900/95 backdrop-blur-xl border-b border-slate-700/50 p-4 lg:p-6 sticky top-0 z-30">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSidebarOpen(true)}
+                className="lg:hidden text-slate-400 hover:text-white"
+              >
+                <Menu className="w-5 h-5" />
+              </Button>
+              
+              <div>
+                <h2 className="text-xl font-bold text-white">
+                  {navigationItems.find(item => item.href === pathname)?.label || 'Admin Panel'}
+                </h2>
+                <p className="text-slate-400 text-sm hidden sm:block">
+                  {navigationItems.find(item => item.href === pathname)?.description || 'Administrative control panel'}
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              {/* Search */}
+              <div className="relative hidden md:block">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-64 pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
+                />
+              </div>
+
+              {/* Notifications */}
+              <Button variant="ghost" size="sm" className="relative text-slate-400 hover:text-white">
+                <Bell className="w-5 h-5" />
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs"></span>
+              </Button>
+
+              {/* Quick Actions */}
+              <Button variant="outline" size="sm" className="border-slate-600 text-slate-300 hidden sm:flex">
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Refresh
+              </Button>
+              
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700 hidden sm:flex">
+                <Download className="w-4 h-4 mr-2" />
+                Export
+              </Button>
+
+              {/* Admin Avatar */}
+              <Avatar className="w-8 h-8">
+                <AvatarImage src={adminUser.avatar} alt={adminUser.name} />
+                <AvatarFallback>{adminUser.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
+        </div>
+
+        {/* Page Content */}
+        <main className="p-4 lg:p-6">
+          {children}
+        </main>
+      </div>
     </div>
   )
 }
