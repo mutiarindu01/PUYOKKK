@@ -157,24 +157,27 @@
 .point {
   display: block;
   opacity: 0;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 100%;
   transform-origin: center;
+  z-index: 5;
 }
 
 .particle {
-  --time: 5s;
+  --time: 2s;
   position: absolute;
   top: calc(50% - 8px);
   left: calc(50% - 8px);
-  animation: particle calc(var(--time)) ease 1 -350ms;
+  animation: particle calc(var(--time)) ease 1 0ms;
+  pointer-events: none;
 }
 
 .point {
   background: var(--color);
   opacity: 1;
-  animation: point calc(var(--time)) ease 1 -350ms;
+  animation: point calc(var(--time)) ease 1 0ms;
+  box-shadow: 0 0 8px var(--color), 0 0 16px var(--color);
 }
 
 @keyframes particle {
