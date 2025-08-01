@@ -160,6 +160,13 @@ const GooeyNav = ({
     if (activeLi) {
       updateEffectPosition(activeLi);
       textRef.current?.classList.add("active");
+
+      // Trigger initial particles
+      if (filterRef.current) {
+        setTimeout(() => {
+          makeParticles(filterRef.current!);
+        }, 100);
+      }
     }
 
     const resizeObserver = new ResizeObserver(() => {
