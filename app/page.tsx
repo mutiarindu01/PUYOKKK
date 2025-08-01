@@ -96,6 +96,7 @@ import { formatRupiah, formatVolume, formatActivity, formatNumber } from "@/lib/
 // Cleaned up - all marketplace data and components moved to SophisticatedMarketplace
 
 export default function LandingPage() {
+  const { showOnboardingModal, setShowOnboardingModal } = useOnboarding()
   const [searchTerm, setSearchTerm] = useState("")
   const [isNavOpen, setIsNavOpen] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
@@ -952,7 +953,7 @@ export default function LandingPage() {
                     {/* Market Sentiment Indicator */}
                     <div className="bg-slate-800/50 border border-slate-600/30 rounded-lg p-3 mb-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-slate-400 text-xl">����</span>
+                        <span className="text-slate-400 text-xl">🔥</span>
                         <span className="text-slate-400 font-medium text-sm">Hot Trend</span>
                       </div>
                       <p className="text-xs text-gray-400">Dibicarakan 247x/jam di media sosial</p>
