@@ -1938,7 +1938,7 @@ function PaymentsContent() {
           <TabsTrigger value="methods" className="data-[state=active]:bg-green-600">
             Payment Methods
           </TabsTrigger>
-        </Tabs>
+        </TabsList>
 
         {/* Transaction History Tab */}
         <TabsContent value="overview" className="space-y-6 mt-8">
