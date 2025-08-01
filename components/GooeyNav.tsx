@@ -41,7 +41,7 @@ const GooeyNav = ({
 
   const getXY = (distance: number, pointIndex: number, totalPoints: number) => {
     const angle =
-      ((360 + noise(8)) / totalPoints) * pointIndex * (Math.PI / 180);
+      ((360 + noise(8, pointIndex)) / totalPoints) * pointIndex * (Math.PI / 180);
     return [distance * Math.cos(angle), distance * Math.sin(angle)];
   };
 
