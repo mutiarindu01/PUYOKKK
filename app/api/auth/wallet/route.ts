@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ethers } from 'ethers'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 import jwt from 'jsonwebtoken'
 
 export async function POST(request: NextRequest) {
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
 
     // Check if user exists
     const { data: existingUser, error: fetchError } = await supabase
