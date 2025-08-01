@@ -2244,3 +2244,11 @@ function DashboardContent() {
     </div>
   )
 }
+
+export default function ModernDashboard() {
+  return (
+    <ProtectedRoute>
+      <DashboardContent />
+    </ProtectedRoute>
+  )
+}
