@@ -55,7 +55,7 @@ interface EnhancedNavbarProps {
 
 export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }: EnhancedNavbarProps) {
   const router = useRouter()
-  const { onboardingStatus } = useOnboarding()
+  const { onboardingStatus, triggerOnboarding, isReturningUser } = useOnboarding()
 
   // Enhanced navbar state
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
