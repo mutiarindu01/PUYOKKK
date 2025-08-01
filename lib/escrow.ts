@@ -54,29 +54,48 @@ export interface CreateEscrowParams {
 }
 
 export class EscrowService {
-  private provider: ethers.providers.Provider
-  private contract: ethers.Contract
+  private provider: ethers.JsonRpcProvider | null = null
+  private contract: ethers.Contract | null = null
   private supabase = createClientSupabaseClient()
 
   constructor() {
-    // Initialize provider (you can use Infura, Alchemy, etc.)
-    this.provider = new ethers.providers.JsonRpcProvider(
-      `https://mainnet.infura.io/v3/${process.env.INFURA_PROJECT_ID}`
-    )
-    
-    // Initialize contract
-    this.contract = new ethers.Contract(
-      process.env.ESCROW_CONTRACT_ADDRESS!,
-      ESCROW_ABI,
-      this.provider
-    )
+    this.initializeProvider()
+  }
+
+  private initializeProvider() {
+    try {
+      // Initialize provider (you can use Infura, Alchemy, etc.)
+      const infuraId = process.env.INFURA_PROJECT_ID
+      const contractAddress = process.env.ESCROW_CONTRACT_ADDRESS
+
+      if (infuraId && contractAddress) {
+        this.provider = new ethers.JsonRpcProvider(
+          `https://mainnet.infura.io/v3/${infuraId}`
+        )
+        
+        // Initialize contract
+        this.contract = new ethers.Contract(
+          contractAddress,
+          ESCROW_ABI,
+          this.provider
+        )
+      } else {
+        console.warn('⚠️ Escrow service not configured. Set INFURA_PROJECT_ID and ESCROW_CONTRACT_ADDRESS in .env.local')
+      }
+    } catch (error) {
+      console.error('Failed to initialize escrow provider:', error)
+    }
   }
 
   // Create Escrow Contract
   async createEscrow(params: CreateEscrowParams, signerPrivateKey: string): Promise<EscrowDetails | null> {
     try {
+      if (!this.provider || !this.contract) {
+        throw new Error('Escrow service not configured')
+      }
+
       const signer = new ethers.Wallet(signerPrivateKey, this.provider)
-      const contractWithSigner = this.contract.connect(signer)
+      const contractWithSigner = this.contract.connect(signer) as ethers.Contract
 
       // Calculate fees
       const escrowFee = params.paymentAmount * 0.01 // 1% escrow fee
@@ -84,8 +103,8 @@ export class EscrowService {
       const totalAmount = params.paymentAmount + escrowFee + insuranceFee
 
       // Create order hash for verification
-      const orderHash = ethers.utils.keccak256(
-        ethers.utils.defaultAbiCoder.encode(
+      const orderHash = ethers.keccak256(
+        ethers.AbiCoder.defaultAbiCoder().encode(
           ['string', 'address', 'address', 'uint256'],
           [params.orderId, params.buyerAddress, params.sellerAddress, params.paymentAmount]
         )
@@ -95,30 +114,38 @@ export class EscrowService {
       const tx = await contractWithSigner.createEscrow(
         params.buyerAddress,
         params.sellerAddress,
-        ethers.utils.parseEther(params.paymentAmount.toString()),
+        ethers.parseEther(params.paymentAmount.toString()),
         orderHash,
-        { value: ethers.utils.parseEther(totalAmount.toString()) }
+        { value: ethers.parseEther(totalAmount.toString()) }
       )
 
       const receipt = await tx.wait()
       
       // Extract escrow ID from event logs
-      const escrowCreatedEvent = receipt.events?.find(
-        (event: any) => event.event === 'EscrowCreated'
+      const escrowCreatedEvent = receipt.logs?.find(
+        (log: any) => {
+          try {
+            const parsedLog = contractWithSigner.interface.parseLog(log)
+            return parsedLog?.name === 'EscrowCreated'
+          } catch {
+            return false
+          }
+        }
       )
       
       if (!escrowCreatedEvent) {
         throw new Error('Escrow creation event not found')
       }
 
-      const escrowId = escrowCreatedEvent.args.escrowId.toString()
+      const parsedLog = contractWithSigner.interface.parseLog(escrowCreatedEvent)
+      const escrowId = parsedLog?.args?.escrowId?.toString()
 
       // Create escrow record in database
       const expirationDate = new Date()
       expirationDate.setDate(expirationDate.getDate() + params.expirationDays)
 
       const escrowData = {
-        contract_address: this.contract.address,
+        contract_address: this.contract.target,
         order_id: params.orderId,
         buyer_id: params.buyerAddress,
         seller_id: params.sellerAddress,
@@ -156,8 +183,12 @@ export class EscrowService {
   // Release Escrow (when both parties agree)
   async releaseEscrow(escrowId: string, signerPrivateKey: string): Promise<boolean> {
     try {
+      if (!this.provider || !this.contract) {
+        throw new Error('Escrow service not configured')
+      }
+
       const signer = new ethers.Wallet(signerPrivateKey, this.provider)
-      const contractWithSigner = this.contract.connect(signer)
+      const contractWithSigner = this.contract.connect(signer) as ethers.Contract
 
       // Execute release transaction
       const tx = await contractWithSigner.releaseEscrow(escrowId)
@@ -186,8 +217,12 @@ export class EscrowService {
   // Dispute Escrow
   async disputeEscrow(escrowId: string, reason: string, evidence: any[], signerPrivateKey: string): Promise<boolean> {
     try {
+      if (!this.provider || !this.contract) {
+        throw new Error('Escrow service not configured')
+      }
+
       const signer = new ethers.Wallet(signerPrivateKey, this.provider)
-      const contractWithSigner = this.contract.connect(signer)
+      const contractWithSigner = this.contract.connect(signer) as ethers.Contract
 
       // Execute dispute transaction
       const tx = await contractWithSigner.disputeEscrow(escrowId, reason)
@@ -232,8 +267,12 @@ export class EscrowService {
   // Cancel Escrow (before funding)
   async cancelEscrow(escrowId: string, signerPrivateKey: string): Promise<boolean> {
     try {
+      if (!this.provider || !this.contract) {
+        throw new Error('Escrow service not configured')
+      }
+
       const signer = new ethers.Wallet(signerPrivateKey, this.provider)
-      const contractWithSigner = this.contract.connect(signer)
+      const contractWithSigner = this.contract.connect(signer) as ethers.Contract
 
       const tx = await contractWithSigner.cancelEscrow(escrowId)
       await tx.wait()
@@ -344,7 +383,10 @@ export class EscrowService {
         
         if (new Date() >= releaseTime) {
           // Use system private key for auto-release
-          return await this.releaseEscrow(escrowId, process.env.PRIVATE_KEY!)
+          const privateKey = process.env.PRIVATE_KEY
+          if (privateKey) {
+            return await this.releaseEscrow(escrowId, privateKey)
+          }
         }
       }
 
