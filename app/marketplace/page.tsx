@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react"
 import UnifiedMarketplace from "@/components/UnifiedMarketplace"
+import { EscrowService } from "@/lib/escrow"
+import { ethers } from "ethers"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Search,
