@@ -94,7 +94,6 @@ const GooeyNav = ({
           particle.style.opacity = "1";
           particle.style.zIndex = "1000";
           element.classList.add("active");
-          console.log('Particle created:', i, particle);
         });
 
         setTimeout(() => {
