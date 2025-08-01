@@ -2169,7 +2169,7 @@ export interface CreateEscrowParams {
 
 export class EscrowService {
   private provider: ethers.JsonRpcProvider | null = null
-  private contract: ethers.Contract | null = null
+  public contract: ethers.Contract | null = null // Make contract public for direct access
   private supabase = createClientSupabaseClient()
 
   constructor() {
