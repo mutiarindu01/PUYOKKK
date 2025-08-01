@@ -163,7 +163,7 @@ export default function ProfileChart({ data }: ProfileChartProps) {
       {/* Chart Navigation */}
       <div className="w-full">
         <div className="mb-8">
-          <ModernTabs
+          <ElegantTabs
             items={navItems}
             onTabChange={handleTabChange}
             initialActiveIndex={0}
