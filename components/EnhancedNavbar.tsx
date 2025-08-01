@@ -53,6 +53,8 @@ interface EnhancedNavbarProps {
 }
 
 export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }: EnhancedNavbarProps) {
+  const router = useRouter()
+
   // Enhanced navbar state
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
@@ -61,6 +63,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
   const [currency, setCurrency] = useState("idr")
   const [isWalletConnected, setIsWalletConnected] = useState(false)
   const [walletAddress, setWalletAddress] = useState("")
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState({
     name: "Pioneer User",
     avatar: "",
