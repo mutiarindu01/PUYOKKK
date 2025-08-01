@@ -449,8 +449,10 @@ function ModernSidebar({
               className={`
                 w-full flex items-center gap-3 py-3 rounded-xl transition-all duration-300 relative
                 ${isCollapsed ? 'px-3 justify-center' : 'px-4'}
-                ${activeTab === item.id 
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25' 
+                ${item.special
+                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/25 hover:from-purple-700 hover:to-pink-700'
+                  : activeTab === item.id
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                 }
               `}
