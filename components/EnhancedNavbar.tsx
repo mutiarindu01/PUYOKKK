@@ -592,8 +592,9 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               </SheetTrigger>
               <SheetContent side="right" className="bg-slate-900/95 border-slate-700 text-white w-full sm:w-80 max-w-sm backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right">
                 <div className="flex flex-col gap-4 sm:gap-6 py-4 sm:py-6 h-full overflow-y-auto">
-                  {/* Mobile User Profile */}
-                  <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-800/50 rounded-lg sm:rounded-xl">
+                  {/* Mobile User Profile - Only show after onboarding is complete */}
+                  {onboardingStatus.isOnboardingComplete && (
+                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-slate-800/50 rounded-lg sm:rounded-xl">
                     <Avatar className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-blue-500">
                       <AvatarImage src={user.avatar} />
                       <AvatarFallback className="bg-gradient-to-r from-blue-600 to-purple-600">
@@ -610,7 +611,8 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                         />
                       </div>
                     </div>
-                  </div>
+                    </div>
+                  )}
 
                   {/* Mobile Search Bar */}
                   <div className="p-3 sm:p-4 border border-slate-700 rounded-lg sm:rounded-xl">
