@@ -24,10 +24,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <PageTransition>
-            {children}
-          </PageTransition>
-          <Toaster richColors position="top-right" />
+          <OnboardingProvider>
+            <PageTransition>
+              {children}
+            </PageTransition>
+            <Toaster richColors position="top-right" />
+          </OnboardingProvider>
         </ThemeProvider>
       </body>
     </html>
