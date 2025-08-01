@@ -355,9 +355,8 @@ function ModernSidebar({
   setIsCollapsed: (collapsed: boolean) => void;
 }) {
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: BarChart3 },
     { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 5 },
-    { id: "marketplace", label: "Marketplace", icon: Home },
+    { id: "marketplace", label: "Marketplace", icon: Home, special: true },
     { id: "awards", label: "Awards", icon: Trophy, badge: "Premium" },
     { id: "assets", label: "Aset Saya", icon: Wallet, count: 12 },
     { id: "payments", label: "Pembayaran", icon: CreditCard },
