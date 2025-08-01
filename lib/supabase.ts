@@ -30,7 +30,12 @@ export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
 // Client component client with error handling
 export const createClientSupabaseClient = () => {
   try {
-    return createBrowserClient(supabaseUrl, supabaseAnonKey)
+    return createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+      }
+    })
   } catch (error) {
     // Fallback for development
     console.warn('Client component context not available, using fallback Supabase client')
