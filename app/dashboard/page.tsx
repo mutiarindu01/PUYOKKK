@@ -356,17 +356,19 @@ function ModernSidebar({
 }) {
   const menuItems = [
     { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 5 },
+    { id: "analytics", label: "Analytics", icon: LineChart, badge: "New" },
     { id: "marketplace", label: "Marketplace", icon: Home, special: true },
-    { id: "awards", label: "Awards", icon: Trophy, badge: "Premium" },
     { id: "assets", label: "Aset Saya", icon: Wallet, count: 12 },
     { id: "payments", label: "Pembayaran", icon: CreditCard },
-    { id: "analytics", label: "Analytics", icon: LineChart, badge: "New" },
+    { id: "awards", label: "Awards", icon: Trophy, badge: "Premium" },
     { id: "settings", label: "Pengaturan", icon: Settings }
   ]
 
+  const router = useRouter()
+
   const handleMenuClick = (item: typeof menuItems[0]) => {
     if (item.id === 'marketplace') {
-      window.open('/marketplace', '_blank')
+      router.push('/marketplace')
     } else {
       setActiveTab(item.id)
     }
