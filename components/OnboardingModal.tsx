@@ -490,6 +490,11 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
   )
 
   const renderCurrentStep = () => {
+    // If this is the first step and user is returning, show returning user step
+    if (onboardingStatus.currentStep === 'welcome' && isReturningUser()) {
+      return renderReturningUserStep()
+    }
+
     switch (onboardingStatus.currentStep) {
       case 'welcome':
         return renderWelcomeStep()
