@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 import { getServerUser } from '@/lib/auth'
 
 // GET /api/orders - Fetch orders with filtering
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '20')
 
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
     
     let query = supabase
       .from('orders')
@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
 
     // Check transaction limits
     const today = new Date().toISOString().split('T')[0]
