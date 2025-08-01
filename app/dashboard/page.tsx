@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { EscrowService } from "@/lib/escrow"
+import { ethers } from "ethers"
 import ProtectedRoute from "@/components/ProtectedRoute"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
