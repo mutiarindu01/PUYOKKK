@@ -110,13 +110,13 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
               <div className="relative">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
-                  alt="PUYOK Logo"
+                  alt="Ꭾuyok Logo"
                   className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 object-contain"
                 />
                 <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse" />
               </div>
               <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-                PUYOK
+                Ꭾuyok
               </span>
             </div>
 
