@@ -76,6 +76,8 @@ import { useRouter } from "next/navigation"
 import Footer from "@/components/Footer"
 import MarketplaceLoading from "@/components/MarketplaceLoading"
 import BackgroundParticles from "@/components/BackgroundParticles"
+import OnboardingModal from "@/components/OnboardingModal"
+import { useOnboarding } from "@/contexts/OnboardingContext"
 import SplineBackground, { SplineBackgroundDemo } from "@/components/SplineBackground"
 import FloatingBackgroundSwitcher from "@/components/FloatingBackgroundSwitcher"
 import SophisticatedMarketplace from "@/components/SophisticatedMarketplace"
@@ -950,7 +952,7 @@ export default function LandingPage() {
                     {/* Market Sentiment Indicator */}
                     <div className="bg-slate-800/50 border border-slate-600/30 rounded-lg p-3 mb-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-slate-400 text-xl">🔥</span>
+                        <span className="text-slate-400 text-xl">����</span>
                         <span className="text-slate-400 font-medium text-sm">Hot Trend</span>
                       </div>
                       <p className="text-xs text-gray-400">Dibicarakan 247x/jam di media sosial</p>
