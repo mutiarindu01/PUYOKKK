@@ -65,7 +65,7 @@ const GooeyNav = ({
     element.style.setProperty("--time", `${bubbleTime}ms`);
 
     for (let i = 0; i < particleCount; i++) {
-      const t = animationTime * 2 + noise(timeVariance * 2);
+      const t = animationTime * 2 + noise(timeVariance * 2, i);
       const p = createParticle(i, t, d, r);
       element.classList.remove("active");
 
