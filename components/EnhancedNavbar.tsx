@@ -139,7 +139,10 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
         >
           {/* Left Side - Logo and Enhanced Navigation */}
           <div className="flex items-center gap-3 md:gap-4">
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div
+              className="flex items-center gap-2 sm:gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={handleLogoClick}
+            >
               <div className="relative">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Ffa8faf3c486a40418d8ebcd83d93a67b%2F1f8a70592f3b4d0baa8ff7eddaf3b5b3?format=webp&width=800"
