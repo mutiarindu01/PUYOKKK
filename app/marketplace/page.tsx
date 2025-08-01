@@ -1737,21 +1737,38 @@ export default function MarketplacePage() {
       // Initialize EscrowService
       const escrowService = new EscrowService()
 
-      // Call the appropriate contract function based on asset type
-      let contractWithSigner
-      if (selectedAssetType === "ERC721") {
-        contractWithSigner = escrowService.contract.connect(signer)
-        const tx = await contractWithSigner.createOrderERC721(orderInput)
-        await tx.wait()
-      } else if (selectedAssetType === "ERC1155") {
-        contractWithSigner = escrowService.contract.connect(signer)
-        const tx = await contractWithSigner.createOrderERC1155(orderInput)
-        await tx.wait()
-      } else if (selectedAssetType === "ERC20") {
-        contractWithSigner = escrowService.contract.connect(signer)
-        const tx = await contractWithSigner.createOrderERC20(orderInput)
-        await tx.wait()
+      // Check if escrow service is properly initialized
+      if (!escrowService.isInitialized()) {
+        alert("Escrow service belum terinisialisasi. Silakan coba lagi.")
+        return
       }
+
+      // Create contract instance with signer
+      const contractWithSigner = new ethers.Contract(
+        escrowService.getContractAddress(),
+        escrowService.contract!.interface,
+        signer
+      )
+
+      console.log("🚀 Creating order with data:", orderInput)
+
+      // Call the appropriate contract function based on asset type
+      let tx
+      if (selectedAssetType === "ERC721") {
+        tx = await contractWithSigner.createOrderERC721(orderInput)
+      } else if (selectedAssetType === "ERC1155") {
+        tx = await contractWithSigner.createOrderERC1155(orderInput)
+      } else if (selectedAssetType === "ERC20") {
+        tx = await contractWithSigner.createOrderERC20(orderInput)
+      } else {
+        throw new Error("Tipe asset tidak valid")
+      }
+
+      console.log("📝 Transaction sent:", tx.hash)
+
+      // Wait for confirmation
+      const receipt = await tx.wait()
+      console.log("✅ Transaction confirmed:", receipt)
 
       // Success notification
       alert("🎉 Order berhasil dibuat di EscrowPUYOK! Pembeli dapat melihat order Anda sekarang.")
