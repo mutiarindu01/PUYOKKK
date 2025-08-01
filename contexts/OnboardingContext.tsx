@@ -30,6 +30,9 @@ interface OnboardingContextType {
   resetOnboarding: () => void
   showOnboardingModal: boolean
   setShowOnboardingModal: (show: boolean) => void
+  triggerOnboarding: () => void
+  isReturningUser: () => boolean
+  quickLogin: () => void
 }
 
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined)
