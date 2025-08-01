@@ -332,7 +332,7 @@ const TestimonialsCarousel = () => {
   return (
     <div>
       <h3 className="text-2xl font-bold text-white mb-8 text-center">
-        💬 Apa Kata Pengguna PUYOK
+        💬 Apa Kata Pengguna Ꭾuyok
       </h3>
       
       <motion.div 
