@@ -3,17 +3,14 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { motion } from "framer-motion"
-import ScrollReveal from "@/components/ScrollReveal"
-import ContentReveal from "@/components/ContentReveal"
-import { DashboardStatsSkeleton, ActivityFeedSkeleton } from "@/components/LoadingSkeletons"
-import LoadingButton, { BuyButton, SellButton } from "@/components/LoadingButton"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import ElegantTabs from "@/components/ElegantTabs"
 import {
   Bell,
   Plus,
@@ -28,6 +25,7 @@ import {
   CheckCircle,
   AlertCircle,
   TrendingUp,
+  TrendingDown,
   Eye,
   Package,
   Star,
@@ -37,7 +35,17 @@ import {
   MoreHorizontal,
   DollarSign,
   Activity,
-  Trophy
+  Trophy,
+  Target,
+  Award,
+  Flame,
+  Zap,
+  BarChart3,
+  PieChart,
+  LineChart,
+  Calendar,
+  Download,
+  RefreshCw
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -46,34 +54,93 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import NotificationCenter from "@/components/NotificationCenter"
 
-// Sample user data
+// Enhanced user data with more metrics
 const currentUser = {
   username: "crypto_trader88",
-  avatar: "/placeholder.svg?height=40&width=40",
+  displayName: "Crypto Trader Pro",
+  avatar: "https://cdn.builder.io/api/v1/image/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2Fd2d15b9f61e84d8da63ce09eac835d7c",
   joinDate: "Januari 2023",
   totalEarnings: "Rp 45.250.000",
+  monthlyEarnings: "Rp 12.500.000",
   totalOrders: 23,
   completedOrders: 21,
   rating: 4.8,
-  level: "Gold Trader"
+  level: "Gold Trader",
+  successRate: 91.3,
+  responseTime: "< 2 jam",
+  totalViews: 1420,
+  followers: 234,
+  badges: ["Verified", "Top Trader", "Fast Response"]
 }
 
-// Sample orders data
+// Enhanced stats data
+const dashboardStats = [
+  {
+    title: "Total Earnings",
+    value: "Rp 45.250.000",
+    change: "+23.5%",
+    isPositive: true,
+    icon: DollarSign,
+    gradient: "from-emerald-500 to-teal-600",
+    bgGradient: "from-emerald-500/10 to-teal-600/10",
+    description: "From 21 completed orders"
+  },
+  {
+    title: "Monthly Revenue",
+    value: "Rp 12.500.000",
+    change: "+8.2%",
+    isPositive: true,
+    icon: TrendingUp,
+    gradient: "from-blue-500 to-indigo-600",
+    bgGradient: "from-blue-500/10 to-indigo-600/10",
+    description: "This month progress"
+  },
+  {
+    title: "Success Rate",
+    value: "91.3%",
+    change: "+2.1%",
+    isPositive: true,
+    icon: Target,
+    gradient: "from-purple-500 to-pink-600",
+    bgGradient: "from-purple-500/10 to-pink-600/10",
+    description: "21 of 23 orders completed"
+  },
+  {
+    title: "Active Orders",
+    value: "5",
+    change: "+2",
+    isPositive: true,
+    icon: Activity,
+    gradient: "from-orange-500 to-red-600",
+    bgGradient: "from-orange-500/10 to-red-600/10",
+    description: "Currently in progress"
+  }
+]
+
+// Performance metrics
+const performanceMetrics = [
+  { label: "Response Time", value: "< 2 jam", progress: 95, color: "text-blue-500" },
+  { label: "Customer Rating", value: "4.8/5", progress: 96, color: "text-yellow-500" },
+  { label: "Order Completion", value: "91.3%", progress: 91, color: "text-green-500" },
+  { label: "Profile Views", value: "1,420", progress: 78, color: "text-purple-500" }
+]
+
+// Sample orders with enhanced data
 const sampleOrders = [
   {
     id: "ORD-001",
     type: "NFT",
-    assetName: "Bored Ape #1234",
+    assetName: "Indonesian Heritage #001",
     price: "Rp 15.000.000",
-    buyer: "nft_collector99",
-    buyerAvatar: "/placeholder.svg?height=32&width=32",
+    buyer: "heritage_collector",
+    buyerAvatar: "https://cdn.builder.io/api/v1/image/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2Fd2d15b9f61e84d8da63ce09eac835d7c",
     status: "pending_payment",
     timeLeft: "2h 15m",
     paymentMethod: "DANA",
     date: "15 Juli 2024",
-    image: "/placeholder.svg?height=80&width=80"
+    image: "https://cdn.builder.io/o/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2F621f7614b36148e9b3e41ac80f97eb07?alt=media&token=9dfccc14-99eb-403d-9c27-83c57aecf064&apiKey=e1dcaf7f92ea487e93771f915bcf348b",
+    priority: "high"
   },
   {
     id: "ORD-002", 
@@ -81,514 +148,406 @@ const sampleOrders = [
     assetName: "1,000 USDT",
     price: "Rp 15.500.000",
     buyer: "stable_investor",
-    buyerAvatar: "/placeholder.svg?height=32&width=32",
+    buyerAvatar: "https://cdn.builder.io/api/v1/image/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2Fd2d15b9f61e84d8da63ce09eac835d7c",
     status: "in_progress",
     paymentMethod: "GoPay",
     date: "14 Juli 2024",
-    image: "/placeholder.svg?height=80&width=80"
-  },
-  {
-    id: "ORD-003",
-    type: "NFT", 
-    assetName: "CryptoPunk #5678",
-    price: "Rp 45.000.000",
-    buyer: "pixel_art_fan",
-    buyerAvatar: "/placeholder.svg?height=32&width=32",
-    status: "completed",
-    paymentMethod: "Bank Transfer",
-    date: "12 Juli 2024",
-    image: "/placeholder.svg?height=80&width=80"
+    image: "https://cdn.builder.io/o/assets%2Fe1dcaf7f92ea487e93771f915bcf348b%2F4d48e732c2184f348acf167a154cbbd0?alt=media&token=ce55693d-d12f-4983-850f-b6e6d6ea07ea&apiKey=e1dcaf7f92ea487e93771f915bcf348b",
+    priority: "medium"
   }
 ]
 
-// Sample notifications
-const notifications = [
+// Quick actions data
+const quickActions = [
   {
-    id: 1,
-    title: "Pembayaran Diterima",
-    message: "nft_collector99 telah mengirim pembayaran untuk Bored Ape #1234",
-    time: "5 menit lalu",
-    type: "payment",
-    unread: true
+    title: "List New Asset",
+    description: "Sell your NFT or Token",
+    icon: Plus,
+    gradient: "from-blue-500 to-indigo-600",
+    href: "/create-listing"
   },
   {
-    id: 2,
-    title: "Order Baru",
-    message: "stable_investor ingin membeli 1,000 USDT Anda",
-    time: "1 jam lalu", 
-    type: "order",
-    unread: true
+    title: "Browse Marketplace", 
+    description: "Find assets to buy",
+    icon: Search,
+    gradient: "from-purple-500 to-pink-600",
+    href: "/marketplace"
   },
   {
-    id: 3,
-    title: "Transaksi Selesai",
-    message: "Penjualan CryptoPunk #5678 berhasil diselesaikan",
-    time: "2 hari lalu",
-    type: "success",
-    unread: false
+    title: "Check Awards",
+    description: "Claim achievements",
+    icon: Trophy,
+    gradient: "from-yellow-500 to-orange-600",
+    href: "/awards"
+  },
+  {
+    title: "Account Settings",
+    description: "Manage your profile",
+    icon: Settings,
+    gradient: "from-gray-500 to-slate-600",
+    href: "/settings"
   }
 ]
 
-interface SidebarProps {
-  activeTab: string
-  setActiveTab: (tab: string) => void
-}
-
-function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
+// Enhanced Sidebar Component
+function ModernSidebar({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (tab: string) => void }) {
   const menuItems = [
-    { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 2 },
+    { id: "dashboard", label: "Dashboard", icon: BarChart3 },
+    { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 5 },
     { id: "marketplace", label: "Marketplace", icon: Home },
-    { id: "awards-marketplace", label: "Awards Marketplace", icon: Trophy, badge: "Premium" },
+    { id: "awards", label: "Awards", icon: Trophy, badge: "Premium" },
     { id: "assets", label: "Aset Saya", icon: Wallet, count: 12 },
-    { id: "payments", label: "Akun Pembayaran", icon: CreditCard },
-    { id: "settings", label: "Pengaturan", icon: Settings },
-    { id: "referral", label: "Referral", icon: Users, badge: "New" }
+    { id: "payments", label: "Pembayaran", icon: CreditCard },
+    { id: "analytics", label: "Analytics", icon: LineChart, badge: "New" },
+    { id: "settings", label: "Pengaturan", icon: Settings }
   ]
 
   return (
-    <aside className="w-64 bg-card border-r border-border h-screen sticky top-0 flex flex-col">
-      {/* User Profile Section */}
-      <div className="p-6 border-b border-border">
-        <div className="flex items-center gap-3 mb-4">
-          <Avatar className="w-12 h-12">
+    <aside className="w-72 bg-gradient-to-b from-slate-950/50 to-slate-900/50 backdrop-blur-xl border-r border-slate-700/50 h-screen sticky top-0 flex flex-col">
+      {/* Enhanced User Profile Section */}
+      <div className="p-6 border-b border-slate-700/50">
+        <div className="flex items-center gap-4 mb-4">
+          <Avatar className="w-16 h-16 ring-2 ring-blue-500/30">
             <AvatarImage src={currentUser.avatar} alt={currentUser.username} />
-            <AvatarFallback>{currentUser.username[0].toUpperCase()}</AvatarFallback>
+            <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-lg">
+              {currentUser.username.slice(0, 2).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
-          <div>
-            <h3 className="font-semibold text-foreground">{currentUser.username}</h3>
-            <Badge variant="secondary" className="text-xs">{currentUser.level}</Badge>
+          <div className="flex-1">
+            <h3 className="font-bold text-white text-lg">{currentUser.displayName}</h3>
+            <p className="text-slate-400 text-sm">@{currentUser.username}</p>
+            <Badge className="mt-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 text-xs">
+              {currentUser.level}
+            </Badge>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3 text-sm">
-          <div className="text-center p-2 bg-primary/10 rounded-lg">
-            <div className="font-bold text-primary">{currentUser.completedOrders}</div>
-            <div className="text-muted-foreground text-xs">Orders</div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-slate-800/50 rounded-lg p-3 text-center">
+            <div className="text-xl font-bold text-white">{currentUser.rating}</div>
+            <div className="text-xs text-slate-400">Rating</div>
           </div>
-          <div className="text-center p-2 bg-green-500/10 rounded-lg">
-            <div className="font-bold text-green-600">{currentUser.rating}</div>
-            <div className="text-muted-foreground text-xs">Rating</div>
+          <div className="bg-slate-800/50 rounded-lg p-3 text-center">
+            <div className="text-xl font-bold text-white">{currentUser.completedOrders}</div>
+            <div className="text-xs text-slate-400">Orders</div>
           </div>
         </div>
       </div>
 
-      {/* Navigation Menu */}
-      <nav className="flex-1 p-4">
-        <div className="space-y-2">
-          {menuItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 group ${
-                activeTab === item.id
-                  ? 'bg-primary text-primary-foreground shadow-md'
-                  : 'hover:bg-accent text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <item.icon className={`w-5 h-5 ${activeTab === item.id ? 'text-primary-foreground' : ''}`} />
-                <span className="font-medium">{item.label}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                {item.count && (
-                  <Badge 
-                    variant={activeTab === item.id ? "secondary" : "default"} 
-                    className="text-xs h-5 px-2"
-                  >
-                    {item.count}
-                  </Badge>
-                )}
-                {item.badge && (
-                  <Badge variant="destructive" className="text-xs h-5 px-2">
-                    {item.badge}
-                  </Badge>
-                )}
-              </div>
-            </button>
-          ))}
-        </div>
+      {/* Enhanced Navigation */}
+      <nav className="flex-1 px-4 py-6 space-y-2">
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setActiveTab(item.id)}
+            className={`
+              w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
+              ${activeTab === item.id 
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25' 
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+              }
+            `}
+          >
+            <item.icon className="w-5 h-5" />
+            <span className="font-medium">{item.label}</span>
+            {item.count && (
+              <Badge className="ml-auto bg-red-500 text-white text-xs">
+                {item.count}
+              </Badge>
+            )}
+            {item.badge && (
+              <Badge className="ml-auto bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs">
+                {item.badge}
+              </Badge>
+            )}
+          </button>
+        ))}
       </nav>
 
-      {/* Quick Stats */}
-      <div className="p-4 border-t border-border">
-        <div className="bg-gradient-to-r from-primary/20 to-purple-600/20 p-4 rounded-lg">
-          <div className="text-sm text-muted-foreground mb-1">Total Pendapatan</div>
-          <div className="text-2xl font-bold text-foreground">{currentUser.totalEarnings}</div>
-          <div className="flex items-center gap-1 text-green-600 text-sm mt-1">
-            <TrendingUp className="w-3 h-3" />
-            <span>+12.5% bulan ini</span>
-          </div>
-        </div>
+      {/* Footer */}
+      <div className="p-4 border-t border-slate-700/50">
+        <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
+          <Plus className="w-4 h-4 mr-2" />
+          Quick Sell
+        </Button>
       </div>
     </aside>
   )
 }
 
-function DashboardHeader() {
-  return (
-    <header className="bg-background border-b border-border px-6 py-4 sticky top-0 z-10">
-      <div className="flex items-center justify-between">
-        <div>
-          <ScrollReveal
-            baseOpacity={0.2}
-            enableBlur={true}
-            baseRotation={2}
-            blurStrength={6}
-            containerClassName="mb-2"
-            textClassName="text-2xl font-bold text-foreground"
-          >
-            Dashboard
-          </ScrollReveal>
-          <p className="text-muted-foreground">Kelola bisnis digital Anda dengan mudah</p>
-        </div>
-
-        <div className="flex items-center gap-4">
-          {/* Search */}
-          <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Cari order, aset..."
-              className="pl-10 w-64"
-            />
-          </div>
-
-          {/* Notifications */}
-          <NotificationCenter />
-
-          {/* User Menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2">
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src={currentUser.avatar} alt={currentUser.username} />
-                  <AvatarFallback>{currentUser.username[0].toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <span className="font-medium">{currentUser.username}</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <User className="w-4 h-4 mr-2" />
-                Profil Saya
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/settings">
-                  <Settings className="w-4 h-4 mr-2" />
-                  Pengaturan
-                </Link>
-              </DropdownMenuItem>
-              <Separator />
-              <DropdownMenuItem className="text-destructive">
-                Keluar
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-    </header>
-  )
-}
-
-function OrdersTab() {
-  const [orderFilter, setOrderFilter] = useState("all")
-  
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "pending_payment":
-        return <Badge variant="destructive" className="gap-1"><Clock className="w-3 h-3" />Menunggu Pembayaran</Badge>
-      case "in_progress":
-        return <Badge variant="default" className="gap-1"><Activity className="w-3 h-3" />Dalam Proses</Badge>
-      case "completed":
-        return <Badge variant="secondary" className="gap-1 bg-green-100 text-green-800"><CheckCircle className="w-3 h-3" />Selesai</Badge>
-      default:
-        return <Badge variant="outline">{status}</Badge>
-    }
-  }
-
-  const formatTimeLeft = (timeLeft: string | undefined) => {
-    if (!timeLeft) return null
-    return (
-      <div className="flex items-center gap-1 text-orange-600 text-sm font-medium">
-        <Clock className="w-3 h-3" />
-        {timeLeft}
-      </div>
-    )
-  }
-
-  const pendingOrders = sampleOrders.filter(order => order.status === "pending_payment")
-  const activeOrders = sampleOrders.filter(order => order.status === "in_progress")
-  const completedOrders = sampleOrders.filter(order => order.status === "completed")
-
-  const EmptyState = ({ title, description }: { title: string; description: string }) => (
-    <div className="text-center py-12">
-      <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-muted-foreground mb-6">{description}</p>
-      <Button size="lg" className="gap-2" asChild>
-        <Link href="/create-listing">
-          <Plus className="w-5 h-5" />
-          Jual Aset Pertama Anda
-        </Link>
-      </Button>
-    </div>
-  )
-
-  if (sampleOrders.length === 0) {
-    return (
-      <EmptyState 
-        title="Anda belum punya order aktif"
-        description="Ayo jual aset pertama Anda dan mulai menghasilkan keuntungan!"
-      />
-    )
-  }
-
-  return (
-    <div className="space-y-6">
-      {/* Quick Actions */}
-      <div className="flex items-center justify-between">
-        <ContentReveal direction="up" delay={0.2}>
-          <div className="grid grid-cols-3 gap-4">
-            <Card className="p-4">
-              <div className="text-2xl font-bold text-orange-600">{pendingOrders.length}</div>
-              <div className="text-sm text-muted-foreground">Menunggu Pembayaran</div>
-            </Card>
-            <Card className="p-4">
-              <div className="text-2xl font-bold text-blue-600">{activeOrders.length}</div>
-              <div className="text-sm text-muted-foreground">Dalam Proses</div>
-            </Card>
-            <Card className="p-4">
-              <div className="text-2xl font-bold text-green-600">{completedOrders.length}</div>
-              <div className="text-sm text-muted-foreground">Selesai</div>
-            </Card>
-          </div>
-        </ContentReveal>
-        
-        <Button
-          size="lg"
-          className="gap-2 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300"
-          asChild
-        >
-          <Link href="/create-listing">
-            <Plus className="w-5 h-5" />
-            Jual Aset Baru
-          </Link>
-        </Button>
-      </div>
-
-      {/* Orders Tabs */}
-      <Tabs defaultValue="pending" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="pending" className="gap-2">
-            <Clock className="w-4 h-4" />
-            Menunggu Pembayaran ({pendingOrders.length})
-          </TabsTrigger>
-          <TabsTrigger value="active" className="gap-2">
-            <Activity className="w-4 h-4" />
-            Dalam Proses ({activeOrders.length})
-          </TabsTrigger>
-          <TabsTrigger value="completed" className="gap-2">
-            <CheckCircle className="w-4 h-4" />
-            Selesai ({completedOrders.length})
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="pending" className="mt-4">
-          <div className="space-y-4">
-            {pendingOrders.map((order) => (
-              <Card key={order.id} className="p-4 border-l-4 border-l-orange-500">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <img 
-                      src={order.image} 
-                      alt={order.assetName}
-                      className="w-16 h-16 rounded-lg object-cover"
-                    />
-                    <div>
-                      <h3 className="font-semibold text-lg">{order.assetName}</h3>
-                      <p className="text-2xl font-bold text-primary">{order.price}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Avatar className="w-6 h-6">
-                          <AvatarImage src={order.buyerAvatar} alt={order.buyer} />
-                          <AvatarFallback>{order.buyer[0]}</AvatarFallback>
-                        </Avatar>
-                        <span className="text-sm text-muted-foreground">Pembeli: {order.buyer}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right space-y-2">
-                    {getStatusBadge(order.status)}
-                    {formatTimeLeft(order.timeLeft)}
-                    <div className="text-sm text-muted-foreground">via {order.paymentMethod}</div>
-                    <Button variant="outline" size="sm">
-                      Lihat Detail
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="active" className="mt-4">
-          <div className="space-y-4">
-            {activeOrders.map((order) => (
-              <Card key={order.id} className="p-4 border-l-4 border-l-blue-500">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <img 
-                      src={order.image} 
-                      alt={order.assetName}
-                      className="w-16 h-16 rounded-lg object-cover"
-                    />
-                    <div>
-                      <h3 className="font-semibold text-lg">{order.assetName}</h3>
-                      <p className="text-2xl font-bold text-primary">{order.price}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Avatar className="w-6 h-6">
-                          <AvatarImage src={order.buyerAvatar} alt={order.buyer} />
-                          <AvatarFallback>{order.buyer[0]}</AvatarFallback>
-                        </Avatar>
-                        <span className="text-sm text-muted-foreground">Pembeli: {order.buyer}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right space-y-2">
-                    {getStatusBadge(order.status)}
-                    <div className="text-sm text-muted-foreground">via {order.paymentMethod}</div>
-                    <Button variant="outline" size="sm">
-                      Lihat Detail
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="completed" className="mt-4">
-          <div className="space-y-4">
-            {completedOrders.map((order) => (
-              <Card key={order.id} className="p-4 border-l-4 border-l-green-500">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <img 
-                      src={order.image} 
-                      alt={order.assetName}
-                      className="w-16 h-16 rounded-lg object-cover"
-                    />
-                    <div>
-                      <h3 className="font-semibold text-lg">{order.assetName}</h3>
-                      <p className="text-2xl font-bold text-primary">{order.price}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Avatar className="w-6 h-6">
-                          <AvatarImage src={order.buyerAvatar} alt={order.buyer} />
-                          <AvatarFallback>{order.buyer[0]}</AvatarFallback>
-                        </Avatar>
-                        <span className="text-sm text-muted-foreground">Pembeli: {order.buyer}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right space-y-2">
-                    {getStatusBadge(order.status)}
-                    <div className="text-sm text-muted-foreground">via {order.paymentMethod}</div>
-                    <div className="text-sm text-muted-foreground">{order.date}</div>
-                    <Button variant="outline" size="sm">
-                      Lihat Detail
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-      </Tabs>
-    </div>
-  )
-}
-
-function PlaceholderTab({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="text-center py-12">
-      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-        <Settings className="w-8 h-8 text-muted-foreground" />
-      </div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-muted-foreground mb-6">{description}</p>
-      <Button variant="outline">
-        Segera Hadir
-      </Button>
-    </div>
-  )
-}
-
-export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState("orders")
-  const [isLoading, setIsLoading] = useState(true)
-
-  // Simulate loading
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
-    return () => clearTimeout(timer)
-  }, [])
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case "orders":
-        return <OrdersTab />
-      case "marketplace":
-        return <PlaceholderTab title="Marketplace" description="Jelajahi aset digital dari seluruh pengguna" />
-      case "awards-marketplace":
-        window.location.href = '/awards-marketplace'
-        return <PlaceholderTab title="Awards Marketplace" description="Perdagangkan NFT penghargaan eksklusif" />
-      case "assets":
-        return <PlaceholderTab title="Aset Saya" description="Lihat semua NFT dan token yang Anda miliki" />
-      case "payments":
-        return <PlaceholderTab title="Akun Pembayaran" description="Kelola metode pembayaran Anda" />
-      case "settings":
-        window.location.href = '/settings'
-        return <PlaceholderTab title="Pengaturan" description="Atur preferensi akun Anda" />
-      case "referral":
-        window.location.href = '/referral'
-        return <PlaceholderTab title="Program Referral" description="Ajak teman dan dapatkan komisi" />
-      default:
-        return <OrdersTab />
-    }
-  }
-
-  if (isLoading) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="min-h-screen bg-background p-6"
-      >
-        <div className="max-w-7xl mx-auto">
-          <DashboardStatsSkeleton />
-          <div className="mt-8">
-            <ActivityFeedSkeleton />
-          </div>
-        </div>
-      </motion.div>
-    )
-  }
-
+// Enhanced Stats Card Component
+function StatsCard({ stat, index }: { stat: typeof dashboardStats[0]; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen bg-background"
+      transition={{ delay: index * 0.1 }}
     >
-      <div className="flex">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <div className="flex-1">
-          <DashboardHeader />
-          <main className="p-6">
-            {renderContent()}
-          </main>
+      <Card className="relative overflow-hidden border-slate-700/50 bg-slate-900/50 backdrop-blur-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 group">
+        {/* Background Gradient */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+        
+        <CardContent className="p-6 relative z-10">
+          <div className="flex items-start justify-between mb-4">
+            <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.gradient} shadow-lg`}>
+              <stat.icon className="w-6 h-6 text-white" />
+            </div>
+            <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
+              stat.isPositive ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+            }`}>
+              {stat.isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+              {stat.change}
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="text-slate-400 text-sm font-medium mb-1">{stat.title}</h3>
+            <p className="text-2xl font-bold text-white mb-2">{stat.value}</p>
+            <p className="text-slate-500 text-xs">{stat.description}</p>
+          </div>
+          
+          {/* Animated border */}
+          <div className={`absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r ${stat.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500`} />
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+}
+
+// Performance Ring Component
+function PerformanceRing({ metric, index }: { metric: typeof performanceMetrics[0]; index: number }) {
+  const circumference = 2 * Math.PI * 45
+  const strokeDasharray = circumference
+  const strokeDashoffset = circumference - (metric.progress / 100) * circumference
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: index * 0.1 }}
+      className="flex items-center gap-4 p-4 bg-slate-800/30 rounded-xl"
+    >
+      <div className="relative w-20 h-20">
+        <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            stroke="currentColor"
+            strokeWidth="8"
+            fill="transparent"
+            className="text-slate-700"
+          />
+          <motion.circle
+            cx="50"
+            cy="50"
+            r="45"
+            stroke="currentColor"
+            strokeWidth="8"
+            fill="transparent"
+            strokeLinecap="round"
+            className={metric.color}
+            initial={{ strokeDashoffset: circumference }}
+            animate={{ strokeDashoffset }}
+            transition={{ duration: 1, delay: index * 0.1 }}
+            style={{ strokeDasharray }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-sm font-bold text-white">{metric.progress}%</span>
         </div>
       </div>
+      <div>
+        <h4 className="font-semibold text-white">{metric.label}</h4>
+        <p className="text-slate-400 text-sm">{metric.value}</p>
+      </div>
     </motion.div>
+  )
+}
+
+export default function ModernDashboard() {
+  const [activeTab, setActiveTab] = useState("dashboard")
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 flex items-center justify-center">
+        <div className="text-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 border-4 border-blue-500/30 border-t-blue-500 rounded-full mx-auto mb-4"
+          />
+          <p className="text-slate-400">Loading dashboard...</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
+      <div className="flex">
+        <ModernSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        
+        <main className="flex-1 overflow-hidden">
+          {/* Enhanced Header */}
+          <header className="bg-slate-900/50 backdrop-blur-xl border-b border-slate-700/50 px-8 py-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Dashboard
+                </h1>
+                <p className="text-slate-400 mt-1">Welcome back, {currentUser.displayName}</p>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <Button variant="outline" className="border-slate-600 text-slate-400 hover:text-white">
+                  <Download className="w-4 h-4 mr-2" />
+                  Export
+                </Button>
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Refresh
+                </Button>
+              </div>
+            </div>
+          </header>
+
+          {/* Main Content */}
+          <div className="p-8 space-y-8">
+            {/* Stats Grid */}
+            <section>
+              <h2 className="text-xl font-bold text-white mb-6">Overview</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {dashboardStats.map((stat, index) => (
+                  <StatsCard key={stat.title} stat={stat} index={index} />
+                ))}
+              </div>
+            </section>
+
+            {/* Performance & Quick Actions */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Performance Metrics */}
+              <div className="lg:col-span-2">
+                <Card className="bg-slate-900/50 backdrop-blur-xl border-slate-700/50">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <Target className="w-5 h-5 text-blue-500" />
+                      Performance Metrics
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {performanceMetrics.map((metric, index) => (
+                      <PerformanceRing key={metric.label} metric={metric} index={index} />
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Quick Actions */}
+              <div>
+                <Card className="bg-slate-900/50 backdrop-blur-xl border-slate-700/50">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <Zap className="w-5 h-5 text-yellow-500" />
+                      Quick Actions
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {quickActions.map((action, index) => (
+                      <motion.div
+                        key={action.title}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <Link href={action.href}>
+                          <div className="p-4 bg-slate-800/30 rounded-xl hover:bg-slate-800/50 transition-all duration-300 group cursor-pointer">
+                            <div className="flex items-center gap-3">
+                              <div className={`p-2 rounded-lg bg-gradient-to-br ${action.gradient}`}>
+                                <action.icon className="w-5 h-5 text-white" />
+                              </div>
+                              <div className="flex-1">
+                                <h4 className="font-semibold text-white group-hover:text-blue-400 transition-colors">
+                                  {action.title}
+                                </h4>
+                                <p className="text-slate-400 text-sm">{action.description}</p>
+                              </div>
+                              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" />
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Recent Orders */}
+            <section>
+              <Card className="bg-slate-900/50 backdrop-blur-xl border-slate-700/50">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <Activity className="w-5 h-5 text-green-500" />
+                      Recent Orders
+                    </CardTitle>
+                    <Button variant="outline" className="border-slate-600 text-slate-400 hover:text-white">
+                      View All
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {sampleOrders.map((order, index) => (
+                      <motion.div
+                        key={order.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="p-4 bg-slate-800/30 rounded-xl hover:bg-slate-800/50 transition-all duration-300"
+                      >
+                        <div className="flex items-center gap-4">
+                          <img 
+                            src={order.image} 
+                            alt={order.assetName}
+                            className="w-16 h-16 rounded-lg object-cover"
+                          />
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between">
+                              <div>
+                                <h4 className="font-semibold text-white">{order.assetName}</h4>
+                                <p className="text-slate-400 text-sm">by @{order.buyer}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="font-bold text-white">{order.price}</p>
+                                <Badge className={`text-xs ${
+                                  order.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                                  order.status === 'in_progress' ? 'bg-blue-500/20 text-blue-400' :
+                                  'bg-yellow-500/20 text-yellow-400'
+                                }`}>
+                                  {order.status.replace('_', ' ')}
+                                </Badge>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
   )
 }
