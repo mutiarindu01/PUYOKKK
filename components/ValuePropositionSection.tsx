@@ -259,10 +259,10 @@ const SavingsCalculator = () => {
         >
           <h4 className="text-gray-400 font-medium mb-3 flex items-center">
             <span className="text-green-500 mr-2">✅</span>
-            Di PUYOK
+            Di Ꭾuyok
           </h4>
           <div className="text-3xl font-bold text-green-500 mb-2">
-            {formatRupiah(amount - puyokFee)}
+            {formatRupiah(amount - ꭾuyokFee)}
           </div>
           <div className="text-sm text-gray-400">
             Biaya platform 3% + biaya gas gratis
