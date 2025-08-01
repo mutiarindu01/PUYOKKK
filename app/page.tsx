@@ -1543,14 +1543,17 @@ export default function LandingPage() {
 
                         {/* Action Buttons */}
                         <div className="flex gap-2">
-                          <Button
-                            className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
-                            asChild
+                          <AuthGuard
+                            actionName="mengajukan penawaran"
+                            requirePrompt={true}
                           >
-                            <Link href={`/marketplace/${nft.id}`}>
+                            <Button
+                              className="flex-1 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-600 hover:to-slate-700 text-white font-bold"
+                              onClick={() => {}}
+                            >
                               Ajukan Penawaran
-                            </Link>
-                          </Button>
+                            </Button>
+                          </AuthGuard>
                           <Button
                             size="icon"
                             variant="outline"
