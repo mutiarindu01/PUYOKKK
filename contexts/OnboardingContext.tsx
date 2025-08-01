@@ -54,17 +54,11 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     if (savedStatus) {
       const parsedStatus = JSON.parse(savedStatus)
       setOnboardingStatus(parsedStatus)
-      
-      // If user has completed onboarding, don't show modal
-      if (parsedStatus.isOnboardingComplete) {
-        setShowOnboardingModal(false)
-      } else if (parsedStatus.isNewUser) {
-        // Show onboarding modal for new users
-        setShowOnboardingModal(true)
-      }
+      // Never auto-show modal - only show when triggered
+      setShowOnboardingModal(false)
     } else {
-      // First time user - show onboarding
-      setShowOnboardingModal(true)
+      // First time user - don't auto-show onboarding, wait for trigger
+      setShowOnboardingModal(false)
     }
   }, [])
 
