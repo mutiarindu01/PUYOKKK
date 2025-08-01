@@ -33,6 +33,9 @@ import {
   Search,
   Filter,
   MoreHorizontal,
+  Menu,
+  ChevronLeft,
+  ChevronRight,
   DollarSign,
   Activity,
   Trophy,
@@ -190,89 +193,185 @@ const quickActions = [
 ]
 
 // Enhanced Sidebar Component
-function ModernSidebar({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (tab: string) => void }) {
+function ModernSidebar({
+  activeTab,
+  setActiveTab,
+  isCollapsed,
+  setIsCollapsed
+}: {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+  isCollapsed: boolean;
+  setIsCollapsed: (collapsed: boolean) => void;
+}) {
+  const router = useRouter()
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-    { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 5 },
-    { id: "marketplace", label: "Marketplace", icon: Home },
-    { id: "awards", label: "Awards", icon: Trophy, badge: "Premium" },
-    { id: "assets", label: "Aset Saya", icon: Wallet, count: 12 },
-    { id: "payments", label: "Pembayaran", icon: CreditCard },
-    { id: "analytics", label: "Analytics", icon: LineChart, badge: "New" },
-    { id: "settings", label: "Pengaturan", icon: Settings }
+    { id: "dashboard", label: "Dashboard", icon: BarChart3, href: "/dashboard" },
+    { id: "orders", label: "Order Saya", icon: ShoppingCart, count: 5, href: "/orders" },
+    { id: "marketplace", label: "Marketplace", icon: Home, href: "/marketplace" },
+    { id: "awards", label: "Awards", icon: Trophy, badge: "Premium", href: "/awards" },
+    { id: "assets", label: "Aset Saya", icon: Wallet, count: 12, href: "/assets" },
+    { id: "payments", label: "Pembayaran", icon: CreditCard, href: "/payments" },
+    { id: "analytics", label: "Analytics", icon: LineChart, badge: "New", href: "/analytics" },
+    { id: "settings", label: "Pengaturan", icon: Settings, href: "/settings" }
   ]
 
+  const handleMenuClick = (item: typeof menuItems[0]) => {
+    setActiveTab(item.id)
+    if (item.href && item.href !== '/dashboard') {
+      router.push(item.href)
+    }
+  }
+
   return (
-    <aside className="w-72 bg-gradient-to-b from-slate-950/50 to-slate-900/50 backdrop-blur-xl border-r border-slate-700/50 h-screen sticky top-0 flex flex-col">
+    <motion.aside
+      initial={false}
+      animate={{ width: isCollapsed ? 80 : 288 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="bg-gradient-to-b from-slate-950/50 to-slate-900/50 backdrop-blur-xl border-r border-slate-700/50 h-screen sticky top-0 flex flex-col overflow-hidden"
+    >
+      {/* Collapse/Expand Button */}
+      <div className="p-4 border-b border-slate-700/50 flex justify-end">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="text-slate-400 hover:text-white hover:bg-slate-800/50"
+        >
+          {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+        </Button>
+      </div>
+
       {/* Enhanced User Profile Section */}
-      <div className="p-6 border-b border-slate-700/50">
-        <div className="flex items-center gap-4 mb-4">
-          <Avatar className="w-16 h-16 ring-2 ring-blue-500/30">
+      <div className={`p-6 border-b border-slate-700/50 ${isCollapsed ? 'px-4' : ''}`}>
+        <div className={`flex items-center gap-4 mb-4 ${isCollapsed ? 'justify-center' : ''}`}>
+          <Avatar className={`ring-2 ring-blue-500/30 ${isCollapsed ? 'w-12 h-12' : 'w-16 h-16'}`}>
             <AvatarImage src={currentUser.avatar} alt={currentUser.username} />
             <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-lg">
               {currentUser.username.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <div className="flex-1">
-            <h3 className="font-bold text-white text-lg">{currentUser.displayName}</h3>
-            <p className="text-slate-400 text-sm">@{currentUser.username}</p>
-            <Badge className="mt-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 text-xs">
-              {currentUser.level}
-            </Badge>
-          </div>
+          <AnimatePresence>
+            {!isCollapsed && (
+              <motion.div
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: "auto" }}
+                exit={{ opacity: 0, width: 0 }}
+                className="flex-1"
+              >
+                <h3 className="font-bold text-white text-lg">{currentUser.displayName}</h3>
+                <p className="text-slate-400 text-sm">@{currentUser.username}</p>
+                <Badge className="mt-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 text-xs">
+                  {currentUser.level}
+                </Badge>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="bg-slate-800/50 rounded-lg p-3 text-center">
-            <div className="text-xl font-bold text-white">{currentUser.rating}</div>
-            <div className="text-xs text-slate-400">Rating</div>
-          </div>
-          <div className="bg-slate-800/50 rounded-lg p-3 text-center">
-            <div className="text-xl font-bold text-white">{currentUser.completedOrders}</div>
-            <div className="text-xs text-slate-400">Orders</div>
-          </div>
-        </div>
+        <AnimatePresence>
+          {!isCollapsed && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="grid grid-cols-2 gap-3"
+            >
+              <div className="bg-slate-800/50 rounded-lg p-3 text-center">
+                <div className="text-xl font-bold text-white">{currentUser.rating}</div>
+                <div className="text-xs text-slate-400">Rating</div>
+              </div>
+              <div className="bg-slate-800/50 rounded-lg p-3 text-center">
+                <div className="text-xl font-bold text-white">{currentUser.completedOrders}</div>
+                <div className="text-xs text-slate-400">Orders</div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Enhanced Navigation */}
-      <nav className="flex-1 px-4 py-6 space-y-2">
+      <nav className={`flex-1 py-6 space-y-2 ${isCollapsed ? 'px-2' : 'px-4'}`}>
         {menuItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => setActiveTab(item.id)}
-            className={`
-              w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
-              ${activeTab === item.id 
-                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25' 
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-              }
-            `}
-          >
-            <item.icon className="w-5 h-5" />
-            <span className="font-medium">{item.label}</span>
-            {item.count && (
-              <Badge className="ml-auto bg-red-500 text-white text-xs">
-                {item.count}
-              </Badge>
-            )}
-            {item.badge && (
-              <Badge className="ml-auto bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs">
-                {item.badge}
-              </Badge>
-            )}
-          </button>
+          <div key={item.id} className="relative group">
+            <button
+              onClick={() => handleMenuClick(item)}
+              className={`
+                w-full flex items-center gap-3 py-3 rounded-xl transition-all duration-300 relative
+                ${isCollapsed ? 'px-3 justify-center' : 'px-4'}
+                ${activeTab === item.id
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                }
+              `}
+            >
+              <item.icon className="w-5 h-5 flex-shrink-0" />
+              <AnimatePresence>
+                {!isCollapsed && (
+                  <motion.div
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    className="flex items-center justify-between flex-1"
+                  >
+                    <span className="font-medium">{item.label}</span>
+                    <div className="flex gap-1">
+                      {item.count && (
+                        <Badge className="bg-red-500 text-white text-xs">
+                          {item.count}
+                        </Badge>
+                      )}
+                      {item.badge && (
+                        <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs">
+                          {item.badge}
+                        </Badge>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Tooltip for collapsed mode */}
+              {isCollapsed && (
+                <div className="absolute left-full ml-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
+                  {item.label}
+                  {item.count && (
+                    <Badge className="ml-2 bg-red-500 text-white text-xs">
+                      {item.count}
+                    </Badge>
+                  )}
+                  {item.badge && (
+                    <Badge className="ml-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs">
+                      {item.badge}
+                    </Badge>
+                  )}
+                </div>
+              )}
+            </button>
+          </div>
         ))}
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-slate-700/50">
-        <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
-          <Plus className="w-4 h-4 mr-2" />
-          Quick Sell
+      <div className={`p-4 border-t border-slate-700/50 ${isCollapsed ? 'px-2' : ''}`}>
+        <Button className={`w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 ${isCollapsed ? 'px-2' : ''}`}>
+          <Plus className="w-4 h-4" />
+          <AnimatePresence>
+            {!isCollapsed && (
+              <motion.span
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: "auto" }}
+                exit={{ opacity: 0, width: 0 }}
+                className="ml-2"
+              >
+                Quick Sell
+              </motion.span>
+            )}
+          </AnimatePresence>
         </Button>
       </div>
-    </aside>
+    </motion.aside>
   )
 }
 
@@ -369,6 +468,7 @@ function PerformanceRing({ metric, index }: { metric: typeof performanceMetrics[
 export default function ModernDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [isLoading, setIsLoading] = useState(true)
+  const [isCollapsed, setIsCollapsed] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500)
@@ -393,9 +493,14 @@ export default function ModernDashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
       <div className="flex">
-        <ModernSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <ModernSidebar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          isCollapsed={isCollapsed}
+          setIsCollapsed={setIsCollapsed}
+        />
         
-        <main className="flex-1 overflow-hidden">
+        <main className="flex-1 overflow-hidden transition-all duration-300">
           {/* Enhanced Header */}
           <header className="bg-slate-900/50 backdrop-blur-xl border-b border-slate-700/50 px-8 py-6">
             <div className="flex items-center justify-between">
