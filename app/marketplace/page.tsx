@@ -2997,15 +2997,15 @@ AI Market Analysis:
         <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              🔄 Universal P2P Swap Creator
+              🔒 Escrow Order Creator
             </DialogTitle>
             <DialogDescription className="text-slate-400 text-center">
-              Tukar aset digital apapun dengan pembayaran e-wallet atau bank transfer
+              Buat order NFT/Token yang aman dengan smart contract escrow otomatis
             </DialogDescription>
             <div className="flex justify-center gap-2 mt-2">
-              <Badge className="bg-blue-500/20 text-blue-400">NFT Trading</Badge>
-              <Badge className="bg-green-500/20 text-green-400">Token Exchange</Badge>
-              <Badge className="bg-purple-500/20 text-purple-400">P2P Banking</Badge>
+              <Badge className="bg-green-500/20 text-green-400">Smart Contract</Badge>
+              <Badge className="bg-blue-500/20 text-blue-400">Auto Escrow</Badge>
+              <Badge className="bg-purple-500/20 text-purple-400">Dispute Protection</Badge>
             </div>
           </DialogHeader>
 
