@@ -227,8 +227,8 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Dashboard Menu - Only show after onboarding is complete */}
-              {onboardingStatus.isOnboardingComplete && (
+              {/* Dashboard Menu - Only show when user is actually logged in */}
+              {(isLoggedIn && isWalletConnected && onboardingStatus.isOnboardingComplete) && (
                 <Link
                   href="/dashboard"
                   className="text-white hover:text-green-400 transition-colors font-bold text-lg flex items-center gap-2"
