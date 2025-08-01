@@ -46,13 +46,13 @@ const GooeyNav = ({
   };
 
   const createParticle = (i: number, t: number, d: [number, number], r: number) => {
-    let rotate = noise(r / 10);
+    let rotate = noise(r / 10, i);
     return {
       start: getXY(d[0], particleCount - i, particleCount),
-      end: getXY(d[1] + noise(7), particleCount - i, particleCount),
+      end: getXY(d[1] + noise(7, i), particleCount - i, particleCount),
       time: t,
-      scale: 1 + noise(0.2),
-      color: colors[Math.floor(Math.random() * colors.length)],
+      scale: 1 + noise(0.2, i),
+      color: colors[i % colors.length], // Consistent color selection
       rotate:
         rotate > 0 ? (rotate + r / 20) * 10 : (rotate - r / 20) * 10,
     };
