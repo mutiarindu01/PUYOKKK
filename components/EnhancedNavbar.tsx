@@ -55,6 +55,7 @@ interface EnhancedNavbarProps {
 
 export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }: EnhancedNavbarProps) {
   const router = useRouter()
+  const { onboardingStatus } = useOnboarding()
 
   // Enhanced navbar state
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
@@ -437,7 +438,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                   <div className="p-4">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                        ✓
+                        ���
                       </div>
                       <div>
                         <div className="font-medium">Wallet Connected</div>
