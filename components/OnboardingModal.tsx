@@ -31,13 +31,15 @@ interface OnboardingModalProps {
 }
 
 export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
-  const { 
-    onboardingStatus, 
+  const {
+    onboardingStatus,
     setOnboardingStep,
     completeWalletConnection,
     completeTermsAgreement,
     completeProfileCreation,
-    completeLogin
+    completeLogin,
+    isReturningUser,
+    quickLogin
   } = useOnboarding()
 
   const [formData, setFormData] = useState({
