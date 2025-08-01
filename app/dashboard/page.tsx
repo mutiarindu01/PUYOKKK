@@ -2147,7 +2147,7 @@ export default function ModernDashboard() {
   const renderContent = () => {
     switch (activeTab) {
       case 'orders':
-        return <OrdersContent />
+        return <DashboardContent />
       case 'assets':
         return <AssetsContent />
       case 'settings':
@@ -2157,7 +2157,7 @@ export default function ModernDashboard() {
       case 'payments':
         return <PaymentsContent />
       default:
-        return <DashboardContent />
+        return <OrdersContent />
     }
   }
 
