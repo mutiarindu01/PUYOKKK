@@ -162,17 +162,11 @@ export default function ProfileChart({ data }: ProfileChartProps) {
     <div className="space-y-6">
       {/* Chart Navigation */}
       <div className="w-full">
-        <div className="mb-6">
-          <GooeyNav
+        <div className="mb-8">
+          <ModernTabs
             items={navItems}
-            particleCount={12}
-            particleDistances={[60, 8]}
-            particleR={80}
-            initialActiveIndex={0}
-            animationTime={500}
-            timeVariance={200}
-            colors={[1, 2, 3, 4]}
             onTabChange={handleTabChange}
+            initialActiveIndex={0}
           />
         </div>
 
