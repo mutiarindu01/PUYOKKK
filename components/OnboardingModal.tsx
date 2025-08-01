@@ -53,7 +53,26 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
   const handleWalletConnection = (walletType: string) => {
     // Simulate wallet connection
     const mockWalletAddress = `0x${Math.random().toString(16).substr(2, 40)}`
-    completeWalletConnection(mockWalletAddress)
+
+    if (isReturningUser()) {
+      // For returning users, complete all steps immediately
+      completeWalletConnection(mockWalletAddress)
+      setTimeout(() => {
+        completeTermsAgreement()
+        setTimeout(() => {
+          completeProfileCreation({
+            name: 'Returning User',
+            email: 'user@example.com'
+          })
+          setTimeout(() => {
+            completeLogin()
+          }, 500)
+        }, 500)
+      }, 500)
+    } else {
+      // For new users, go through normal flow
+      completeWalletConnection(mockWalletAddress)
+    }
   }
 
   const handleTermsAgreement = () => {
