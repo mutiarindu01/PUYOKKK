@@ -120,6 +120,49 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     setShowOnboardingModal(true)
   }
 
+  const triggerOnboarding = () => {
+    // Check if user is returning or new
+    if (isReturningUser()) {
+      // Skip onboarding for returning users, go straight to wallet connection
+      quickLogin()
+    } else {
+      // Show full onboarding for new users
+      setOnboardingStep('welcome')
+      setShowOnboardingModal(true)
+    }
+  }
+
+  const isReturningUser = () => {
+    const savedStatus = localStorage.getItem('puyok-onboarding-status')
+    const hasWalletHistory = localStorage.getItem('walletConnected') === 'true'
+    const hasAuthToken = localStorage.getItem('authToken')
+
+    return !!(savedStatus && JSON.parse(savedStatus).isOnboardingComplete) || hasWalletHistory || hasAuthToken
+  }
+
+  const quickLogin = () => {
+    // For returning users, just show wallet connection options without full onboarding
+    const savedWallet = localStorage.getItem('walletAddress')
+    if (savedWallet) {
+      // Auto-connect if wallet was previously connected
+      setOnboardingStatus(prev => ({
+        ...prev,
+        hasConnectedWallet: true,
+        hasAgreedToTerms: true,
+        hasCreatedProfile: true,
+        hasCompletedLogin: true,
+        isOnboardingComplete: true,
+        isNewUser: false,
+        walletAddress: savedWallet,
+        currentStep: 'completed'
+      }))
+    } else {
+      // Show wallet connection step only
+      setOnboardingStep('wallet-connection')
+      setShowOnboardingModal(true)
+    }
+  }
+
   return (
     <OnboardingContext.Provider value={{
       onboardingStatus,
