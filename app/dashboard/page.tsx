@@ -513,7 +513,10 @@ function ModernSidebar({
 
       {/* Footer */}
       <div className={`p-4 border-t border-slate-700/50 ${isCollapsed ? 'px-2' : ''}`}>
-        <Button className={`w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 ${isCollapsed ? 'px-2' : ''}`}>
+        <Button
+          onClick={() => router.push('/marketplace')}
+          className={`w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 ${isCollapsed ? 'px-2' : ''}`}
+        >
           <Plus className="w-4 h-4" />
           <AnimatePresence>
             {!isCollapsed && (
