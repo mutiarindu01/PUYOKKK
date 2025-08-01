@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const { walletAddress, signature, message, username } = await request.json()
 
     // Verify signature
-    const recoveredAddress = ethers.utils.verifyMessage(message, signature)
+    const recoveredAddress = ethers.verifyMessage(message, signature)
     if (recoveredAddress.toLowerCase() !== walletAddress.toLowerCase()) {
       return NextResponse.json(
         { error: 'Invalid signature' },
