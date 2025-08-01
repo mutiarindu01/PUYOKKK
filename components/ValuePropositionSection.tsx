@@ -123,27 +123,27 @@ const FeatureComparison = () => {
   const featureComparison = [
     {
       feature: 'Biaya Gas',
-      puyok: 'Gratis (Ditanggung Platform)',
+      ꭾuyok: 'Gratis (Ditanggung Platform)',
       others: `${formatRupiah(50000)} - ${formatRupiah(500000)} per transaksi`
     },
     {
       feature: 'Metode Pembayaran',
-      puyok: 'DANA, GoPay, OVO, QRIS',
+      ꭾuyok: 'DANA, GoPay, OVO, QRIS',
       others: 'Transfer Bank, Crypto'
     },
     {
       feature: 'Keamanan',
-      puyok: 'Escrow Smart Contract + Verifikasi AI',
+      ꭾuyok: 'Escrow Smart Contract + Verifikasi AI',
       others: 'Escrow Dasar'
     },
     {
       feature: 'Komunitas',
-      puyok: 'Forum Edukasi & Dukungan 24/7',
+      ꭾuyok: 'Forum Edukasi & Dukungan 24/7',
       others: 'Dukungan Terbatas'
     },
     {
       feature: 'Biaya Platform',
-      puyok: '2-3%',
+      ꭾuyok: '2-3%',
       others: '5-15%'
     }
   ]
@@ -151,14 +151,14 @@ const FeatureComparison = () => {
   return (
     <div>
       <h3 className="text-2xl font-bold text-white mb-6 text-center">
-        🏆 PUYOK vs Platform Lain
+        🏆 Ꭾuyok vs Platform Lain
       </h3>
       <div className="overflow-x-auto">
         <table className="min-w-full">
           <thead>
             <tr className="border-b border-slate-700/50">
               <th className="py-4 px-6 text-left text-gray-400 font-semibold">Fitur</th>
-              <th className="py-4 px-6 text-center text-green-500 font-semibold">🚀 PUYOK</th>
+              <th className="py-4 px-6 text-center text-green-500 font-semibold">🚀 Ꭾuyok</th>
               <th className="py-4 px-6 text-center text-gray-400 font-semibold">Platform Lain</th>
             </tr>
           </thead>
