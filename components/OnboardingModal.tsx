@@ -77,6 +77,51 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
     onClose()
   }
 
+  const renderReturningUserStep = () => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="text-center space-y-6"
+    >
+      <div className="space-y-4">
+        <div className="mx-auto w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
+          <User className="w-10 h-10 text-white" />
+        </div>
+        <h2 className="text-3xl font-bold text-white">Selamat Datang Kembali!</h2>
+        <p className="text-gray-300 text-lg max-w-md mx-auto">
+          Kami mendeteksi Anda sudah pernah menggunakan Ꭾuyok sebelumnya. Silakan hubungkan wallet untuk melanjutkan.
+        </p>
+      </div>
+
+      <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6">
+        <h3 className="text-xl font-semibold text-blue-400 mb-4">Login Cepat</h3>
+        <p className="text-gray-300 mb-4">
+          Sebagai pengguna lama, Anda bisa langsung menggunakan akun yang sudah ada
+        </p>
+        <div className="flex gap-3">
+          <Button
+            onClick={() => setOnboardingStep('wallet-connection')}
+            className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
+          >
+            Hubungkan Wallet
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </div>
+      </div>
+
+      <div className="text-center">
+        <Button
+          variant="link"
+          onClick={() => setOnboardingStep('welcome')}
+          className="text-gray-400 hover:text-white"
+        >
+          Saya pengguna baru
+        </Button>
+      </div>
+    </motion.div>
+  )
+
   const renderWelcomeStep = () => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
