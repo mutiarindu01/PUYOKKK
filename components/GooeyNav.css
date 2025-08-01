@@ -165,19 +165,21 @@
 }
 
 .particle {
-  --time: 2s;
+  --time: 1.5s;
   position: absolute;
   top: calc(50% - 8px);
   left: calc(50% - 8px);
-  animation: particle calc(var(--time)) ease 1 0ms;
+  animation: particle calc(var(--time)) ease-out 1 0ms;
   pointer-events: none;
+  z-index: 1000;
 }
 
 .point {
   background: var(--color);
   opacity: 1;
-  animation: point calc(var(--time)) ease 1 0ms;
+  animation: point calc(var(--time)) ease-out 1 0ms;
   box-shadow: 0 0 8px var(--color), 0 0 16px var(--color);
+  border: 1px solid var(--color);
 }
 
 @keyframes particle {
