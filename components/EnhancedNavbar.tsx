@@ -401,19 +401,7 @@ export default function EnhancedNavbar({ isNavOpen, searchTerm, setSearchTerm }:
                     <div className="text-sm text-slate-400 mb-3">Pilih Wallet</div>
                     <div className="space-y-2">
                       <DropdownMenuItem className="hover:bg-slate-700/50 p-3 cursor-pointer" onClick={() => {
-                        // Check if user has completed onboarding
-                        if (onboardingStatus.isOnboardingComplete) {
-                          setIsWalletConnected(true);
-                          setWalletAddress("0x1234...5678");
-                          setIsLoggedIn(true);
-                          localStorage.setItem('walletConnected', 'true');
-                          localStorage.setItem('walletAddress', '0x1234...5678');
-                          // Redirect to dashboard after wallet connection
-                          setTimeout(() => router.push('/dashboard'), 1000);
-                        } else {
-                          // For new users, onboarding flow will handle wallet connection
-                          window.location.reload(); // Refresh to show onboarding modal
-                        }
+                        triggerOnboarding();
                       }}>
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
