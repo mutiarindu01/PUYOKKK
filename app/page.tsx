@@ -99,6 +99,7 @@ import { formatRupiah, formatVolume, formatActivity, formatNumber } from "@/lib/
 
 export default function LandingPage() {
   const { showOnboardingModal, setShowOnboardingModal } = useOnboarding()
+  const { requireAuthWithPrompt } = useAuthGuard()
   const [searchTerm, setSearchTerm] = useState("")
   const [isNavOpen, setIsNavOpen] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
