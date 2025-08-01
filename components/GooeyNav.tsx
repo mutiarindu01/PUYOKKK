@@ -32,7 +32,12 @@ const GooeyNav = ({
   const textRef = useRef<HTMLSpanElement>(null);
   const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
 
-  const noise = (n = 1) => n / 2 - Math.random() * n;
+  // Use consistent noise for SSR safety
+  const noiseSeeds = [0.3, 0.7, 0.1, 0.9, 0.5, 0.2, 0.8, 0.4, 0.6];
+  const noise = (n = 1, index = 0) => {
+    const seed = noiseSeeds[index % noiseSeeds.length];
+    return n / 2 - seed * n;
+  };
 
   const getXY = (distance: number, pointIndex: number, totalPoints: number) => {
     const angle =
