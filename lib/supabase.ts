@@ -1,6 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { createClientComponentClient, createServerComponentClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { createBrowserClient } from '@supabase/ssr'
 
 // Use fallback values for development when env vars are not set
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://demo.supabase.co'
@@ -15,16 +14,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   }
 })
 
-// Server-side Supabase client
+// Server-side Supabase client - create a separate function for server use
 export const createServerSupabaseClient = () => {
-  try {
-    const cookieStore = cookies()
-    return createServerComponentClient({ cookies: () => cookieStore })
-  } catch (error) {
-    // Fallback for development when server context is not available
-    console.warn('Server context not available, using fallback Supabase client')
-    return createClient(supabaseUrl, supabaseAnonKey)
-  }
+  // For server-side usage, we'll use the direct client
+  return createClient(supabaseUrl, supabaseAnonKey)
 }
 
 // Service role client for admin operations
@@ -38,7 +31,7 @@ export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
 // Client component client with error handling
 export const createClientSupabaseClient = () => {
   try {
-    return createClientComponentClient()
+    return createBrowserClient(supabaseUrl, supabaseAnonKey)
   } catch (error) {
     // Fallback for development
     console.warn('Client component context not available, using fallback Supabase client')
