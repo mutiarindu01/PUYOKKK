@@ -52,9 +52,18 @@ export default function ProfileChart({ data }: ProfileChartProps) {
   const [animationPhase, setAnimationPhase] = useState(0)
 
   const navItems = [
-    { label: "💰 Earnings" },
-    { label: "📈 Performance" }, 
-    { label: "📊 Analytics" }
+    {
+      label: "Earnings",
+      icon: <BarChart3 className="w-4 h-4" />
+    },
+    {
+      label: "Performance",
+      icon: <TrendingUp className="w-4 h-4" />
+    },
+    {
+      label: "Analytics",
+      icon: <PieChart className="w-4 h-4" />
+    }
   ]
 
   const handleTabChange = (index: number) => {
