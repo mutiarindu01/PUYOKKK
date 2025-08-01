@@ -193,7 +193,7 @@ const SavingsCalculator = () => {
   const [amount, setAmount] = useState(1000000)
   
   // Hitung penghematan
-  const puyokFee = amount * 0.03
+  const ꭾuyokFee = amount * 0.03
   const othersFee = amount * 0.1 // Rata-rata 10%
   const gasFee = 250000 // Rata-rata biaya gas
   const savings = (othersFee + gasFee) - puyokFee
