@@ -151,11 +151,11 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Faa193ae356b547f9b743f5a851093612%2F78dd0b4d06b0470ca31749b6b150d462?format=webp&width=800"
-                alt="PUYOK Logo"
+                alt="Ꭾuyok Logo"
                 className="w-12 h-12 object-contain"
               />
               <div className="text-3xl font-bold text-white">
-                PUYOK
+                Ꭾuyok
               </div>
             </div>
             
@@ -298,8 +298,8 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-gray-300">
                 <Mail className="w-4 h-4 text-emerald-400" />
-                <a href="mailto:support@puyok.io" className="hover:text-emerald-400 transition-colors">
-                  support@puyok.io
+                <a href="mailto:support@ꭾuyok.io" className="hover:text-emerald-400 transition-colors">
+                  support@ꭾuyok.io
                 </a>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
