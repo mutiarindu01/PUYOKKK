@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* Import GooeyNav styles */
-@import '../components/GooeyNav.css';
+@import url('../components/GooeyNav.css');
 
 @layer base {
   :root {
