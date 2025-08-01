@@ -173,7 +173,10 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
       completeLogin,
       resetOnboarding,
       showOnboardingModal,
-      setShowOnboardingModal
+      setShowOnboardingModal,
+      triggerOnboarding,
+      isReturningUser,
+      quickLogin
     }}>
       {children}
     </OnboardingContext.Provider>
