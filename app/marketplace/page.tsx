@@ -1698,6 +1698,85 @@ export default function MarketplacePage() {
     }
   }
 
+  // Handle Create Escrow Order using EscrowPUYOK contract
+  const handleCreateEscrowOrder = async () => {
+    try {
+      if (!selectedAsset || !exchangeRate || !selectedPaymentAccount) {
+        alert("Mohon lengkapi semua data order")
+        return
+      }
+
+      // Check if MetaMask is available
+      if (typeof window.ethereum === 'undefined') {
+        alert("MetaMask tidak terdeteksi. Silakan install MetaMask terlebih dahulu.")
+        return
+      }
+
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      await provider.send("eth_requestAccounts", [])
+      const signer = await provider.getSigner()
+      const userAddress = await signer.getAddress()
+
+      // Prepare order input based on contract structure
+      const orderInput = {
+        assetAddress: selectedAsset.contract_address || selectedAsset.address,
+        assetId: selectedAsset.token_id || 0,
+        assetAmount: orderQuantity,
+        priceInIDR: ethers.parseUnits(exchangeRate, 18), // Convert to wei
+        deadline: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60), // 7 days from now
+        paymentMethod: selectedPaymentAccount?.provider_name || "Bank Transfer",
+        notes: listingDescription || "NFT listing via PUYOK marketplace",
+        metadataURI: selectedAsset.image || "",
+        paymentChannel: feeModel === "gasless" ? 0 : 1, // 0 = gasless, 1 = self_gas
+        orderFeePercent: 250, // 2.5% fee
+        orderType: 0, // 0 = SELL order
+        isSpecialBehavior: false,
+        assetType: selectedAssetType === "ERC721" ? 0 : selectedAssetType === "ERC1155" ? 1 : 2 // 0=ERC721, 1=ERC1155, 2=ERC20
+      }
+
+      // Initialize EscrowService
+      const escrowService = new EscrowService()
+
+      // Call the appropriate contract function based on asset type
+      let contractWithSigner
+      if (selectedAssetType === "ERC721") {
+        contractWithSigner = escrowService.contract.connect(signer)
+        const tx = await contractWithSigner.createOrderERC721(orderInput)
+        await tx.wait()
+      } else if (selectedAssetType === "ERC1155") {
+        contractWithSigner = escrowService.contract.connect(signer)
+        const tx = await contractWithSigner.createOrderERC1155(orderInput)
+        await tx.wait()
+      } else if (selectedAssetType === "ERC20") {
+        contractWithSigner = escrowService.contract.connect(signer)
+        const tx = await contractWithSigner.createOrderERC20(orderInput)
+        await tx.wait()
+      }
+
+      // Success notification
+      alert("🎉 Order berhasil dibuat di EscrowPUYOK! Pembeli dapat melihat order Anda sekarang.")
+
+      // Reset form
+      setShowCreateOrder(false)
+      setCreateOrderStep(1)
+      setSelectedAssetType(null)
+      setSelectedAsset(null)
+      setExchangeRate("")
+      setListingDescription("")
+
+    } catch (error: any) {
+      console.error("Error creating escrow order:", error)
+
+      if (error.code === 4001) {
+        alert("Transaksi dibatalkan oleh user")
+      } else if (error.message?.includes("insufficient funds")) {
+        alert("Saldo tidak cukup untuk gas fee")
+      } else {
+        alert(`Error membuat order: ${error.message || "Unknown error"}`)
+      }
+    }
+  }
+
   // AI-Powered Features
   const generateAiRecommendations = () => {
     // Simulate AI recommendation algorithm
