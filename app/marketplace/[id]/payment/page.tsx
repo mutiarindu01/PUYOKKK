@@ -157,6 +157,7 @@ export default function UnifiedPaymentFlow() {
     hasDate: false,
     isScreenshot: false
   })
+  const [aiVerificationResult, setAiVerificationResult] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
   
   // Step 3 states
