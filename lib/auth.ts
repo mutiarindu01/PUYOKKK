@@ -60,7 +60,45 @@ export class AuthService {
         throw new Error('Invalid signature')
       }
 
-      // Check if user exists
+      // Check if this is development mode (no proper Supabase config)
+      const isDemoMode = process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://demo.supabase.co'
+
+      if (isDemoMode) {
+        // In demo mode, create a mock user for testing
+        const mockUser: AuthUser = {
+          id: `demo_${walletAddress.slice(-8)}`,
+          walletAddress: walletAddress.toLowerCase(),
+          username: username || `user_${walletAddress.slice(-6)}`,
+          kycLevel: 'none',
+          kycStatus: 'pending',
+          membershipTier: 'basic',
+          reputationScore: 0,
+          totalTrades: 0,
+          successRate: 0,
+          escrowRating: 0,
+          is2FAEnabled: false,
+          isPhoneVerified: false,
+          isEmailVerified: false,
+          transactionLimits: {
+            daily: 50000000,
+            monthly: 1000000000,
+            used: { daily: 0, monthly: 0 }
+          },
+          loyaltyPoints: 0,
+          location: { country: 'Indonesia', city: '' }
+        }
+
+        // Store in localStorage for demo persistence
+        if (typeof window !== 'undefined') {
+          const token = this.createSessionToken(mockUser)
+          localStorage.setItem('auth_token', token)
+          localStorage.setItem('user', JSON.stringify(mockUser))
+        }
+
+        return mockUser
+      }
+
+      // Check if user exists in real database
       const { data: existingUser, error: fetchError } = await this.supabase
         .from('users')
         .select('*')
