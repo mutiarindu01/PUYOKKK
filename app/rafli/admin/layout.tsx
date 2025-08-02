@@ -7,7 +7,7 @@ import {
   Home, Users, Shield, DollarSign, BarChart3, Lock,
   Gauge, Headphones, Settings, Crown, LogOut, Bell,
   Search, Menu, X, RefreshCw, Download, AlertTriangle,
-  CheckCircle, Clock, User
+  CheckCircle, Clock, User, Brain
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -144,13 +144,21 @@ export default function AdminLayout({
       description: "Manage users and permissions",
       roles: ["super_admin", "admin"]
     },
-    { 
-      href: "/rafli/admin/verification", 
-      label: "Content Moderation", 
-      icon: Shield, 
+    {
+      href: "/rafli/admin/verification",
+      label: "Content Moderation",
+      icon: Shield,
       badge: "5",
       description: "Review and moderate content",
       roles: ["super_admin", "admin", "moderator"]
+    },
+    {
+      href: "/rafli/admin/ai-verification",
+      label: "AI Verification",
+      icon: Brain,
+      badge: "12",
+      description: "AI-powered payment verification system",
+      roles: ["super_admin", "admin"]
     },
     { 
       href: "/rafli/admin/transactions", 

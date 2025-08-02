@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 import { getServerUser } from '@/lib/auth'
 import { EscrowService } from '@/lib/escrow'
 
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '20')
 
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
     
     let query = supabase
       .from('escrow_contracts')
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user is authorized to create escrow for this order
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
     const { data: order, error: orderError } = await supabase
       .from('orders')
       .select('maker_id, taker_id')

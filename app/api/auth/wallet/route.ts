@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ethers } from 'ethers'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 import jwt from 'jsonwebtoken'
 
 export async function POST(request: NextRequest) {
@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const { walletAddress, signature, message, username } = await request.json()
 
     // Verify signature
-    const recoveredAddress = ethers.utils.verifyMessage(message, signature)
+    const recoveredAddress = ethers.verifyMessage(message, signature)
     if (recoveredAddress.toLowerCase() !== walletAddress.toLowerCase()) {
       return NextResponse.json(
         { error: 'Invalid signature' },
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
 
     // Check if user exists
     const { data: existingUser, error: fetchError } = await supabase

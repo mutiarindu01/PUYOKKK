@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
+import { EscrowService } from "@/lib/escrow"
+import { ethers } from "ethers"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   ArrowLeft,

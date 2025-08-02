@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { EscrowService } from "@/lib/escrow"
+import { ethers } from "ethers"
 import ProtectedRoute from "@/components/ProtectedRoute"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
@@ -629,15 +631,157 @@ function PerformanceRing({ metric, index }: { metric: typeof performanceMetrics[
 
 // Dashboard Content Component
 function DashboardContent() {
+  const [contractStats, setContractStats] = useState<any>(null)
+  const [loadingStats, setLoadingStats] = useState(false)
+  const [userAddress, setUserAddress] = useState("")
+
+  // Fetch real stats from EscrowPUYOK contract
+  const fetchContractStats = async () => {
+    try {
+      setLoadingStats(true)
+
+      if (typeof window.ethereum === 'undefined') {
+        console.log("MetaMask not detected")
+        return
+      }
+
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      await provider.send("eth_requestAccounts", [])
+      const signer = await provider.getSigner()
+      const address = await signer.getAddress()
+      setUserAddress(address)
+
+      const escrowService = new EscrowService()
+      if (!escrowService.isInitialized()) {
+        console.log("Escrow service not initialized")
+        return
+      }
+
+      const contractWithSigner = new ethers.Contract(
+        escrowService.getContractAddress(),
+        escrowService.contract!.interface,
+        provider
+      )
+
+      // Get real stats from contract
+      const [
+        userOrders,
+        successfulTrades,
+        orderCounter
+      ] = await Promise.all([
+        contractWithSigner.getOrdersByUser(address),
+        contractWithSigner.successfulTrades(address),
+        contractWithSigner.orderCounter()
+      ])
+
+      // Calculate real statistics
+      const completedOrders = userOrders.filter((order: any) => order.status === 2).length
+      const totalOrders = userOrders.length
+      const successRate = totalOrders > 0 ? (completedOrders / totalOrders) * 100 : 0
+
+      // Calculate total earnings (simplified)
+      const totalEarnings = userOrders
+        .filter((order: any) => order.status === 2)
+        .reduce((sum: number, order: any) => sum + parseFloat(ethers.formatEther(order.price)), 0)
+
+      setContractStats({
+        totalOrders,
+        completedOrders,
+        successfulTrades: successfulTrades.toString(),
+        totalOrdersGlobal: orderCounter.toString(),
+        successRate: successRate.toFixed(1),
+        totalEarnings: totalEarnings * 15000000, // Convert ETH to IDR roughly
+        userOrders
+      })
+
+      console.log("📊 Real contract stats:", {
+        totalOrders,
+        completedOrders,
+        successRate,
+        totalEarnings
+      })
+
+    } catch (error) {
+      console.error("Error fetching contract stats:", error)
+    } finally {
+      setLoadingStats(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchContractStats()
+  }, [])
+
   return (
     <div className="space-y-8">
       {/* Stats Grid */}
       <section>
         <h2 className="text-xl font-bold text-white mb-6">Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {dashboardStats.map((stat, index) => (
-            <StatsCard key={stat.title} stat={stat} index={index} />
-          ))}
+          {loadingStats ? (
+            // Loading skeleton
+            [1,2,3,4].map((i) => (
+              <Card key={i} className="bg-slate-900/50 backdrop-blur-xl border-slate-700/50">
+                <CardContent className="p-6">
+                  <div className="animate-pulse">
+                    <div className="h-4 bg-slate-700 rounded mb-4"></div>
+                    <div className="h-8 bg-slate-700 rounded"></div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          ) : contractStats ? (
+            // Real stats from contract
+            [
+              {
+                title: "Total Orders",
+                value: contractStats.totalOrders.toString(),
+                change: contractStats.totalOrders > 0 ? "+100%" : "0%",
+                isPositive: true,
+                icon: Package,
+                gradient: "from-blue-500 to-indigo-600",
+                bgGradient: "from-blue-500/10 to-indigo-600/10",
+                description: "From EscrowPUYOK contract"
+              },
+              {
+                title: "Completed Orders",
+                value: contractStats.completedOrders.toString(),
+                change: contractStats.completedOrders > 0 ? "+100%" : "0%",
+                isPositive: true,
+                icon: CheckCircle,
+                gradient: "from-green-500 to-emerald-600",
+                bgGradient: "from-green-500/10 to-emerald-600/10",
+                description: "Successfully completed"
+              },
+              {
+                title: "Success Rate",
+                value: `${contractStats.successRate}%`,
+                change: contractStats.successRate > 80 ? "+High" : "+Medium",
+                isPositive: contractStats.successRate > 80,
+                icon: Star,
+                gradient: "from-purple-500 to-pink-600",
+                bgGradient: "from-purple-500/10 to-pink-600/10",
+                description: "Order completion rate"
+              },
+              {
+                title: "Total Earnings",
+                value: `Rp ${Math.floor(contractStats.totalEarnings).toLocaleString('id-ID')}`,
+                change: contractStats.totalEarnings > 0 ? "+100%" : "0%",
+                isPositive: true,
+                icon: TrendingUp,
+                gradient: "from-emerald-500 to-teal-600",
+                bgGradient: "from-emerald-500/10 to-teal-600/10",
+                description: "From completed orders"
+              }
+            ].map((stat, index) => (
+              <StatsCard key={stat.title} stat={stat} index={index} />
+            ))
+          ) : (
+            // Fallback to default stats
+            dashboardStats.map((stat, index) => (
+              <StatsCard key={stat.title} stat={stat} index={index} />
+            ))
+          )}
         </div>
       </section>
 
@@ -2130,7 +2274,7 @@ function PaymentsContent() {
   )
 }
 
-function DashboardContent() {
+function MainDashboard() {
   const [activeTab, setActiveTab] = useState("orders")
   const [isLoading, setIsLoading] = useState(true)
   const [isCollapsed, setIsCollapsed] = useState(false)
@@ -2158,7 +2302,7 @@ function DashboardContent() {
   const renderContent = () => {
     switch (activeTab) {
       case 'orders':
-        return <DashboardContent />
+        return <OrdersContent />
       case 'assets':
         return <AssetsContent />
       case 'settings':
@@ -2248,7 +2392,7 @@ function DashboardContent() {
 export default function ModernDashboard() {
   return (
     <ProtectedRoute>
-      <DashboardContent />
+      <MainDashboard />
     </ProtectedRoute>
   )
 }

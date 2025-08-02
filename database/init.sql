@@ -296,9 +296,89 @@ CREATE TRIGGER update_transactions_updated_at BEFORE UPDATE ON transactions
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_chats_updated_at BEFORE UPDATE ON chats 
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-CREATE TRIGGER update_disputes_updated_at BEFORE UPDATE ON disputes 
+CREATE TRIGGER update_disputes_updated_at BEFORE UPDATE ON disputes
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-CREATE TRIGGER update_payment_accounts_updated_at BEFORE UPDATE ON payment_accounts 
+
+-- Create payments table for payment gateway integration
+CREATE TABLE payments (
+  id TEXT PRIMARY KEY,
+  order_id TEXT NOT NULL,
+  amount DECIMAL(20, 2) NOT NULL,
+  currency TEXT DEFAULT 'IDR',
+  payment_method TEXT NOT NULL,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'paid', 'failed', 'expired')),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  paid_at TIMESTAMPTZ,
+  expires_at TIMESTAMPTZ,
+  metadata JSONB DEFAULT '{}'
+);
+
+-- Create KYC documents table
+CREATE TABLE kyc_documents (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  document_type TEXT NOT NULL CHECK (document_type IN ('ktp', 'passport', 'selfie', 'address_proof')),
+  file_url TEXT NOT NULL,
+  file_name TEXT NOT NULL,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  feedback TEXT,
+  reviewed_by UUID REFERENCES users(id),
+  reviewed_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- AI Verification tables for automatic payment proof verification
+CREATE TABLE payment_verifications (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    order_id TEXT NOT NULL,
+    verification_result JSONB NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'verified', 'rejected', 'manual_review')),
+    confidence_score DECIMAL(5,4),
+    image_url TEXT,
+    processed_by TEXT DEFAULT 'ai_system',
+    processing_time_ms INTEGER,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE manual_reviews (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    order_id TEXT NOT NULL,
+    verification_id UUID REFERENCES payment_verifications(id),
+    reason TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+    reviewer_id UUID REFERENCES users(id),
+    reviewer_notes TEXT,
+    review_decision TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    reviewed_at TIMESTAMPTZ
+);
+
+CREATE TABLE ai_training_data (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    image_url TEXT NOT NULL,
+    ground_truth_data JSONB NOT NULL,
+    extracted_data JSONB,
+    verification_accuracy DECIMAL(5,4),
+    feedback_type TEXT CHECK (feedback_type IN ('correct', 'incorrect', 'improved')),
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create additional indexes for new tables
+CREATE INDEX idx_payments_order_id ON payments(order_id);
+CREATE INDEX idx_payments_status ON payments(status);
+CREATE INDEX idx_kyc_documents_user_id ON kyc_documents(user_id);
+CREATE INDEX idx_kyc_documents_status ON kyc_documents(status);
+CREATE INDEX idx_payment_verifications_order_id ON payment_verifications(order_id);
+CREATE INDEX idx_payment_verifications_status ON payment_verifications(status);
+CREATE INDEX idx_manual_reviews_status ON manual_reviews(status);
+CREATE INDEX idx_ai_training_data_feedback ON ai_training_data(feedback_type);
+
+-- Create triggers for AI verification tables
+CREATE TRIGGER update_payment_accounts_updated_at BEFORE UPDATE ON payment_accounts
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_payment_verifications_updated_at BEFORE UPDATE ON payment_verifications
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Insert sample data for testing

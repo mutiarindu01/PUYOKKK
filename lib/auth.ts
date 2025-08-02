@@ -1,5 +1,5 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { createServerSupabaseClient, supabaseAdmin } from './supabase'
+import { createClientSupabaseClient } from './supabase'
+import { supabaseAdmin } from './supabase-server'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { ethers } from 'ethers'
@@ -49,7 +49,7 @@ export interface EmailAuthParams {
 }
 
 export class AuthService {
-  private supabase = createClientComponentClient()
+  private supabase = createClientSupabaseClient()
 
   // Wallet Authentication
   async signInWithWallet({ walletAddress, signature, message, username }: WalletAuthParams): Promise<AuthUser | null> {

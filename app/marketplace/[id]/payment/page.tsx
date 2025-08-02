@@ -48,6 +48,7 @@ import { Progress } from "@/components/ui/progress"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import Stepper, { Step } from "@/components/Stepper"
+import AIVerificationUpload from "@/components/AIVerificationUpload"
 
 // Types
 interface PaymentOrder {
@@ -157,6 +158,7 @@ export default function UnifiedPaymentFlow() {
     hasDate: false,
     isScreenshot: false
   })
+  const [aiVerificationResult, setAiVerificationResult] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
   
   // Step 3 states
@@ -398,8 +400,8 @@ export default function UnifiedPaymentFlow() {
 
   const stepTitles = [
     "Instruksi Pembayaran",
-    "Upload Bukti Transfer", 
-    "Verifikasi & Konfirmasi"
+    "AI Verifikasi Otomatis",
+    "Pembayaran Berhasil"
   ]
 
   if (!order) {
@@ -507,8 +509,8 @@ export default function UnifiedPaymentFlow() {
           }}
           nextButtonProps={{
             className: "bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors disabled:bg-slate-600 disabled:cursor-not-allowed",
-            disabled: (currentStep === 1 && (!canProceed || isExpired)) || 
-                     (currentStep === 2 && !file) ||
+            disabled: (currentStep === 1 && (!canProceed || isExpired)) ||
+                     (currentStep === 2 && !aiVerificationResult?.isValid) ||
                      (currentStep === 2 && isUploading)
           }}
         >
@@ -655,114 +657,30 @@ export default function UnifiedPaymentFlow() {
             </div>
           </Step>
 
-          {/* Step 2: Upload Proof */}
+          {/* Step 2: AI Upload Proof */}
           <Step>
             <div className="space-y-6">
-              {/* Requirements */}
-              <Card className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/20">
-                <CardHeader>
-                  <CardTitle className="text-white">Pastikan Bukti Transfer Menunjukkan</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-3">
-                    <div className="flex items-center gap-3 p-3 bg-slate-800/30 rounded-lg">
-                      <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
-                        <span className="text-green-400 font-bold">1</span>
-                      </div>
-                      <div>
-                        <div className="text-white font-medium">Nominal Transfer</div>
-                        <div className="text-green-400 font-mono">{formatUniqueAmount(order.uniqueAmount)}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 p-3 bg-slate-800/30 rounded-lg">
-                      <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
-                        <span className="text-blue-400 font-bold">2</span>
-                      </div>
-                      <div>
-                        <div className="text-white font-medium">Kode Referensi</div>
-                        <div className="text-blue-400 font-mono">{order.referenceCode}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 p-3 bg-slate-800/30 rounded-lg">
-                      <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
-                        <span className="text-purple-400 font-bold">3</span>
-                      </div>
-                      <div>
-                        <div className="text-white font-medium">Tanggal & Waktu</div>
-                        <div className="text-purple-400">Transfer dilakukan hari ini</div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Upload Area */}
-              {!file ? (
-                <FileDropzone onFileSelected={handleFileSelected} />
-              ) : (
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader>
-                    <CardTitle className="text-white flex items-center gap-2">
-                      <Eye className="w-5 h-5" />
-                      Pratinjau Bukti Transfer
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="relative">
-                      <img
-                        src={URL.createObjectURL(file)}
-                        alt="Bukti transfer"
-                        className="w-full max-h-96 object-contain rounded-lg bg-slate-900"
-                      />
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setFile(null)}
-                        className="absolute top-2 right-2 border-slate-600 bg-slate-800/80 backdrop-blur-sm"
-                      >
-                        <X className="w-4 h-4 mr-2" />
-                        Ganti File
-                      </Button>
-                    </div>
-
-                    {/* AI Validation */}
-                    <div className="p-4 bg-slate-700/30 rounded-lg">
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-medium text-white">🤖 Analisis Otomatis</h4>
-                        {isAnalyzing ? (
-                          <div className="flex items-center gap-2 text-blue-400">
-                            <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
-                            <span className="text-sm">Memindai...</span>
-                          </div>
-                        ) : (
-                          <Badge className={`${Object.values(validationResults).filter(Boolean).length >= 3 ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
-                            {Object.values(validationResults).filter(Boolean).length}/4 Valid
-                          </Badge>
-                        )}
-                      </div>
-
-                      {!isAnalyzing && (
-                        <div className="space-y-2">
-                          <div className={`flex items-center gap-2 text-sm ${validationResults.hasAmount ? 'text-green-400' : 'text-red-400'}`}>
-                            {validationResults.hasAmount ? <CheckCircle className="w-4 h-4" /> : <X className="w-4 h-4" />}
-                            <span>Nominal transfer terdeteksi</span>
-                          </div>
-                          <div className={`flex items-center gap-2 text-sm ${validationResults.hasReference ? 'text-green-400' : 'text-red-400'}`}>
-                            {validationResults.hasReference ? <CheckCircle className="w-4 h-4" /> : <X className="w-4 h-4" />}
-                            <span>Kode referensi terdeteksi</span>
-                          </div>
-                          <div className={`flex items-center gap-2 text-sm ${validationResults.hasDate ? 'text-green-400' : 'text-red-400'}`}>
-                            {validationResults.hasDate ? <CheckCircle className="w-4 h-4" /> : <X className="w-4 h-4" />}
-                            <span>Tanggal/waktu terdeteksi</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+              <AIVerificationUpload
+                orderData={{
+                  orderId: order.id,
+                  expectedAmount: formatUniqueAmount(order.uniqueAmount),
+                  expectedReference: order.referenceCode,
+                  expectedAccount: order.paymentAccount.number,
+                  expectedBank: order.paymentMethod
+                }}
+                onVerificationComplete={(result) => {
+                  setAiVerificationResult(result)
+                  if (result.isValid) {
+                    setCurrentStep(3)
+                    setVerificationStatus("verified")
+                    setShowCelebration(true)
+                    setTimeout(() => setShowCelebration(false), 5000)
+                  }
+                }}
+                onManualReview={() => {
+                  setVerificationStatus("manual_review")
+                }}
+              />
             </div>
           </Step>
 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 import { getServerUser } from '@/lib/auth'
 
 // GET /api/nfts - Fetch NFTs with filtering and pagination
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     const verified = searchParams.get('verified')
     const isListed = searchParams.get('isListed')
 
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
     
     let query = supabase
       .from('nfts')
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
 
     const nftData = {
       name,

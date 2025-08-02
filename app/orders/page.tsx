@@ -1,7 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
+import { EscrowService } from "@/lib/escrow"
+import { ethers } from "ethers"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -228,10 +230,57 @@ function OrderCard({ order, type }: { order: any; type: 'active' | 'completed' |
 export default function OrdersPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeTab, setActiveTab] = useState("active")
+  const [escrowOrders, setEscrowOrders] = useState<any[]>([])
+  const [loadingOrders, setLoadingOrders] = useState(false)
+  const [userAddress, setUserAddress] = useState("")
 
-  const totalActive = ordersData.active.length
-  const totalCompleted = ordersData.completed.length
-  const totalCancelled = ordersData.cancelled.length
+  // Fetch orders from EscrowPUYOK contract
+  const fetchEscrowOrders = async () => {
+    try {
+      setLoadingOrders(true)
+
+      if (typeof window.ethereum === 'undefined') {
+        console.log("MetaMask not detected")
+        return
+      }
+
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      await provider.send("eth_requestAccounts", [])
+      const signer = await provider.getSigner()
+      const address = await signer.getAddress()
+      setUserAddress(address)
+
+      const escrowService = new EscrowService()
+      if (!escrowService.isInitialized()) {
+        console.log("Escrow service not initialized")
+        return
+      }
+
+      // Get orders by user address
+      const contractWithSigner = new ethers.Contract(
+        escrowService.getContractAddress(),
+        escrowService.contract!.interface,
+        provider
+      )
+
+      const userOrders = await contractWithSigner.getOrdersByUser(address)
+      console.log("📋 User orders from contract:", userOrders)
+
+      setEscrowOrders(userOrders)
+    } catch (error) {
+      console.error("Error fetching escrow orders:", error)
+    } finally {
+      setLoadingOrders(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchEscrowOrders()
+  }, [])
+
+  const totalActive = escrowOrders.filter(order => order.status === 0).length // ACTIVE = 0
+  const totalCompleted = escrowOrders.filter(order => order.status === 2).length // COMPLETED = 2
+  const totalCancelled = escrowOrders.filter(order => order.status === 3).length // CANCELLED = 3
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
