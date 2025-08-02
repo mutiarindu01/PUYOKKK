@@ -85,7 +85,7 @@ export class AuthService {
         if (updateError) throw updateError
         user = this.mapDatabaseUserToAuthUser(updatedUser)
       } else {
-        // Create new user
+        // Wallet not found - don't create user automatically
         if (!username) {
           throw new Error('Username is required for new wallet registration')
         }
