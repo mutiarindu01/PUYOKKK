@@ -48,6 +48,7 @@ import { Progress } from "@/components/ui/progress"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import Stepper, { Step } from "@/components/Stepper"
+import AIVerificationUpload from "@/components/AIVerificationUpload"
 
 // Types
 interface PaymentOrder {
