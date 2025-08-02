@@ -2274,7 +2274,7 @@ function PaymentsContent() {
   )
 }
 
-function DashboardContent() {
+function MainDashboard() {
   const [activeTab, setActiveTab] = useState("orders")
   const [isLoading, setIsLoading] = useState(true)
   const [isCollapsed, setIsCollapsed] = useState(false)
@@ -2302,7 +2302,7 @@ function DashboardContent() {
   const renderContent = () => {
     switch (activeTab) {
       case 'orders':
-        return <DashboardContent />
+        return <OrdersContent />
       case 'assets':
         return <AssetsContent />
       case 'settings':
