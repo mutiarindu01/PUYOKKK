@@ -2392,7 +2392,7 @@ function MainDashboard() {
 export default function ModernDashboard() {
   return (
     <ProtectedRoute>
-      <DashboardContent />
+      <MainDashboard />
     </ProtectedRoute>
   )
 }
