@@ -347,11 +347,11 @@ export default function KYCVerification() {
                         <SelectValue placeholder="Select income range" />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-600">
-                        <SelectItem value="<5m">< Rp 5 juta</SelectItem>
+                        <SelectItem value="under5m">&lt; Rp 5 juta</SelectItem>
                         <SelectItem value="5-10m">Rp 5-10 juta</SelectItem>
                         <SelectItem value="10-25m">Rp 10-25 juta</SelectItem>
                         <SelectItem value="25-50m">Rp 25-50 juta</SelectItem>
-                        <SelectItem value=">50m">> Rp 50 juta</SelectItem>
+                        <SelectItem value="over50m">&gt; Rp 50 juta</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
