@@ -34,8 +34,12 @@ export default function WalletAuth({ isOpen, onClose, onSuccess, mode }: WalletA
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [authMode, setAuthMode] = useState<'wallet' | 'email'>(mode === 'signin' ? 'wallet' : 'email')
-  
+
   const { signInWithWallet, signInWithEmail, signUpWithEmail } = useAuth()
+
+  // Check if in demo mode
+  const isDemoMode = typeof window !== 'undefined' &&
+    (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL === 'https://demo.supabase.co')
 
   // Check if MetaMask is installed
   const isMetaMaskInstalled = () => {
