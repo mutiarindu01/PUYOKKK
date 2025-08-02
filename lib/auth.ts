@@ -141,7 +141,7 @@ export class AuthService {
       return user
     } catch (error) {
       console.error('Wallet authentication failed:', error)
-      return null
+      throw error
     }
   }
 
