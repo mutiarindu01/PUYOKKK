@@ -631,6 +631,87 @@ function PerformanceRing({ metric, index }: { metric: typeof performanceMetrics[
 
 // Dashboard Content Component
 function DashboardContent() {
+  const [contractStats, setContractStats] = useState<any>(null)
+  const [loadingStats, setLoadingStats] = useState(false)
+  const [userAddress, setUserAddress] = useState("")
+
+  // Fetch real stats from EscrowPUYOK contract
+  const fetchContractStats = async () => {
+    try {
+      setLoadingStats(true)
+
+      if (typeof window.ethereum === 'undefined') {
+        console.log("MetaMask not detected")
+        return
+      }
+
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      await provider.send("eth_requestAccounts", [])
+      const signer = await provider.getSigner()
+      const address = await signer.getAddress()
+      setUserAddress(address)
+
+      const escrowService = new EscrowService()
+      if (!escrowService.isInitialized()) {
+        console.log("Escrow service not initialized")
+        return
+      }
+
+      const contractWithSigner = new ethers.Contract(
+        escrowService.getContractAddress(),
+        escrowService.contract!.interface,
+        provider
+      )
+
+      // Get real stats from contract
+      const [
+        userOrders,
+        successfulTrades,
+        orderCounter
+      ] = await Promise.all([
+        contractWithSigner.getOrdersByUser(address),
+        contractWithSigner.successfulTrades(address),
+        contractWithSigner.orderCounter()
+      ])
+
+      // Calculate real statistics
+      const completedOrders = userOrders.filter((order: any) => order.status === 2).length
+      const totalOrders = userOrders.length
+      const successRate = totalOrders > 0 ? (completedOrders / totalOrders) * 100 : 0
+
+      // Calculate total earnings (simplified)
+      const totalEarnings = userOrders
+        .filter((order: any) => order.status === 2)
+        .reduce((sum: number, order: any) => sum + parseFloat(ethers.formatEther(order.price)), 0)
+
+      setContractStats({
+        totalOrders,
+        completedOrders,
+        successfulTrades: successfulTrades.toString(),
+        totalOrdersGlobal: orderCounter.toString(),
+        successRate: successRate.toFixed(1),
+        totalEarnings: totalEarnings * 15000000, // Convert ETH to IDR roughly
+        userOrders
+      })
+
+      console.log("📊 Real contract stats:", {
+        totalOrders,
+        completedOrders,
+        successRate,
+        totalEarnings
+      })
+
+    } catch (error) {
+      console.error("Error fetching contract stats:", error)
+    } finally {
+      setLoadingStats(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchContractStats()
+  }, [])
+
   return (
     <div className="space-y-8">
       {/* Stats Grid */}
