@@ -400,8 +400,8 @@ export default function UnifiedPaymentFlow() {
 
   const stepTitles = [
     "Instruksi Pembayaran",
-    "Upload Bukti Transfer", 
-    "Verifikasi & Konfirmasi"
+    "AI Verifikasi Otomatis",
+    "Pembayaran Berhasil"
   ]
 
   if (!order) {
