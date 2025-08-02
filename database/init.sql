@@ -296,8 +296,43 @@ CREATE TRIGGER update_transactions_updated_at BEFORE UPDATE ON transactions
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_chats_updated_at BEFORE UPDATE ON chats 
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-CREATE TRIGGER update_disputes_updated_at BEFORE UPDATE ON disputes 
+CREATE TRIGGER update_disputes_updated_at BEFORE UPDATE ON disputes
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Create payments table for payment gateway integration
+CREATE TABLE payments (
+  id TEXT PRIMARY KEY,
+  order_id TEXT NOT NULL,
+  amount DECIMAL(20, 2) NOT NULL,
+  currency TEXT DEFAULT 'IDR',
+  payment_method TEXT NOT NULL,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'paid', 'failed', 'expired')),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  paid_at TIMESTAMPTZ,
+  expires_at TIMESTAMPTZ,
+  metadata JSONB DEFAULT '{}'
+);
+
+-- Create KYC documents table
+CREATE TABLE kyc_documents (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  document_type TEXT NOT NULL CHECK (document_type IN ('ktp', 'passport', 'selfie', 'address_proof')),
+  file_url TEXT NOT NULL,
+  file_name TEXT NOT NULL,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  feedback TEXT,
+  reviewed_by UUID REFERENCES users(id),
+  reviewed_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create additional indexes for new tables
+CREATE INDEX idx_payments_order_id ON payments(order_id);
+CREATE INDEX idx_payments_status ON payments(status);
+CREATE INDEX idx_kyc_documents_user_id ON kyc_documents(user_id);
+CREATE INDEX idx_kyc_documents_status ON kyc_documents(status);
 CREATE TRIGGER update_payment_accounts_updated_at BEFORE UPDATE ON payment_accounts 
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
