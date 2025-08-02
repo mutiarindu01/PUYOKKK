@@ -109,7 +109,16 @@ Nonce: ${Date.now()}`
       }
     } catch (error: any) {
       console.error('Message signing failed:', error)
-      toast.error('Gagal menandatangani pesan: ' + error.message)
+      if (error.message?.includes('Username is required')) {
+        if (mode === 'signin') {
+          toast.error('Wallet tidak terdaftar. Silakan daftar terlebih dahulu.')
+          setAuthStep('register')
+        } else {
+          toast.error('Username diperlukan untuk registrasi')
+        }
+      } else {
+        toast.error('Gagal menandatangani pesan: ' + (error.message || 'Unknown error'))
+      }
     } finally {
       setIsLoading(false)
     }
