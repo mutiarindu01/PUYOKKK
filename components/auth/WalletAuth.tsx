@@ -239,6 +239,19 @@ Nonce: ${Date.now()}`
         </DialogHeader>
 
         <div className="space-y-6">
+          {/* Demo Mode Warning */}
+          {isDemoMode && (
+            <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+              <div className="flex items-center gap-2 text-amber-400">
+                <AlertCircle className="w-4 h-4" />
+                <span className="text-sm font-medium">Mode Demo</span>
+              </div>
+              <p className="text-xs text-amber-300 mt-1">
+                Database tidak terkonfigurasi. Menggunakan autentikasi demo untuk testing.
+              </p>
+            </div>
+          )}
+
           {/* Authentication Method Selector */}
           <div className="flex gap-2">
             <Button
