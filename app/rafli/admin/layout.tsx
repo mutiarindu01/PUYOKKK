@@ -144,13 +144,21 @@ export default function AdminLayout({
       description: "Manage users and permissions",
       roles: ["super_admin", "admin"]
     },
-    { 
-      href: "/rafli/admin/verification", 
-      label: "Content Moderation", 
-      icon: Shield, 
+    {
+      href: "/rafli/admin/verification",
+      label: "Content Moderation",
+      icon: Shield,
       badge: "5",
       description: "Review and moderate content",
       roles: ["super_admin", "admin", "moderator"]
+    },
+    {
+      href: "/rafli/admin/ai-verification",
+      label: "AI Verification",
+      icon: Brain,
+      badge: "12",
+      description: "AI-powered payment verification system",
+      roles: ["super_admin", "admin"]
     },
     { 
       href: "/rafli/admin/transactions", 
