@@ -718,9 +718,70 @@ function DashboardContent() {
       <section>
         <h2 className="text-xl font-bold text-white mb-6">Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {dashboardStats.map((stat, index) => (
-            <StatsCard key={stat.title} stat={stat} index={index} />
-          ))}
+          {loadingStats ? (
+            // Loading skeleton
+            [1,2,3,4].map((i) => (
+              <Card key={i} className="bg-slate-900/50 backdrop-blur-xl border-slate-700/50">
+                <CardContent className="p-6">
+                  <div className="animate-pulse">
+                    <div className="h-4 bg-slate-700 rounded mb-4"></div>
+                    <div className="h-8 bg-slate-700 rounded"></div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          ) : contractStats ? (
+            // Real stats from contract
+            [
+              {
+                title: "Total Orders",
+                value: contractStats.totalOrders.toString(),
+                change: contractStats.totalOrders > 0 ? "+100%" : "0%",
+                isPositive: true,
+                icon: Package,
+                gradient: "from-blue-500 to-indigo-600",
+                bgGradient: "from-blue-500/10 to-indigo-600/10",
+                description: "From EscrowPUYOK contract"
+              },
+              {
+                title: "Completed Orders",
+                value: contractStats.completedOrders.toString(),
+                change: contractStats.completedOrders > 0 ? "+100%" : "0%",
+                isPositive: true,
+                icon: CheckCircle,
+                gradient: "from-green-500 to-emerald-600",
+                bgGradient: "from-green-500/10 to-emerald-600/10",
+                description: "Successfully completed"
+              },
+              {
+                title: "Success Rate",
+                value: `${contractStats.successRate}%`,
+                change: contractStats.successRate > 80 ? "+High" : "+Medium",
+                isPositive: contractStats.successRate > 80,
+                icon: Star,
+                gradient: "from-purple-500 to-pink-600",
+                bgGradient: "from-purple-500/10 to-pink-600/10",
+                description: "Order completion rate"
+              },
+              {
+                title: "Total Earnings",
+                value: `Rp ${Math.floor(contractStats.totalEarnings).toLocaleString('id-ID')}`,
+                change: contractStats.totalEarnings > 0 ? "+100%" : "0%",
+                isPositive: true,
+                icon: TrendingUp,
+                gradient: "from-emerald-500 to-teal-600",
+                bgGradient: "from-emerald-500/10 to-teal-600/10",
+                description: "From completed orders"
+              }
+            ].map((stat, index) => (
+              <StatsCard key={stat.title} stat={stat} index={index} />
+            ))
+          ) : (
+            // Fallback to default stats
+            dashboardStats.map((stat, index) => (
+              <StatsCard key={stat.title} stat={stat} index={index} />
+            ))
+          )}
         </div>
       </section>
 
