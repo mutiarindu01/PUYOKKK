@@ -7,7 +7,7 @@ import {
   Home, Users, Shield, DollarSign, BarChart3, Lock,
   Gauge, Headphones, Settings, Crown, LogOut, Bell,
   Search, Menu, X, RefreshCw, Download, AlertTriangle,
-  CheckCircle, Clock, User
+  CheckCircle, Clock, User, Brain
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
