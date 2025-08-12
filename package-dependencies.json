@@ -1,0 +1,19 @@
+{
+  "name": "ai-ocr-dependencies",
+  "description": "Required dependencies for PUYOK AI OCR System",
+  "dependencies": {
+    "@google-cloud/vision": "^4.0.0",
+    "sharp": "^0.33.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "@types/multer": "^1.4.11"
+  },
+  "installCommand": "npm install @google-cloud/vision sharp multer @types/multer",
+  "notes": [
+    "@google-cloud/vision: Google Vision API client for OCR",
+    "sharp: Image processing and optimization",
+    "multer: File upload handling (optional)",
+    "@types/multer: TypeScript definitions for multer"
+  ]
+}

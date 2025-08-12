@@ -1,0 +1,386 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                  String   @id @default(cuid())
+  walletAddress       String?  @unique @map("wallet_address")
+  email               String?  @unique
+  username            String   @unique
+  avatarUrl           String?  @map("avatar_url")
+  kycLevel            KYCLevel @default(NONE) @map("kyc_level")
+  kycStatus           KYCStatus @default(PENDING) @map("kyc_status")
+  membershipTier      MembershipTier @default(BASIC) @map("membership_tier")
+  reputationScore     Float    @default(0) @map("reputation_score")
+  totalTrades         Int      @default(0) @map("total_trades")
+  successRate         Float    @default(0) @map("success_rate")
+  responseTime        String   @default("Not available") @map("response_time")
+  escrowRating        Float    @default(0) @map("escrow_rating")
+  disputeCount        Int      @default(0) @map("dispute_count")
+  warningCount        Int      @default(0) @map("warning_count")
+  is2FAEnabled        Boolean  @default(false) @map("is_2fa_enabled")
+  isPhoneVerified     Boolean  @default(false) @map("is_phone_verified")
+  isEmailVerified     Boolean  @default(false) @map("is_email_verified")
+  transactionLimits   Json     @map("transaction_limits")
+  loyaltyPoints       Int      @default(0) @map("loyalty_points")
+  referralCode        String   @unique @map("referral_code")
+  referredBy          String?  @map("referred_by")
+  languages           String[]
+  preferredPayments   String[] @map("preferred_payments")
+  location            Json
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+  lastActive          DateTime @default(now()) @map("last_active")
+
+  // Relations
+  ownedNFTs           NFT[]    @relation("NFTOwner")
+  createdNFTs         NFT[]    @relation("NFTCreator")
+  createdCollections  Collection[] @relation("CollectionCreator")
+  orders              Order[]  @relation("OrderMaker")
+  takenOrders         Order[]  @relation("OrderTaker")
+  buyerEscrows        EscrowContract[] @relation("EscrowBuyer")
+  sellerEscrows       EscrowContract[] @relation("EscrowSeller")
+  sentChats           Chat[]   @relation("ChatSender")
+  receivedChats       Chat[]   @relation("ChatReceiver")
+  complainantDisputes Dispute[] @relation("DisputeComplainant")
+  respondentDisputes  Dispute[] @relation("DisputeRespondent")
+  mediatedDisputes    Dispute[] @relation("DisputeMediator")
+  paymentAccounts     PaymentAccount[]
+  fromTransactions    Transaction[] @relation("TransactionFrom")
+  toTransactions      Transaction[] @relation("TransactionTo")
+
+  @@map("users")
+}
+
+model Collection {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  imageUrl      String?  @map("image_url")
+  bannerUrl     String?  @map("banner_url")
+  creatorId     String   @map("creator_id")
+  contractAddress String? @map("contract_address")
+  totalSupply   Int?     @map("total_supply")
+  floorPrice    Float?   @map("floor_price")
+  volumeTotal   Float    @default(0) @map("volume_total")
+  volume24h     Float    @default(0) @map("volume_24h")
+  holdersCount  Int      @default(0) @map("holders_count")
+  isVerified    Boolean  @default(false) @map("is_verified")
+  category      String
+  socialLinks   Json     @map("social_links")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  creator       User     @relation("CollectionCreator", fields: [creatorId], references: [id])
+  nfts          NFT[]
+
+  @@map("collections")
+}
+
+model NFT {
+  id              String      @id @default(cuid())
+  name            String
+  description     String?
+  imageUrl        String      @map("image_url")
+  collectionId    String      @map("collection_id")
+  creatorId       String      @map("creator_id")
+  ownerId         String      @map("owner_id")
+  price           Float
+  currency        String      @default("IDR")
+  rarity          NFTRarity
+  category        String
+  traits          Json
+  contractAddress String?     @map("contract_address")
+  tokenId         String?     @map("token_id")
+  tokenStandard   TokenStandard @default(ERC721) @map("token_standard")
+  isVerified      Boolean     @default(false) @map("is_verified")
+  isListed        Boolean     @default(false) @map("is_listed")
+  isAuction       Boolean     @default(false) @map("is_auction")
+  auctionEndTime  DateTime?   @map("auction_end_time")
+  likesCount      Int         @default(0) @map("likes_count")
+  viewsCount      Int         @default(0) @map("views_count")
+  lastSalePrice   Float?      @map("last_sale_price")
+  floorPrice      Float?      @map("floor_price")
+  volume24h       Float?      @map("volume_24h")
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  collection      Collection  @relation(fields: [collectionId], references: [id])
+  creator         User        @relation("NFTCreator", fields: [creatorId], references: [id])
+  owner           User        @relation("NFTOwner", fields: [ownerId], references: [id])
+  orders          Order[]
+  transactions    Transaction[]
+
+  @@map("nfts")
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  type            OrderType
+  assetType       AssetType   @map("asset_type")
+  nftId           String?     @map("nft_id")
+  tokenContract   String?     @map("token_contract")
+  amount          Float
+  price           Float
+  totalValue      Float       @map("total_value")
+  currency        String      @default("IDR")
+  makerId         String      @map("maker_id")
+  takerId         String?     @map("taker_id")
+  status          OrderStatus @default(ACTIVE)
+  paymentMethod   PaymentMethod @map("payment_method")
+  paymentDetails  Json        @map("payment_details")
+  escrowId        String?     @map("escrow_id")
+  expiresAt       DateTime    @map("expires_at")
+  filledAt        DateTime?   @map("filled_at")
+  notes           String?
+  feeStructure    Json        @map("fee_structure")
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  nft             NFT?        @relation(fields: [nftId], references: [id])
+  maker           User        @relation("OrderMaker", fields: [makerId], references: [id])
+  taker           User?       @relation("OrderTaker", fields: [takerId], references: [id])
+  escrow          EscrowContract? @relation(fields: [escrowId], references: [id])
+  chats           Chat[]
+  disputes        Dispute[]
+
+  @@map("orders")
+}
+
+model EscrowContract {
+  id              String        @id @default(cuid())
+  contractAddress String        @map("contract_address")
+  orderId         String        @map("order_id")
+  buyerId         String        @map("buyer_id")
+  sellerId        String        @map("seller_id")
+  assetDetails    Json          @map("asset_details")
+  paymentAmount   Float         @map("payment_amount")
+  currency        String        @default("IDR")
+  escrowFee       Float         @map("escrow_fee")
+  insuranceFee    Float         @map("insurance_fee")
+  status          EscrowStatus  @default(CREATED)
+  milestones      Json
+  disputeId       String?       @map("dispute_id")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+  expiresAt       DateTime      @map("expires_at")
+
+  // Relations
+  buyer           User          @relation("EscrowBuyer", fields: [buyerId], references: [id])
+  seller          User          @relation("EscrowSeller", fields: [sellerId], references: [id])
+  orders          Order[]
+  dispute         Dispute?      @relation(fields: [disputeId], references: [id])
+
+  @@map("escrow_contracts")
+}
+
+model Transaction {
+  id              String          @id @default(cuid())
+  type            TransactionType
+  fromUserId      String?         @map("from_user_id")
+  toUserId        String?         @map("to_user_id")
+  nftId           String?         @map("nft_id")
+  amount          Float
+  currency        String          @default("IDR")
+  transactionHash String?         @map("transaction_hash")
+  gasFee          Float?          @map("gas_fee")
+  platformFee     Float           @map("platform_fee")
+  status          TransactionStatus @default(PENDING)
+  metadata        Json
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+
+  // Relations
+  fromUser        User?           @relation("TransactionFrom", fields: [fromUserId], references: [id])
+  toUser          User?           @relation("TransactionTo", fields: [toUserId], references: [id])
+  nft             NFT?            @relation(fields: [nftId], references: [id])
+
+  @@map("transactions")
+}
+
+model Chat {
+  id            String      @id @default(cuid())
+  orderId       String      @map("order_id")
+  senderId      String      @map("sender_id")
+  receiverId    String      @map("receiver_id")
+  message       String
+  messageType   MessageType @default(TEXT) @map("message_type")
+  fileUrl       String?     @map("file_url")
+  fileName      String?     @map("file_name")
+  isRead        Boolean     @default(false) @map("is_read")
+  reactions     Json        @default("[]")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  order         Order       @relation(fields: [orderId], references: [id])
+  sender        User        @relation("ChatSender", fields: [senderId], references: [id])
+  receiver      User        @relation("ChatReceiver", fields: [receiverId], references: [id])
+
+  @@map("chats")
+}
+
+model Dispute {
+  id                  String        @id @default(cuid())
+  orderId             String        @map("order_id")
+  escrowId            String        @map("escrow_id")
+  complainantId       String        @map("complainant_id")
+  respondentId        String        @map("respondent_id")
+  reason              String
+  status              DisputeStatus @default(OPEN)
+  priority            DisputePriority @default(MEDIUM)
+  evidence            Json          @default("[]")
+  mediatorId          String?       @map("mediator_id")
+  resolution          String?
+  compensationAmount  Float?        @map("compensation_amount")
+  createdAt           DateTime      @default(now()) @map("created_at")
+  updatedAt           DateTime      @updatedAt @map("updated_at")
+  resolvedAt          DateTime?     @map("resolved_at")
+
+  // Relations
+  order               Order         @relation(fields: [orderId], references: [id])
+  complainant         User          @relation("DisputeComplainant", fields: [complainantId], references: [id])
+  respondent          User          @relation("DisputeRespondent", fields: [respondentId], references: [id])
+  mediator            User?         @relation("DisputeMediator", fields: [mediatorId], references: [id])
+  escrowContracts     EscrowContract[]
+
+  @@map("disputes")
+}
+
+model PaymentAccount {
+  id            String   @id @default(cuid())
+  userId        String   @map("user_id")
+  type          PaymentType
+  providerName  String   @map("provider_name")
+  accountName   String   @map("account_name")
+  accountNumber String   @map("account_number")
+  alias         String
+  isVerified    Boolean  @default(false) @map("is_verified")
+  metadata      Json     @default("{}")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user          User     @relation(fields: [userId], references: [id])
+
+  @@map("payment_accounts")
+}
+
+// Enums
+enum KYCLevel {
+  NONE
+  BASIC
+  ADVANCED
+  PREMIUM
+}
+
+enum KYCStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum MembershipTier {
+  BASIC
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum NFTRarity {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+  MYTHICAL
+}
+
+enum TokenStandard {
+  ERC721
+  ERC1155
+}
+
+enum OrderType {
+  BUY
+  SELL
+}
+
+enum AssetType {
+  NFT
+  TOKEN
+}
+
+enum OrderStatus {
+  ACTIVE
+  FILLED
+  CANCELLED
+  EXPIRED
+}
+
+enum PaymentMethod {
+  ONCHAIN
+  GASLESS
+}
+
+enum EscrowStatus {
+  CREATED
+  FUNDED
+  RELEASED
+  DISPUTED
+  CANCELLED
+}
+
+enum TransactionType {
+  SALE
+  BID
+  LISTING
+  TRANSFER
+  MINT
+}
+
+enum TransactionStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  PAYMENT_PROOF
+  SYSTEM
+}
+
+enum DisputeStatus {
+  OPEN
+  INVESTIGATING
+  MEDIATION
+  RESOLVED
+  ESCALATED
+}
+
+enum DisputePriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum PaymentType {
+  BANK
+  EWALLET
+  CRYPTO
+}

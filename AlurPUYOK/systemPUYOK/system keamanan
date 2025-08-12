@@ -1,0 +1,728 @@
+Kita akan membangun strategi keamanan PUYOK dengan pendekatan "Defense in Depth" yang komprehensif. Berikut implementasi teknis untuk setiap lapisan pertahanan:
+### 1. Pertahanan Smart Contract (V4 Escrow)
+**Upgrade dengan TimeLock:**
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+contract PuyokEscrowV4 is 
+  OwnableUpgradeable, 
+  ReentrancyGuardUpgradeable,
+  UUPSUpgradeable 
+{
+  // Variabel untuk TimeLock
+  uint256 private _minDelay;
+  mapping(bytes32 => bool) private _queuedTransactions;
+  function initialize(uint256 minDelay) public initializer {
+    __Ownable_init();
+    __ReentrancyGuard_init();
+    __UUPSUpgradeable_init();
+    _minDelay = minDelay;
+  }
+  function _authorizeUpgrade(address) internal override onlyOwner {}
+  // Fungsi untuk mengusulkan transaksi
+  function queueTransaction(
+    address target,
+    uint256 value,
+    string memory signature,
+    bytes memory data,
+    uint256 eta
+  ) external onlyOwner returns (bytes32) {
+    require(eta >= block.timestamp + _minDelay, "Delay not met");
+    
+    bytes32 txHash = keccak256(abi.encode(target, value, signature, data, eta));
+    _queuedTransactions[txHash] = true;
+    
+    return txHash;
+  }
+  // Fungsi untuk mengeksekusi setelah waktu lock
+  function executeTransaction(
+    address target,
+    uint256 value,
+    string memory signature,
+    bytes memory data,
+    uint256 eta
+  ) external payable onlyOwner nonReentrant returns (bytes memory) {
+    bytes32 txHash = keccak256(abi.encode(target, value, signature, data, eta));
+    require(_queuedTransactions[txHash], "Tx not queued");
+    require(block.timestamp >= eta, "Lock time not expired");
+    require(block.timestamp <= eta + 3600, "Tx expired"); // 1 jam waktu eksekusi
+    delete _queuedTransactions[txHash];
+    bytes memory callData;
+    if (bytes(signature).length == 0) {
+      callData = data;
+    } else {
+      callData = abi.encodePacked(bytes4(keccak256(bytes(signature))), data);
+    }
+    (bool success, bytes memory returnData) = target.call{value: value}(callData);
+    require(success, "Tx failed");
+    return returnData;
+  }
+}
+```
+**Audit Profesional:**
+- Gunakan layanan [CertiK's Skynet](https://skynet.certik.com/) untuk monitoring real-time
+- Jadwalkan audit manual bulanan dengan fokus pada:
+  1. Logika bisnis inti
+  2. Kontrol akses
+  3. Manajemen aset
+### 2. Keamanan Akun Admin
+**Implementasi Hardware Wallet:**
+```mermaid
+graph LR
+A[Transaksi Kritis] --> B{Signature Request}
+B --> C[Ledger/Trezor]
+C --> D[Tombol Fisik Ditekan]
+D --> E[Transaksi Dieksekusi]
+```
+**Manajemen Rahasia:**
+- Gunakan Vercel Environment Variables untuk:
+  - Kunci API
+  - Konfigurasi Supabase Service Role
+- Enkripsi dengan AES-256 sebelum menyimpan di database
+- Rotasi kunci otomatis tiap 90 hari
+### 3. Keamanan Frontend
+**Proteksi Tambahan XSS:**
+```javascript
+// Sanitize input user dengan DOMPurify
+import DOMPurify from 'dompurify';
+const userInput = `<img src=x onerror=alert(1)>`;
+const cleanInput = DOMPurify.sanitize(userInput);
+// Output: <img src="x">
+```
+**CSP Header (Next.js):**
+```javascript
+// next.config.js
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: `
+              default-src 'self';
+              script-src 'self' 'unsafe-eval' *.vercel-insights.com;
+              style-src 'self' 'unsafe-inline';
+              img-src 'self' data: *.supabase.co;
+              connect-src 'self' *.supabase.co;
+              font-src 'self';
+              frame-src 'none';
+              media-src 'none';
+              object-src 'none';
+            `.replace(/\s{2,}/g, ' ').trim()
+          }
+        ]
+      }
+    ];
+  }
+};
+```
+### 4. Keamanan Database (Supabase)
+**Row Level Security (RLS):**
+```sql
+-- Contoh kebijakan untuk tabel 'transactions'
+CREATE POLICY "User can only view their transactions"
+ON transactions FOR SELECT
+USING (auth.uid() = user_id);
+CREATE POLICY "User can only insert their transactions"
+ON transactions FOR INSERT
+WITH CHECK (auth.uid() = user_id);
+```
+**Enkripsi Data Sensitif:**
+```sql
+-- Ekstensi enkripsi
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+-- Fungsi enkripsi
+CREATE OR REPLACE FUNCTION encrypt_data(data TEXT, secret TEXT)
+RETURNS BYTEA AS 
+B
+E
+G
+I
+N
+R
+E
+T
+U
+R
+N
+p
+g
+p
+s
+y
+m
+e
+n
+c
+r
+y
+p
+t
+(
+d
+a
+t
+a
+,
+s
+e
+c
+r
+e
+t
+)
+;
+E
+N
+D
+;
+BEGINRETURNpgp 
+s
+​
+ ym 
+e
+​
+ ncrypt(data,secret);END;
+ LANGUAGE plpgsql;
+-- Fungsi dekripsi
+CREATE OR REPLACE FUNCTION decrypt_data(data BYTEA, secret TEXT)
+RETURNS TEXT AS 
+B
+E
+G
+I
+N
+R
+E
+T
+U
+R
+N
+p
+g
+p
+s
+y
+m
+d
+e
+c
+r
+y
+p
+t
+(
+d
+a
+t
+a
+,
+s
+e
+c
+r
+e
+t
+)
+;
+E
+N
+D
+;
+BEGINRETURNpgp 
+s
+​
+ ym 
+d
+​
+ ecrypt(data,secret);END;
+ LANGUAGE plpgsql;
+```
+### 5. Keamanan Sesi Pengguna
+**Strategi Token:**
+```mermaid
+sequenceDiagram
+  User->>Frontend: Login
+  Frontend->>Supabase Auth: Request JWT
+  Supabase Auth-->>Frontend: Access Token + Refresh Token
+  Frontend->>Browser: Simpan di HttpOnly Cookie
+  Frontend->>API: Akses data dengan token
+  API->>Supabase Auth: Verifikasi token
+  Supabase Auth-->>API: Data user valid
+  API-->>Frontend: Response data
+```
+**Edukasi Pengguna:**
+- Komponen `SecurityTips` di dashboard:
+```jsx
+import { ShieldExclamationIcon } from '@heroicons/react/outline';
+const SecurityTips = () => (
+  <div className="border-l-4 border-yellow-500 bg-yellow-50 p-4">
+    <div className="flex">
+      <ShieldExclamationIcon className="h-5 w-5 text-yellow-700" />
+      <p className="ml-3 text-sm text-yellow-700">
+        <strong>Keamanan Penting!</strong> PUYOK tidak akan pernah meminta seed phrase atau kode OTP Anda.
+      </p>
+    </div>
+  </div>
+);
+```
+### Monitoring & Respons Insiden
+**Sistem Deteksi Anomali:**
+```python
+# Contoh deteksi anomali dengan Python
+from sklearn.ensemble import IsolationForest
+# Data transaksi
+transactions = get_transaction_data()
+# Model deteksi anomali
+model = IsolationForest(contamination=0.01)
+anomalies = model.fit_predict(transactions)
+# Alert jika ditemukan anomali
+if -1 in anomalies:
+  send_alert_to_admin()
+```
+**Rencana Tanggap Insiden:**
+1. Isolasi sistem yang terkompromi
+2. Notifikasi pengguna dalam 1 jam
+3. Investigasi root cause
+4. Perbaikan dan pemulihan
+5. Laporan transparan ke komunitas
+Dengan implementasi ini, PUYOK tidak hanya aman tetapi juga tangguh terhadap evolusi ancaman. Keamanan akan menjadi DNA dari setiap lapisan sistem kita.
+Analisis Keamanan & Strategi Pertahanan PUYOK - Implementasi Teknis
+Saya akan menyajikan implementasi teknis untuk setiap lapisan pertahanan, dengan fokus pada kode konkret dan konfigurasi yang siap pakai:
+
+1. Pertahanan Smart Contract (Escrow V4)
+Implementasi Time Lock dan Audit:
+
+solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+
+contract PuyokEscrowV4 is 
+    OwnableUpgradeable, 
+    ReentrancyGuardUpgradeable,
+    PausableUpgradeable 
+{
+    uint256 public constant MIN_DELAY = 24 hours;
+    mapping(bytes32 => bool) public queuedTransactions;
+    
+    event TransactionQueued(
+        bytes32 indexed txHash,
+        address indexed target,
+        uint256 value,
+        string signature,
+        bytes data,
+        uint256 eta
+    );
+    
+    event TransactionExecuted(
+        bytes32 indexed txHash,
+        address indexed target,
+        uint256 value,
+        bytes data
+    );
+    
+    function initialize() public initializer {
+        __Ownable_init();
+        __ReentrancyGuard_init();
+        __Pausable_init();
+    }
+
+    function queueTransaction(
+        address target,
+        uint256 value,
+        string memory signature,
+        bytes memory data,
+        uint256 eta
+    ) external onlyOwner returns (bytes32) {
+        require(eta >= block.timestamp + MIN_DELAY, "ETA must satisfy delay");
+        
+        bytes32 txHash = keccak256(
+            abi.encode(target, value, signature, data, eta)
+        );
+        queuedTransactions[txHash] = true;
+        
+        emit TransactionQueued(txHash, target, value, signature, data, eta);
+        return txHash;
+    }
+
+    function executeTransaction(
+        address target,
+        uint256 value,
+        string memory signature,
+        bytes memory data,
+        uint256 eta
+    ) external payable onlyOwner nonReentrant returns (bytes memory) {
+        bytes32 txHash = keccak256(
+            abi.encode(target, value, signature, data, eta)
+        );
+        require(queuedTransactions[txHash], "Transaction not queued");
+        require(block.timestamp >= eta, "Transaction too early");
+        require(block.timestamp <= eta + 1 hours, "Transaction expired");
+
+        delete queuedTransactions[txHash];
+        
+        bytes memory callData;
+        if (bytes(signature).length == 0) {
+            callData = data;
+        } else {
+            callData = abi.encodePacked(
+                bytes4(keccak256(bytes(signature))), 
+                data
+            );
+        }
+
+        (bool success, bytes memory returnData) = target.call{value: value}(callData);
+        require(success, "Transaction execution reverted");
+        
+        emit TransactionExecuted(txHash, target, value, data);
+        return returnData;
+    }
+
+    // Emergency pause function
+    function emergencyPause() external onlyOwner {
+        _pause();
+    }
+    
+    function unpause() external onlyOwner {
+        _unpause();
+    }
+}
+Integrasi Audit Otomatis:
+
+bash
+# Tambahkan ke CI/CD pipeline
+- name: Run Slither Security Scan
+  run: |
+    pip install slither-analyzer
+    slither . --exclude-dependencies --filter-paths "node_modules" \
+      --checklist > security-report.md
+    
+- name: Upload Security Report
+  uses: actions/upload-artifact@v2
+  with:
+    name: security-report
+    path: security-report.md
+2. Keamanan Akun Admin
+Implementasi Hardware Wallet + Multi-Sig:
+
+solidity
+// contracts/PuyokTreasury.sol
+pragma solidity ^0.8.0;
+
+import "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol";
+import "@gnosis.pm/safe-contracts/contracts/proxies/GnosisSafeProxyFactory.sol";
+
+contract PuyokTreasury {
+    GnosisSafe public masterCopy;
+    GnosisSafeProxyFactory public proxyFactory;
+    
+    constructor() {
+        masterCopy = new GnosisSafe();
+        proxyFactory = new GnosisSafeProxyFactory();
+    }
+    
+    function createAdminWallet(
+        address[] memory owners,
+        uint256 threshold
+    ) external returns (address) {
+        bytes memory initializer = abi.encodeWithSelector(
+            GnosisSafe.setup.selector,
+            owners,
+            threshold,
+            address(0),
+            "",
+            address(0),
+            address(0),
+            0,
+            address(0)
+        );
+        
+        return address(proxyFactory.createProxy(
+            address(masterCopy), 
+            initializer
+        ));
+    }
+}
+Manajemen Secret dengan HashiCorp Vault:
+
+docker
+# docker-compose.vault.yml
+version: '3.7'
+services:
+  vault:
+    image: vault:1.9.0
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/data:/vault/data
+    environment:
+      VAULT_ADDR: "http://0.0.0.0:8200"
+      VAULT_API_ADDR: "http://0.0.0.0:8200"
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault.hcl
+hcl
+# vault/config/vault.hcl
+storage "file" {
+  path = "/vault/data"
+}
+
+listener "tcp" {
+  address     = "0.0.0.0:8200"
+  tls_disable = 1
+}
+
+api_addr = "http://0.0.0.0:8200"
+ui = true
+3. Keamanan Frontend
+Implementasi CSP Strict:
+
+javascript
+// next.config.js
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: `
+              default-src 'self';
+              script-src 'self' 'unsafe-inline' 'unsafe-eval' *.vercel-insights.com;
+              style-src 'self' 'unsafe-inline' fonts.googleapis.com;
+              font-src 'self' fonts.gstatic.com;
+              img-src 'self' data: *.supabase.co;
+              connect-src 'self' *.supabase.co vercel.live;
+              frame-src 'none';
+              media-src 'none';
+              object-src 'none';
+            `.replace(/\s{2,}/g, ' ').trim()
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'same-origin'
+          }
+        ]
+      }
+    ];
+  }
+};
+4. Keamanan Database (Supabase)
+Implementasi RLS dan Enkripsi Kolom:
+
+sql
+-- Aktifkan RLS untuk semua tabel
+ALTER TABLE public.transactions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
+
+-- Kebijakan untuk tabel transaksi
+CREATE POLICY "User access only" 
+ON public.transactions 
+FOR ALL 
+USING (auth.uid() = user_id);
+
+-- Enkripsi kolom sensitif
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+CREATE OR REPLACE FUNCTION encrypt_data(data TEXT, secret TEXT)
+RETURNS BYTEA AS $$
+BEGIN
+  RETURN pgp_sym_encrypt(data, secret);
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION decrypt_data(data BYTEA, secret TEXT)
+RETURNS TEXT AS $$
+BEGIN
+  RETURN pgp_sym_decrypt(data, secret);
+END;
+$$ LANGUAGE plpgsql;
+5. Keamanan Sesi Pengguna
+Implementasi Refresh Token Rotation:
+
+javascript
+// pages/api/auth/[...nextauth].js
+import NextAuth from 'next-auth';
+import SupabaseAdapter from '@next-auth/supabase-adapter';
+
+export default NextAuth({
+  adapter: SupabaseAdapter({
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    secret: process.env.SUPABASE_SERVICE_ROLE_KEY,
+  }),
+  providers: [
+    // Konfigurasi provider
+  ],
+  session: {
+    strategy: 'jwt',
+    maxAge: 30 * 60, // 30 menit
+    updateAge: 5 * 60, // 5 menit
+  },
+  callbacks: {
+    async session({ session, token }) {
+      // Batasi sesi hanya 1 perangkat
+      if (session.deviceId !== token.deviceId) {
+        throw new Error('Session device mismatch');
+      }
+      return session;
+    },
+    async jwt({ token, user, account }) {
+      if (user) {
+        token.id = user.id;
+        token.deviceId = generateDeviceId();
+      }
+      return token;
+    }
+  }
+});
+
+function generateDeviceId() {
+  // Implementasi pembuatan ID perangkat unik
+  return crypto.randomBytes(16).toString('hex');
+}
+Sistem Monitoring & Respons Insiden
+Implementasi SIEM Terpusat:
+
+yaml
+# docker-compose.siem.yml
+version: '3.8'
+services:
+  elastalert:
+    image: jertel/elastalert:3.0.0-beta.1
+    volumes:
+      - ./elastalert/config.yaml:/opt/elastalert/config.yaml
+      - ./elastalert/rules:/opt/elastalert/rules
+    environment:
+      ELASTICSEARCH_HOST: elasticsearch
+      ELASTICSEARCH_PORT: 9200
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.15.1
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+volumes:
+  esdata:
+Aturan Deteksi Anomali:
+
+yaml
+# elastalert/rules/suspicious_login.yaml
+name: "Suspicious Login Attempt"
+type: any
+index: logs-*
+filter:
+- query:
+    query_string:
+      query: "event.type:login AND event.outcome:failure"
+aggregation:
+  minutes: 5
+threshold: 5
+alert:
+- "email"
+email:
+- "security-team@puyok.app"
+smtp_host: "smtp.gmail.com"
+smtp_port: 587
+smtp_ssl: false
+from_addr: "alerts@puyok.app"
+Strategi Edukasi Pengguna
+Komponen UI Security Awareness:
+
+jsx
+// components/SecurityAwareness.jsx
+import { ShieldExclamationIcon } from '@heroicons/react/outline';
+
+const SecurityTips = () => (
+  <div className="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6">
+    <div className="flex">
+      <ShieldExclamationIcon className="h-5 w-5 text-amber-700" />
+      <div className="ml-3">
+        <p className="text-sm text-amber-700">
+          <strong>Keamanan Penting!</strong> PUYOK tidak akan pernah:
+        </p>
+        <ul className="mt-1 text-sm text-amber-700 list-disc list-inside">
+          <li>Meminta seed phrase wallet Anda</li>
+          <li>Meminta kode OTP via telepon</li>
+          <li>Mengirim link login tak terduga</li>
+        </ul>
+        <p className="mt-2 text-sm text-amber-700">
+          Laporkan aktivitas mencurigakan ke: security@puyok.app
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
+const PhishingWarning = ({ url }) => (
+  <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+    <div className="flex">
+      <ShieldExclamationIcon className="h-5 w-5 text-red-500" />
+      <div className="ml-3">
+        <p className="text-sm text-red-700">
+          <strong>Peringatan Phishing!</strong> Domain ini bukan bagian dari PUYOK:
+        </p>
+        <p className="mt-1 font-mono text-sm text-red-700 bg-red-100 p-2 rounded">
+          {url}
+        </p>
+        <p className="mt-2 text-sm text-red-700">
+          Hanya gunakan domain resmi: <strong>app.puyok.io</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
+export { SecurityTips, PhishingWarning };
+Timeline Implementasi Keamanan
+Diagram
+Code
+gantt
+    title Timeline Implementasi Keamanan PUYOK
+    dateFormat  YYYY-MM-DD
+    section Smart Contract
+    Time Lock Implementation          :done,    des1, 2023-08-01, 3d
+    Multi-Sig Wallet Setup            :active,  des2, 2023-08-04, 2d
+    Audit Automation                  :         des3, 2023-08-06, 4d
+
+    section Infrastruktur
+    Vault Secret Management           :         des4, 2023-08-01, 5d
+    SIEM Deployment                   :         des5, 2023-08-07, 5d
+
+    section Aplikasi
+    CSP Implementation                :done,    des6, 2023-08-01, 1d
+    RLS & Column Encryption           :active,  des7, 2023-08-02, 3d
+    Session Management                :         des8, 2023-08-05, 2d
+
+    section Edukasi
+    Security Component Integration    :         des9, 2023-08-07, 2d
+    User Security Guide               :         des10, 2023-08-09, 3d
+Strategi ini membentuk "perisai berlapis" yang akan melindungi PUYOK dari berbagai ancaman, mulai dari serangan smart contract hingga social engineering. Setiap lapisan saling memperkuat, menciptakan sistem pertahanan yang komprehensif.
